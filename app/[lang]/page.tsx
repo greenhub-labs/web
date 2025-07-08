@@ -1,9 +1,11 @@
 import React from "react";
 import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
+import { useTranslations } from "next-intl";
 
 const HomePage = () => {
+  const t = useTranslations();
   return (
-    <PageTemplate pageTitle="Dashboard">
+    <PageTemplate pageTitle={t("navigation.home")}>
       {/* Contenido personalizado de la página */}
       <div className="space-y-6">
         <div>

@@ -17,5 +17,53 @@
     "success": "Éxito",
     "warning": "Advertencia",
     "info": "Información"
+  },
+  "navigation": {
+    "home": "🏠 Inicio",
+    "analytics": {
+      "title": "📊 Analíticas",
+      "dashboard": "📈 Panel de Control",
+      "predictions": "🔮 Predicciones",
+      "insights": "💡 Insights Inteligentes",
+      "reports": "📋 Reportes",
+      "trends": "📈 Tendencias de Crecimiento",
+      "comparative": "⚖️ Análisis Comparativo"
+    },
+    "plants": {
+      "title": "🌱 Plantas",
+      "myPlants": "🏡 Mis Plantas",
+      "catalog": "📚 Catálogo de Plantas",
+      "addNew": "➕ Añadir Planta"
+    },
+    "gardens": {
+      "title": "🏡 Huertos",
+      "myGardens": "🌿 Mis Huertos",
+      "planner": "📋 Planificador",
+      "create": "🆕 Crear Huerto"
+    },
+    "care": {
+      "title": "💧 Cuidados",
+      "schedule": "📅 Programación",
+      "tasks": "✅ Tareas",
+      "history": "📜 Historial"
+    },
+    "crops": {
+      "title": "🌾 Cultivos",
+      "active": "🌱 Cultivos Activos",
+      "harvest": "🗓️ Calendario de Cosecha",
+      "rotation": "🔄 Rotación de Cultivos"
+    },
+    "community": {
+      "title": "👥 Comunidad",
+      "forums": "💬 Foros",
+      "events": "📅 Eventos",
+      "marketplace": "🛒 Mercado"
+    },
+    "profile": {
+      "title": "👤 Perfil",
+      "myProfile": "🏷️ Mi Perfil",
+      "settings": "⚙️ Configuración",
+      "preferences": "🎛️ Preferencias"
+    }
   }
 }

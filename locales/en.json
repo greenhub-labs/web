@@ -17,5 +17,53 @@
     "success": "Success",
     "warning": "Warning",
     "info": "Info"
+  },
+  "navigation": {
+    "home": "🏠 Home",
+    "analytics": {
+      "title": "📊 Analytics",
+      "dashboard": "📈 Dashboard",
+      "predictions": "🔮 Predictions",
+      "insights": "💡 Smart Insights",
+      "reports": "📋 Reports",
+      "trends": "📈 Growth Trends",
+      "comparative": "⚖️ Comparative Analysis"
+    },
+    "plants": {
+      "title": "🌱 Plants",
+      "myPlants": "🏡 My Plants",
+      "catalog": "📚 Plant Catalog",
+      "addNew": "➕ Add Plant"
+    },
+    "gardens": {
+      "title": "🏡 Gardens",
+      "myGardens": "🌿 My Gardens",
+      "planner": "📋 Garden Planner",
+      "create": "🆕 Create Garden"
+    },
+    "care": {
+      "title": "💧 Care",
+      "schedule": "📅 Care Schedule",
+      "tasks": "✅ Care Tasks",
+      "history": "📜 Care History"
+    },
+    "crops": {
+      "title": "🌾 Crops",
+      "active": "🌱 Active Crops",
+      "harvest": "🗓️ Harvest Calendar",
+      "rotation": "🔄 Crop Rotation"
+    },
+    "community": {
+      "title": "👥 Community",
+      "forums": "💬 Forums",
+      "events": "📅 Events",
+      "marketplace": "🛒 Marketplace"
+    },
+    "profile": {
+      "title": "👤 Profile",
+      "myProfile": "🏷️ My Profile",
+      "settings": "⚙️ Settings",
+      "preferences": "🎛️ Preferences"
+    }
   }
 }
