@@ -710,6 +710,139 @@
           "irrigationOptimizationDesc": "Adjust watering schedule based on weather forecast"
         }
       }
+    },
+    "profile": {
+      "title": "User Profile",
+      "subtitle": "Manage your personal information and account preferences",
+      "stats": {
+        "memberSince": "Member Since",
+        "lastLogin": "Last Login",
+        "totalLogins": "Total Logins",
+        "gardenRole": "Garden Role"
+      },
+      "userCard": {
+        "today": "today",
+        "yesterday": "yesterday",
+        "daysAgo": "days ago"
+      },
+      "sections": {
+        "personalInfo": {
+          "title": "Personal Information",
+          "subtitle": "Update your basic profile information",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "email": "Email Address",
+          "phone": "Phone Number",
+          "bio": "Bio",
+          "bioPlaceholder": "Tell us about yourself and your gardening experience...",
+          "location": "Location",
+          "locationPlaceholder": "City, Country",
+          "timezone": "Timezone",
+          "language": "Preferred Language"
+        },
+        "avatar": {
+          "title": "Profile Picture",
+          "subtitle": "Upload or update your profile picture",
+          "upload": "Upload New Picture",
+          "remove": "Remove Picture",
+          "dragDrop": "Drag and drop an image, or click to browse",
+          "maxSize": "Maximum file size: 5MB",
+          "supportedFormats": "Supported formats: JPG, PNG, GIF"
+        },
+        "security": {
+          "title": "Security & Privacy",
+          "subtitle": "Manage your account security and privacy settings",
+          "changePassword": "Change Password",
+          "currentPassword": "Current Password",
+          "newPassword": "New Password",
+          "confirmPassword": "Confirm New Password",
+          "twoFactor": "Two-Factor Authentication",
+          "twoFactorDescription": "Add an extra layer of security to your account",
+          "enable2fa": "Enable 2FA",
+          "disable2fa": "Disable 2FA",
+          "loginHistory": "Login History",
+          "viewLoginHistory": "View Recent Logins",
+          "securityAlerts": "Security Alerts",
+          "securityAlertsDescription": "Get notified about suspicious account activity"
+        },
+        "preferences": {
+          "title": "Preferences",
+          "subtitle": "Customize your GreenHub experience",
+          "notifications": {
+            "title": "Notification Preferences",
+            "emailNotifications": "Email Notifications",
+            "pushNotifications": "Push Notifications",
+            "alertsEmail": "Alert Notifications",
+            "weeklyReports": "Weekly Reports",
+            "monthlyReports": "Monthly Reports",
+            "marketingEmails": "Marketing Emails"
+          },
+          "display": {
+            "title": "Display Settings",
+            "theme": "Theme",
+            "themeLight": "Light",
+            "themeDark": "Dark",
+            "themeAuto": "Auto",
+            "units": "Measurement Units",
+            "unitsMetric": "Metric (°C, cm, kg)",
+            "unitsImperial": "Imperial (°F, inches, lbs)",
+            "dateFormat": "Date Format",
+            "timeFormat": "Time Format"
+          },
+          "garden": {
+            "title": "Garden Preferences",
+            "defaultView": "Default Dashboard View",
+            "autoRefresh": "Auto-refresh Data",
+            "autoRefreshInterval": "Refresh Interval",
+            "showAdvancedFeatures": "Show Advanced Features",
+            "experimentalFeatures": "Enable Experimental Features"
+          }
+        },
+        "data": {
+          "title": "Data & Privacy",
+          "subtitle": "Manage your data and privacy preferences",
+          "exportData": "Export My Data",
+          "exportDescription": "Download a copy of all your GreenHub data",
+          "downloadData": "Download Data Archive",
+          "dataRetention": "Data Retention",
+          "dataRetentionDescription": "How long we keep your garden data",
+          "deleteAccount": "Delete Account",
+          "deleteAccountDescription": "Permanently delete your account and all associated data",
+          "requestDeletion": "Request Account Deletion"
+        }
+      },
+      "actions": {
+        "save": "Save Changes",
+        "saving": "Saving...",
+        "saved": "Profile updated successfully",
+        "cancel": "Cancel Changes",
+        "edit": "Edit Profile",
+        "upload": "Upload",
+        "uploading": "Uploading...",
+        "uploaded": "Picture updated successfully",
+        "changePassword": "Change Password",
+        "changingPassword": "Changing...",
+        "passwordChanged": "Password changed successfully"
+      },
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "emailRequired": "Email address is required",
+        "emailInvalid": "Please enter a valid email address",
+        "phoneInvalid": "Please enter a valid phone number",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "currentPasswordRequired": "Current password is required",
+        "newPasswordRequired": "New password is required",
+        "fileTooBig": "File size must be less than 5MB",
+        "invalidFileType": "Only JPG, PNG and GIF files are allowed"
+      },
+      "emptyStates": {
+        "noProfilePicture": "No profile picture",
+        "noLoginHistory": "No recent login activity",
+        "noBio": "No bio added yet"
+      }
     }
   },
   "navigation": {
@@ -769,6 +902,7 @@
     },
     "settings": {
       "title": "⚙️ Settings",
+      "profile": "👤 Profile",
       "users": "👥 User Management",
       "notifications": "📢 Notifications",
       "integrations": "🔗 Integrations",

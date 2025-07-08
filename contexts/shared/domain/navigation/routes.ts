@@ -226,6 +226,11 @@ export const navigationConfig: NavigationConfig = {
       url: "/settings",
       items: [
         {
+          id: "profile",
+          titleKey: "navigation.settings.profile",
+          url: "/settings/profile",
+        },
+        {
           id: "users",
           titleKey: "navigation.settings.users",
           url: "/settings/users",

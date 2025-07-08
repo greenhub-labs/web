@@ -710,6 +710,139 @@
           "irrigationOptimizationDesc": "Ajustar horario de riego basado en pronóstico del tiempo"
         }
       }
+    },
+    "profile": {
+      "title": "Perfil de Usuario",
+      "subtitle": "Gestiona tu información personal y preferencias de cuenta",
+      "stats": {
+        "memberSince": "Miembro Desde",
+        "lastLogin": "Último Acceso",
+        "totalLogins": "Total de Accesos",
+        "gardenRole": "Rol en el Huerto"
+      },
+      "userCard": {
+        "today": "hoy",
+        "yesterday": "ayer",
+        "daysAgo": "días atrás"
+      },
+      "sections": {
+        "personalInfo": {
+          "title": "Información Personal",
+          "subtitle": "Actualiza tu información básica de perfil",
+          "firstName": "Nombre",
+          "lastName": "Apellidos",
+          "email": "Dirección de Email",
+          "phone": "Número de Teléfono",
+          "bio": "Biografía",
+          "bioPlaceholder": "Cuéntanos sobre ti y tu experiencia en jardinería...",
+          "location": "Ubicación",
+          "locationPlaceholder": "Ciudad, País",
+          "timezone": "Zona Horaria",
+          "language": "Idioma Preferido"
+        },
+        "avatar": {
+          "title": "Foto de Perfil",
+          "subtitle": "Sube o actualiza tu foto de perfil",
+          "upload": "Subir Nueva Foto",
+          "remove": "Eliminar Foto",
+          "dragDrop": "Arrastra y suelta una imagen, o haz clic para buscar",
+          "maxSize": "Tamaño máximo de archivo: 5MB",
+          "supportedFormats": "Formatos compatibles: JPG, PNG, GIF"
+        },
+        "security": {
+          "title": "Seguridad y Privacidad",
+          "subtitle": "Gestiona la seguridad de tu cuenta y configuración de privacidad",
+          "changePassword": "Cambiar Contraseña",
+          "currentPassword": "Contraseña Actual",
+          "newPassword": "Nueva Contraseña",
+          "confirmPassword": "Confirmar Nueva Contraseña",
+          "twoFactor": "Autenticación de Dos Factores",
+          "twoFactorDescription": "Añade una capa extra de seguridad a tu cuenta",
+          "enable2fa": "Activar 2FA",
+          "disable2fa": "Desactivar 2FA",
+          "loginHistory": "Historial de Accesos",
+          "viewLoginHistory": "Ver Accesos Recientes",
+          "securityAlerts": "Alertas de Seguridad",
+          "securityAlertsDescription": "Recibe notificaciones sobre actividad sospechosa en la cuenta"
+        },
+        "preferences": {
+          "title": "Preferencias",
+          "subtitle": "Personaliza tu experiencia en GreenHub",
+          "notifications": {
+            "title": "Preferencias de Notificaciones",
+            "emailNotifications": "Notificaciones por Email",
+            "pushNotifications": "Notificaciones Push",
+            "alertsEmail": "Notificaciones de Alertas",
+            "weeklyReports": "Reportes Semanales",
+            "monthlyReports": "Reportes Mensuales",
+            "marketingEmails": "Emails de Marketing"
+          },
+          "display": {
+            "title": "Configuración de Pantalla",
+            "theme": "Tema",
+            "themeLight": "Claro",
+            "themeDark": "Oscuro",
+            "themeAuto": "Automático",
+            "units": "Unidades de Medida",
+            "unitsMetric": "Métrico (°C, cm, kg)",
+            "unitsImperial": "Imperial (°F, pulgadas, lbs)",
+            "dateFormat": "Formato de Fecha",
+            "timeFormat": "Formato de Hora"
+          },
+          "garden": {
+            "title": "Preferencias del Huerto",
+            "defaultView": "Vista Predeterminada del Dashboard",
+            "autoRefresh": "Actualización Automática de Datos",
+            "autoRefreshInterval": "Intervalo de Actualización",
+            "showAdvancedFeatures": "Mostrar Funciones Avanzadas",
+            "experimentalFeatures": "Activar Funciones Experimentales"
+          }
+        },
+        "data": {
+          "title": "Datos y Privacidad",
+          "subtitle": "Gestiona tus datos y preferencias de privacidad",
+          "exportData": "Exportar Mis Datos",
+          "exportDescription": "Descarga una copia de todos tus datos de GreenHub",
+          "downloadData": "Descargar Archivo de Datos",
+          "dataRetention": "Retención de Datos",
+          "dataRetentionDescription": "Cuánto tiempo conservamos los datos de tu huerto",
+          "deleteAccount": "Eliminar Cuenta",
+          "deleteAccountDescription": "Eliminar permanentemente tu cuenta y todos los datos asociados",
+          "requestDeletion": "Solicitar Eliminación de Cuenta"
+        }
+      },
+      "actions": {
+        "save": "Guardar Cambios",
+        "saving": "Guardando...",
+        "saved": "Perfil actualizado exitosamente",
+        "cancel": "Cancelar Cambios",
+        "edit": "Editar Perfil",
+        "upload": "Subir",
+        "uploading": "Subiendo...",
+        "uploaded": "Foto actualizada exitosamente",
+        "changePassword": "Cambiar Contraseña",
+        "changingPassword": "Cambiando...",
+        "passwordChanged": "Contraseña cambiada exitosamente"
+      },
+      "validation": {
+        "firstNameRequired": "El nombre es obligatorio",
+        "lastNameRequired": "Los apellidos son obligatorios",
+        "emailRequired": "La dirección de email es obligatoria",
+        "emailInvalid": "Por favor ingresa una dirección de email válida",
+        "phoneInvalid": "Por favor ingresa un número de teléfono válido",
+        "passwordRequired": "La contraseña es obligatoria",
+        "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+        "passwordMismatch": "Las contraseñas no coinciden",
+        "currentPasswordRequired": "La contraseña actual es obligatoria",
+        "newPasswordRequired": "La nueva contraseña es obligatoria",
+        "fileTooBig": "El archivo debe ser menor a 5MB",
+        "invalidFileType": "Solo se permiten archivos JPG, PNG y GIF"
+      },
+      "emptyStates": {
+        "noProfilePicture": "Sin foto de perfil",
+        "noLoginHistory": "Sin actividad de acceso reciente",
+        "noBio": "Sin biografía añadida aún"
+      }
     }
   },
   "navigation": {
@@ -769,6 +902,7 @@
     },
     "settings": {
       "title": "⚙️ Configuración",
+      "profile": "👤 Perfil",
       "users": "👥 Gestión de Usuarios",
       "notifications": "📢 Notificaciones",
       "integrations": "🔗 Integraciones",
