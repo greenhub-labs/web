@@ -159,87 +159,100 @@ const PlotsPage = () => {
       pageTitle={t("pages.garden.plots.title")}
       breadcrumbItems={breadcrumbItems}
       headerActions={
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-background border rounded-lg p-1">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex items-center gap-1 bg-background border rounded-lg p-1">
             <Button
               variant={viewMode === "grid" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("grid")}
+              className="flex-1 sm:flex-none text-xs sm:text-sm"
             >
-              🔲 {t("pages.garden.plots.gridView")}
+              <span className="sm:hidden">🔲</span>
+              <span className="hidden sm:inline">
+                🔲 {t("pages.garden.plots.gridView")}
+              </span>
             </Button>
             <Button
               variant={viewMode === "list" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("list")}
+              className="flex-1 sm:flex-none text-xs sm:text-sm"
             >
-              📋 {t("pages.garden.plots.listView")}
+              <span className="sm:hidden">📋</span>
+              <span className="hidden sm:inline">
+                📋 {t("pages.garden.plots.listView")}
+              </span>
             </Button>
           </div>
-          <Button>➕ {t("pages.garden.plots.createPlot")}</Button>
+          <Button className="text-xs sm:text-sm">
+            <span className="sm:hidden">➕</span>
+            <span className="hidden sm:inline">
+              ➕ {t("pages.garden.plots.createPlot")}
+            </span>
+          </Button>
         </div>
       }
     >
       <div className="space-y-6">
         {/* Summary Stats */}
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 sm:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     {t("pages.garden.plots.stats.totalPlots")}
                   </p>
-                  <p className="text-2xl font-bold">4</p>
+                  <p className="text-xl sm:text-2xl font-bold">4</p>
                 </div>
-                <span className="text-2xl">🗺️</span>
+                <span className="text-xl sm:text-2xl">🗺️</span>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 sm:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     {t("pages.garden.plots.stats.activeCrops")}
                   </p>
-                  <p className="text-2xl font-bold">
+                  <p className="text-xl sm:text-2xl font-bold">
                     {plots.reduce(
                       (total, plot) => total + plot.crops.length,
                       0
                     )}
                   </p>
                 </div>
-                <span className="text-2xl">🌱</span>
+                <span className="text-xl sm:text-2xl">🌱</span>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 sm:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     {t("pages.garden.plots.stats.avgMoisture")}
                   </p>
-                  <p className="text-2xl font-bold">62%</p>
+                  <p className="text-xl sm:text-2xl font-bold">62%</p>
                 </div>
-                <span className="text-2xl">💧</span>
+                <span className="text-xl sm:text-2xl">💧</span>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-4">
+            <CardContent className="p-3 sm:p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground">
                     {t("pages.garden.plots.stats.nodesOnline")}
                   </p>
-                  <p className="text-2xl font-bold">4/4</p>
+                  <p className="text-xl sm:text-2xl font-bold">4/4</p>
                 </div>
-                <span className="text-2xl">📡</span>
+                <span className="text-xl sm:text-2xl">📡</span>
               </div>
             </CardContent>
           </Card>
@@ -249,34 +262,42 @@ const PlotsPage = () => {
         <div
           className={
             viewMode === "grid"
-              ? "grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+              ? "grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
               : "space-y-4"
           }
         >
           {plots.map((plot) => (
             <Card key={plot.id} className="hover:shadow-md transition-shadow">
-              <CardHeader className="pb-4">
+              <CardHeader className="pb-3 sm:pb-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">🌱</span>
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl">🌱</span>
                     <div>
-                      <CardTitle className="text-lg">{plot.name}</CardTitle>
-                      <p className="text-sm text-muted-foreground">
+                      <CardTitle className="text-base sm:text-lg">
+                        {plot.name}
+                      </CardTitle>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
                         {t("pages.garden.plots.nodeId")}:{" "}
                         {plot.nodeId.toUpperCase()}
                       </p>
                     </div>
                   </div>
-                  <Badge className={getStatusColor(plot.status)}>
+                  <Badge
+                    className={`${getStatusColor(
+                      plot.status
+                    )} text-xs sm:text-sm`}
+                  >
                     {getStatusIcon(plot.status)}{" "}
-                    {t(`pages.garden.plots.status.${plot.status}`)}
+                    <span className="hidden sm:inline">
+                      {t(`pages.garden.plots.status.${plot.status}`)}
+                    </span>
                   </Badge>
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4">
                 {/* Plot Info */}
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-xs sm:text-sm">
                   <span className="text-muted-foreground">
                     {t("pages.garden.plots.size")}
                   </span>
@@ -285,35 +306,39 @@ const PlotsPage = () => {
 
                 {/* Crops Section - Fixed Height */}
                 <Separator />
-                <div className="space-y-3">
-                  <p className="text-sm font-medium flex items-center gap-2">
+                <div className="space-y-2 sm:space-y-3">
+                  <p className="text-xs sm:text-sm font-medium flex items-center gap-2">
                     🌾 {t("pages.garden.plots.activeCrops")} (
                     {plot.crops.length})
                   </p>
                   {plot.crops.length > 0 ? (
-                    <div className="h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                      <div className="space-y-2 pr-2">
+                    <div className="h-28 sm:h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                      <div className="space-y-1.5 sm:space-y-2 pr-2">
                         {plot.crops.map((crop, index) => (
                           <div
                             key={index}
-                            className="p-2 bg-accent/30 rounded-lg"
+                            className="p-1.5 sm:p-2 bg-accent/30 rounded-lg"
                           >
                             <div className="flex items-center gap-2 mb-1">
                               <span className="text-sm">{crop.icon}</span>
-                              <span className="font-medium text-sm">
+                              <span className="font-medium text-xs sm:text-sm">
                                 {crop.name}
                               </span>
                             </div>
-                            <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+                            <div className="grid grid-cols-2 gap-1 sm:gap-2 text-xs text-muted-foreground">
                               <div>
-                                <p>{t("pages.garden.plots.planted")}</p>
-                                <p className="font-medium text-foreground">
+                                <p className="text-xs">
+                                  {t("pages.garden.plots.planted")}
+                                </p>
+                                <p className="font-medium text-foreground text-xs">
                                   {crop.plantedDate}
                                 </p>
                               </div>
                               <div>
-                                <p>{t("pages.garden.plots.harvest")}</p>
-                                <p className="font-medium text-foreground">
+                                <p className="text-xs">
+                                  {t("pages.garden.plots.harvest")}
+                                </p>
+                                <p className="font-medium text-foreground text-xs">
                                   {crop.harvestDate}
                                 </p>
                               </div>
@@ -323,10 +348,12 @@ const PlotsPage = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="h-32 flex items-center justify-center text-muted-foreground">
+                    <div className="h-28 sm:h-32 flex items-center justify-center text-muted-foreground">
                       <div className="text-center">
-                        <span className="text-2xl mb-2 block">🌱</span>
-                        <p className="text-sm">
+                        <span className="text-xl sm:text-2xl mb-2 block">
+                          🌱
+                        </span>
+                        <p className="text-xs sm:text-sm">
                           {t("pages.garden.plots.noCrops")}
                         </p>
                       </div>
@@ -338,7 +365,7 @@ const PlotsPage = () => {
 
                 {/* Node Sensors */}
                 <div className="space-y-2">
-                  <p className="text-sm font-medium">
+                  <p className="text-xs sm:text-sm font-medium">
                     {t("pages.garden.plots.nodeData")}
                   </p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
@@ -365,7 +392,7 @@ const PlotsPage = () => {
                 {plot.irrigationStatus !== "disabled" && (
                   <>
                     <Separator />
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-xs sm:text-sm">
                       <span className="text-muted-foreground">
                         {t("pages.garden.plots.nextIrrigation")}
                       </span>
@@ -384,10 +411,21 @@ const PlotsPage = () => {
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    👁️ {t("pages.garden.plots.viewDetails")}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex-1 text-xs sm:text-sm"
+                  >
+                    <span className="sm:hidden">👁️</span>
+                    <span className="hidden sm:inline">
+                      👁️ {t("pages.garden.plots.viewDetails")}
+                    </span>
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-xs sm:text-sm"
+                  >
                     ⚙️
                   </Button>
                 </div>
