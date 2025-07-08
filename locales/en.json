@@ -741,6 +741,9 @@
           "12hours": "Every 12 hours",
           "daily": "Daily"
         },
+        "labels": {
+          "features": "Features"
+        },
         "messages": {
           "connectionSuccess": "Successfully connected to {service}",
           "connectionError": "Failed to connect to {service}",
@@ -1045,6 +1048,131 @@
         "noProfilePicture": "No profile picture",
         "noLoginHistory": "No recent login activity",
         "noBio": "No bio added yet"
+      }
+    },
+    "automation": {
+      "irrigationRules": {
+        "title": "Irrigation Rules",
+        "subtitle": "Manage automated irrigation rules and schedules for optimal plant care",
+        "stats": {
+          "totalRules": "Total Rules",
+          "activeRules": "Active Rules",
+          "triggersToday": "Triggers Today",
+          "waterSaved": "Water Saved"
+        },
+        "ruleTypes": {
+          "moisture": "Soil Moisture",
+          "schedule": "Time Schedule",
+          "weather": "Weather Based",
+          "temperature": "Temperature",
+          "manual": "Manual Override"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "error": "Error",
+          "paused": "Paused"
+        },
+        "priority": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "conditions": {
+          "title": "Trigger Conditions",
+          "moistureBelow": "Soil moisture below",
+          "moistureAbove": "Soil moisture above",
+          "temperatureBelow": "Temperature below",
+          "temperatureAbove": "Temperature above",
+          "timeOfDay": "Time of day",
+          "dayOfWeek": "Day of week",
+          "weatherCondition": "Weather condition",
+          "and": "AND",
+          "or": "OR"
+        },
+        "actions": {
+          "title": "Rule Actions",
+          "irrigate": "Start Irrigation",
+          "stopIrrigation": "Stop Irrigation",
+          "notification": "Send Notification",
+          "adjust": "Adjust Schedule",
+          "duration": "Duration (minutes)",
+          "intensity": "Irrigation Intensity",
+          "zones": "Target Zones"
+        },
+        "schedule": {
+          "title": "Schedule Settings",
+          "frequency": "Frequency",
+          "startTime": "Start Time",
+          "endTime": "End Time",
+          "days": "Active Days",
+          "timezone": "Timezone",
+          "exceptions": "Schedule Exceptions"
+        },
+        "form": {
+          "title": "Create Irrigation Rule",
+          "editTitle": "Edit Irrigation Rule",
+          "description": "Create automated irrigation rules based on sensor data and schedules",
+          "name": "Rule Name",
+          "namePlaceholder": "e.g., Morning Vegetable Garden Watering",
+          "description": "Description",
+          "descriptionPlaceholder": "Brief description of what this rule does...",
+          "ruleType": "Rule Type",
+          "ruleTypePlaceholder": "Select rule type",
+          "targetPlots": "Target Plots",
+          "targetPlotsPlaceholder": "Select plots to irrigate",
+          "priority": "Priority Level",
+          "priorityPlaceholder": "Select priority",
+          "enabled": "Enable Rule",
+          "enabledDescription": "Rule will be active immediately after creation",
+          "create": "Create Rule",
+          "update": "Update Rule",
+          "creating": "Creating Rule...",
+          "updating": "Updating Rule...",
+          "errors": {
+            "nameRequired": "Rule name is required",
+            "ruleTypeRequired": "Please select a rule type",
+            "plotsRequired": "Please select at least one plot",
+            "conditionsRequired": "At least one condition is required",
+            "actionsRequired": "At least one action is required"
+          }
+        },
+        "actions": {
+          "create": "Create Rule",
+          "edit": "Edit Rule",
+          "delete": "Delete Rule",
+          "duplicate": "Duplicate Rule",
+          "enable": "Enable",
+          "disable": "Disable",
+          "pause": "Pause",
+          "resume": "Resume",
+          "testRun": "Test Run",
+          "viewHistory": "View History",
+          "exportRules": "Export Rules",
+          "importRules": "Import Rules"
+        },
+        "tabs": {
+          "overview": "Overview",
+          "conditions": "Conditions",
+          "actions": "Actions",
+          "schedule": "Schedule",
+          "history": "History"
+        },
+        "history": {
+          "title": "Rule Execution History",
+          "lastTriggered": "Last Triggered",
+          "triggeredCount": "Times Triggered",
+          "successRate": "Success Rate",
+          "averageDuration": "Avg Duration",
+          "waterUsed": "Water Used",
+          "noHistory": "No execution history available",
+          "viewDetails": "View Details"
+        },
+        "emptyStates": {
+          "noRules": "No irrigation rules created yet",
+          "noRulesDescription": "Create your first automation rule to start smart irrigation management",
+          "createFirstRule": "Create Your First Rule"
+        }
       }
     }
   },

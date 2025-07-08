@@ -444,20 +444,27 @@ const IntegrationsPage: React.FC = () => {
     switch (status) {
       case "connected":
         return (
-          <Badge variant="default" className="bg-green-100 text-green-800">
+          <Badge
+            variant="default"
+            className="bg-green-100 text-green-800 text-xs"
+          >
             <Check className="h-3 w-3 mr-1" />
             {t("status.connected")}
           </Badge>
         );
       case "error":
         return (
-          <Badge variant="destructive">
+          <Badge variant="destructive" className="text-xs">
             <X className="h-3 w-3 mr-1" />
             {t("status.error")}
           </Badge>
         );
       default:
-        return <Badge variant="outline">{t("status.disconnected")}</Badge>;
+        return (
+          <Badge variant="outline" className="text-xs">
+            {t("status.disconnected")}
+          </Badge>
+        );
     }
   };
 
@@ -466,27 +473,33 @@ const IntegrationsPage: React.FC = () => {
       key={integration.id}
       className="border rounded-lg p-4 space-y-4 hover:shadow-md transition-shadow"
     >
-      <div className="flex items-start justify-between">
-        <div className="flex items-start space-x-3">
-          <div className="text-2xl">{integration.icon}</div>
+      {/* Mobile-first responsive layout */}
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex items-start space-x-3 flex-1 min-w-0">
+          <div className="text-2xl shrink-0">{integration.icon}</div>
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <h4 className="font-medium text-sm">{integration.name}</h4>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+              <h4 className="font-medium text-sm truncate">
+                {integration.name}
+              </h4>
               {getStatusBadge(integration.status)}
             </div>
-            <p className="text-xs text-muted-foreground mb-2">
+            <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
               {integration.description}
             </p>
             <p className="text-xs text-muted-foreground">
-              <strong>Features:</strong> {integration.features}
+              <strong>{t("labels.features")}:</strong> {integration.features}
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+
+        {/* Action buttons - responsive stacking */}
+        <div className="flex flex-row sm:flex-col gap-2 shrink-0">
           <Button
             size="sm"
             variant={integration.status === "connected" ? "outline" : "default"}
             onClick={() => handleConnect(integration)}
+            className="flex-1 sm:flex-none text-xs"
           >
             {integration.status === "connected"
               ? t("actions.disconnect")
@@ -497,17 +510,20 @@ const IntegrationsPage: React.FC = () => {
               size="sm"
               variant="ghost"
               onClick={() => handleSync(integration)}
+              className="flex-1 sm:flex-none text-xs"
             >
               <RefreshCw className="h-3 w-3 mr-1" />
-              {t("actions.sync")}
+              <span className="hidden sm:inline">{t("actions.sync")}</span>
+              <span className="sm:hidden">Sync</span>
             </Button>
           )}
         </div>
       </div>
 
+      {/* Last sync info */}
       {integration.status === "connected" && integration.lastSync && (
-        <div className="pt-2 border-t text-xs text-muted-foreground">
-          <span>
+        <div className="pt-2 border-t">
+          <span className="text-xs text-muted-foreground">
             {t("stats.lastSync")}: {formatLastSync(integration.lastSync)}
           </span>
         </div>
@@ -527,9 +543,9 @@ const IntegrationsPage: React.FC = () => {
       pageTitle={tNavigation("settings.integrations")}
       breadcrumbItems={breadcrumbItems}
     >
-      <div className="space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="space-y-6 px-1 sm:px-0">
+        {/* Stats - Responsive grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
             title={t("stats.connectedServices")}
             value={connectedCount.toString()}
@@ -557,14 +573,14 @@ const IntegrationsPage: React.FC = () => {
           title={t("weather.title")}
           subtitle={t("weather.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.weather.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
 
         {/* IoT Platforms */}
         <SettingsSection title={t("iot.title")} subtitle={t("iot.subtitle")}>
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.iot.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
@@ -574,7 +590,7 @@ const IntegrationsPage: React.FC = () => {
           title={t("smartHome.title")}
           subtitle={t("smartHome.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.smartHome.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
@@ -584,7 +600,7 @@ const IntegrationsPage: React.FC = () => {
           title={t("communication.title")}
           subtitle={t("communication.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.communication.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
@@ -594,7 +610,7 @@ const IntegrationsPage: React.FC = () => {
           title={t("agriculture.title")}
           subtitle={t("agriculture.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.agriculture.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
@@ -604,7 +620,7 @@ const IntegrationsPage: React.FC = () => {
           title={t("storage.title")}
           subtitle={t("storage.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.storage.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
@@ -614,28 +630,28 @@ const IntegrationsPage: React.FC = () => {
           title={t("calendar.title")}
           subtitle={t("calendar.subtitle")}
         >
-          <div className="grid gap-4">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
             {integrations.calendar.map(renderIntegrationCard)}
           </div>
         </SettingsSection>
       </div>
 
-      {/* Configuration Dialog */}
+      {/* Configuration Dialog - Mobile responsive */}
       <Dialog
         open={configDialog.open}
         onOpenChange={(open) => setConfigDialog({ open, integration: null })}
       >
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
+        <DialogContent className="w-[95vw] max-w-md mx-auto max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="space-y-3">
+            <DialogTitle className="text-lg">
               {t("actions.configure")} {configDialog.integration?.name}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-sm">
               {configDialog.integration?.description}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4">
+          <div className="space-y-4 pt-2">
             {/* API Key Field */}
             <div className="space-y-2">
               <label className="text-sm font-medium">{t("form.apiKey")}</label>
@@ -647,12 +663,13 @@ const IntegrationsPage: React.FC = () => {
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, apiKey: e.target.value }))
                   }
+                  className="pr-10"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="absolute right-0 top-0 h-full px-3 py-2"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                   onClick={() => setShowSecrets(!showSecrets)}
                 >
                   {showSecrets ? (
@@ -715,8 +732,8 @@ const IntegrationsPage: React.FC = () => {
             </div>
 
             {/* Notifications Toggle */}
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1 flex-1">
                 <label className="text-sm font-medium">
                   {t("form.enableNotifications")}
                 </label>
@@ -729,14 +746,15 @@ const IntegrationsPage: React.FC = () => {
                 onCheckedChange={(checked) =>
                   setFormData((prev) => ({ ...prev, notifications: checked }))
                 }
+                className="shrink-0"
               />
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-2 pt-4">
+            {/* Action Buttons - Mobile responsive */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-6">
               <Button
                 variant="outline"
-                className="flex-1"
+                className="order-2 sm:order-1"
                 onClick={() =>
                   setConfigDialog({ open: false, integration: null })
                 }
@@ -744,7 +762,7 @@ const IntegrationsPage: React.FC = () => {
                 {tCommon("cancel")}
               </Button>
               <Button
-                className="flex-1"
+                className="order-1 sm:order-2"
                 onClick={handleSaveConfig}
                 disabled={isSaving}
               >

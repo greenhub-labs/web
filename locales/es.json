@@ -741,6 +741,9 @@
           "12hours": "Cada 12 horas",
           "daily": "Diariamente"
         },
+        "labels": {
+          "features": "Características"
+        },
         "messages": {
           "connectionSuccess": "Conectado exitosamente a {service}",
           "connectionError": "Error al conectar con {service}",
@@ -1045,6 +1048,131 @@
         "noProfilePicture": "Sin foto de perfil",
         "noLoginHistory": "Sin actividad de acceso reciente",
         "noBio": "Sin biografía añadida aún"
+      }
+    },
+    "automation": {
+      "irrigationRules": {
+        "title": "Reglas de Riego",
+        "subtitle": "Gestiona reglas de riego automatizado y horarios para el cuidado óptimo de las plantas",
+        "stats": {
+          "totalRules": "Total Reglas",
+          "activeRules": "Reglas Activas",
+          "triggersToday": "Activaciones Hoy",
+          "waterSaved": "Agua Ahorrada"
+        },
+        "ruleTypes": {
+          "moisture": "Humedad del Suelo",
+          "schedule": "Horario Programado",
+          "weather": "Basado en Clima",
+          "temperature": "Temperatura",
+          "manual": "Anulación Manual"
+        },
+        "status": {
+          "active": "Activa",
+          "inactive": "Inactiva",
+          "error": "Error",
+          "paused": "Pausada"
+        },
+        "priority": {
+          "high": "Alta",
+          "medium": "Media",
+          "low": "Baja"
+        },
+        "conditions": {
+          "title": "Condiciones de Activación",
+          "moistureBelow": "Humedad del suelo por debajo de",
+          "moistureAbove": "Humedad del suelo por encima de",
+          "temperatureBelow": "Temperatura por debajo de",
+          "temperatureAbove": "Temperatura por encima de",
+          "timeOfDay": "Hora del día",
+          "dayOfWeek": "Día de la semana",
+          "weatherCondition": "Condición meteorológica",
+          "and": "Y",
+          "or": "O"
+        },
+        "actions": {
+          "title": "Acciones de la Regla",
+          "irrigate": "Iniciar Riego",
+          "stopIrrigation": "Detener Riego",
+          "notification": "Enviar Notificación",
+          "adjust": "Ajustar Horario",
+          "duration": "Duración (minutos)",
+          "intensity": "Intensidad de Riego",
+          "zones": "Zonas Objetivo"
+        },
+        "schedule": {
+          "title": "Configuración de Horario",
+          "frequency": "Frecuencia",
+          "startTime": "Hora de Inicio",
+          "endTime": "Hora de Fin",
+          "days": "Días Activos",
+          "timezone": "Zona Horaria",
+          "exceptions": "Excepciones de Horario"
+        },
+        "form": {
+          "title": "Crear Regla de Riego",
+          "editTitle": "Editar Regla de Riego",
+          "description": "Crea reglas de riego automatizado basadas en datos de sensores y horarios",
+          "name": "Nombre de la Regla",
+          "namePlaceholder": "ej., Riego Matutino del Huerto de Verduras",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Breve descripción de lo que hace esta regla...",
+          "ruleType": "Tipo de Regla",
+          "ruleTypePlaceholder": "Selecciona tipo de regla",
+          "targetPlots": "Bancales Objetivo",
+          "targetPlotsPlaceholder": "Selecciona bancales para regar",
+          "priority": "Nivel de Prioridad",
+          "priorityPlaceholder": "Selecciona prioridad",
+          "enabled": "Habilitar Regla",
+          "enabledDescription": "La regla estará activa inmediatamente después de la creación",
+          "create": "Crear Regla",
+          "update": "Actualizar Regla",
+          "creating": "Creando Regla...",
+          "updating": "Actualizando Regla...",
+          "errors": {
+            "nameRequired": "El nombre de la regla es obligatorio",
+            "ruleTypeRequired": "Por favor selecciona un tipo de regla",
+            "plotsRequired": "Por favor selecciona al menos un bancal",
+            "conditionsRequired": "Se requiere al menos una condición",
+            "actionsRequired": "Se requiere al menos una acción"
+          }
+        },
+        "actions": {
+          "create": "Crear Regla",
+          "edit": "Editar Regla",
+          "delete": "Eliminar Regla",
+          "duplicate": "Duplicar Regla",
+          "enable": "Habilitar",
+          "disable": "Deshabilitar",
+          "pause": "Pausar",
+          "resume": "Reanudar",
+          "testRun": "Prueba de Ejecución",
+          "viewHistory": "Ver Historial",
+          "exportRules": "Exportar Reglas",
+          "importRules": "Importar Reglas"
+        },
+        "tabs": {
+          "overview": "Vista General",
+          "conditions": "Condiciones",
+          "actions": "Acciones",
+          "schedule": "Horario",
+          "history": "Historial"
+        },
+        "history": {
+          "title": "Historial de Ejecución de Reglas",
+          "lastTriggered": "Última Activación",
+          "triggeredCount": "Veces Activada",
+          "successRate": "Tasa de Éxito",
+          "averageDuration": "Duración Promedio",
+          "waterUsed": "Agua Utilizada",
+          "noHistory": "No hay historial de ejecución disponible",
+          "viewDetails": "Ver Detalles"
+        },
+        "emptyStates": {
+          "noRules": "Aún no se han creado reglas de riego",
+          "noRulesDescription": "Crea tu primera regla de automatización para comenzar la gestión inteligente de riego",
+          "createFirstRule": "Crear Tu Primera Regla"
+        }
       }
     }
   },
