@@ -1333,6 +1333,39 @@
           "upcomingEvents": "Upcoming Events"
         }
       }
+    },
+    "notFound": {
+      "title": "Oops! Garden Path Not Found",
+      "subtitle": "404 - Looks like this crop didn't take root",
+      "message": "The page you're looking for seems to have been harvested or never planted in our digital garden.",
+      "suggestions": {
+        "title": "What you can do:",
+        "checkUrl": "Double-check the URL for any typos",
+        "navigation": "Use our navigation menu to explore",
+        "search": "Try searching for what you need",
+        "home": "Return to your greenhouse dashboard"
+      },
+      "stats": {
+        "errorCode": "Error Code",
+        "timeWasted": "Time in the Weeds",
+        "pagesAvailable": "Working Pages",
+        "systemStatus": "System Status"
+      },
+      "actions": {
+        "goHome": "🏠 Back to Greenhouse",
+        "goBack": "🌱 Plant New Path",
+        "explore": "🌿 Explore Garden",
+        "contact": "🚜 Contact Farmer"
+      },
+      "funFacts": {
+        "title": "While you're here...",
+        "facts": [
+          "Your IoT sensors are still collecting data",
+          "The automated irrigation system is working perfectly",
+          "3 crops are ready for harvest",
+          "Solar panels are generating optimal energy"
+        ]
+      }
     }
   },
   "navigation": {

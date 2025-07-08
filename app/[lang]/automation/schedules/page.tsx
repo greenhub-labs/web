@@ -56,29 +56,31 @@ import {
 } from "lucide-react";
 
 const SchedulesPage: React.FC = () => {
-  const t = useTranslations("pages.automation.schedules");
-  const tCommon = useTranslations("common");
-  const tNavigation = useTranslations("navigation");
+  const t = useTranslations();
 
   // State
   const [schedules, setSchedules] = useState<Schedule[]>([
     {
       id: "1",
       name: "Morning Garden Irrigation",
-      description:
-        "Daily watering of vegetable garden plots during morning hours",
+      description: "Daily morning watering for vegetable garden",
       type: "irrigation",
-      status: "active",
       frequency: "daily",
+      status: "active",
       priority: "high",
       startTime: "06:00",
-      endTime: "06:30",
+
+      targetSystems: ["Garden Plot A", "Garden Plot B"],
+      conditions: {
+        weatherDependent: true,
+        skipIfRaining: true,
+      },
       nextExecution: "2024-01-16T06:00:00Z",
       lastExecution: "2024-01-15T06:00:00Z",
-      targetSystems: ["irrigation_zone_1", "irrigation_zone_2"],
-      executionCount: 45,
-      successRate: 98,
-      isEnabled: true,
+      executionCount: 15,
+      successRate: 100,
+      createdAt: "2024-01-01T00:00:00Z",
+      updatedAt: "2024-01-15T06:00:00Z",
     },
     {
       id: "2",
@@ -165,11 +167,11 @@ const SchedulesPage: React.FC = () => {
   const totalSchedules = schedules.length;
   const activeSchedules = schedules.filter((s) => s.status === "active").length;
   const executionsToday = schedules.reduce(
-    (sum, s) => sum + (s.status === "active" ? 1 : 0),
+    (sum, s) => sum + (s.executionCount || 0),
     0
   );
   const nextExecution = schedules
-    .filter((s) => s.nextExecution && s.status === "active")
+    .filter((s) => s.nextExecution)
     .sort(
       (a, b) =>
         new Date(a.nextExecution!).getTime() -
@@ -177,16 +179,16 @@ const SchedulesPage: React.FC = () => {
     )[0]?.nextExecution;
 
   const formatNextExecution = (dateString?: string) => {
-    if (!dateString) return "No scheduled";
+    if (!dateString) return "N/A";
     const date = new Date(dateString);
     const now = new Date();
     const diffHours = Math.floor(
       (date.getTime() - now.getTime()) / (1000 * 60 * 60)
     );
 
-    if (diffHours < 1) return "In <1h";
-    if (diffHours < 24) return `In ${diffHours}h`;
-    return `In ${Math.floor(diffHours / 24)}d`;
+    if (diffHours < 1) return "< 1h";
+    if (diffHours < 24) return `${diffHours}h`;
+    return `${Math.floor(diffHours / 24)}d`;
   };
 
   // Filter schedules
@@ -323,15 +325,15 @@ const SchedulesPage: React.FC = () => {
   const getStatusText = (status: ScheduleStatus) => {
     switch (status) {
       case "active":
-        return t("status.active");
+        return t("pages.automation.schedules.status.active");
       case "inactive":
-        return t("status.inactive");
+        return t("pages.automation.schedules.status.inactive");
       case "paused":
-        return t("status.paused");
+        return t("pages.automation.schedules.status.paused");
       case "completed":
-        return t("status.completed");
+        return t("pages.automation.schedules.status.completed");
       case "error":
-        return t("status.error");
+        return t("pages.automation.schedules.status.error");
       default:
         return status;
     }
@@ -340,15 +342,15 @@ const SchedulesPage: React.FC = () => {
   const getFrequencyText = (frequency: Frequency) => {
     switch (frequency) {
       case "once":
-        return t("frequency.once");
+        return t("pages.automation.schedules.frequency.once");
       case "daily":
-        return t("frequency.daily");
+        return t("pages.automation.schedules.frequency.daily");
       case "weekly":
-        return t("frequency.weekly");
+        return t("pages.automation.schedules.frequency.weekly");
       case "monthly":
-        return t("frequency.monthly");
+        return t("pages.automation.schedules.frequency.monthly");
       case "custom":
-        return t("frequency.custom");
+        return t("pages.automation.schedules.frequency.custom");
       default:
         return frequency;
     }
@@ -357,11 +359,11 @@ const SchedulesPage: React.FC = () => {
   const getPriorityText = (priority: Priority) => {
     switch (priority) {
       case "high":
-        return t("priority.high");
+        return t("pages.automation.schedules.priority.high");
       case "medium":
-        return t("priority.medium");
+        return t("pages.automation.schedules.priority.medium");
       case "low":
-        return t("priority.low");
+        return t("pages.automation.schedules.priority.low");
       default:
         return priority;
     }
@@ -370,54 +372,56 @@ const SchedulesPage: React.FC = () => {
   const getTypeText = (type: ScheduleType) => {
     switch (type) {
       case "irrigation":
-        return t("scheduleTypes.irrigation");
+        return t("pages.automation.schedules.scheduleTypes.irrigation");
       case "lighting":
-        return t("scheduleTypes.lighting");
+        return t("pages.automation.schedules.scheduleTypes.lighting");
       case "climate":
-        return t("scheduleTypes.climate");
+        return t("pages.automation.schedules.scheduleTypes.climate");
       case "feeding":
-        return t("scheduleTypes.feeding");
+        return t("pages.automation.schedules.scheduleTypes.feeding");
       case "doors":
-        return t("scheduleTypes.doors");
+        return t("pages.automation.schedules.scheduleTypes.doors");
       case "custom":
-        return t("scheduleTypes.custom");
+        return t("pages.automation.schedules.scheduleTypes.custom");
       default:
         return type;
     }
   };
 
   const breadcrumbItems = [
+    { label: t("navigation.home"), href: "/" },
+    { label: t("navigation.automation.title"), href: "#" },
     {
-      label: tNavigation("automation.title"),
-      href: "/automation",
+      label: t("navigation.automation.schedules"),
+      href: "/automation/schedules",
     },
   ];
 
   return (
     <PageTemplate
-      pageTitle={tNavigation("automation.schedules")}
+      pageTitle={t("pages.automation.schedules.title")}
       breadcrumbItems={breadcrumbItems}
     >
       <div className="space-y-6 px-1 sm:px-0">
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
-            title={t("stats.totalSchedules")}
+            title={t("pages.automation.schedules.stats.totalSchedules")}
             value={totalSchedules.toString()}
             icon="📋"
           />
           <StatCard
-            title={t("stats.activeSchedules")}
+            title={t("pages.automation.schedules.stats.activeSchedules")}
             value={activeSchedules.toString()}
             icon="⚡"
           />
           <StatCard
-            title={t("stats.executionsToday")}
+            title={t("pages.automation.schedules.stats.executionsToday")}
             value={executionsToday.toString()}
             icon="🎯"
           />
           <StatCard
-            title={t("stats.nextExecution")}
+            title={t("pages.automation.schedules.stats.nextExecution")}
             value={formatNextExecution(nextExecution)}
             icon="⏰"
           />
@@ -429,7 +433,7 @@ const SchedulesPage: React.FC = () => {
             <SearchInput
               value={searchQuery}
               onChange={setSearchQuery}
-              placeholder={t("emptyStates.noSchedulesDescription")}
+              placeholder={t("common.search")}
               className="w-full sm:w-64"
             />
 
@@ -444,13 +448,19 @@ const SchedulesPage: React.FC = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Status</SelectItem>
-                  <SelectItem value="active">{t("status.active")}</SelectItem>
-                  <SelectItem value="inactive">
-                    {t("status.inactive")}
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
+                  <SelectItem value="active">
+                    {t("pages.automation.schedules.status.active")}
                   </SelectItem>
-                  <SelectItem value="paused">{t("status.paused")}</SelectItem>
-                  <SelectItem value="error">{t("status.error")}</SelectItem>
+                  <SelectItem value="inactive">
+                    {t("pages.automation.schedules.status.inactive")}
+                  </SelectItem>
+                  <SelectItem value="paused">
+                    {t("pages.automation.schedules.status.paused")}
+                  </SelectItem>
+                  <SelectItem value="error">
+                    {t("pages.automation.schedules.status.error")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
 
@@ -464,24 +474,24 @@ const SchedulesPage: React.FC = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="all">{t("common.all")}</SelectItem>
                   <SelectItem value="irrigation">
-                    {t("scheduleTypes.irrigation")}
+                    {t("pages.automation.schedules.scheduleTypes.irrigation")}
                   </SelectItem>
                   <SelectItem value="lighting">
-                    {t("scheduleTypes.lighting")}
+                    {t("pages.automation.schedules.scheduleTypes.lighting")}
                   </SelectItem>
                   <SelectItem value="climate">
-                    {t("scheduleTypes.climate")}
+                    {t("pages.automation.schedules.scheduleTypes.climate")}
                   </SelectItem>
                   <SelectItem value="feeding">
-                    {t("scheduleTypes.feeding")}
+                    {t("pages.automation.schedules.scheduleTypes.feeding")}
                   </SelectItem>
                   <SelectItem value="doors">
-                    {t("scheduleTypes.doors")}
+                    {t("pages.automation.schedules.scheduleTypes.doors")}
                   </SelectItem>
                   <SelectItem value="custom">
-                    {t("scheduleTypes.custom")}
+                    {t("pages.automation.schedules.scheduleTypes.custom")}
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -513,7 +523,9 @@ const SchedulesPage: React.FC = () => {
               className="flex-1 sm:flex-none"
             >
               <Plus className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">{t.actions.create}</span>
+              <span className="hidden sm:inline">
+                {t("pages.automation.schedules.actions.create")}
+              </span>
               <span className="sm:hidden">Create</span>
             </Button>
           </div>
@@ -524,17 +536,25 @@ const SchedulesPage: React.FC = () => {
           <div className="text-center py-12">
             <Calendar className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium text-muted-foreground mb-2">
-              {searchQuery ? "No schedules found" : t.emptyStates.noSchedules}
+              {searchQuery
+                ? t("pages.automation.schedules.emptyStates.noResults")
+                : t("pages.automation.schedules.emptyStates.noSchedules")}
             </h3>
             <p className="text-muted-foreground mb-4">
               {searchQuery
-                ? "Try adjusting your search or filters"
-                : t.emptyStates.noSchedulesDescription}
+                ? t(
+                    "pages.automation.schedules.emptyStates.noResultsDescription"
+                  )
+                : t(
+                    "pages.automation.schedules.emptyStates.noSchedulesDescription"
+                  )}
             </p>
             {!searchQuery && (
               <Button onClick={() => setCreateDialogOpen(true)}>
                 <Plus className="h-4 w-4 mr-2" />
-                {t.emptyStates.createFirstSchedule}
+                {t(
+                  "pages.automation.schedules.emptyStates.createFirstSchedule"
+                )}
               </Button>
             )}
           </div>
@@ -581,8 +601,6 @@ const SchedulesPage: React.FC = () => {
         schedule={editingSchedule}
         onSubmit={editingSchedule ? handleEditSchedule : handleCreateSchedule}
         isLoading={isLoading}
-        t={t}
-        tCommon={tCommon}
       />
 
       {/* Delete Confirmation Dialog */}

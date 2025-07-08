@@ -1333,6 +1333,39 @@
           "upcomingEvents": "Próximos Eventos"
         }
       }
+    },
+    "notFound": {
+      "title": "¡Ups! Sendero del Huerto No Encontrado",
+      "subtitle": "404 - Parece que este cultivo no arraigó",
+      "message": "La página que buscas parece haber sido cosechada o nunca fue plantada en nuestro jardín digital.",
+      "suggestions": {
+        "title": "Lo que puedes hacer:",
+        "checkUrl": "Revisa la URL por posibles errores tipográficos",
+        "navigation": "Usa nuestro menú de navegación para explorar",
+        "search": "Intenta buscar lo que necesitas",
+        "home": "Regresa a tu panel del invernadero"
+      },
+      "stats": {
+        "errorCode": "Código de Error",
+        "timeWasted": "Tiempo en las Malezas",
+        "pagesAvailable": "Páginas Funcionando",
+        "systemStatus": "Estado del Sistema"
+      },
+      "actions": {
+        "goHome": "🏠 Volver al Invernadero",
+        "goBack": "🌱 Plantar Nuevo Sendero",
+        "explore": "🌿 Explorar Jardín",
+        "contact": "🚜 Contactar Agricultor"
+      },
+      "funFacts": {
+        "title": "Mientras estás aquí...",
+        "facts": [
+          "Tus sensores IoT siguen recolectando datos",
+          "El sistema de riego automatizado funciona perfectamente",
+          "3 cultivos están listos para cosechar",
+          "Los paneles solares generan energía óptima"
+        ]
+      }
     }
   },
   "navigation": {
