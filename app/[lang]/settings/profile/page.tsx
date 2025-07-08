@@ -176,12 +176,18 @@ const ProfilePage: React.FC = () => {
     return `${Math.floor(diffHours / 24)} ${t("userCard.daysAgo")}`;
   };
 
+  // Breadcrumb configuration
+  const breadcrumbItems = [
+    {
+      label: tCommon("navigation.settings.title"),
+      href: "/settings",
+    },
+  ];
+
   return (
     <PageTemplate
       pageTitle={t("title")}
-      breadcrumbItems={[
-        { label: tCommon("navigation.settings.title"), href: "/settings" },
-      ]}
+      breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex gap-2">
           {isEditing ? (
@@ -224,560 +230,541 @@ const ProfilePage: React.FC = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="space-y-6">
           {/* Profile Picture Section */}
-          <div className="lg:col-span-1">
-            <SettingsSection
-              title={t("sections.avatar.title")}
-              subtitle={t("sections.avatar.subtitle")}
-              icon="📷"
-            >
-              <div className="flex flex-col items-center space-y-4">
-                <Avatar className="h-32 w-32">
-                  <AvatarImage
-                    src={formData.avatar}
-                    alt={`${formData.firstName} ${formData.lastName}`}
-                  />
-                  <AvatarFallback className="text-2xl">
-                    {formData.firstName.charAt(0)}
-                    {formData.lastName.charAt(0)}
-                  </AvatarFallback>
-                </Avatar>
+          <SettingsSection
+            title={t("sections.avatar.title")}
+            subtitle={t("sections.avatar.subtitle")}
+            icon="📷"
+          >
+            <div className="flex flex-col items-center space-y-4">
+              <Avatar className="h-32 w-32">
+                <AvatarImage
+                  src={formData.avatar}
+                  alt={`${formData.firstName} ${formData.lastName}`}
+                />
+                <AvatarFallback className="text-2xl">
+                  {formData.firstName.charAt(0)}
+                  {formData.lastName.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
 
-                <div className="text-center space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    {t("sections.avatar.maxSize")}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {t("sections.avatar.supportedFormats")}
-                  </p>
-                </div>
+              <div className="text-center space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  {t("sections.avatar.maxSize")}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {t("sections.avatar.supportedFormats")}
+                </p>
+              </div>
 
-                <div className="flex gap-2 w-full">
-                  <Button
-                    variant="outline"
-                    className="flex-1"
-                    onClick={() =>
-                      document.getElementById("avatar-upload")?.click()
-                    }
-                  >
-                    <Upload className="h-4 w-4 mr-2" />
-                    {t("sections.avatar.upload")}
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-                <input
-                  id="avatar-upload"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleAvatarUpload}
+              <div className="flex gap-2 w-full max-w-xs">
+                <Button
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() =>
+                    document.getElementById("avatar-upload")?.click()
+                  }
+                >
+                  <Upload className="h-4 w-4 mr-2" />
+                  {t("sections.avatar.upload")}
+                </Button>
+                <Button variant="outline" size="icon">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAvatarUpload}
+              />
+            </div>
+          </SettingsSection>
+
+          {/* Personal Information */}
+          <SettingsSection
+            title={t("sections.personalInfo.title")}
+            subtitle={t("sections.personalInfo.subtitle")}
+            icon="👤"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.firstName")}
+                </label>
+                <Input
+                  value={formData.firstName}
+                  onChange={(e) =>
+                    handleInputChange("firstName", e.target.value)
+                  }
+                  disabled={!isEditing}
                 />
               </div>
-            </SettingsSection>
-          </div>
-
-          {/* Main Profile Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Personal Information */}
-            <SettingsSection
-              title={t("sections.personalInfo.title")}
-              subtitle={t("sections.personalInfo.subtitle")}
-              icon="👤"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.firstName")}
-                  </label>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.lastName")}
+                </label>
+                <Input
+                  value={formData.lastName}
+                  onChange={(e) =>
+                    handleInputChange("lastName", e.target.value)
+                  }
+                  disabled={!isEditing}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.email")}
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    value={formData.firstName}
-                    onChange={(e) =>
-                      handleInputChange("firstName", e.target.value)
-                    }
+                    className="pl-10"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                     disabled={!isEditing}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.lastName")}
-                  </label>
-                  <Input
-                    value={formData.lastName}
-                    onChange={(e) =>
-                      handleInputChange("lastName", e.target.value)
-                    }
-                    disabled={!isEditing}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.email")}
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      className="pl-10"
-                      value={formData.email}
-                      onChange={(e) =>
-                        handleInputChange("email", e.target.value)
-                      }
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.phone")}
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      className="pl-10"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        handleInputChange("phone", e.target.value)
-                      }
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.location")}
-                  </label>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      className="pl-10"
-                      placeholder={t(
-                        "sections.personalInfo.locationPlaceholder"
-                      )}
-                      value={formData.location}
-                      onChange={(e) =>
-                        handleInputChange("location", e.target.value)
-                      }
-                      disabled={!isEditing}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.timezone")}
-                  </label>
-                  <Select
-                    value={formData.timezone}
-                    onValueChange={(value) =>
-                      handleInputChange("timezone", value)
-                    }
-                    disabled={!isEditing}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Europe/Madrid">
-                        Europe/Madrid (GMT+1)
-                      </SelectItem>
-                      <SelectItem value="Europe/London">
-                        Europe/London (GMT+0)
-                      </SelectItem>
-                      <SelectItem value="America/New_York">
-                        America/New_York (GMT-5)
-                      </SelectItem>
-                      <SelectItem value="America/Los_Angeles">
-                        America/Los_Angeles (GMT-8)
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="md:col-span-2 space-y-2">
-                  <label className="text-sm font-medium">
-                    {t("sections.personalInfo.bio")}
-                  </label>
-                  <Textarea
-                    placeholder={t("sections.personalInfo.bioPlaceholder")}
-                    value={formData.bio}
-                    onChange={(e) => handleInputChange("bio", e.target.value)}
-                    disabled={!isEditing}
-                    className="min-h-20"
                   />
                 </div>
               </div>
-            </SettingsSection>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.phone")}
+                </label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    className="pl-10"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    disabled={!isEditing}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.location")}
+                </label>
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    className="pl-10"
+                    placeholder={t("sections.personalInfo.locationPlaceholder")}
+                    value={formData.location}
+                    onChange={(e) =>
+                      handleInputChange("location", e.target.value)
+                    }
+                    disabled={!isEditing}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.timezone")}
+                </label>
+                <Select
+                  value={formData.timezone}
+                  onValueChange={(value) =>
+                    handleInputChange("timezone", value)
+                  }
+                  disabled={!isEditing}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Europe/Madrid">
+                      Europe/Madrid (GMT+1)
+                    </SelectItem>
+                    <SelectItem value="Europe/London">
+                      Europe/London (GMT+0)
+                    </SelectItem>
+                    <SelectItem value="America/New_York">
+                      America/New_York (GMT-5)
+                    </SelectItem>
+                    <SelectItem value="America/Los_Angeles">
+                      America/Los_Angeles (GMT-8)
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="md:col-span-2 space-y-2">
+                <label className="text-sm font-medium">
+                  {t("sections.personalInfo.bio")}
+                </label>
+                <Textarea
+                  placeholder={t("sections.personalInfo.bioPlaceholder")}
+                  value={formData.bio}
+                  onChange={(e) => handleInputChange("bio", e.target.value)}
+                  disabled={!isEditing}
+                  className="min-h-20"
+                />
+              </div>
+            </div>
+          </SettingsSection>
 
-            {/* Security Settings */}
-            <SettingsSection
-              title={t("sections.security.title")}
-              subtitle={t("sections.security.subtitle")}
-              icon="🔒"
-            >
-              <div className="space-y-6">
-                {/* Change Password */}
-                <div className="space-y-4">
-                  <h4 className="text-md font-medium">
-                    {t("sections.security.changePassword")}
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">
-                        {t("sections.security.currentPassword")}
-                      </label>
-                      <div className="relative">
-                        <Input
-                          type={showCurrentPassword ? "text" : "password"}
-                          value={passwordData.current}
-                          onChange={(e) =>
-                            handlePasswordChange("current", e.target.value)
-                          }
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                          onClick={() =>
-                            setShowCurrentPassword(!showCurrentPassword)
-                          }
-                        >
-                          {showCurrentPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">
-                        {t("sections.security.newPassword")}
-                      </label>
-                      <div className="relative">
-                        <Input
-                          type={showNewPassword ? "text" : "password"}
-                          value={passwordData.new}
-                          onChange={(e) =>
-                            handlePasswordChange("new", e.target.value)
-                          }
-                        />
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                          onClick={() => setShowNewPassword(!showNewPassword)}
-                        >
-                          {showNewPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">
-                        {t("sections.security.confirmPassword")}
-                      </label>
+          {/* Security Settings */}
+          <SettingsSection
+            title={t("sections.security.title")}
+            subtitle={t("sections.security.subtitle")}
+            icon="🔒"
+          >
+            <div className="space-y-6">
+              {/* Change Password */}
+              <div className="space-y-4">
+                <h4 className="text-md font-medium">
+                  {t("sections.security.changePassword")}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t("sections.security.currentPassword")}
+                    </label>
+                    <div className="relative">
                       <Input
-                        type="password"
-                        value={passwordData.confirm}
+                        type={showCurrentPassword ? "text" : "password"}
+                        value={passwordData.current}
                         onChange={(e) =>
-                          handlePasswordChange("confirm", e.target.value)
+                          handlePasswordChange("current", e.target.value)
                         }
                       />
-                    </div>
-                  </div>
-                  <Button
-                    onClick={handlePasswordSave}
-                    className="w-full md:w-auto"
-                  >
-                    {t("actions.changePassword")}
-                  </Button>
-                </div>
-
-                {/* Two Factor Authentication */}
-                <div className="space-y-4 pt-4 border-t">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-md font-medium">
-                        {t("sections.security.twoFactor")}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {t("sections.security.twoFactorDescription")}
-                      </p>
-                    </div>
-                    <Switch />
-                  </div>
-                </div>
-
-                {/* Security Alerts */}
-                <div className="space-y-4 pt-4 border-t">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-md font-medium">
-                        {t("sections.security.securityAlerts")}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {t("sections.security.securityAlertsDescription")}
-                      </p>
-                    </div>
-                    <Switch defaultChecked />
-                  </div>
-                </div>
-              </div>
-            </SettingsSection>
-
-            {/* Preferences */}
-            <SettingsSection
-              title={t("sections.preferences.title")}
-              subtitle={t("sections.preferences.subtitle")}
-              icon="⚙️"
-            >
-              <div className="space-y-6">
-                {/* Notification Preferences */}
-                <div className="space-y-4">
-                  <h4 className="text-md font-medium">
-                    {t("sections.preferences.notifications.title")}
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t(
-                          "sections.preferences.notifications.emailNotifications"
-                        )}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.notifications.email}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "email",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t(
-                          "sections.preferences.notifications.pushNotifications"
-                        )}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.notifications.push}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "push",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.notifications.alertsEmail")}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.notifications.alerts}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "alerts",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.notifications.weeklyReports")}
-                      </label>
-                      <Switch
-                        checked={
-                          formData.preferences.notifications.weeklyReports
-                        }
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "weeklyReports",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.notifications.monthlyReports")}
-                      </label>
-                      <Switch
-                        checked={
-                          formData.preferences.notifications.monthlyReports
-                        }
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "monthlyReports",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t(
-                          "sections.preferences.notifications.marketingEmails"
-                        )}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.notifications.marketing}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange(
-                            "notifications",
-                            "marketing",
-                            checked
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Display Settings */}
-                <div className="space-y-4 pt-4 border-t">
-                  <h4 className="text-md font-medium">
-                    {t("sections.preferences.display.title")}
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.display.theme")}
-                      </label>
-                      <Select
-                        value={formData.preferences.theme}
-                        onValueChange={(value) =>
-                          handlePreferenceChange("theme", "", value)
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        onClick={() =>
+                          setShowCurrentPassword(!showCurrentPassword)
                         }
                       >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="light">
-                            {t("sections.preferences.display.themeLight")}
-                          </SelectItem>
-                          <SelectItem value="dark">
-                            {t("sections.preferences.display.themeDark")}
-                          </SelectItem>
-                          <SelectItem value="auto">
-                            {t("sections.preferences.display.themeAuto")}
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                        {showCurrentPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.display.units")}
-                      </label>
-                      <Select
-                        value={formData.preferences.units}
-                        onValueChange={(value) =>
-                          handlePreferenceChange("units", "", value)
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t("sections.security.newPassword")}
+                    </label>
+                    <div className="relative">
+                      <Input
+                        type={showNewPassword ? "text" : "password"}
+                        value={passwordData.new}
+                        onChange={(e) =>
+                          handlePasswordChange("new", e.target.value)
                         }
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
                       >
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="metric">
-                            {t("sections.preferences.display.unitsMetric")}
-                          </SelectItem>
-                          <SelectItem value="imperial">
-                            {t("sections.preferences.display.unitsImperial")}
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                        {showNewPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </Button>
                     </div>
                   </div>
-                </div>
-
-                {/* Garden Preferences */}
-                <div className="space-y-4 pt-4 border-t">
-                  <h4 className="text-md font-medium">
-                    {t("sections.preferences.garden.title")}
-                  </h4>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.garden.autoRefresh")}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.autoRefresh}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange("autoRefresh", "", checked)
-                        }
-                      />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <label className="text-sm font-medium">
-                        {t("sections.preferences.garden.showAdvancedFeatures")}
-                      </label>
-                      <Switch
-                        checked={formData.preferences.showAdvanced}
-                        onCheckedChange={(checked) =>
-                          handlePreferenceChange("showAdvanced", "", checked)
-                        }
-                      />
-                    </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t("sections.security.confirmPassword")}
+                    </label>
+                    <Input
+                      type="password"
+                      value={passwordData.confirm}
+                      onChange={(e) =>
+                        handlePasswordChange("confirm", e.target.value)
+                      }
+                    />
                   </div>
                 </div>
+                <Button
+                  onClick={handlePasswordSave}
+                  className="w-full md:w-auto"
+                >
+                  {t("actions.changePassword")}
+                </Button>
               </div>
-            </SettingsSection>
 
-            {/* Data & Privacy */}
-            <SettingsSection
-              title={t("sections.data.title")}
-              subtitle={t("sections.data.subtitle")}
-              icon="🗂️"
-            >
-              <div className="space-y-6">
-                {/* Export Data */}
-                <div className="flex items-center justify-between p-4 border rounded-lg">
+              {/* Two Factor Authentication */}
+              <div className="space-y-4 pt-4 border-t">
+                <div className="flex items-center justify-between">
                   <div>
                     <h4 className="text-md font-medium">
-                      {t("sections.data.exportData")}
+                      {t("sections.security.twoFactor")}
                     </h4>
                     <p className="text-sm text-muted-foreground">
-                      {t("sections.data.exportDescription")}
+                      {t("sections.security.twoFactorDescription")}
                     </p>
                   </div>
-                  <Button variant="outline">
-                    <Download className="h-4 w-4 mr-2" />
-                    {t("sections.data.downloadData")}
-                  </Button>
-                </div>
-
-                {/* Delete Account */}
-                <div className="flex items-center justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
-                  <div>
-                    <h4 className="text-md font-medium text-destructive">
-                      {t("sections.data.deleteAccount")}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t("sections.data.deleteAccountDescription")}
-                    </p>
-                  </div>
-                  <Button variant="destructive">
-                    <AlertTriangle className="h-4 w-4 mr-2" />
-                    {t("sections.data.requestDeletion")}
-                  </Button>
+                  <Switch />
                 </div>
               </div>
-            </SettingsSection>
-          </div>
+
+              {/* Security Alerts */}
+              <div className="space-y-4 pt-4 border-t">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-md font-medium">
+                      {t("sections.security.securityAlerts")}
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      {t("sections.security.securityAlertsDescription")}
+                    </p>
+                  </div>
+                  <Switch defaultChecked />
+                </div>
+              </div>
+            </div>
+          </SettingsSection>
+
+          {/* Preferences */}
+          <SettingsSection
+            title={t("sections.preferences.title")}
+            subtitle={t("sections.preferences.subtitle")}
+            icon="⚙️"
+          >
+            <div className="space-y-6">
+              {/* Notification Preferences */}
+              <div className="space-y-4">
+                <h4 className="text-md font-medium">
+                  {t("sections.preferences.notifications.title")}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t(
+                        "sections.preferences.notifications.emailNotifications"
+                      )}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.notifications.email}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange(
+                          "notifications",
+                          "email",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t(
+                        "sections.preferences.notifications.pushNotifications"
+                      )}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.notifications.push}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange("notifications", "push", checked)
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.notifications.alertsEmail")}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.notifications.alerts}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange(
+                          "notifications",
+                          "alerts",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.notifications.weeklyReports")}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.notifications.weeklyReports}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange(
+                          "notifications",
+                          "weeklyReports",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.notifications.monthlyReports")}
+                    </label>
+                    <Switch
+                      checked={
+                        formData.preferences.notifications.monthlyReports
+                      }
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange(
+                          "notifications",
+                          "monthlyReports",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.notifications.marketingEmails")}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.notifications.marketing}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange(
+                          "notifications",
+                          "marketing",
+                          checked
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Display Settings */}
+              <div className="space-y-4 pt-4 border-t">
+                <h4 className="text-md font-medium">
+                  {t("sections.preferences.display.title")}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.display.theme")}
+                    </label>
+                    <Select
+                      value={formData.preferences.theme}
+                      onValueChange={(value) =>
+                        handlePreferenceChange("theme", "", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="light">
+                          {t("sections.preferences.display.themeLight")}
+                        </SelectItem>
+                        <SelectItem value="dark">
+                          {t("sections.preferences.display.themeDark")}
+                        </SelectItem>
+                        <SelectItem value="auto">
+                          {t("sections.preferences.display.themeAuto")}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.display.units")}
+                    </label>
+                    <Select
+                      value={formData.preferences.units}
+                      onValueChange={(value) =>
+                        handlePreferenceChange("units", "", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="metric">
+                          {t("sections.preferences.display.unitsMetric")}
+                        </SelectItem>
+                        <SelectItem value="imperial">
+                          {t("sections.preferences.display.unitsImperial")}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Garden Preferences */}
+              <div className="space-y-4 pt-4 border-t">
+                <h4 className="text-md font-medium">
+                  {t("sections.preferences.garden.title")}
+                </h4>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.garden.autoRefresh")}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.autoRefresh}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange("autoRefresh", "", checked)
+                      }
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <label className="text-sm font-medium">
+                      {t("sections.preferences.garden.showAdvancedFeatures")}
+                    </label>
+                    <Switch
+                      checked={formData.preferences.showAdvanced}
+                      onCheckedChange={(checked) =>
+                        handlePreferenceChange("showAdvanced", "", checked)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SettingsSection>
+
+          {/* Data & Privacy */}
+          <SettingsSection
+            title={t("sections.data.title")}
+            subtitle={t("sections.data.subtitle")}
+            icon="🗂️"
+          >
+            <div className="space-y-6">
+              {/* Export Data */}
+              <div className="flex items-center justify-between p-4 border rounded-lg">
+                <div>
+                  <h4 className="text-md font-medium">
+                    {t("sections.data.exportData")}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {t("sections.data.exportDescription")}
+                  </p>
+                </div>
+                <Button variant="outline">
+                  <Download className="h-4 w-4 mr-2" />
+                  {t("sections.data.downloadData")}
+                </Button>
+              </div>
+
+              {/* Delete Account */}
+              <div className="flex items-center justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
+                <div>
+                  <h4 className="text-md font-medium text-destructive">
+                    {t("sections.data.deleteAccount")}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {t("sections.data.deleteAccountDescription")}
+                  </p>
+                </div>
+                <Button variant="destructive">
+                  <AlertTriangle className="h-4 w-4 mr-2" />
+                  {t("sections.data.requestDeletion")}
+                </Button>
+              </div>
+            </div>
+          </SettingsSection>
         </div>
       </div>
     </PageTemplate>
