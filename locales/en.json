@@ -22,41 +22,78 @@
   },
   "pages": {
     "home": {
-      "subtitle": "Manage your plants, gardens, and care intelligently.",
-      "thisWeek": "this week",
-      "active": "active",
-      "pending": "pending",
-      "growing": "growing",
-      "stats": {
-        "plants": "My Plants",
-        "gardens": "My Gardens",
-        "tasks": "Care Tasks",
-        "crops": "Active Crops"
+      "subtitle": "Smart agricultural automation with IoT, AI and renewable energy.",
+      "systemStatus": {
+        "online": "System Online"
       },
-      "quickActions": {
-        "title": "Quick Actions",
-        "addPlant": "Add Plant",
-        "addPlantDesc": "Register a new plant",
-        "logCare": "Log Care",
-        "logCareDesc": "Record plant care",
-        "schedule": "View Schedule",
-        "scheduleDesc": "Today's care tasks",
-        "analytics": "Analytics",
-        "analyticsDesc": "View garden insights"
+      "alerts": {
+        "title": "System Alerts",
+        "lowHumidity": "Plot 2: Low soil moisture",
+        "allSensorsOnline": "All sensors operational",
+        "batteryGood": "Battery level optimal"
       },
-      "todayTasks": {
-        "title": "Today's Tasks",
-        "water": "Water plants",
-        "fertilize": "Fertilize",
-        "prune": "Prune branches"
+      "nodeNetwork": {
+        "activeNodes": "Active Nodes",
+        "nodesOnline": "nodes online",
+        "networkHealth": "Network Health",
+        "signalStrength": "signal strength",
+        "dataPackets": "Data Packets",
+        "packetsToday": "packets today",
+        "powerStatus": "Power Status",
+        "nodesCharging": "nodes charging"
       },
-      "weather": {
-        "title": "Weather",
-        "sunny": "Sunny",
-        "humidity": "Humidity",
-        "wind": "Wind",
-        "uv": "UV Index",
-        "tip": "Perfect day for watering! Remember to check soil moisture first."
+      "nodeActions": {
+        "title": "Node Control Center",
+        "nodeNetwork": "Node Network",
+        "nodeNetworkDesc": "View mesh topology",
+        "powerManagement": "Power Management",
+        "powerManagementDesc": "Solar & battery status",
+        "nodeConfig": "Node Configuration",
+        "nodeConfigDesc": "Update node settings",
+        "meshNetwork": "Mesh Network",
+        "meshNetworkDesc": "Network diagnostics"
+      },
+      "automatedTasks": {
+        "title": "Automated Systems",
+        "irrigation": "Smart Irrigation",
+        "irrigationStatus": "Next: Plot 3 in 2 hours",
+        "active": "Active",
+        "coopDoor": "Coop Door",
+        "coopDoorStatus": "Closes at sunset",
+        "scheduled": "Scheduled",
+        "climate": "Climate Control",
+        "climateStatus": "Optimal conditions",
+        "monitoring": "Monitoring"
+      },
+      "nodeStatus": {
+        "title": "Node Status",
+        "gardenNodes": "Garden Nodes",
+        "node": "Node",
+        "online": "Online",
+        "warning": "Warning",
+        "coopNode": "Coop Node",
+        "aiRecommendation": "Node B showing low soil moisture and battery levels. Recommend irrigation and solar panel cleaning."
+      },
+      "systemMap": {
+        "title": "System Overview",
+        "gardenPlots": "Garden Plots",
+        "plot": "Plot",
+        "optimal": "Optimal",
+        "attention": "Needs Attention",
+        "chickenCoop": "Chicken Coop",
+        "coopStatus": "All Systems Normal",
+        "doorOpen": "Door: Open",
+        "eggsCollected": "Eggs: 12 collected today",
+        "tempNormal": "Temperature: Normal",
+        "energySystem": "Energy System",
+        "solarSystem": "Solar Power",
+        "batteryLevel": "Battery",
+        "production": "Producing",
+        "consumption": "Consuming",
+        "viewAnalytics": "View Analytics",
+        "openCameras": "Open Cameras",
+        "manualControl": "Manual Control",
+        "askAi": "Ask AI Assistant"
       }
     }
   },

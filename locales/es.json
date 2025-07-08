@@ -22,41 +22,78 @@
   },
   "pages": {
     "home": {
-      "subtitle": "Gestiona tus plantas, huertos y cuidados de forma inteligente.",
-      "thisWeek": "esta semana",
-      "active": "activos",
-      "pending": "pendientes",
-      "growing": "creciendo",
-      "stats": {
-        "plants": "Mis Plantas",
-        "gardens": "Mis Huertos",
-        "tasks": "Tareas de Cuidado",
-        "crops": "Cultivos Activos"
+      "subtitle": "Automatización agrícola inteligente con IoT, IA y energía renovable.",
+      "systemStatus": {
+        "online": "Sistema Online"
       },
-      "quickActions": {
-        "title": "Acciones Rápidas",
-        "addPlant": "Añadir Planta",
-        "addPlantDesc": "Registrar nueva planta",
-        "logCare": "Registrar Cuidado",
-        "logCareDesc": "Anotar cuidado realizado",
-        "schedule": "Ver Programación",
-        "scheduleDesc": "Tareas de hoy",
-        "analytics": "Analíticas",
-        "analyticsDesc": "Ver insights del huerto"
+      "alerts": {
+        "title": "Alertas del Sistema",
+        "lowHumidity": "Bancal 2: Humedad del suelo baja",
+        "allSensorsOnline": "Todos los sensores operativos",
+        "batteryGood": "Nivel de batería óptimo"
       },
-      "todayTasks": {
-        "title": "Tareas de Hoy",
-        "water": "Regar plantas",
-        "fertilize": "Fertilizar",
-        "prune": "Podar ramas"
+      "nodeNetwork": {
+        "activeNodes": "Nodos Activos",
+        "nodesOnline": "nodos online",
+        "networkHealth": "Salud de la Red",
+        "signalStrength": "fuerza de señal",
+        "dataPackets": "Paquetes de Datos",
+        "packetsToday": "paquetes hoy",
+        "powerStatus": "Estado Energético",
+        "nodesCharging": "nodos cargando"
       },
-      "weather": {
-        "title": "Clima",
-        "sunny": "Soleado",
-        "humidity": "Humedad",
-        "wind": "Viento",
-        "uv": "Índice UV",
-        "tip": "¡Día perfecto para regar! Recuerda verificar la humedad del suelo primero."
+      "nodeActions": {
+        "title": "Centro de Control de Nodos",
+        "nodeNetwork": "Red de Nodos",
+        "nodeNetworkDesc": "Ver topología mesh",
+        "powerManagement": "Gestión Energética",
+        "powerManagementDesc": "Estado solar y baterías",
+        "nodeConfig": "Configuración de Nodos",
+        "nodeConfigDesc": "Actualizar ajustes",
+        "meshNetwork": "Red Mesh",
+        "meshNetworkDesc": "Diagnósticos de red"
+      },
+      "automatedTasks": {
+        "title": "Sistemas Automatizados",
+        "irrigation": "Riego Inteligente",
+        "irrigationStatus": "Próximo: Bancal 3 en 2 horas",
+        "active": "Activo",
+        "coopDoor": "Puerta del Gallinero",
+        "coopDoorStatus": "Cierra al atardecer",
+        "scheduled": "Programado",
+        "climate": "Control Climático",
+        "climateStatus": "Condiciones óptimas",
+        "monitoring": "Monitoreando"
+      },
+      "nodeStatus": {
+        "title": "Estado de Nodos",
+        "gardenNodes": "Nodos del Huerto",
+        "node": "Nodo",
+        "online": "Online",
+        "warning": "Alerta",
+        "coopNode": "Nodo del Gallinero",
+        "aiRecommendation": "El Nodo B muestra baja humedad del suelo y niveles de batería. Se recomienda riego y limpieza del panel solar."
+      },
+      "systemMap": {
+        "title": "Vista General del Sistema",
+        "gardenPlots": "Bancales del Huerto",
+        "plot": "Bancal",
+        "optimal": "Óptimo",
+        "attention": "Requiere Atención",
+        "chickenCoop": "Gallinero",
+        "coopStatus": "Todos los Sistemas Normales",
+        "doorOpen": "Puerta: Abierta",
+        "eggsCollected": "Huevos: 12 recolectados hoy",
+        "tempNormal": "Temperatura: Normal",
+        "energySystem": "Sistema Energético",
+        "solarSystem": "Energía Solar",
+        "batteryLevel": "Batería",
+        "production": "Produciendo",
+        "consumption": "Consumiendo",
+        "viewAnalytics": "Ver Analíticas",
+        "openCameras": "Abrir Cámaras",
+        "manualControl": "Control Manual",
+        "askAi": "Preguntar al Asistente IA"
       }
     }
   },

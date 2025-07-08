@@ -7,8 +7,8 @@ import React from "react";
 const DashboardPage = () => {
   const t = useTranslations();
   return (
-    <PageTemplate pageTitle={t("navigation.analytics.dashboard")}>
-      <div>Dashboard</div>
+    <PageTemplate pageTitle={t("navigation.analytics.reports")}>
+      <div>Reports</div>
     </PageTemplate>
   );
 };
