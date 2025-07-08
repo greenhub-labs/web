@@ -1,7 +1,8 @@
 // app/[lang]/layout.tsx
 import { notFound } from "next/navigation";
-import I18nProvider from "@/shared/providers/I18nProvider";
-import { AppSidebar } from "@/shared/components/app-sidebar";
+import I18nProvider from "@/contexts/shared/presentation/providers/I18nProvider";
+import { AppSidebar } from "@/contexts/shared/presentation/components/app-sidebar";
+import { SidebarProvider } from "@/contexts/shared/presentation/components/ui/sidebar";
 
 const locales = ["en", "es"];
 
@@ -20,10 +21,10 @@ export default async function LangLayout({
 
   return (
     <I18nProvider locale={params.lang} messages={messages}>
-      <AppSidebar />
-      <div className="flex flex-col min-h-screen mx-auto p-4 md:p-8">
-        {children}
-      </div>
+      <SidebarProvider>
+        <AppSidebar />
+        <div className="flex flex-col min-h-screen w-full">{children}</div>
+      </SidebarProvider>
     </I18nProvider>
   );
 }

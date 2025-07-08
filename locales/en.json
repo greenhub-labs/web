@@ -1,0 +1,21 @@
+{
+  "common": {
+    "appName": "GreenHub",
+    "loading": "Loading...",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "search": "Search",
+    "close": "Close",
+    "back": "Back",
+    "home": "Home",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info"
+  }
+}
