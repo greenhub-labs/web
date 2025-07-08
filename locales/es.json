@@ -9,6 +9,7 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "create": "Crear",
+    "creating": "Creando",
     "update": "Actualizar",
     "search": "Buscar",
     "close": "Cerrar",
@@ -121,7 +122,113 @@
         "nextIrrigation": "Próximo Riego",
         "viewDetails": "Ver Detalles",
         "activeCrops": "Cultivos Activos",
-        "noCrops": "Sin cultivos plantados"
+        "noCrops": "Sin cultivos plantados",
+        "form": {
+          "title": "Crear Nueva Parcela",
+          "description": "Añade una nueva parcela para organizar tu cultivo.",
+          "name": "Nombre de la Parcela",
+          "namePlaceholder": "ej., Huerto de Verduras A",
+          "location": "Ubicación",
+          "locationPlaceholder": "ej., Lado Norte, Invernadero 1",
+          "size": "Tamaño de Parcela",
+          "sizePlaceholder": "ej., 10x5 metros, 50 m²",
+          "soilType": "Tipo de Suelo",
+          "soilTypePlaceholder": "Selecciona tipo de suelo",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Notas adicionales sobre esta parcela...",
+          "create": "Crear Parcela",
+          "soilTypes": {
+            "clay": "Suelo Arcilloso",
+            "sandy": "Suelo Arenoso",
+            "loamy": "Suelo Franco",
+            "rocky": "Suelo Rocoso"
+          },
+          "errors": {
+            "nameRequired": "El nombre de la parcela es obligatorio",
+            "locationRequired": "La ubicación es obligatoria",
+            "sizeRequired": "El tamaño de la parcela es obligatorio",
+            "soilTypeRequired": "Por favor selecciona un tipo de suelo"
+          }
+        }
+      },
+      "crops": {
+        "title": "Cultivos y Siembra",
+        "gridView": "Vista Cuadrícula",
+        "listView": "Vista Lista",
+        "filterBy": "Filtrar por",
+        "filterAll": "Todos los Cultivos",
+        "filterActive": "Activos",
+        "filterReady": "Listos",
+        "plantNew": "Plantar Nuevo",
+        "stats": {
+          "totalCrops": "Total Cultivos",
+          "readyToHarvest": "Listos para Cosechar",
+          "totalYield": "Rendimiento Total",
+          "avgHealth": "Salud Promedio"
+        },
+        "growth": "Progreso de Crecimiento",
+        "yield": "Rendimiento",
+        "health": "Puntuación de Salud",
+        "daysToHarvest": "días para cosecha",
+        "irrigation": {
+          "high": "Alto",
+          "medium": "Medio",
+          "low": "Bajo"
+        },
+        "status": {
+          "ready": "Listo",
+          "flowering": "Floreciendo",
+          "growing": "Creciendo",
+          "seedling": "Plántula"
+        },
+        "pestsDetected": "Plagas detectadas",
+        "diseasesDetected": "Enfermedades detectadas",
+        "viewDetails": "Ver Detalles",
+        "aiRecommendations": {
+          "title": "Recomendaciones de IA",
+          "harvest": "Cosechar Albahaca Hoy",
+          "harvestDesc": "La albahaca está lista para cosechar, momento óptimo para mejor sabor",
+          "irrigation": "Aumentar Riego de Lechugas",
+          "irrigationDesc": "La humedad del suelo está por debajo de los niveles óptimos para la etapa actual de crecimiento"
+        },
+        "form": {
+          "title": "Plantar Nuevo Cultivo",
+          "description": "Añade un nuevo cultivo para seguir su crecimiento y progreso de cosecha.",
+          "cropType": "Tipo de Cultivo",
+          "cropTypePlaceholder": "Selecciona tipo de cultivo",
+          "variety": "Variedad",
+          "varietyPlaceholder": "ej., Tomates Cherry, Lechuga Romana",
+          "plotLocation": "Ubicación de Parcela",
+          "plotLocationPlaceholder": "Selecciona ubicación de parcela",
+          "plantingDate": "Fecha de Siembra",
+          "expectedHarvestDays": "Cosecha Esperada (días)",
+          "expectedHarvestDaysPlaceholder": "ej., 75, 45, 90",
+          "notes": "Notas de Cultivo",
+          "notesPlaceholder": "Instrucciones especiales de cuidado, notas de cultivo asociado...",
+          "plant": "Plantar Cultivo",
+          "cropTypes": {
+            "tomatoes": "🍅 Tomates",
+            "lettuce": "🥬 Lechuga",
+            "carrots": "🥕 Zanahorias",
+            "peppers": "🌶️ Pimientos",
+            "herbs": "🌿 Hierbas",
+            "beans": "🫘 Judías"
+          },
+          "plotLocations": {
+            "plotA": "📍 Parcela A - Jardín Norte",
+            "plotB": "📍 Parcela B - Jardín Sur",
+            "plotC": "📍 Parcela C - Invernadero",
+            "plotD": "📍 Parcela D - Camas Elevadas"
+          },
+          "errors": {
+            "nameRequired": "Por favor selecciona un tipo de cultivo",
+            "varietyRequired": "La variedad es obligatoria",
+            "plotLocationRequired": "Por favor selecciona una ubicación de parcela",
+            "plantingDateRequired": "La fecha de siembra es obligatoria",
+            "expectedHarvestDaysRequired": "Los días esperados de cosecha son obligatorios",
+            "expectedHarvestDaysInvalid": "Por favor ingresa un número válido de días"
+          }
+        }
       }
     }
   },

@@ -9,6 +9,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "create": "Create",
+    "creating": "Creating",
     "update": "Update",
     "search": "Search",
     "close": "Close",
@@ -121,7 +122,113 @@
         "nextIrrigation": "Next Irrigation",
         "viewDetails": "View Details",
         "activeCrops": "Active Crops",
-        "noCrops": "No crops planted"
+        "noCrops": "No crops planted",
+        "form": {
+          "title": "Create New Garden Plot",
+          "description": "Add a new plot to organize your garden cultivation.",
+          "name": "Plot Name",
+          "namePlaceholder": "e.g., Vegetable Garden A",
+          "location": "Location",
+          "locationPlaceholder": "e.g., North Side, Greenhouse 1",
+          "size": "Plot Size",
+          "sizePlaceholder": "e.g., 10x5 meters, 50 sq ft",
+          "soilType": "Soil Type",
+          "soilTypePlaceholder": "Select soil type",
+          "description": "Description",
+          "descriptionPlaceholder": "Additional notes about this plot...",
+          "create": "Create Plot",
+          "soilTypes": {
+            "clay": "Clay Soil",
+            "sandy": "Sandy Soil",
+            "loamy": "Loamy Soil",
+            "rocky": "Rocky Soil"
+          },
+          "errors": {
+            "nameRequired": "Plot name is required",
+            "locationRequired": "Location is required",
+            "sizeRequired": "Plot size is required",
+            "soilTypeRequired": "Please select a soil type"
+          }
+        }
+      },
+      "crops": {
+        "title": "Crops & Cultivation",
+        "gridView": "Grid View",
+        "listView": "List View",
+        "filterBy": "Filter by",
+        "filterAll": "All Crops",
+        "filterActive": "Active",
+        "filterReady": "Ready",
+        "plantNew": "Plant New",
+        "stats": {
+          "totalCrops": "Total Crops",
+          "readyToHarvest": "Ready to Harvest",
+          "totalYield": "Total Yield",
+          "avgHealth": "Avg. Health"
+        },
+        "growth": "Growth Progress",
+        "yield": "Yield",
+        "health": "Health Score",
+        "daysToHarvest": "days to harvest",
+        "irrigation": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "status": {
+          "ready": "Ready",
+          "flowering": "Flowering",
+          "growing": "Growing",
+          "seedling": "Seedling"
+        },
+        "pestsDetected": "Pests detected",
+        "diseasesDetected": "Diseases detected",
+        "viewDetails": "View Details",
+        "aiRecommendations": {
+          "title": "AI Recommendations",
+          "harvest": "Harvest Basil Today",
+          "harvestDesc": "Basil is ready for harvest, optimal time for best flavor",
+          "irrigation": "Increase Lettuce Watering",
+          "irrigationDesc": "Soil moisture is below optimal levels for current growth stage"
+        },
+        "form": {
+          "title": "Plant New Crop",
+          "description": "Add a new crop to track its growth and harvest progress.",
+          "cropType": "Crop Type",
+          "cropTypePlaceholder": "Select crop type",
+          "variety": "Variety",
+          "varietyPlaceholder": "e.g., Cherry Tomatoes, Romaine Lettuce",
+          "plotLocation": "Plot Location",
+          "plotLocationPlaceholder": "Select plot location",
+          "plantingDate": "Planting Date",
+          "expectedHarvestDays": "Expected Harvest (days)",
+          "expectedHarvestDaysPlaceholder": "e.g., 75, 45, 90",
+          "notes": "Growing Notes",
+          "notesPlaceholder": "Special care instructions, companion planting notes...",
+          "plant": "Plant Crop",
+          "cropTypes": {
+            "tomatoes": "🍅 Tomatoes",
+            "lettuce": "🥬 Lettuce",
+            "carrots": "🥕 Carrots",
+            "peppers": "🌶️ Peppers",
+            "herbs": "🌿 Herbs",
+            "beans": "🫘 Beans"
+          },
+          "plotLocations": {
+            "plotA": "📍 Plot A - North Garden",
+            "plotB": "📍 Plot B - South Garden",
+            "plotC": "📍 Plot C - Greenhouse",
+            "plotD": "📍 Plot D - Raised Beds"
+          },
+          "errors": {
+            "nameRequired": "Please select a crop type",
+            "varietyRequired": "Variety is required",
+            "plotLocationRequired": "Please select a plot location",
+            "plantingDateRequired": "Planting date is required",
+            "expectedHarvestDaysRequired": "Expected harvest days is required",
+            "expectedHarvestDaysInvalid": "Please enter a valid number of days"
+          }
+        }
       }
     }
   },

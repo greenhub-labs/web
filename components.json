@@ -12,9 +12,9 @@
   },
   "aliases": {
     "components": "@/contexts/shared/presentation/components",
-    "utils": "@/contexts/shared/lib/utils",
-    "ui": "@/contexts/shared/components/ui",
-    "lib": "@/contexts/shared/lib",
+    "utils": "@/contexts/shared/presentation/lib/utils",
+    "ui": "@/contexts/shared/presentation/components/ui",
+    "lib": "@/contexts/shared/presentation/lib",
     "hooks": "@/contexts/shared/presentation/hooks"
   },
   "iconLibrary": "lucide"

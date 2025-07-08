@@ -11,11 +11,19 @@ import {
 } from "@/contexts/shared/presentation/components/ui/card";
 import { Button } from "@/contexts/shared/presentation/components/ui/button";
 import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
+import { CreatePlotDialog } from "@/contexts/shared/presentation/components/organisms/CreatePlotDialog";
 import { Separator } from "@/contexts/shared/presentation/components/ui/separator";
 
 const PlotsPage = () => {
   const t = useTranslations();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+
+  const handleCreatePlot = async (plotData: any) => {
+    // TODO: Implement plot creation logic
+    console.log("Creating plot:", plotData);
+    // Here you would typically call an API to create the plot
+  };
 
   // Mock data for plots
   const plots = [
@@ -159,37 +167,62 @@ const PlotsPage = () => {
       pageTitle={t("pages.garden.plots.title")}
       breadcrumbItems={breadcrumbItems}
       headerActions={
-        <div className="flex items-center gap-1 sm:gap-3">
-          <div className="flex items-center gap-0.5 bg-background border rounded-md p-0.5 sm:p-1">
-            <Button
-              variant={viewMode === "grid" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setViewMode("grid")}
-              className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm"
-            >
-              <span className="sm:hidden">🔲</span>
-              <span className="hidden sm:inline">
+        <div className="flex items-center gap-2">
+          {/* Desktop: Todos los controles */}
+          <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-0.5 bg-background border rounded-md p-1">
+              <Button
+                variant={viewMode === "grid" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("grid")}
+                className="px-3 py-2 text-sm"
+              >
                 🔲 {t("pages.garden.plots.gridView")}
-              </span>
-            </Button>
-            <Button
-              variant={viewMode === "list" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setViewMode("list")}
-              className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm"
-            >
-              <span className="sm:hidden">📋</span>
-              <span className="hidden sm:inline">
+              </Button>
+              <Button
+                variant={viewMode === "list" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("list")}
+                className="px-3 py-2 text-sm"
+              >
                 📋 {t("pages.garden.plots.listView")}
-              </span>
+              </Button>
+            </div>
+            <Button
+              className="px-3 py-2 text-sm"
+              onClick={() => setIsCreateDialogOpen(true)}
+            >
+              ➕ {t("pages.garden.plots.createPlot")}
             </Button>
           </div>
-          <Button className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm">
-            <span className="sm:hidden">➕</span>
-            <span className="hidden sm:inline">
-              ➕ {t("pages.garden.plots.createPlot")}
-            </span>
-          </Button>
+
+          {/* Mobile: Solo View Toggle + Add */}
+          <div className="md:hidden flex items-center gap-2">
+            <div className="flex items-center gap-0.5 bg-background border rounded-md p-0.5">
+              <Button
+                variant={viewMode === "grid" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("grid")}
+                className="h-8 w-8 p-0"
+              >
+                🔲
+              </Button>
+              <Button
+                variant={viewMode === "list" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setViewMode("list")}
+                className="h-8 w-8 p-0"
+              >
+                📋
+              </Button>
+            </div>
+            <Button
+              className="h-8 w-8 p-0"
+              onClick={() => setIsCreateDialogOpen(true)}
+            >
+              ➕
+            </Button>
+          </div>
         </div>
       }
     >
@@ -429,6 +462,13 @@ const PlotsPage = () => {
           ))}
         </div>
       </div>
+
+      {/* Create Plot Dialog */}
+      <CreatePlotDialog
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
+        onCreatePlot={handleCreatePlot}
+      />
     </PageTemplate>
   );
 };
