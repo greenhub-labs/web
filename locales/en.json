@@ -549,6 +549,209 @@
           "import": "Import Settings"
         }
       },
+      "integrations": {
+        "title": "Integrations & Connections",
+        "subtitle": "Connect your garden to external services and platforms",
+        "stats": {
+          "connectedServices": "Connected Services",
+          "activeIntegrations": "Active Integrations",
+          "lastSync": "Last Sync",
+          "totalDataPoints": "Total Data Points"
+        },
+        "weather": {
+          "title": "🌤️ Weather Services",
+          "subtitle": "Connect weather data providers for accurate forecasting",
+          "openWeatherMap": {
+            "name": "OpenWeatherMap",
+            "description": "Professional weather forecasting and historical data",
+            "features": "Real-time weather, 5-day forecast, UV index"
+          },
+          "accuWeather": {
+            "name": "AccuWeather",
+            "description": "Accurate weather forecasts with severe weather alerts",
+            "features": "MinuteCast precipitation, severe weather warnings"
+          },
+          "weatherUnderground": {
+            "name": "Weather Underground",
+            "description": "Community-driven weather with local station data",
+            "features": "Hyper-local conditions, historical weather"
+          }
+        },
+        "iot": {
+          "title": "🔌 IoT Platforms",
+          "subtitle": "Connect your smart devices and sensors",
+          "arduinoCloud": {
+            "name": "Arduino Cloud",
+            "description": "Official Arduino IoT platform for device management",
+            "features": "Device management, remote monitoring, OTA updates"
+          },
+          "particle": {
+            "name": "Particle",
+            "description": "IoT platform for cellular and Wi-Fi connected devices",
+            "features": "Fleet management, device diagnostics, webhooks"
+          },
+          "thingSpeak": {
+            "name": "ThingSpeak",
+            "description": "IoT analytics platform for data collection and visualization",
+            "features": "Data analytics, MATLAB integration, alerts"
+          }
+        },
+        "smartHome": {
+          "title": "🏠 Smart Home",
+          "subtitle": "Integrate with home automation systems",
+          "homeAssistant": {
+            "name": "Home Assistant",
+            "description": "Open-source home automation platform",
+            "features": "Automation rules, device control, dashboards"
+          },
+          "googleHome": {
+            "name": "Google Assistant",
+            "description": "Voice control for your garden systems",
+            "features": "Voice commands, routines, status updates"
+          },
+          "alexa": {
+            "name": "Amazon Alexa",
+            "description": "Voice assistant integration for garden management",
+            "features": "Voice control, skills, smart home integration"
+          }
+        },
+        "communication": {
+          "title": "💬 Communication",
+          "subtitle": "Get notifications through your favorite messaging platforms",
+          "slack": {
+            "name": "Slack",
+            "description": "Receive garden alerts and updates in Slack channels",
+            "features": "Channel notifications, bot commands, file sharing"
+          },
+          "discord": {
+            "name": "Discord",
+            "description": "Garden community and notification management",
+            "features": "Server notifications, bot integration, voice channels"
+          },
+          "telegram": {
+            "name": "Telegram",
+            "description": "Instant messaging and bot notifications",
+            "features": "Bot commands, inline keyboards, file transfers"
+          },
+          "whatsapp": {
+            "name": "WhatsApp Business",
+            "description": "Direct messaging for critical garden alerts",
+            "features": "Direct messages, media sharing, business API"
+          }
+        },
+        "agriculture": {
+          "title": "🌾 Agriculture Platforms",
+          "subtitle": "Connect with specialized farming and gardening services",
+          "plantNet": {
+            "name": "PlantNet",
+            "description": "Plant identification and species database",
+            "features": "Plant identification, species info, observation sharing"
+          },
+          "iNaturalist": {
+            "name": "iNaturalist",
+            "description": "Biodiversity observation and community science",
+            "features": "Species identification, community sharing, research"
+          },
+          "gardenTags": {
+            "name": "GardenTags",
+            "description": "Gardening social network and plant care",
+            "features": "Plant diary, community advice, garden sharing"
+          }
+        },
+        "storage": {
+          "title": "☁️ Cloud Storage",
+          "subtitle": "Backup and sync your garden data to cloud services",
+          "googleDrive": {
+            "name": "Google Drive",
+            "description": "Store garden photos, reports, and backup data",
+            "features": "15GB free storage, automatic sync, file sharing"
+          },
+          "dropbox": {
+            "name": "Dropbox",
+            "description": "Cloud storage for garden documentation and media",
+            "features": "File versioning, offline access, team folders"
+          },
+          "oneDrive": {
+            "name": "Microsoft OneDrive",
+            "description": "Microsoft cloud storage integration",
+            "features": "Office integration, version history, file recovery"
+          }
+        },
+        "calendar": {
+          "title": "📅 Calendar Integration",
+          "subtitle": "Sync garden tasks and schedules with your calendar",
+          "googleCalendar": {
+            "name": "Google Calendar",
+            "description": "Sync planting schedules and garden tasks",
+            "features": "Event creation, reminders, calendar sharing"
+          },
+          "outlook": {
+            "name": "Microsoft Outlook",
+            "description": "Integration with Outlook calendar and tasks",
+            "features": "Calendar sync, task management, email integration"
+          },
+          "apple": {
+            "name": "Apple Calendar",
+            "description": "Sync with iCal and Apple ecosystem",
+            "features": "iCloud sync, Siri integration, cross-device access"
+          }
+        },
+        "status": {
+          "connected": "Connected",
+          "disconnected": "Disconnected",
+          "connecting": "Connecting...",
+          "error": "Connection Error",
+          "configuring": "Configuring...",
+          "syncing": "Syncing..."
+        },
+        "actions": {
+          "connect": "Connect",
+          "disconnect": "Disconnect",
+          "configure": "Configure",
+          "test": "Test Connection",
+          "sync": "Sync Now",
+          "viewLogs": "View Logs",
+          "settings": "Settings"
+        },
+        "form": {
+          "apiKey": "API Key",
+          "apiKeyPlaceholder": "Enter your API key",
+          "apiSecret": "API Secret",
+          "apiSecretPlaceholder": "Enter your API secret",
+          "serverUrl": "Server URL",
+          "serverUrlPlaceholder": "https://your-server.com",
+          "username": "Username",
+          "usernamePlaceholder": "Enter username",
+          "password": "Password",
+          "passwordPlaceholder": "Enter password",
+          "token": "Access Token",
+          "tokenPlaceholder": "Enter access token",
+          "syncInterval": "Sync Interval",
+          "syncIntervalDesc": "How often to sync data",
+          "enableNotifications": "Enable Notifications",
+          "notificationsDesc": "Receive notifications from this service"
+        },
+        "intervals": {
+          "manual": "Manual",
+          "5min": "Every 5 minutes",
+          "15min": "Every 15 minutes",
+          "30min": "Every 30 minutes",
+          "1hour": "Every hour",
+          "6hours": "Every 6 hours",
+          "12hours": "Every 12 hours",
+          "daily": "Daily"
+        },
+        "messages": {
+          "connectionSuccess": "Successfully connected to {service}",
+          "connectionError": "Failed to connect to {service}",
+          "disconnectSuccess": "Successfully disconnected from {service}",
+          "configSaved": "Configuration saved successfully",
+          "testSuccess": "Connection test successful",
+          "testError": "Connection test failed",
+          "syncSuccess": "Data synchronized successfully",
+          "syncError": "Synchronization failed"
+        }
+      },
       "users": {
         "title": "User Management",
         "subtitle": "Manage users, roles, and permissions for your GreenHub garden",

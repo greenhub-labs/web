@@ -549,6 +549,209 @@
           "import": "Importar Configuración"
         }
       },
+      "integrations": {
+        "title": "Integraciones y Conexiones",
+        "subtitle": "Conecta tu huerto con servicios y plataformas externas",
+        "stats": {
+          "connectedServices": "Servicios Conectados",
+          "activeIntegrations": "Integraciones Activas",
+          "lastSync": "Última Sincronización",
+          "totalDataPoints": "Total de Datos"
+        },
+        "weather": {
+          "title": "🌤️ Servicios Meteorológicos",
+          "subtitle": "Conecta proveedores de datos meteorológicos para pronósticos precisos",
+          "openWeatherMap": {
+            "name": "OpenWeatherMap",
+            "description": "Pronósticos meteorológicos profesionales y datos históricos",
+            "features": "Clima en tiempo real, pronóstico 5 días, índice UV"
+          },
+          "accuWeather": {
+            "name": "AccuWeather",
+            "description": "Pronósticos precisos con alertas de clima severo",
+            "features": "Precipitación MinuteCast, alertas de clima severo"
+          },
+          "weatherUnderground": {
+            "name": "Weather Underground",
+            "description": "Clima comunitario con datos de estaciones locales",
+            "features": "Condiciones hiperlocales, historial meteorológico"
+          }
+        },
+        "iot": {
+          "title": "🔌 Plataformas IoT",
+          "subtitle": "Conecta tus dispositivos inteligentes y sensores",
+          "arduinoCloud": {
+            "name": "Arduino Cloud",
+            "description": "Plataforma oficial IoT de Arduino para gestión de dispositivos",
+            "features": "Gestión de dispositivos, monitoreo remoto, actualizaciones OTA"
+          },
+          "particle": {
+            "name": "Particle",
+            "description": "Plataforma IoT para dispositivos conectados por celular y Wi-Fi",
+            "features": "Gestión de flota, diagnósticos de dispositivos, webhooks"
+          },
+          "thingSpeak": {
+            "name": "ThingSpeak",
+            "description": "Plataforma de analíticas IoT para recolección y visualización de datos",
+            "features": "Analíticas de datos, integración MATLAB, alertas"
+          }
+        },
+        "smartHome": {
+          "title": "🏠 Casa Inteligente",
+          "subtitle": "Integra con sistemas de automatización del hogar",
+          "homeAssistant": {
+            "name": "Home Assistant",
+            "description": "Plataforma de automatización del hogar de código abierto",
+            "features": "Reglas de automatización, control de dispositivos, dashboards"
+          },
+          "googleHome": {
+            "name": "Google Assistant",
+            "description": "Control por voz para tus sistemas de huerto",
+            "features": "Comandos de voz, rutinas, actualizaciones de estado"
+          },
+          "alexa": {
+            "name": "Amazon Alexa",
+            "description": "Integración de asistente de voz para gestión del huerto",
+            "features": "Control por voz, skills, integración casa inteligente"
+          }
+        },
+        "communication": {
+          "title": "💬 Comunicación",
+          "subtitle": "Recibe notificaciones a través de tus plataformas de mensajería favoritas",
+          "slack": {
+            "name": "Slack",
+            "description": "Recibe alertas y actualizaciones del huerto en canales de Slack",
+            "features": "Notificaciones de canal, comandos de bot, compartir archivos"
+          },
+          "discord": {
+            "name": "Discord",
+            "description": "Comunidad del huerto y gestión de notificaciones",
+            "features": "Notificaciones de servidor, integración de bots, canales de voz"
+          },
+          "telegram": {
+            "name": "Telegram",
+            "description": "Mensajería instantánea y notificaciones de bot",
+            "features": "Comandos de bot, teclados inline, transferencia de archivos"
+          },
+          "whatsapp": {
+            "name": "WhatsApp Business",
+            "description": "Mensajería directa para alertas críticas del huerto",
+            "features": "Mensajes directos, compartir medios, API empresarial"
+          }
+        },
+        "agriculture": {
+          "title": "🌾 Plataformas Agrícolas",
+          "subtitle": "Conecta con servicios especializados de agricultura y jardinería",
+          "plantNet": {
+            "name": "PlantNet",
+            "description": "Identificación de plantas y base de datos de especies",
+            "features": "Identificación de plantas, info de especies, compartir observaciones"
+          },
+          "iNaturalist": {
+            "name": "iNaturalist",
+            "description": "Observación de biodiversidad y ciencia comunitaria",
+            "features": "Identificación de especies, compartir comunidad, investigación"
+          },
+          "gardenTags": {
+            "name": "GardenTags",
+            "description": "Red social de jardinería y cuidado de plantas",
+            "features": "Diario de plantas, consejos comunitarios, compartir huerto"
+          }
+        },
+        "storage": {
+          "title": "☁️ Almacenamiento en la Nube",
+          "subtitle": "Respalda y sincroniza los datos de tu huerto en servicios en la nube",
+          "googleDrive": {
+            "name": "Google Drive",
+            "description": "Almacena fotos del huerto, reportes y datos de respaldo",
+            "features": "15GB gratis, sincronización automática, compartir archivos"
+          },
+          "dropbox": {
+            "name": "Dropbox",
+            "description": "Almacenamiento en la nube para documentación y medios del huerto",
+            "features": "Versionado de archivos, acceso offline, carpetas de equipo"
+          },
+          "oneDrive": {
+            "name": "Microsoft OneDrive",
+            "description": "Integración de almacenamiento en la nube de Microsoft",
+            "features": "Integración Office, historial de versiones, recuperación de archivos"
+          }
+        },
+        "calendar": {
+          "title": "📅 Integración de Calendario",
+          "subtitle": "Sincroniza tareas y horarios del huerto con tu calendario",
+          "googleCalendar": {
+            "name": "Google Calendar",
+            "description": "Sincroniza horarios de siembra y tareas del huerto",
+            "features": "Creación de eventos, recordatorios, compartir calendario"
+          },
+          "outlook": {
+            "name": "Microsoft Outlook",
+            "description": "Integración con calendario y tareas de Outlook",
+            "features": "Sincronización de calendario, gestión de tareas, integración email"
+          },
+          "apple": {
+            "name": "Apple Calendar",
+            "description": "Sincroniza con iCal y el ecosistema Apple",
+            "features": "Sincronización iCloud, integración Siri, acceso multi-dispositivo"
+          }
+        },
+        "status": {
+          "connected": "Conectado",
+          "disconnected": "Desconectado",
+          "connecting": "Conectando...",
+          "error": "Error de Conexión",
+          "configuring": "Configurando...",
+          "syncing": "Sincronizando..."
+        },
+        "actions": {
+          "connect": "Conectar",
+          "disconnect": "Desconectar",
+          "configure": "Configurar",
+          "test": "Probar Conexión",
+          "sync": "Sincronizar Ahora",
+          "viewLogs": "Ver Registros",
+          "settings": "Configuración"
+        },
+        "form": {
+          "apiKey": "Clave API",
+          "apiKeyPlaceholder": "Introduce tu clave API",
+          "apiSecret": "Secreto API",
+          "apiSecretPlaceholder": "Introduce tu secreto API",
+          "serverUrl": "URL del Servidor",
+          "serverUrlPlaceholder": "https://tu-servidor.com",
+          "username": "Nombre de Usuario",
+          "usernamePlaceholder": "Introduce nombre de usuario",
+          "password": "Contraseña",
+          "passwordPlaceholder": "Introduce contraseña",
+          "token": "Token de Acceso",
+          "tokenPlaceholder": "Introduce token de acceso",
+          "syncInterval": "Intervalo de Sincronización",
+          "syncIntervalDesc": "Con qué frecuencia sincronizar datos",
+          "enableNotifications": "Activar Notificaciones",
+          "notificationsDesc": "Recibir notificaciones de este servicio"
+        },
+        "intervals": {
+          "manual": "Manual",
+          "5min": "Cada 5 minutos",
+          "15min": "Cada 15 minutos",
+          "30min": "Cada 30 minutos",
+          "1hour": "Cada hora",
+          "6hours": "Cada 6 horas",
+          "12hours": "Cada 12 horas",
+          "daily": "Diariamente"
+        },
+        "messages": {
+          "connectionSuccess": "Conectado exitosamente a {service}",
+          "connectionError": "Error al conectar con {service}",
+          "disconnectSuccess": "Desconectado exitosamente de {service}",
+          "configSaved": "Configuración guardada exitosamente",
+          "testSuccess": "Prueba de conexión exitosa",
+          "testError": "Prueba de conexión falló",
+          "syncSuccess": "Datos sincronizados exitosamente",
+          "syncError": "La sincronización falló"
+        }
+      },
       "users": {
         "title": "Gestión de Usuarios",
         "subtitle": "Gestiona usuarios, roles y permisos para tu huerto GreenHub",
