@@ -54,7 +54,12 @@ const NotificationSettingsPage = () => {
     frequency: "immediate", // immediate, hourly, daily
   });
 
+  // Saving state
+  const [isSaving, setIsSaving] = useState(false);
+
   const handleSaveSettings = async () => {
+    setIsSaving(true);
+
     // Simulate API call
     console.log("Saving notification settings...", {
       notificationMethods,
@@ -62,6 +67,12 @@ const NotificationSettingsPage = () => {
       scheduleSettings,
       emailSettings,
     });
+
+    // Simulate loading time
+    setTimeout(() => {
+      setIsSaving(false);
+      alert(t("pages.settings.system.actions.saved"));
+    }, 1500);
   };
 
   return (
@@ -70,12 +81,51 @@ const NotificationSettingsPage = () => {
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">
+            <h1 className="text-2xl font-bold mb-2">
               {t("pages.settings.system.notifications.title")}
             </h1>
             <p className="text-muted-foreground">
               {t("pages.settings.system.notifications.subtitle")}
             </p>
+          </div>
+          <div className="mt-4 md:mt-0 flex gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                // Reset all notification settings to defaults
+                setNotificationMethods({
+                  emailNotifications: true,
+                  pushNotifications: true,
+                  smsNotifications: false,
+                });
+                setAlertTypes({
+                  criticalAlerts: true,
+                  maintenanceAlerts: true,
+                  weatherAlerts: true,
+                  harvestReminders: false,
+                });
+                setScheduleSettings({
+                  quietHoursEnabled: true,
+                  quietHoursStart: "22:00",
+                  quietHoursEnd: "07:00",
+                  weekendNotifications: true,
+                  urgentOverride: true,
+                });
+                setEmailSettings({
+                  dailySummary: true,
+                  weeklySummary: true,
+                  instantAlerts: true,
+                  frequency: "immediate",
+                });
+              }}
+            >
+              {t("pages.settings.system.actions.reset")}
+            </Button>
+            <Button onClick={handleSaveSettings} disabled={isSaving}>
+              {isSaving
+                ? t("pages.settings.system.actions.saving")
+                : t("pages.settings.system.actions.save")}
+            </Button>
           </div>
         </div>
 
@@ -86,7 +136,9 @@ const NotificationSettingsPage = () => {
         >
           <SettingRow
             title={t("pages.settings.system.notifications.emailNotifications")}
-            description="Receive notifications via email"
+            description={t(
+              "pages.settings.system.notifications.emailNotificationsDesc"
+            )}
           >
             <Switch
               checked={notificationMethods.emailNotifications}
@@ -101,7 +153,9 @@ const NotificationSettingsPage = () => {
 
           <SettingRow
             title={t("pages.settings.system.notifications.pushNotifications")}
-            description="Receive push notifications on your device"
+            description={t(
+              "pages.settings.system.notifications.pushNotificationsDesc"
+            )}
           >
             <Switch
               checked={notificationMethods.pushNotifications}
@@ -116,7 +170,9 @@ const NotificationSettingsPage = () => {
 
           <SettingRow
             title={t("pages.settings.system.notifications.smsNotifications")}
-            description="Receive critical alerts via SMS"
+            description={t(
+              "pages.settings.system.notifications.smsNotificationsDesc"
+            )}
           >
             <Switch
               checked={notificationMethods.smsNotifications}
@@ -133,11 +189,13 @@ const NotificationSettingsPage = () => {
         {/* Alert Types */}
         <SettingsSection
           title={t("pages.settings.system.notifications.alertTypes")}
-          subtitle="Configure which types of alerts you want to receive"
+          subtitle={t("pages.settings.system.notifications.alertTypesDesc")}
         >
           <SettingRow
             title={t("pages.settings.system.notifications.criticalAlerts")}
-            description="Important system alerts and failures"
+            description={t(
+              "pages.settings.system.notifications.criticalAlertsDesc"
+            )}
           >
             <Switch
               checked={alertTypes.criticalAlerts}
@@ -152,7 +210,9 @@ const NotificationSettingsPage = () => {
 
           <SettingRow
             title={t("pages.settings.system.notifications.maintenanceAlerts")}
-            description="Maintenance reminders and scheduled tasks"
+            description={t(
+              "pages.settings.system.notifications.maintenanceAlertsDesc"
+            )}
           >
             <Switch
               checked={alertTypes.maintenanceAlerts}
@@ -167,7 +227,9 @@ const NotificationSettingsPage = () => {
 
           <SettingRow
             title={t("pages.settings.system.notifications.weatherAlerts")}
-            description="Weather warnings and alerts"
+            description={t(
+              "pages.settings.system.notifications.weatherAlertsDesc"
+            )}
           >
             <Switch
               checked={alertTypes.weatherAlerts}
@@ -182,7 +244,9 @@ const NotificationSettingsPage = () => {
 
           <SettingRow
             title={t("pages.settings.system.notifications.harvestReminders")}
-            description="Harvest and planting reminders"
+            description={t(
+              "pages.settings.system.notifications.harvestRemindersDesc"
+            )}
           >
             <Switch
               checked={alertTypes.harvestReminders}
@@ -252,9 +316,15 @@ const NotificationSettingsPage = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="immediate">Immediate</SelectItem>
-                <SelectItem value="hourly">Hourly Digest</SelectItem>
-                <SelectItem value="daily">Daily Digest</SelectItem>
+                <SelectItem value="immediate">
+                  {t("pages.settings.system.notifications.email.immediate")}
+                </SelectItem>
+                <SelectItem value="hourly">
+                  {t("pages.settings.system.notifications.email.hourly")}
+                </SelectItem>
+                <SelectItem value="daily">
+                  {t("pages.settings.system.notifications.email.daily")}
+                </SelectItem>
               </SelectContent>
             </Select>
           </SettingRow>
@@ -262,12 +332,14 @@ const NotificationSettingsPage = () => {
 
         {/* Notification Schedule */}
         <SettingsSection
-          title="Notification Schedule"
-          subtitle="Control when you receive notifications"
+          title={t("pages.settings.system.notifications.schedule.title")}
+          subtitle={t("pages.settings.system.notifications.schedule.subtitle")}
         >
           <SettingRow
-            title="Enable Quiet Hours"
-            description="Reduce non-critical notifications during specified hours"
+            title={t("pages.settings.system.notifications.schedule.quietHours")}
+            description={t(
+              "pages.settings.system.notifications.schedule.quietHoursDesc"
+            )}
           >
             <Switch
               checked={scheduleSettings.quietHoursEnabled}
@@ -283,8 +355,12 @@ const NotificationSettingsPage = () => {
           {scheduleSettings.quietHoursEnabled && (
             <>
               <SettingRow
-                title="Quiet Hours Start"
-                description="Time when quiet hours begin"
+                title={t(
+                  "pages.settings.system.notifications.schedule.quietStart"
+                )}
+                description={t(
+                  "pages.settings.system.notifications.schedule.quietStartDesc"
+                )}
                 orientation="vertical"
               >
                 <Select
@@ -309,8 +385,12 @@ const NotificationSettingsPage = () => {
               </SettingRow>
 
               <SettingRow
-                title="Quiet Hours End"
-                description="Time when quiet hours end"
+                title={t(
+                  "pages.settings.system.notifications.schedule.quietEnd"
+                )}
+                description={t(
+                  "pages.settings.system.notifications.schedule.quietEndDesc"
+                )}
                 orientation="vertical"
               >
                 <Select
@@ -337,8 +417,12 @@ const NotificationSettingsPage = () => {
           )}
 
           <SettingRow
-            title="Weekend Notifications"
-            description="Receive notifications during weekends"
+            title={t(
+              "pages.settings.system.notifications.schedule.weekendNotifications"
+            )}
+            description={t(
+              "pages.settings.system.notifications.schedule.weekendNotificationsDesc"
+            )}
           >
             <Switch
               checked={scheduleSettings.weekendNotifications}
@@ -352,8 +436,12 @@ const NotificationSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title="Urgent Override"
-            description="Allow critical alerts to bypass quiet hours"
+            title={t(
+              "pages.settings.system.notifications.schedule.urgentOverride"
+            )}
+            description={t(
+              "pages.settings.system.notifications.schedule.urgentOverrideDesc"
+            )}
           >
             <Switch
               checked={scheduleSettings.urgentOverride}
@@ -366,16 +454,6 @@ const NotificationSettingsPage = () => {
             />
           </SettingRow>
         </SettingsSection>
-
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-3 pt-6 border-t">
-          <Button variant="outline">
-            {t("pages.settings.system.actions.cancel")}
-          </Button>
-          <Button onClick={handleSaveSettings}>
-            {t("pages.settings.system.actions.save")}
-          </Button>
-        </div>
       </div>
     </PageTemplate>
   );

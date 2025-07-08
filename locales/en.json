@@ -473,13 +473,21 @@
           "title": "🔔 Notification Preferences",
           "subtitle": "Configure how and when you receive notifications",
           "emailNotifications": "Email Notifications",
+          "emailNotificationsDesc": "Receive notifications via email",
           "pushNotifications": "Push Notifications",
+          "pushNotificationsDesc": "Receive push notifications on your device",
           "smsNotifications": "SMS Notifications",
+          "smsNotificationsDesc": "Receive critical alerts via SMS",
           "alertTypes": "Alert Types",
+          "alertTypesDesc": "Configure which types of alerts you want to receive",
           "criticalAlerts": "Critical System Alerts",
+          "criticalAlertsDesc": "Important system alerts and failures",
           "maintenanceAlerts": "Maintenance Reminders",
+          "maintenanceAlertsDesc": "Maintenance reminders and scheduled tasks",
           "weatherAlerts": "Weather Warnings",
+          "weatherAlertsDesc": "Weather warnings and alerts",
           "harvestReminders": "Harvest Reminders",
+          "harvestRemindersDesc": "Harvest and planting reminders",
           "email": {
             "title": "📧 Email Notification Settings",
             "subtitle": "Configure email notification frequency and content",
@@ -539,6 +547,57 @@
           "reset": "Reset to Defaults",
           "export": "Export Settings",
           "import": "Import Settings"
+        }
+      }
+    },
+    "monitoring": {
+      "alerts": {
+        "title": "System Alerts",
+        "createAlert": "Create Alert",
+        "gridView": "Grid View",
+        "listView": "List View",
+        "filterBy": "Filter by",
+        "filterAll": "All Alerts",
+        "filterActive": "Active",
+        "filterResolved": "Resolved",
+        "filterCritical": "Critical",
+        "stats": {
+          "totalAlerts": "Total Alerts",
+          "activeAlerts": "Active Alerts",
+          "criticalAlerts": "Critical Alerts",
+          "resolvedToday": "Resolved Today"
+        },
+        "priority": {
+          "critical": "Critical",
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "status": {
+          "active": "Active",
+          "resolved": "Resolved",
+          "snoozed": "Snoozed"
+        },
+        "category": {
+          "sensor": "Sensor",
+          "irrigation": "Irrigation",
+          "power": "Power",
+          "connectivity": "Connectivity",
+          "hardware": "Hardware",
+          "weather": "Weather"
+        },
+        "actions": {
+          "resolve": "Resolve",
+          "snooze": "Snooze",
+          "viewDetails": "View Details",
+          "escalate": "Escalate"
+        },
+        "aiRecommendations": {
+          "title": "AI Recommendations",
+          "preventiveMaintenance": "Preventive Maintenance",
+          "preventiveMaintenanceDesc": "Schedule sensor calibration to prevent future moisture alerts",
+          "irrigationOptimization": "Irrigation Optimization",
+          "irrigationOptimizationDesc": "Adjust watering schedule based on weather forecast"
         }
       }
     }

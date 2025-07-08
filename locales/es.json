@@ -473,13 +473,21 @@
           "title": "🔔 Preferencias de Notificaciones",
           "subtitle": "Configura cómo y cuándo recibir notificaciones",
           "emailNotifications": "Notificaciones por Email",
+          "emailNotificationsDesc": "Recibir notificaciones por email",
           "pushNotifications": "Notificaciones Push",
+          "pushNotificationsDesc": "Recibir notificaciones push en tu dispositivo",
           "smsNotifications": "Notificaciones SMS",
+          "smsNotificationsDesc": "Recibir alertas críticas por SMS",
           "alertTypes": "Tipos de Alertas",
+          "alertTypesDesc": "Configura qué tipos de alertas quieres recibir",
           "criticalAlerts": "Alertas Críticas del Sistema",
+          "criticalAlertsDesc": "Alertas importantes del sistema y fallos",
           "maintenanceAlerts": "Recordatorios de Mantenimiento",
+          "maintenanceAlertsDesc": "Recordatorios de mantenimiento y tareas programadas",
           "weatherAlerts": "Alertas Meteorológicas",
+          "weatherAlertsDesc": "Alertas y advertencias meteorológicas",
           "harvestReminders": "Recordatorios de Cosecha",
+          "harvestRemindersDesc": "Recordatorios de cosecha y plantación",
           "email": {
             "title": "📧 Configuración de Email",
             "subtitle": "Configura la frecuencia y contenido de notificaciones por email",
@@ -539,6 +547,57 @@
           "reset": "Restablecer por Defecto",
           "export": "Exportar Configuración",
           "import": "Importar Configuración"
+        }
+      }
+    },
+    "monitoring": {
+      "alerts": {
+        "title": "Alertas del Sistema",
+        "createAlert": "Crear Alerta",
+        "gridView": "Vista Cuadrícula",
+        "listView": "Vista Lista",
+        "filterBy": "Filtrar por",
+        "filterAll": "Todas las Alertas",
+        "filterActive": "Activas",
+        "filterResolved": "Resueltas",
+        "filterCritical": "Críticas",
+        "stats": {
+          "totalAlerts": "Total Alertas",
+          "activeAlerts": "Alertas Activas",
+          "criticalAlerts": "Alertas Críticas",
+          "resolvedToday": "Resueltas Hoy"
+        },
+        "priority": {
+          "critical": "Crítica",
+          "high": "Alta",
+          "medium": "Media",
+          "low": "Baja"
+        },
+        "status": {
+          "active": "Activa",
+          "resolved": "Resuelta",
+          "snoozed": "Pospuesta"
+        },
+        "category": {
+          "sensor": "Sensor",
+          "irrigation": "Riego",
+          "power": "Energía",
+          "connectivity": "Conectividad",
+          "hardware": "Hardware",
+          "weather": "Clima"
+        },
+        "actions": {
+          "resolve": "Resolver",
+          "snooze": "Posponer",
+          "viewDetails": "Ver Detalles",
+          "escalate": "Escalar"
+        },
+        "aiRecommendations": {
+          "title": "Recomendaciones IA",
+          "preventiveMaintenance": "Mantenimiento Preventivo",
+          "preventiveMaintenanceDesc": "Programar calibración de sensores para prevenir futuras alertas de humedad",
+          "irrigationOptimization": "Optimización de Riego",
+          "irrigationOptimizationDesc": "Ajustar horario de riego basado en pronóstico del tiempo"
         }
       }
     }
