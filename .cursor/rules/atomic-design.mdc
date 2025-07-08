@@ -1,0 +1,142 @@
+---
+alwaysApply: true
+---
+
+# Atomic Design Pattern
+
+**ALWAYS use Atomic Design methodology** when creating React components. Follow this strict hierarchy and organization.
+
+## Component Organization
+
+### 📁 Directory Structure
+
+```
+components/
+├── atoms/           # Basic building blocks (buttons, inputs, labels)
+├── molecules/       # Combinations of atoms (search bars, cards, forms)
+├── organisms/       # Complex UI sections (headers, lists, navigation)
+└── ui/             # shadcn/ui components (installed via CLI)
+```
+
+### 🧩 Component Hierarchy
+
+#### **Atoms** (`/components/atoms/`)
+
+- **Purpose**: Smallest, indivisible UI elements
+- **Examples**: Custom inputs, labels, icons, basic text elements
+- **Rules**:
+  - Should be highly reusable and agnostic
+  - No business logic, only presentation
+  - Accept generic props for customization
+  - Use TypeScript interfaces for props
+
+```tsx
+// ✅ Good Atom Example
+export const CustomInput: React.FC<CustomInputProps> = ({
+  value, onChange, placeholder, className
+}) => {
+  return <Input ... />
+}
+```
+
+#### **Molecules** (`/components/molecules/`)
+
+- **Purpose**: Combinations of atoms forming functional units
+- **Examples**: SearchBar (input + icon), Card (title + content + actions), FormField (label + input + error)
+- **Rules**:
+  - Combine 2-5 atoms
+  - Have specific functionality but remain reusable
+  - Can have basic state management
+  - Props should be clear and focused
+
+```tsx
+// ✅ Good Molecule Example
+export const GroupCard: React.FC<GroupCardProps> = ({
+  group,
+  onEdit,
+  onDelete,
+  onClick,
+}) => {
+  return (
+    <Card>
+      <CardHeader>...</CardHeader>
+      <CardContent>...</CardContent>
+    </Card>
+  );
+};
+```
+
+#### **Organisms** (`/components/organisms/`)
+
+- **Purpose**: Complex sections combining molecules and atoms
+- **Examples**: Navigation bars, data tables, complete forms, full page sections
+- **Rules**:
+  - Contain business logic and state management
+  - Connect to hooks and external data
+  - Highly specific to use case but still reusable
+  - Handle user interactions and data flow
+
+```tsx
+// ✅ Good Organism Example
+export const GroupList: React.FC<GroupListProps> = ({
+  groups,
+  onCreateGroup,
+  onUpdateGroup,
+  onDeleteGroup,
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  // Complex logic and state management
+  return <div>...</div>;
+};
+```
+
+## Implementation Rules
+
+### ✅ DO:
+
+- **Always start with atoms** when building new features
+- **Create reusable, agnostic components** that can work in multiple contexts
+- **Use TypeScript interfaces** for all component props
+- **Follow the single responsibility principle** for each component
+- **Keep components pure** when possible (atoms and molecules)
+- **Use shadcn/ui components** as the foundation (`/components/ui/`)
+- **Export all components** with clear, descriptive names
+- **Document complex organisms** with JSDoc comments
+
+### ❌ DON'T:
+
+- **Skip the hierarchy** - don't create organisms without building molecules first
+- **Mix concerns** - atoms shouldn't have business logic
+- **Create overly specific atoms** - they should be reusable
+- **Put API calls in molecules** - reserve for organisms or pages
+- **Nest components too deeply** - maintain clear separation
+- **Create duplicate functionality** - reuse existing atoms/molecules
+
+## Naming Conventions
+
+- **Atoms**: Descriptive of function (`SearchInput`, `ActionButton`, `StatusBadge`)
+- **Molecules**: Combined functionality (`UserCard`, `SearchBar`, `FormField`)
+- **Organisms**: Complete sections (`NavigationHeader`, `DataTable`, `ProductList`)
+- **Files**: PascalCase with component name (`GroupCard.tsx`, `UserList.tsx`)
+
+## Integration with Architecture
+
+- **Pages** (`app/[lang]/*/page.tsx`): Use organisms and connect to business logic hooks
+- **Contexts**: Provide data and business logic to organisms via custom hooks
+- **Components**: Focus purely on presentation and user interaction
+
+## Examples from Project
+
+### Successful Implementation:
+
+```
+GroupSearchInput (Atom) →
+GroupCard (Molecule) →
+GroupList (Organism) →
+GroupsPage (Page)
+```
+
+**Always follow this progression** when building new features. Start small and compose upward.
+alwaysApply: false
+
+---

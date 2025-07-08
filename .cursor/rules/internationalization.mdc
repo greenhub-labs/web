@@ -1,0 +1,274 @@
+---
+alwaysApply: true
+---
+
+# Internationalization (i18n) Rules
+
+**ALWAYS use internationalization** for any text content in the application. Never hardcode text strings in components.
+
+## Core Principles
+
+### 🌐 **Always Use `useTranslations`**
+
+- **MANDATORY**: Use `useTranslations` from `next-intl` for ALL text content
+- **NO hardcoded strings** in components, pages, or UI elements
+- **Consistent namespace organization** for maintainable translations
+
+### 📁 **Translation File Structure**
+
+All translations are stored in `/locales/` directory:
+
+```
+locales/
+├── en.json     # English (default)
+├── es.json     # Spanish
+└── [locale].json
+```
+
+## Translation Organization
+
+### 🗂️ **Hierarchical Structure**
+
+Organize translations in logical, nested categories:
+
+```json
+{
+  "common": {
+    "appName": "Pair Pay",
+    "loading": "Loading...",
+    "welcome": "Welcome!",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "navbar": {
+    "groups": "Groups",
+    "profile": "Profile",
+    "expenses": "Expenses"
+  },
+  "auth": {
+    "common": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "login": {
+      "title": "Login",
+      "subtitle": "Please enter your details"
+    },
+    "validation": {
+      "required": "This field is required",
+      "invalidEmail": "Invalid email address"
+    }
+  },
+  "pages": {
+    "groups": {
+      "title": "Groups",
+      "create": "Create Group",
+      "empty": "No groups yet",
+      "searchPlaceholder": "Search groups..."
+    },
+    "profile": {
+      "title": "Profile",
+      "loading": "Loading profile...",
+      "error": "Error loading profile"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "message": "The page you're looking for doesn't exist",
+      "goHome": "Go to Home",
+      "goBack": "Go Back"
+    }
+  }
+}
+```
+
+### 📚 **Categories Guidelines**
+
+#### **`common`**
+
+- Reusable text across the app (buttons, actions, states)
+- Generic messages (loading, success, error)
+
+#### **`navbar`**
+
+- Navigation menu items
+- Header elements
+
+#### **`auth`**
+
+- Authentication flows (login, register, forgot password)
+- Validation messages
+- Form labels
+
+#### **`pages.[pageName]`**
+
+- Page-specific content
+- Page titles and headers
+- Page-specific messages and actions
+
+#### **`components.[componentName]`**
+
+- Component-specific text
+- Component actions and states
+
+## Implementation Rules
+
+### ✅ **DO:**
+
+```tsx
+// ✅ CORRECT: Using useTranslations
+import { useTranslations } from 'next-intl';
+
+const GroupsPage = () => {
+  const t = useTranslations('pages.groups');
+
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <Button>{t('create')}</Button>
+      <p>{t('empty')}</p>
+    </div>
+  );
+};
+```
+
+```tsx
+// ✅ CORRECT: Scoped translations
+const CreateGroupDialog = () => {
+  const t = useTranslations('components.createGroupDialog');
+  const tCommon = useTranslations('common');
+
+  return (
+    <Dialog>
+      <DialogTitle>{t('title')}</DialogTitle>
+      <Button>{tCommon('save')}</Button>
+      <Button>{tCommon('cancel')}</Button>
+    </Dialog>
+  );
+};
+```
+
+### ❌ **DON'T:**
+
+```tsx
+// ❌ WRONG: Hardcoded text
+const GroupsPage = () => {
+  return (
+    <div>
+      <h1>Groups</h1> {/* Should use t('title') */}
+      <Button>Create Group</Button> {/* Should use t('create') */}
+    </div>
+  );
+};
+```
+
+```tsx
+// ❌ WRONG: Mixed hardcoded and translated text
+const ProfilePage = () => {
+  const t = useTranslations('pages.profile');
+
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <p>Loading...</p> {/* Should use tCommon('loading') */}
+    </div>
+  );
+};
+```
+
+## Naming Conventions
+
+### 🏷️ **Translation Keys**
+
+- **camelCase** for keys: `createGroup`, `searchPlaceholder`
+- **Descriptive names**: `passwordsDontMatch` not `error1`
+- **Hierarchical**: `auth.validation.required` not `authValidationRequired`
+
+### 📂 **Namespace Patterns**
+
+- **Pages**: `pages.[pageName].[element]`
+- **Components**: `components.[componentName].[element]`
+- **Common**: `common.[element]`
+- **Features**: `[featureName].[context].[element]`
+
+## Workflow
+
+### 🔄 **Adding New Text**
+
+1. **Identify the category** (common, pages, components, etc.)
+2. **Add to BOTH** `en.json` and `es.json`
+3. **Use descriptive keys** that make sense in context
+4. **Import and use** `useTranslations` in component
+5. **Test both languages** to ensure translations work
+
+### 📝 **Example Workflow**
+
+Adding a new error message for groups:
+
+1. **Add to locales:**
+
+```json
+// en.json & es.json
+{
+  "pages": {
+    "groups": {
+      "errors": {
+        "loadFailed": "Failed to load groups"  // en
+        "loadFailed": "Error al cargar grupos"  // es
+      }
+    }
+  }
+}
+```
+
+2. **Use in component:**
+
+```tsx
+const GroupsPage = () => {
+  const t = useTranslations('pages.groups.errors');
+
+  if (error) {
+    return <Alert>{t('loadFailed')}</Alert>;
+  }
+};
+```
+
+## Quality Standards
+
+### 🎯 **Translation Quality**
+
+- **Consistent terminology** across the app
+- **Natural language** in each locale
+- **Context-appropriate** tone and formality
+- **Complete coverage** - no missing translations
+
+### 🔍 **Code Quality**
+
+- **Single responsibility**: One translation namespace per logical section
+- **No duplication**: Reuse common translations
+- **Type safety**: Use TypeScript for translation keys when possible
+- **Performance**: Scope translations appropriately (don't import all)
+
+## Integration with Project
+
+### 🏗️ **With Atomic Design**
+
+- **Atoms**: Use `common` translations for generic elements
+- **Molecules**: Component-specific translations or common combinations
+- **Organisms**: Feature/page-specific translations
+- **Pages**: Use `pages.[pageName]` namespace
+
+### 🔗 **With Next.js**
+
+- Follow Next.js i18n routing patterns
+- Use locale parameters in dynamic routes
+- Ensure SSR compatibility with translations
+
+**Remember: Every piece of user-facing text must be translatable. This ensures accessibility for all users and maintains consistency across the application.**
+description:
+globs:
+alwaysApply: false
+
+---
