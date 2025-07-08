@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
 import { useTranslations } from "next-intl";
