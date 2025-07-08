@@ -159,13 +159,13 @@ const PlotsPage = () => {
       pageTitle={t("pages.garden.plots.title")}
       breadcrumbItems={breadcrumbItems}
       headerActions={
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
-          <div className="flex items-center gap-1 bg-background border rounded-lg p-1">
+        <div className="flex items-center gap-1 sm:gap-3">
+          <div className="flex items-center gap-0.5 bg-background border rounded-md p-0.5 sm:p-1">
             <Button
               variant={viewMode === "grid" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("grid")}
-              className="flex-1 sm:flex-none text-xs sm:text-sm"
+              className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm"
             >
               <span className="sm:hidden">🔲</span>
               <span className="hidden sm:inline">
@@ -176,7 +176,7 @@ const PlotsPage = () => {
               variant={viewMode === "list" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("list")}
-              className="flex-1 sm:flex-none text-xs sm:text-sm"
+              className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm"
             >
               <span className="sm:hidden">📋</span>
               <span className="hidden sm:inline">
@@ -184,7 +184,7 @@ const PlotsPage = () => {
               </span>
             </Button>
           </div>
-          <Button className="text-xs sm:text-sm">
+          <Button className="h-7 w-7 sm:h-auto sm:w-auto p-0 sm:px-3 sm:py-2 text-xs sm:text-sm">
             <span className="sm:hidden">➕</span>
             <span className="hidden sm:inline">
               ➕ {t("pages.garden.plots.createPlot")}

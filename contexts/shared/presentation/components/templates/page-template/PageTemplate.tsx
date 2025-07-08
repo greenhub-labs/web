@@ -30,19 +30,24 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
 
   return (
     <SidebarInset>
-      <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+      <header className="flex h-14 md:h-16 shrink-0 items-center gap-2 border-b px-3 md:px-4">
         <SidebarTrigger className="-ml-1" />
         <Separator
           orientation="vertical"
           className="mr-2 data-[orientation=vertical]:h-4"
         />
 
-        {/* Breadcrumb dinámico */}
-        <Breadcrumb className="flex-1">
+        {/* Mobile: Solo título actual */}
+        <div className="md:hidden flex-1">
+          <h1 className="font-semibold text-lg truncate">{pageTitle}</h1>
+        </div>
+
+        {/* Desktop: Breadcrumb completo */}
+        <Breadcrumb className="hidden md:flex flex-1">
           <BreadcrumbList>
             {allBreadcrumbs.map((item, index) => (
               <React.Fragment key={index}>
-                <BreadcrumbItem className={index > 0 ? "hidden md:block" : ""}>
+                <BreadcrumbItem>
                   {item.isCurrentPage ? (
                     <BreadcrumbPage>{item.label}</BreadcrumbPage>
                   ) : (
@@ -51,9 +56,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
-                {index < allBreadcrumbs.length - 1 && (
-                  <BreadcrumbSeparator className="hidden md:block" />
-                )}
+                {index < allBreadcrumbs.length - 1 && <BreadcrumbSeparator />}
               </React.Fragment>
             ))}
           </BreadcrumbList>
@@ -61,12 +64,19 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
 
         {/* Acciones personalizadas del header */}
         {headerActions && (
-          <div className="flex items-center gap-2">{headerActions}</div>
+          <div className="flex items-center gap-1 md:gap-2">
+            {headerActions}
+          </div>
         )}
       </header>
 
       {/* Contenido principal */}
-      <div className={cn("flex flex-1 flex-col gap-4 p-4", className)}>
+      <div
+        className={cn(
+          "flex flex-1 flex-col gap-3 md:gap-4 p-3 md:p-4",
+          className
+        )}
+      >
         {children}
       </div>
     </SidebarInset>
