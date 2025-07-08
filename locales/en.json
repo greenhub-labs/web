@@ -1,6 +1,7 @@
 {
   "common": {
     "appName": "GreenHub",
+    "welcome": "Welcome to",
     "loading": "Loading...",
     "add": "Add",
     "edit": "Edit",
@@ -13,10 +14,51 @@
     "close": "Close",
     "back": "Back",
     "home": "Home",
+    "done": "Done",
     "error": "Error",
     "success": "Success",
     "warning": "Warning",
     "info": "Info"
+  },
+  "pages": {
+    "home": {
+      "subtitle": "Manage your plants, gardens, and care intelligently.",
+      "thisWeek": "this week",
+      "active": "active",
+      "pending": "pending",
+      "growing": "growing",
+      "stats": {
+        "plants": "My Plants",
+        "gardens": "My Gardens",
+        "tasks": "Care Tasks",
+        "crops": "Active Crops"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "addPlant": "Add Plant",
+        "addPlantDesc": "Register a new plant",
+        "logCare": "Log Care",
+        "logCareDesc": "Record plant care",
+        "schedule": "View Schedule",
+        "scheduleDesc": "Today's care tasks",
+        "analytics": "Analytics",
+        "analyticsDesc": "View garden insights"
+      },
+      "todayTasks": {
+        "title": "Today's Tasks",
+        "water": "Water plants",
+        "fertilize": "Fertilize",
+        "prune": "Prune branches"
+      },
+      "weather": {
+        "title": "Weather",
+        "sunny": "Sunny",
+        "humidity": "Humidity",
+        "wind": "Wind",
+        "uv": "UV Index",
+        "tip": "Perfect day for watering! Remember to check soil moisture first."
+      }
+    }
   },
   "navigation": {
     "home": "🏠 Home",

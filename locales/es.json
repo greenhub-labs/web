@@ -1,6 +1,7 @@
 {
   "common": {
     "appName": "GreenHub",
+    "welcome": "Bienvenido a",
     "loading": "Cargando...",
     "add": "Añadir",
     "edit": "Editar",
@@ -13,10 +14,51 @@
     "close": "Cerrar",
     "back": "Atrás",
     "home": "Inicio",
+    "done": "Hecho",
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
     "info": "Información"
+  },
+  "pages": {
+    "home": {
+      "subtitle": "Gestiona tus plantas, huertos y cuidados de forma inteligente.",
+      "thisWeek": "esta semana",
+      "active": "activos",
+      "pending": "pendientes",
+      "growing": "creciendo",
+      "stats": {
+        "plants": "Mis Plantas",
+        "gardens": "Mis Huertos",
+        "tasks": "Tareas de Cuidado",
+        "crops": "Cultivos Activos"
+      },
+      "quickActions": {
+        "title": "Acciones Rápidas",
+        "addPlant": "Añadir Planta",
+        "addPlantDesc": "Registrar nueva planta",
+        "logCare": "Registrar Cuidado",
+        "logCareDesc": "Anotar cuidado realizado",
+        "schedule": "Ver Programación",
+        "scheduleDesc": "Tareas de hoy",
+        "analytics": "Analíticas",
+        "analyticsDesc": "Ver insights del huerto"
+      },
+      "todayTasks": {
+        "title": "Tareas de Hoy",
+        "water": "Regar plantas",
+        "fertilize": "Fertilizar",
+        "prune": "Podar ramas"
+      },
+      "weather": {
+        "title": "Clima",
+        "sunny": "Soleado",
+        "humidity": "Humedad",
+        "wind": "Viento",
+        "uv": "Índice UV",
+        "tip": "¡Día perfecto para regar! Recuerda verificar la humedad del suelo primero."
+      }
+    }
   },
   "navigation": {
     "home": "🏠 Inicio",
