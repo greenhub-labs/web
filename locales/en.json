@@ -351,6 +351,195 @@
           "timing": "Schedule Succession Planting",
           "timingDesc": "Plant lettuce every 2 weeks for continuous harvest throughout the season"
         }
+      },
+      "rotation": {
+        "title": "Crop Rotation Management",
+        "gridView": "Grid View",
+        "listView": "List View",
+        "timelineView": "Timeline View",
+        "addRotationPlan": "Add Rotation Plan",
+        "createRotationPlan": "Create Rotation Plan",
+        "stats": {
+          "activePlans": "Active Plans",
+          "completedCycles": "Completed Cycles",
+          "soilHealth": "Avg. Soil Health",
+          "nextRotations": "Next Rotations"
+        },
+        "rotationCycle": "Rotation Cycle",
+        "year": "Year",
+        "season": "Season",
+        "currentCrop": "Current Crop",
+        "nextCrop": "Next Crop",
+        "soilHealth": "Soil Health",
+        "restPeriod": "Rest Period",
+        "daysRemaining": "days remaining",
+        "readyToRotate": "Ready to rotate",
+        "inProgress": "In progress",
+        "resting": "Resting",
+        "categories": {
+          "legumes": "Legumes",
+          "brassicas": "Brassicas",
+          "nightshades": "Nightshades",
+          "roots": "Root Vegetables",
+          "alliums": "Alliums",
+          "cucurbits": "Cucurbits",
+          "leafy": "Leafy Greens"
+        },
+        "benefits": {
+          "title": "Rotation Benefits",
+          "pestControl": "Pest Control",
+          "soilNutrients": "Soil Nutrients",
+          "diseaseManagement": "Disease Management",
+          "yieldImprovement": "Yield Improvement"
+        },
+        "recommendations": {
+          "title": "AI Rotation Recommendations",
+          "rotateTomatoes": "Rotate Tomatoes to Legumes",
+          "rotateTomatoesDesc": "After 3 seasons of nightshades, switch to nitrogen-fixing legumes",
+          "addRestPeriod": "Add Rest Period to Plot B",
+          "addRestPeriodDesc": "Plot has been in continuous production for 18 months"
+        },
+        "timeline": {
+          "title": "Rotation Timeline",
+          "past": "Past Rotations",
+          "current": "Current Season",
+          "future": "Planned Rotations",
+          "noHistory": "No rotation history available",
+          "noPlan": "No rotation plan set"
+        },
+        "status": {
+          "active": "Active",
+          "planned": "Planned",
+          "completed": "Completed",
+          "overdue": "Overdue"
+        },
+        "form": {
+          "title": "Create Rotation Plan",
+          "description": "Plan your crop rotation to improve soil health and maximize yields",
+          "plotSelect": "Select Plot",
+          "plotSelectPlaceholder": "Choose a plot for rotation",
+          "rotationName": "Rotation Plan Name",
+          "rotationNamePlaceholder": "e.g., 4-Season Vegetable Rotation",
+          "cycleDuration": "Cycle Duration",
+          "cycleDurationPlaceholder": "Number of seasons per complete cycle",
+          "startSeason": "Start Season",
+          "cropSequence": "Crop Sequence",
+          "addCrop": "Add Crop",
+          "removeCrop": "Remove Crop",
+          "cropType": "Crop Type",
+          "cropTypePlaceholder": "Select crop category",
+          "specificCrop": "Specific Crop",
+          "specificCropPlaceholder": "Choose specific crop",
+          "duration": "Duration (seasons)",
+          "notes": "Notes",
+          "notesPlaceholder": "Additional rotation notes...",
+          "createPlan": "Create Rotation Plan",
+          "updatePlan": "Update Plan"
+        },
+        "viewDetails": "View Details",
+        "editPlan": "Edit Plan",
+        "deletePlan": "Delete Plan"
+      }
+    },
+    "settings": {
+      "system": {
+        "title": "System Configuration",
+        "subtitle": "Configure your GreenHub system settings and preferences",
+        "location": {
+          "title": "📍 Location Settings",
+          "subtitle": "Configure your garden's geographic location for weather and sunrise/sunset data",
+          "country": "Country",
+          "city": "City",
+          "timezone": "Timezone",
+          "coordinates": "Coordinates",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "autoDetect": "Auto-detect location",
+          "detecting": "Detecting location...",
+          "detected": "Location detected successfully",
+          "error": "Error detecting location"
+        },
+        "language": {
+          "title": "🌐 Language & Region",
+          "subtitle": "Choose your preferred language and regional settings",
+          "language": "Display Language",
+          "dateFormat": "Date Format",
+          "timeFormat": "Time Format",
+          "temperatureUnit": "Temperature Unit",
+          "measurementUnit": "Measurement System",
+          "currency": "Currency"
+        },
+        "notifications": {
+          "title": "🔔 Notification Preferences",
+          "subtitle": "Configure how and when you receive notifications",
+          "emailNotifications": "Email Notifications",
+          "pushNotifications": "Push Notifications",
+          "smsNotifications": "SMS Notifications",
+          "alertTypes": "Alert Types",
+          "criticalAlerts": "Critical System Alerts",
+          "maintenanceAlerts": "Maintenance Reminders",
+          "weatherAlerts": "Weather Warnings",
+          "harvestReminders": "Harvest Reminders",
+          "email": {
+            "title": "📧 Email Notification Settings",
+            "subtitle": "Configure email notification frequency and content",
+            "dailySummary": "Daily Summary",
+            "dailySummaryDesc": "Receive a daily summary of garden activities",
+            "weeklySummary": "Weekly Summary",
+            "weeklySummaryDesc": "Receive a weekly report of system performance",
+            "frequency": "Email Frequency",
+            "frequencyDesc": "How often to send non-critical email notifications",
+            "immediate": "Immediate",
+            "hourly": "Hourly Digest",
+            "daily": "Daily Digest"
+          },
+          "schedule": {
+            "title": "⏰ Notification Schedule",
+            "subtitle": "Control when you receive notifications",
+            "quietHours": "Enable Quiet Hours",
+            "quietHoursDesc": "Reduce non-critical notifications during specified hours",
+            "quietStart": "Quiet Hours Start",
+            "quietStartDesc": "Time when quiet hours begin",
+            "quietEnd": "Quiet Hours End",
+            "quietEndDesc": "Time when quiet hours end",
+            "weekendNotifications": "Weekend Notifications",
+            "weekendNotificationsDesc": "Receive notifications during weekends",
+            "urgentOverride": "Urgent Override",
+            "urgentOverrideDesc": "Allow critical alerts to bypass quiet hours"
+          }
+        },
+        "system": {
+          "title": "⚙️ System Preferences",
+          "subtitle": "Advanced system configuration and performance settings",
+          "theme": "Theme",
+          "darkMode": "Dark Mode",
+          "autoTheme": "Auto (System)",
+          "compactMode": "Compact Mode",
+          "animations": "Enable Animations",
+          "dataCollection": "Data Collection",
+          "analytics": "Usage Analytics",
+          "crashReporting": "Crash Reporting",
+          "debugMode": "Debug Mode"
+        },
+        "backup": {
+          "title": "💾 Backup & Data",
+          "subtitle": "Manage your data backup and export options",
+          "autoBackup": "Automatic Backup",
+          "backupFrequency": "Backup Frequency",
+          "lastBackup": "Last Backup",
+          "exportData": "Export Data",
+          "importData": "Import Data",
+          "dataRetention": "Data Retention Period"
+        },
+        "actions": {
+          "save": "Save Changes",
+          "saving": "Saving...",
+          "saved": "Settings saved successfully",
+          "cancel": "Cancel Changes",
+          "reset": "Reset to Defaults",
+          "export": "Export Settings",
+          "import": "Import Settings"
+        }
       }
     }
   },

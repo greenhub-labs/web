@@ -351,6 +351,195 @@
           "timing": "Programar Plantación Sucesiva",
           "timingDesc": "Planta lechugas cada 2 semanas para cosecha continua durante la temporada"
         }
+      },
+      "rotation": {
+        "title": "Gestión de Rotación de Cultivos",
+        "gridView": "Vista Cuadrícula",
+        "listView": "Vista Lista",
+        "timelineView": "Vista Cronológica",
+        "addRotationPlan": "Agregar Plan de Rotación",
+        "createRotationPlan": "Crear Plan de Rotación",
+        "stats": {
+          "activePlans": "Planes Activos",
+          "completedCycles": "Ciclos Completados",
+          "soilHealth": "Salud del Suelo Promedio",
+          "nextRotations": "Próximas Rotaciones"
+        },
+        "rotationCycle": "Ciclo de Rotación",
+        "year": "Año",
+        "season": "Estación",
+        "currentCrop": "Cultivo Actual",
+        "nextCrop": "Próximo Cultivo",
+        "soilHealth": "Salud del Suelo",
+        "restPeriod": "Período de Descanso",
+        "daysRemaining": "días restantes",
+        "readyToRotate": "Listo para rotar",
+        "inProgress": "En progreso",
+        "resting": "En descanso",
+        "categories": {
+          "legumes": "Leguminosas",
+          "brassicas": "Brasicáceas",
+          "nightshades": "Solanáceas",
+          "roots": "Raíces y Tubérculos",
+          "alliums": "Aliáceas",
+          "cucurbits": "Cucurbitáceas",
+          "leafy": "Hojas Verdes"
+        },
+        "benefits": {
+          "title": "Beneficios de la Rotación",
+          "pestControl": "Control de Plagas",
+          "soilNutrients": "Nutrientes del Suelo",
+          "diseaseManagement": "Manejo de Enfermedades",
+          "yieldImprovement": "Mejora del Rendimiento"
+        },
+        "recommendations": {
+          "title": "Recomendaciones de Rotación IA",
+          "rotateTomatoes": "Rotar Tomates a Leguminosas",
+          "rotateTomatoesDesc": "Después de 3 estaciones de solanáceas, cambiar a leguminosas fijadoras de nitrógeno",
+          "addRestPeriod": "Agregar Período de Descanso al Bancal B",
+          "addRestPeriodDesc": "El bancal ha estado en producción continua durante 18 meses"
+        },
+        "timeline": {
+          "title": "Cronología de Rotación",
+          "past": "Rotaciones Pasadas",
+          "current": "Estación Actual",
+          "future": "Rotaciones Planificadas",
+          "noHistory": "No hay historial de rotación disponible",
+          "noPlan": "No hay plan de rotación establecido"
+        },
+        "status": {
+          "active": "Activo",
+          "planned": "Planificado",
+          "completed": "Completado",
+          "overdue": "Atrasado"
+        },
+        "form": {
+          "title": "Crear Plan de Rotación",
+          "description": "Planifica tu rotación de cultivos para mejorar la salud del suelo y maximizar los rendimientos",
+          "plotSelect": "Seleccionar Bancal",
+          "plotSelectPlaceholder": "Elige un bancal para la rotación",
+          "rotationName": "Nombre del Plan de Rotación",
+          "rotationNamePlaceholder": "ej., Rotación de Verduras de 4 Estaciones",
+          "cycleDuration": "Duración del Ciclo",
+          "cycleDurationPlaceholder": "Número de estaciones por ciclo completo",
+          "startSeason": "Estación de Inicio",
+          "cropSequence": "Secuencia de Cultivos",
+          "addCrop": "Agregar Cultivo",
+          "removeCrop": "Eliminar Cultivo",
+          "cropType": "Tipo de Cultivo",
+          "cropTypePlaceholder": "Selecciona categoría de cultivo",
+          "specificCrop": "Cultivo Específico",
+          "specificCropPlaceholder": "Elige cultivo específico",
+          "duration": "Duración (estaciones)",
+          "notes": "Notas",
+          "notesPlaceholder": "Notas adicionales de rotación...",
+          "createPlan": "Crear Plan de Rotación",
+          "updatePlan": "Actualizar Plan"
+        },
+        "viewDetails": "Ver Detalles",
+        "editPlan": "Editar Plan",
+        "deletePlan": "Eliminar Plan"
+      }
+    },
+    "settings": {
+      "system": {
+        "title": "Configuración del Sistema",
+        "subtitle": "Configura los ajustes y preferencias de tu sistema GreenHub",
+        "location": {
+          "title": "📍 Configuración de Ubicación",
+          "subtitle": "Configura la ubicación geográfica de tu huerto para datos meteorológicos y de amanecer/atardecer",
+          "country": "País",
+          "city": "Ciudad",
+          "timezone": "Zona Horaria",
+          "coordinates": "Coordenadas",
+          "latitude": "Latitud",
+          "longitude": "Longitud",
+          "autoDetect": "Detectar ubicación automáticamente",
+          "detecting": "Detectando ubicación...",
+          "detected": "Ubicación detectada exitosamente",
+          "error": "Error al detectar la ubicación"
+        },
+        "language": {
+          "title": "🌐 Idioma y Región",
+          "subtitle": "Elige tu idioma preferido y configuración regional",
+          "language": "Idioma de Visualización",
+          "dateFormat": "Formato de Fecha",
+          "timeFormat": "Formato de Hora",
+          "temperatureUnit": "Unidad de Temperatura",
+          "measurementUnit": "Sistema de Medidas",
+          "currency": "Moneda"
+        },
+        "notifications": {
+          "title": "🔔 Preferencias de Notificaciones",
+          "subtitle": "Configura cómo y cuándo recibir notificaciones",
+          "emailNotifications": "Notificaciones por Email",
+          "pushNotifications": "Notificaciones Push",
+          "smsNotifications": "Notificaciones SMS",
+          "alertTypes": "Tipos de Alertas",
+          "criticalAlerts": "Alertas Críticas del Sistema",
+          "maintenanceAlerts": "Recordatorios de Mantenimiento",
+          "weatherAlerts": "Alertas Meteorológicas",
+          "harvestReminders": "Recordatorios de Cosecha",
+          "email": {
+            "title": "📧 Configuración de Email",
+            "subtitle": "Configura la frecuencia y contenido de notificaciones por email",
+            "dailySummary": "Resumen Diario",
+            "dailySummaryDesc": "Recibe un resumen diario de actividades del huerto",
+            "weeklySummary": "Resumen Semanal",
+            "weeklySummaryDesc": "Recibe un reporte semanal del rendimiento del sistema",
+            "frequency": "Frecuencia de Email",
+            "frequencyDesc": "Con qué frecuencia enviar notificaciones no críticas por email",
+            "immediate": "Inmediato",
+            "hourly": "Resumen Horario",
+            "daily": "Resumen Diario"
+          },
+          "schedule": {
+            "title": "⏰ Horario de Notificaciones",
+            "subtitle": "Controla cuándo recibes notificaciones",
+            "quietHours": "Habilitar Horas Silenciosas",
+            "quietHoursDesc": "Reduce notificaciones no críticas durante horas específicas",
+            "quietStart": "Inicio de Horas Silenciosas",
+            "quietStartDesc": "Hora cuando comienzan las horas silenciosas",
+            "quietEnd": "Fin de Horas Silenciosas",
+            "quietEndDesc": "Hora cuando terminan las horas silenciosas",
+            "weekendNotifications": "Notificaciones de Fin de Semana",
+            "weekendNotificationsDesc": "Recibir notificaciones durante los fines de semana",
+            "urgentOverride": "Anulación Urgente",
+            "urgentOverrideDesc": "Permitir que alertas críticas ignoren las horas silenciosas"
+          }
+        },
+        "system": {
+          "title": "⚙️ Preferencias del Sistema",
+          "subtitle": "Configuración avanzada del sistema y rendimiento",
+          "theme": "Tema",
+          "darkMode": "Modo Oscuro",
+          "autoTheme": "Auto (Sistema)",
+          "compactMode": "Modo Compacto",
+          "animations": "Habilitar Animaciones",
+          "dataCollection": "Recolección de Datos",
+          "analytics": "Analíticas de Uso",
+          "crashReporting": "Reporte de Errores",
+          "debugMode": "Modo Debug"
+        },
+        "backup": {
+          "title": "💾 Respaldo y Datos",
+          "subtitle": "Gestiona las opciones de respaldo y exportación de datos",
+          "autoBackup": "Respaldo Automático",
+          "backupFrequency": "Frecuencia de Respaldo",
+          "lastBackup": "Último Respaldo",
+          "exportData": "Exportar Datos",
+          "importData": "Importar Datos",
+          "dataRetention": "Período de Retención de Datos"
+        },
+        "actions": {
+          "save": "Guardar Cambios",
+          "saving": "Guardando...",
+          "saved": "Configuración guardada exitosamente",
+          "cancel": "Cancelar Cambios",
+          "reset": "Restablecer por Defecto",
+          "export": "Exportar Configuración",
+          "import": "Importar Configuración"
+        }
       }
     }
   },
