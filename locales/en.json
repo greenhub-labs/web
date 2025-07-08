@@ -62,50 +62,65 @@
   },
   "navigation": {
     "home": "🏠 Home",
-    "analytics": {
-      "title": "📊 Analytics",
-      "dashboard": "📈 Dashboard",
-      "predictions": "🔮 Predictions",
-      "insights": "💡 Smart Insights",
-      "reports": "📋 Reports",
-      "trends": "📈 Trends",
-      "comparative": "⚖️ Comparative Analysis"
-    },
-    "plants": {
-      "title": "🌱 Plants",
-      "myPlants": "🏡 My Plants",
-      "catalog": "📚 Plant Catalog",
-      "addNew": "➕ Add Plant"
-    },
-    "gardens": {
-      "title": "🏡 Gardens",
-      "myGardens": "🌿 My Gardens",
-      "planner": "📋 Garden Planner",
-      "create": "🆕 Create Garden"
-    },
-    "care": {
-      "title": "💧 Care",
-      "schedule": "📅 Care Schedule",
-      "tasks": "✅ Care Tasks",
-      "history": "📜 Care History"
-    },
-    "crops": {
-      "title": "🌾 Crops",
-      "active": "🌱 Active Crops",
-      "harvest": "🗓️ Harvest Calendar",
+    "garden": {
+      "title": "🌱 Garden",
+      "plots": "🗺️ Plot Management",
+      "crops": "🌾 Crops & Cultivation",
+      "irrigation": "💧 Irrigation System",
+      "plantingPlanner": "📅 Planting Planner",
       "rotation": "🔄 Crop Rotation"
     },
-    "community": {
-      "title": "👥 Community",
-      "forums": "💬 Forums",
-      "events": "📅 Events",
-      "marketplace": "🛒 Marketplace"
+    "coop": {
+      "title": "🐔 Chicken Coop",
+      "chickens": "🐓 Chicken Management",
+      "eggProduction": "🥚 Egg Production",
+      "environment": "🌡️ Environment Control",
+      "doorControl": "🚪 Door Automation",
+      "feedWater": "🥤 Feed & Water"
     },
-    "profile": {
-      "title": "👤 Profile",
-      "myProfile": "🏷️ My Profile",
-      "settings": "⚙️ Settings",
-      "preferences": "🎛️ Preferences"
+    "monitoring": {
+      "title": "📊 Monitoring",
+      "sensors": "📡 Sensor Network",
+      "alerts": "🚨 Alerts & Alarms",
+      "weather": "🌤️ Weather Station",
+      "cameras": "📷 Camera System",
+      "history": "📈 Historical Data"
+    },
+    "automation": {
+      "title": "🤖 Automation",
+      "irrigationRules": "💧 Irrigation Rules",
+      "schedules": "⏰ Schedules",
+      "valves": "🔧 Valve Control",
+      "manualControl": "🎛️ Manual Override"
+    },
+    "analytics": {
+      "title": "🧠 Analytics & AI",
+      "predictions": "🔮 Irrigation Predictions",
+      "yieldEstimation": "📊 Yield Estimation",
+      "performance": "📈 Performance Analysis",
+      "aiAssistant": "🤖 AI Assistant",
+      "reports": "📋 Smart Reports"
+    },
+    "energy": {
+      "title": "🔋 Energy Management",
+      "solarPanels": "☀️ Solar Panels",
+      "batteries": "🔋 Battery Status",
+      "consumption": "⚡ Energy Consumption",
+      "optimization": "🌱 Energy Optimization"
+    },
+    "gamification": {
+      "title": "🏆 Achievements",
+      "challenges": "🎯 Monthly Challenges",
+      "achievements": "🏅 Achievement System",
+      "yearlyStats": "📊 Yearly Statistics",
+      "photoAlbum": "📸 Garden Timeline"
+    },
+    "settings": {
+      "title": "⚙️ Settings",
+      "users": "👥 User Management",
+      "notifications": "📢 Notifications",
+      "integrations": "🔗 Integrations",
+      "system": "💻 System Config"
     }
   }
 }

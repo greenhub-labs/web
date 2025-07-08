@@ -62,50 +62,65 @@
   },
   "navigation": {
     "home": "🏠 Inicio",
-    "analytics": {
-      "title": "📊 Analíticas",
-      "dashboard": "📈 Panel de Control",
-      "predictions": "🔮 Predicciones",
-      "insights": "💡 Insights Inteligentes",
-      "reports": "📋 Reportes",
-      "trends": "📈 Tendencias",
-      "comparative": "⚖️ Análisis Comparativo"
-    },
-    "plants": {
-      "title": "🌱 Plantas",
-      "myPlants": "🏡 Mis Plantas",
-      "catalog": "📚 Catálogo de Plantas",
-      "addNew": "➕ Añadir Planta"
-    },
-    "gardens": {
-      "title": "🏡 Huertos",
-      "myGardens": "🌿 Mis Huertos",
-      "planner": "📋 Planificador",
-      "create": "🆕 Crear Huerto"
-    },
-    "care": {
-      "title": "💧 Cuidados",
-      "schedule": "📅 Programación",
-      "tasks": "✅ Tareas",
-      "history": "📜 Historial"
-    },
-    "crops": {
-      "title": "🌾 Cultivos",
-      "active": "🌱 Cultivos Activos",
-      "harvest": "🗓️ Calendario de Cosecha",
+    "garden": {
+      "title": "🌱 Huerto",
+      "plots": "🗺️ Gestión de Bancales",
+      "crops": "🌾 Cultivos y Siembra",
+      "irrigation": "💧 Sistema de Riego",
+      "plantingPlanner": "📅 Planificador de Siembra",
       "rotation": "🔄 Rotación de Cultivos"
     },
-    "community": {
-      "title": "👥 Comunidad",
-      "forums": "💬 Foros",
-      "events": "📅 Eventos",
-      "marketplace": "🛒 Mercado"
+    "coop": {
+      "title": "🐔 Gallinero",
+      "chickens": "🐓 Gestión de Gallinas",
+      "eggProduction": "🥚 Producción de Huevos",
+      "environment": "🌡️ Control Ambiental",
+      "doorControl": "🚪 Puerta Automática",
+      "feedWater": "🥤 Pienso y Agua"
     },
-    "profile": {
-      "title": "👤 Perfil",
-      "myProfile": "🏷️ Mi Perfil",
-      "settings": "⚙️ Configuración",
-      "preferences": "🎛️ Preferencias"
+    "monitoring": {
+      "title": "📊 Monitoreo",
+      "sensors": "📡 Red de Sensores",
+      "alerts": "🚨 Alertas y Alarmas",
+      "weather": "🌤️ Estación Meteorológica",
+      "cameras": "📷 Sistema de Cámaras",
+      "history": "📈 Datos Históricos"
+    },
+    "automation": {
+      "title": "🤖 Automatización",
+      "irrigationRules": "💧 Reglas de Riego",
+      "schedules": "⏰ Programaciones",
+      "valves": "🔧 Control de Válvulas",
+      "manualControl": "🎛️ Control Manual"
+    },
+    "analytics": {
+      "title": "🧠 Analíticas e IA",
+      "predictions": "🔮 Predicciones de Riego",
+      "yieldEstimation": "📊 Estimación de Rendimiento",
+      "performance": "📈 Análisis de Rendimiento",
+      "aiAssistant": "🤖 Asistente IA",
+      "reports": "📋 Reportes Inteligentes"
+    },
+    "energy": {
+      "title": "🔋 Gestión Energética",
+      "solarPanels": "☀️ Paneles Solares",
+      "batteries": "🔋 Estado de Baterías",
+      "consumption": "⚡ Consumo Energético",
+      "optimization": "🌱 Optimización Energética"
+    },
+    "gamification": {
+      "title": "🏆 Logros",
+      "challenges": "🎯 Retos Mensuales",
+      "achievements": "🏅 Sistema de Logros",
+      "yearlyStats": "📊 Estadísticas Anuales",
+      "photoAlbum": "📸 Cronología del Huerto"
+    },
+    "settings": {
+      "title": "⚙️ Configuración",
+      "users": "👥 Gestión de Usuarios",
+      "notifications": "📢 Notificaciones",
+      "integrations": "🔗 Integraciones",
+      "system": "💻 Config. del Sistema"
     }
   }
 }

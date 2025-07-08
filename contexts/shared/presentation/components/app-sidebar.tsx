@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               return (
                 <Collapsible
                   key={item.id}
-                  defaultOpen={index === 1} // Analytics section open by default
+                  defaultOpen={index === 2} // Monitoring section open by default
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
@@ -100,8 +100,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             <SidebarMenuSubButton
                               asChild
                               isActive={activeItemId === subItem.id}
+                              className="h-auto min-h-8 py-2 whitespace-normal leading-tight"
                             >
-                              <a href={subItem.url}>{t(subItem.titleKey)}</a>
+                              <a href={subItem.url} className="block">
+                                {t(subItem.titleKey)}
+                              </a>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}

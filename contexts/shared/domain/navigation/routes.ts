@@ -12,171 +12,238 @@ export const navigationConfig: NavigationConfig = {
       url: "/",
     },
     {
+      id: "garden",
+      titleKey: "navigation.garden.title",
+      url: "/garden",
+      items: [
+        {
+          id: "plots",
+          titleKey: "navigation.garden.plots",
+          url: "/garden/plots",
+        },
+        {
+          id: "crops",
+          titleKey: "navigation.garden.crops",
+          url: "/garden/crops",
+        },
+        {
+          id: "irrigation",
+          titleKey: "navigation.garden.irrigation",
+          url: "/garden/irrigation",
+        },
+        {
+          id: "planting-planner",
+          titleKey: "navigation.garden.plantingPlanner",
+          url: "/garden/planting-planner",
+        },
+        {
+          id: "rotation",
+          titleKey: "navigation.garden.rotation",
+          url: "/garden/rotation",
+        },
+      ],
+    },
+    {
+      id: "coop",
+      titleKey: "navigation.coop.title",
+      url: "/coop",
+      items: [
+        {
+          id: "chickens",
+          titleKey: "navigation.coop.chickens",
+          url: "/coop/chickens",
+        },
+        {
+          id: "egg-production",
+          titleKey: "navigation.coop.eggProduction",
+          url: "/coop/egg-production",
+        },
+        {
+          id: "environment",
+          titleKey: "navigation.coop.environment",
+          url: "/coop/environment",
+        },
+        {
+          id: "door-control",
+          titleKey: "navigation.coop.doorControl",
+          url: "/coop/door-control",
+        },
+        {
+          id: "feed-water",
+          titleKey: "navigation.coop.feedWater",
+          url: "/coop/feed-water",
+        },
+      ],
+    },
+    {
+      id: "monitoring",
+      titleKey: "navigation.monitoring.title",
+      url: "/monitoring",
+      items: [
+        {
+          id: "sensors",
+          titleKey: "navigation.monitoring.sensors",
+          url: "/monitoring/sensors",
+        },
+        {
+          id: "alerts",
+          titleKey: "navigation.monitoring.alerts",
+          url: "/monitoring/alerts",
+        },
+        {
+          id: "weather",
+          titleKey: "navigation.monitoring.weather",
+          url: "/monitoring/weather",
+        },
+        {
+          id: "cameras",
+          titleKey: "navigation.monitoring.cameras",
+          url: "/monitoring/cameras",
+        },
+        {
+          id: "history",
+          titleKey: "navigation.monitoring.history",
+          url: "/monitoring/history",
+        },
+      ],
+    },
+    {
+      id: "automation",
+      titleKey: "navigation.automation.title",
+      url: "/automation",
+      items: [
+        {
+          id: "irrigation-rules",
+          titleKey: "navigation.automation.irrigationRules",
+          url: "/automation/irrigation-rules",
+        },
+        {
+          id: "schedules",
+          titleKey: "navigation.automation.schedules",
+          url: "/automation/schedules",
+        },
+        {
+          id: "valves",
+          titleKey: "navigation.automation.valves",
+          url: "/automation/valves",
+        },
+        {
+          id: "manual-control",
+          titleKey: "navigation.automation.manualControl",
+          url: "/automation/manual-control",
+        },
+      ],
+    },
+    {
       id: "analytics",
       titleKey: "navigation.analytics.title",
       url: "/analytics",
       items: [
-        {
-          id: "dashboard",
-          titleKey: "navigation.analytics.dashboard",
-          url: "/analytics/dashboard",
-        },
         {
           id: "predictions",
           titleKey: "navigation.analytics.predictions",
           url: "/analytics/predictions",
         },
         {
-          id: "insights",
-          titleKey: "navigation.analytics.insights",
-          url: "/analytics/insights",
+          id: "yield-estimation",
+          titleKey: "navigation.analytics.yieldEstimation",
+          url: "/analytics/yield-estimation",
+        },
+        {
+          id: "performance",
+          titleKey: "navigation.analytics.performance",
+          url: "/analytics/performance",
+        },
+        {
+          id: "ai-assistant",
+          titleKey: "navigation.analytics.aiAssistant",
+          url: "/analytics/ai-assistant",
         },
         {
           id: "reports",
           titleKey: "navigation.analytics.reports",
           url: "/analytics/reports",
         },
+      ],
+    },
+    {
+      id: "energy",
+      titleKey: "navigation.energy.title",
+      url: "/energy",
+      items: [
         {
-          id: "trends",
-          titleKey: "navigation.analytics.trends",
-          url: "/analytics/trends",
+          id: "solar-panels",
+          titleKey: "navigation.energy.solarPanels",
+          url: "/energy/solar-panels",
         },
         {
-          id: "comparative",
-          titleKey: "navigation.analytics.comparative",
-          url: "/analytics/comparative",
+          id: "batteries",
+          titleKey: "navigation.energy.batteries",
+          url: "/energy/batteries",
+        },
+        {
+          id: "consumption",
+          titleKey: "navigation.energy.consumption",
+          url: "/energy/consumption",
+        },
+        {
+          id: "optimization",
+          titleKey: "navigation.energy.optimization",
+          url: "/energy/optimization",
         },
       ],
     },
     {
-      id: "plants",
-      titleKey: "navigation.plants.title",
-      url: "/plants",
+      id: "gamification",
+      titleKey: "navigation.gamification.title",
+      url: "/gamification",
       items: [
         {
-          id: "my-plants",
-          titleKey: "navigation.plants.myPlants",
-          url: "/plants",
+          id: "challenges",
+          titleKey: "navigation.gamification.challenges",
+          url: "/gamification/challenges",
         },
         {
-          id: "plant-catalog",
-          titleKey: "navigation.plants.catalog",
-          url: "/plants/catalog",
+          id: "achievements",
+          titleKey: "navigation.gamification.achievements",
+          url: "/gamification/achievements",
         },
         {
-          id: "add-plant",
-          titleKey: "navigation.plants.addNew",
-          url: "/plants/new",
+          id: "yearly-stats",
+          titleKey: "navigation.gamification.yearlyStats",
+          url: "/gamification/yearly-stats",
+        },
+        {
+          id: "photo-album",
+          titleKey: "navigation.gamification.photoAlbum",
+          url: "/gamification/photo-album",
         },
       ],
     },
     {
-      id: "gardens",
-      titleKey: "navigation.gardens.title",
-      url: "/gardens",
+      id: "settings",
+      titleKey: "navigation.settings.title",
+      url: "/settings",
       items: [
         {
-          id: "my-gardens",
-          titleKey: "navigation.gardens.myGardens",
-          url: "/gardens",
+          id: "users",
+          titleKey: "navigation.settings.users",
+          url: "/settings/users",
         },
         {
-          id: "garden-planner",
-          titleKey: "navigation.gardens.planner",
-          url: "/gardens/planner",
+          id: "notifications",
+          titleKey: "navigation.settings.notifications",
+          url: "/settings/notifications",
         },
         {
-          id: "create-garden",
-          titleKey: "navigation.gardens.create",
-          url: "/gardens/new",
-        },
-      ],
-    },
-    {
-      id: "care",
-      titleKey: "navigation.care.title",
-      url: "/care",
-      items: [
-        {
-          id: "care-schedule",
-          titleKey: "navigation.care.schedule",
-          url: "/care/schedule",
+          id: "integrations",
+          titleKey: "navigation.settings.integrations",
+          url: "/settings/integrations",
         },
         {
-          id: "care-tasks",
-          titleKey: "navigation.care.tasks",
-          url: "/care/tasks",
-        },
-        {
-          id: "care-history",
-          titleKey: "navigation.care.history",
-          url: "/care/history",
-        },
-      ],
-    },
-    {
-      id: "crops",
-      titleKey: "navigation.crops.title",
-      url: "/crops",
-      items: [
-        {
-          id: "active-crops",
-          titleKey: "navigation.crops.active",
-          url: "/crops",
-        },
-        {
-          id: "harvest-calendar",
-          titleKey: "navigation.crops.harvest",
-          url: "/crops/harvest",
-        },
-        {
-          id: "crop-rotation",
-          titleKey: "navigation.crops.rotation",
-          url: "/crops/rotation",
-        },
-      ],
-    },
-    {
-      id: "community",
-      titleKey: "navigation.community.title",
-      url: "/community",
-      items: [
-        {
-          id: "forums",
-          titleKey: "navigation.community.forums",
-          url: "/community/forums",
-        },
-        {
-          id: "events",
-          titleKey: "navigation.community.events",
-          url: "/community/events",
-        },
-        {
-          id: "marketplace",
-          titleKey: "navigation.community.marketplace",
-          url: "/community/marketplace",
-        },
-      ],
-    },
-    {
-      id: "profile",
-      titleKey: "navigation.profile.title",
-      url: "/profile",
-      items: [
-        {
-          id: "my-profile",
-          titleKey: "navigation.profile.myProfile",
-          url: "/profile",
-        },
-        {
-          id: "settings",
-          titleKey: "navigation.profile.settings",
-          url: "/profile/settings",
-        },
-        {
-          id: "preferences",
-          titleKey: "navigation.profile.preferences",
-          url: "/profile/preferences",
+          id: "system",
+          titleKey: "navigation.settings.system",
+          url: "/settings/system",
         },
       ],
     },
