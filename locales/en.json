@@ -170,6 +170,7 @@
         "yield": "Yield",
         "health": "Health Score",
         "daysToHarvest": "days to harvest",
+        "readyToHarvest": "Ready to harvest",
         "irrigation": {
           "high": "High",
           "medium": "Medium",

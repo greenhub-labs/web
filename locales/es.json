@@ -170,6 +170,7 @@
         "yield": "Rendimiento",
         "health": "Puntuación de Salud",
         "daysToHarvest": "días para cosecha",
+        "readyToHarvest": "Listo para cosechar",
         "irrigation": {
           "high": "Alto",
           "medium": "Medio",

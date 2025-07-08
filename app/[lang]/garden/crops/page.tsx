@@ -467,18 +467,22 @@ const CropsPage = () => {
                   </div>
                 </div>
 
-                {/* Days to Harvest */}
-                {crop.daysToHarvest > 0 && (
-                  <div className="bg-accent/50 p-2 rounded-lg">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm">📅</span>
-                      <span className="text-xs sm:text-sm font-medium">
-                        {crop.daysToHarvest}{" "}
-                        {t("pages.garden.crops.daysToHarvest")}
-                      </span>
-                    </div>
+                {/* Harvest Status - Always visible */}
+                <div className="bg-accent/50 p-2 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">📅</span>
+                    <span className="text-xs sm:text-sm font-medium">
+                      {crop.daysToHarvest > 0 ? (
+                        <>
+                          {crop.daysToHarvest}{" "}
+                          {t("pages.garden.crops.daysToHarvest")}
+                        </>
+                      ) : (
+                        <>✅ {t("pages.garden.crops.readyToHarvest")}</>
+                      )}
+                    </span>
                   </div>
-                )}
+                </div>
 
                 {/* Environmental Data */}
                 <Separator />
@@ -501,30 +505,36 @@ const CropsPage = () => {
                   </div>
                 </div>
 
-                {/* Alerts */}
-                {(crop.pests.length > 0 || crop.diseases.length > 0) && (
-                  <>
-                    <Separator />
-                    <div className="space-y-1">
-                      {crop.pests.length > 0 && (
-                        <div className="flex items-center gap-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2">
-                          <span>🐛</span>
-                          <span className="text-yellow-800">
-                            {t("pages.garden.crops.pestsDetected")}
-                          </span>
-                        </div>
-                      )}
-                      {crop.diseases.length > 0 && (
-                        <div className="flex items-center gap-2 text-xs bg-red-50 border border-red-200 rounded p-2">
-                          <span>🦠</span>
-                          <span className="text-red-800">
-                            {t("pages.garden.crops.diseasesDetected")}
-                          </span>
-                        </div>
-                      )}
+                {/* Alerts - Always reserve space */}
+                <Separator />
+                <div className="space-y-1 min-h-[1rem]">
+                  {crop.pests.length > 0 && (
+                    <div className="flex items-center gap-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2">
+                      <span>🐛</span>
+                      <span className="text-yellow-800">
+                        {t("pages.garden.crops.pestsDetected")}
+                      </span>
                     </div>
-                  </>
-                )}
+                  )}
+                  {crop.diseases.length > 0 && (
+                    <div className="flex items-center gap-2 text-xs bg-red-50 border border-red-200 rounded p-2">
+                      <span>🦠</span>
+                      <span className="text-red-800">
+                        {t("pages.garden.crops.diseasesDetected")}
+                      </span>
+                    </div>
+                  )}
+                  {/* Reserve space when no alerts - invisible but takes space */}
+                  {crop.pests.length === 0 && crop.diseases.length === 0 && (
+                    <div
+                      className="flex items-center gap-2 text-xs p-2 invisible"
+                      aria-hidden="true"
+                    >
+                      <span>🐛</span>
+                      <span>Placeholder for consistent height</span>
+                    </div>
+                  )}
+                </div>
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
