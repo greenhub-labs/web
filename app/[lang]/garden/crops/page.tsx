@@ -10,9 +10,20 @@ import {
   CardTitle,
 } from "@/contexts/shared/presentation/components/ui/card";
 import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
 import { CreateCropDialog } from "@/contexts/shared/presentation/components/organisms/CreateCropDialog";
 import { Separator } from "@/contexts/shared/presentation/components/ui/separator";
+
+// New reusable components
+import {
+  StatCard,
+  ProgressBar,
+} from "@/contexts/shared/presentation/components/atoms";
+import {
+  EntityCardHeader,
+  EntityCardActions,
+  AlertsSection,
+  type CardAction,
+} from "@/contexts/shared/presentation/components/molecules";
 
 const CropsPage = () => {
   const t = useTranslations();
@@ -336,65 +347,29 @@ const CropsPage = () => {
 
         {/* Summary Stats */}
         <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardContent className="p-3 sm:p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {t("pages.garden.crops.stats.totalCrops")}
-                  </p>
-                  <p className="text-xl sm:text-2xl font-bold">
-                    {crops.length}
-                  </p>
-                </div>
-                <span className="text-xl sm:text-2xl">🌾</span>
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            title={t("pages.garden.crops.stats.totalCrops")}
+            value={crops.length}
+            icon="🌾"
+          />
 
-          <Card>
-            <CardContent className="p-3 sm:p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {t("pages.garden.crops.stats.readyToHarvest")}
-                  </p>
-                  <p className="text-xl sm:text-2xl font-bold">{readyCrops}</p>
-                </div>
-                <span className="text-xl sm:text-2xl">✅</span>
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            title={t("pages.garden.crops.stats.readyToHarvest")}
+            value={readyCrops}
+            icon="✅"
+          />
 
-          <Card>
-            <CardContent className="p-3 sm:p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {t("pages.garden.crops.stats.totalYield")}
-                  </p>
-                  <p className="text-xl sm:text-2xl font-bold">
-                    {totalYield.toFixed(1)}kg
-                  </p>
-                </div>
-                <span className="text-xl sm:text-2xl">⚖️</span>
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            title={t("pages.garden.crops.stats.totalYield")}
+            value={`${totalYield.toFixed(1)}kg`}
+            icon="⚖️"
+          />
 
-          <Card>
-            <CardContent className="p-3 sm:p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {t("pages.garden.crops.stats.avgHealth")}
-                  </p>
-                  <p className="text-xl sm:text-2xl font-bold">{avgHealth}%</p>
-                </div>
-                <span className="text-xl sm:text-2xl">💚</span>
-              </div>
-            </CardContent>
-          </Card>
+          <StatCard
+            title={t("pages.garden.crops.stats.avgHealth")}
+            value={`${avgHealth}%`}
+            icon="❤️"
+          />
         </div>
 
         {/* Crops Grid/List */}
@@ -405,160 +380,133 @@ const CropsPage = () => {
               : "space-y-4"
           }
         >
-          {filteredCrops.map((crop) => (
-            <Card key={crop.id} className="hover:shadow-md transition-shadow">
-              <CardHeader className="pb-3 sm:pb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl">{crop.icon}</span>
+          {filteredCrops.map((crop) => {
+            const cropActions: CardAction[] = [
+              {
+                label: t("pages.garden.crops.viewDetails"),
+                icon: "👁️",
+                onClick: () => console.log("View details for", crop.id),
+                variant: "outline",
+                isPrimary: true,
+              },
+              {
+                label: t("common.edit"),
+                icon: "⚙️",
+                onClick: () => console.log("Settings for", crop.id),
+                variant: "outline",
+              },
+            ];
+
+            const alerts = [
+              ...(crop.pests.length > 0
+                ? [
+                    {
+                      type: "warning" as const,
+                      icon: "🐛",
+                      message: t("pages.garden.crops.pestsDetected"),
+                    },
+                  ]
+                : []),
+              ...(crop.diseases.length > 0
+                ? [
+                    {
+                      type: "error" as const,
+                      icon: "🦠",
+                      message: t("pages.garden.crops.diseasesDetected"),
+                    },
+                  ]
+                : []),
+            ];
+
+            return (
+              <Card key={crop.id} className="hover:shadow-md transition-shadow">
+                <EntityCardHeader
+                  icon={crop.icon}
+                  title={crop.name}
+                  subtitle={`${crop.variety} • ${crop.plotName}`}
+                  status={crop.status}
+                  statusType="crop"
+                  statusLabel={t(`pages.garden.crops.status.${crop.status}`)}
+                />
+
+                <CardContent className="space-y-3 sm:space-y-4">
+                  {/* Growth Progress */}
+                  <ProgressBar
+                    label={t("pages.garden.crops.growth")}
+                    value={crop.growth}
+                    maxValue={100}
+                    unit="%"
+                  />
+
+                  {/* Yield & Health */}
+                  <Separator />
+                  <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
                     <div>
-                      <CardTitle className="text-base sm:text-lg">
-                        {crop.name}
-                      </CardTitle>
-                      <p className="text-xs sm:text-sm text-muted-foreground">
-                        {crop.variety} • {crop.plotName}
+                      <p className="text-muted-foreground mb-1">
+                        {t("pages.garden.crops.yield")}
+                      </p>
+                      <p className="font-medium">
+                        {crop.currentYield}/{crop.expectedYield}
                       </p>
                     </div>
+                    <div>
+                      <p className="text-muted-foreground mb-1">
+                        {t("pages.garden.crops.health")}
+                      </p>
+                      <p className="font-medium">{crop.healthScore}%</p>
+                    </div>
                   </div>
-                  <Badge
-                    className={`${getStatusColor(
-                      crop.status
-                    )} text-xs sm:text-sm`}
-                  >
-                    {getStatusIcon(crop.status)}{" "}
-                    {t(`pages.garden.crops.status.${crop.status}`)}
-                  </Badge>
-                </div>
-              </CardHeader>
 
-              <CardContent className="space-y-3 sm:space-y-4">
-                {/* Growth Progress */}
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs sm:text-sm">
-                    <span className="text-muted-foreground">
-                      {t("pages.garden.crops.growth")}
-                    </span>
-                    <span className="font-medium">{crop.growth}%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-green-500 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${crop.growth}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                {/* Yield & Health */}
-                <Separator />
-                <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
-                  <div>
-                    <p className="text-muted-foreground mb-1">
-                      {t("pages.garden.crops.yield")}
-                    </p>
-                    <p className="font-medium">
-                      {crop.currentYield}/{crop.expectedYield}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-muted-foreground mb-1">
-                      {t("pages.garden.crops.health")}
-                    </p>
-                    <p className="font-medium">{crop.healthScore}%</p>
-                  </div>
-                </div>
-
-                {/* Harvest Status - Always visible */}
-                <div className="bg-accent/50 p-2 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">📅</span>
-                    <span className="text-xs sm:text-sm font-medium">
-                      {crop.daysToHarvest > 0 ? (
-                        <>
-                          {crop.daysToHarvest}{" "}
-                          {t("pages.garden.crops.daysToHarvest")}
-                        </>
-                      ) : (
-                        <>✅ {t("pages.garden.crops.readyToHarvest")}</>
-                      )}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Environmental Data */}
-                <Separator />
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  <div className="flex items-center gap-1">
-                    <span>🌡️</span>
-                    <span>{crop.temperature}°C</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span>💧</span>
-                    <span>{crop.humidity}%</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <span>💦</span>
-                    <span className={getIrrigationColor(crop.irrigationNeeds)}>
-                      {t(
-                        `pages.garden.crops.irrigation.${crop.irrigationNeeds}`
-                      )}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Alerts - Always reserve space */}
-                <Separator />
-                <div className="space-y-1 min-h-[1rem]">
-                  {crop.pests.length > 0 && (
-                    <div className="flex items-center gap-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2">
-                      <span>🐛</span>
-                      <span className="text-yellow-800">
-                        {t("pages.garden.crops.pestsDetected")}
+                  {/* Harvest Status - Always visible */}
+                  <div className="bg-accent/50 p-2 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">📅</span>
+                      <span className="text-xs sm:text-sm font-medium">
+                        {crop.daysToHarvest > 0 ? (
+                          <>
+                            {crop.daysToHarvest}{" "}
+                            {t("pages.garden.crops.daysToHarvest")}
+                          </>
+                        ) : (
+                          <>✅ {t("pages.garden.crops.readyToHarvest")}</>
+                        )}
                       </span>
                     </div>
-                  )}
-                  {crop.diseases.length > 0 && (
-                    <div className="flex items-center gap-2 text-xs bg-red-50 border border-red-200 rounded p-2">
-                      <span>🦠</span>
-                      <span className="text-red-800">
-                        {t("pages.garden.crops.diseasesDetected")}
+                  </div>
+
+                  {/* Environmental Data */}
+                  <Separator />
+                  <div className="grid grid-cols-3 gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <span>🌡️</span>
+                      <span>{crop.temperature}°C</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span>💧</span>
+                      <span>{crop.humidity}%</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span>💦</span>
+                      <span
+                        className={getIrrigationColor(crop.irrigationNeeds)}
+                      >
+                        {t(
+                          `pages.garden.crops.irrigation.${crop.irrigationNeeds}`
+                        )}
                       </span>
                     </div>
-                  )}
-                  {/* Reserve space when no alerts - invisible but takes space */}
-                  {crop.pests.length === 0 && crop.diseases.length === 0 && (
-                    <div
-                      className="flex items-center gap-2 text-xs p-2 invisible"
-                      aria-hidden="true"
-                    >
-                      <span>🐛</span>
-                      <span>Placeholder for consistent height</span>
-                    </div>
-                  )}
-                </div>
+                  </div>
 
-                {/* Actions */}
-                <div className="flex gap-2 pt-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex-1 text-xs sm:text-sm"
-                  >
-                    <span className="sm:hidden">👁️</span>
-                    <span className="hidden sm:inline">
-                      👁️ {t("pages.garden.crops.viewDetails")}
-                    </span>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="text-xs sm:text-sm"
-                  >
-                    ⚙️
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  {/* Alerts */}
+                  <Separator />
+                  <AlertsSection alerts={alerts} />
+
+                  {/* Actions */}
+                  <EntityCardActions actions={cropActions} />
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* AI Recommendations */}
