@@ -95,6 +95,34 @@
         "manualControl": "Manual Control",
         "askAi": "Ask AI Assistant"
       }
+    },
+    "garden": {
+      "plots": {
+        "title": "Plot Management",
+        "gridView": "Grid View",
+        "listView": "List View",
+        "createPlot": "Create Plot",
+        "stats": {
+          "totalPlots": "Total Plots",
+          "activeCrops": "Active Crops",
+          "avgMoisture": "Avg. Moisture",
+          "nodesOnline": "Nodes Online"
+        },
+        "nodeId": "Node ID",
+        "size": "Size",
+        "status": {
+          "optimal": "Optimal",
+          "warning": "Warning",
+          "available": "Available"
+        },
+        "planted": "Planted",
+        "harvest": "Harvest",
+        "nodeData": "Node Data",
+        "nextIrrigation": "Next Irrigation",
+        "viewDetails": "View Details",
+        "activeCrops": "Active Crops",
+        "noCrops": "No crops planted"
+      }
     }
   },
   "navigation": {

@@ -95,6 +95,34 @@
         "manualControl": "Control Manual",
         "askAi": "Preguntar al Asistente IA"
       }
+    },
+    "garden": {
+      "plots": {
+        "title": "Gestión de Bancales",
+        "gridView": "Vista Cuadrícula",
+        "listView": "Vista Lista",
+        "createPlot": "Crear Bancal",
+        "stats": {
+          "totalPlots": "Total Bancales",
+          "activeCrops": "Cultivos Activos",
+          "avgMoisture": "Humedad Promedio",
+          "nodesOnline": "Nodos Online"
+        },
+        "nodeId": "ID del Nodo",
+        "size": "Tamaño",
+        "status": {
+          "optimal": "Óptimo",
+          "warning": "Alerta",
+          "available": "Disponible"
+        },
+        "planted": "Plantado",
+        "harvest": "Cosecha",
+        "nodeData": "Datos del Nodo",
+        "nextIrrigation": "Próximo Riego",
+        "viewDetails": "Ver Detalles",
+        "activeCrops": "Cultivos Activos",
+        "noCrops": "Sin cultivos plantados"
+      }
     }
   },
   "navigation": {
