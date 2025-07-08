@@ -288,9 +288,7 @@ const PlotsPage = () => {
                     )} text-xs sm:text-sm`}
                   >
                     {getStatusIcon(plot.status)}{" "}
-                    <span className="hidden sm:inline">
-                      {t(`pages.garden.plots.status.${plot.status}`)}
-                    </span>
+                    {t(`pages.garden.plots.status.${plot.status}`)}
                   </Badge>
                 </div>
               </CardHeader>
@@ -416,10 +414,7 @@ const PlotsPage = () => {
                     size="sm"
                     className="flex-1 text-xs sm:text-sm"
                   >
-                    <span className="sm:hidden">👁️</span>
-                    <span className="hidden sm:inline">
-                      👁️ {t("pages.garden.plots.viewDetails")}
-                    </span>
+                    👁️ {t("pages.garden.plots.viewDetails")}
                   </Button>
                   <Button
                     variant="outline"
