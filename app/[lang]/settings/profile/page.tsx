@@ -67,31 +67,17 @@ const mockUser = {
   memberSince: "2023-06-15",
   lastLogin: "2024-01-15T10:30:00Z",
   totalLogins: 156,
-  preferences: {
-    theme: "auto",
-    units: "metric",
-    notifications: {
-      email: true,
-      push: true,
-      alerts: true,
-      weeklyReports: true,
-      monthlyReports: false,
-      marketing: false,
-    },
-    autoRefresh: true,
-    showAdvanced: false,
-  },
 };
 
 const ProfilePage: React.FC = () => {
   const t = useTranslations("pages.profile");
   const tCommon = useTranslations("common");
+  const tNavigation = useTranslations("navigation");
 
   // State management
   const [isEditing, setIsEditing] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [activeSection, setActiveSection] = useState("personal");
   const [formData, setFormData] = useState(mockUser);
   const [passwordData, setPasswordData] = useState({
     current: "",
@@ -110,29 +96,6 @@ const ProfilePage: React.FC = () => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
-    }));
-  };
-
-  const handlePreferenceChange = (
-    category: string,
-    field: string,
-    value: any
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      preferences: {
-        ...prev.preferences,
-        [category]:
-          typeof prev.preferences[category as keyof typeof prev.preferences] ===
-          "object"
-            ? {
-                ...(prev.preferences[
-                  category as keyof typeof prev.preferences
-                ] as object),
-                [field]: value,
-              }
-            : value,
-      },
     }));
   };
 
@@ -179,14 +142,14 @@ const ProfilePage: React.FC = () => {
   // Breadcrumb configuration
   const breadcrumbItems = [
     {
-      label: tCommon("navigation.settings.title"),
+      label: tNavigation("settings.title"),
       href: "/settings",
     },
   ];
 
   return (
     <PageTemplate
-      pageTitle={t("title")}
+      pageTitle={tNavigation("settings.profile")}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex gap-2">
@@ -521,205 +484,6 @@ const ProfilePage: React.FC = () => {
                     </p>
                   </div>
                   <Switch defaultChecked />
-                </div>
-              </div>
-            </div>
-          </SettingsSection>
-
-          {/* Preferences */}
-          <SettingsSection
-            title={t("sections.preferences.title")}
-            subtitle={t("sections.preferences.subtitle")}
-            icon="⚙️"
-          >
-            <div className="space-y-6">
-              {/* Notification Preferences */}
-              <div className="space-y-4">
-                <h4 className="text-md font-medium">
-                  {t("sections.preferences.notifications.title")}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t(
-                        "sections.preferences.notifications.emailNotifications"
-                      )}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.notifications.email}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange(
-                          "notifications",
-                          "email",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t(
-                        "sections.preferences.notifications.pushNotifications"
-                      )}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.notifications.push}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange("notifications", "push", checked)
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.notifications.alertsEmail")}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.notifications.alerts}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange(
-                          "notifications",
-                          "alerts",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.notifications.weeklyReports")}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.notifications.weeklyReports}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange(
-                          "notifications",
-                          "weeklyReports",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.notifications.monthlyReports")}
-                    </label>
-                    <Switch
-                      checked={
-                        formData.preferences.notifications.monthlyReports
-                      }
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange(
-                          "notifications",
-                          "monthlyReports",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.notifications.marketingEmails")}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.notifications.marketing}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange(
-                          "notifications",
-                          "marketing",
-                          checked
-                        )
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Display Settings */}
-              <div className="space-y-4 pt-4 border-t">
-                <h4 className="text-md font-medium">
-                  {t("sections.preferences.display.title")}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.display.theme")}
-                    </label>
-                    <Select
-                      value={formData.preferences.theme}
-                      onValueChange={(value) =>
-                        handlePreferenceChange("theme", "", value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="light">
-                          {t("sections.preferences.display.themeLight")}
-                        </SelectItem>
-                        <SelectItem value="dark">
-                          {t("sections.preferences.display.themeDark")}
-                        </SelectItem>
-                        <SelectItem value="auto">
-                          {t("sections.preferences.display.themeAuto")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.display.units")}
-                    </label>
-                    <Select
-                      value={formData.preferences.units}
-                      onValueChange={(value) =>
-                        handlePreferenceChange("units", "", value)
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="metric">
-                          {t("sections.preferences.display.unitsMetric")}
-                        </SelectItem>
-                        <SelectItem value="imperial">
-                          {t("sections.preferences.display.unitsImperial")}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Garden Preferences */}
-              <div className="space-y-4 pt-4 border-t">
-                <h4 className="text-md font-medium">
-                  {t("sections.preferences.garden.title")}
-                </h4>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.garden.autoRefresh")}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.autoRefresh}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange("autoRefresh", "", checked)
-                      }
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium">
-                      {t("sections.preferences.garden.showAdvancedFeatures")}
-                    </label>
-                    <Switch
-                      checked={formData.preferences.showAdvanced}
-                      onCheckedChange={(checked) =>
-                        handlePreferenceChange("showAdvanced", "", checked)
-                      }
-                    />
-                  </div>
                 </div>
               </div>
             </div>
