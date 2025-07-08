@@ -548,6 +548,116 @@
           "export": "Exportar Configuración",
           "import": "Importar Configuración"
         }
+      },
+      "users": {
+        "title": "Gestión de Usuarios",
+        "subtitle": "Gestiona usuarios, roles y permisos para tu huerto GreenHub",
+        "stats": {
+          "totalUsers": "Total Usuarios",
+          "activeUsers": "Usuarios Activos",
+          "adminUsers": "Administradores",
+          "pendingInvites": "Invitaciones Pendientes"
+        },
+        "inviteUser": "Invitar Usuario",
+        "viewMode": {
+          "grid": "Vista Cuadrícula",
+          "list": "Vista Lista"
+        },
+        "filterBy": "Filtrar por",
+        "filterAll": "Todos los Usuarios",
+        "filterActive": "Activos",
+        "filterPending": "Pendientes",
+        "filterInactive": "Inactivos",
+        "searchPlaceholder": "Buscar usuarios...",
+        "roles": {
+          "owner": "Propietario",
+          "admin": "Administrador",
+          "manager": "Gestor",
+          "viewer": "Observador",
+          "guest": "Invitado"
+        },
+        "permissions": {
+          "fullAccess": "Acceso Completo",
+          "gardenManagement": "Gestión del Huerto",
+          "monitoringOnly": "Solo Monitoreo",
+          "guestAccess": "Acceso de Invitado"
+        },
+        "status": {
+          "active": "Activo",
+          "pending": "Pendiente",
+          "inactive": "Inactivo",
+          "suspended": "Suspendido"
+        },
+        "userCard": {
+          "lastSeen": "Visto por última vez",
+          "joinedOn": "Se unió",
+          "neverLoggedIn": "Nunca se ha conectado",
+          "today": "hoy",
+          "yesterday": "ayer",
+          "daysAgo": "días atrás"
+        },
+        "actions": {
+          "changeRole": "Cambiar Rol",
+          "editUser": "Editar Usuario",
+          "suspendUser": "Suspender Usuario",
+          "activateUser": "Activar Usuario",
+          "removeUser": "Eliminar Usuario",
+          "resendInvite": "Reenviar Invitación",
+          "cancelInvite": "Cancelar Invitación",
+          "viewProfile": "Ver Perfil"
+        },
+        "inviteDialog": {
+          "title": "Invitar Nuevo Usuario",
+          "subtitle": "Envía una invitación para unirse a tu huerto GreenHub",
+          "email": "Dirección de Email",
+          "emailPlaceholder": "usuario@ejemplo.com",
+          "role": "Rol del Usuario",
+          "rolePlaceholder": "Selecciona el rol del usuario",
+          "personalMessage": "Mensaje Personal (Opcional)",
+          "personalMessagePlaceholder": "Añade un mensaje personal a la invitación...",
+          "sendInvite": "Enviar Invitación",
+          "sending": "Enviando...",
+          "sent": "Invitación enviada exitosamente",
+          "errors": {
+            "emailRequired": "La dirección de email es obligatoria",
+            "emailInvalid": "Por favor ingresa una dirección de email válida",
+            "roleRequired": "Por favor selecciona un rol de usuario",
+            "userExists": "Este usuario ya forma parte de tu huerto"
+          }
+        },
+        "roleDialog": {
+          "title": "Cambiar Rol del Usuario",
+          "subtitle": "Actualiza los permisos y nivel de acceso del usuario",
+          "currentRole": "Rol Actual",
+          "newRole": "Nuevo Rol",
+          "roleDescription": "Descripción del Rol",
+          "confirmChange": "Confirmar Cambio de Rol",
+          "changing": "Cambiando...",
+          "changed": "Rol del usuario actualizado exitosamente"
+        },
+        "removeDialog": {
+          "title": "Eliminar Usuario",
+          "subtitle": "¿Estás seguro de que quieres eliminar este usuario?",
+          "description": "Esta acción no se puede deshacer. El usuario perderá acceso a tu huerto y todos los datos asociados.",
+          "confirmText": "Escribe 'ELIMINAR' para confirmar",
+          "confirmPlaceholder": "Escribe ELIMINAR",
+          "removeUser": "Eliminar Usuario",
+          "removing": "Eliminando...",
+          "removed": "Usuario eliminado exitosamente"
+        },
+        "roleDescriptions": {
+          "owner": "Control total sobre el huerto y todas las configuraciones. Puede gestionar usuarios y facturación.",
+          "admin": "Puede gestionar configuraciones del huerto, usuarios y todas las operaciones del huerto.",
+          "manager": "Puede gestionar operaciones del huerto, cultivos y riego pero no puede gestionar usuarios.",
+          "viewer": "Puede ver todos los datos del huerto y monitoreo pero no puede hacer cambios.",
+          "guest": "Acceso limitado a información básica del huerto y áreas públicas."
+        },
+        "emptyStates": {
+          "noUsers": "No se encontraron usuarios",
+          "noUsersDescription": "Comienza invitando usuarios para colaborar en tu huerto",
+          "noSearchResults": "Ningún usuario coincide con tu búsqueda",
+          "noSearchResultsDescription": "Intenta ajustar tus criterios de búsqueda"
+        }
       }
     },
     "monitoring": {

@@ -262,7 +262,7 @@ const MonitoringAlertsPage = () => {
 
   return (
     <PageTemplate
-      pageTitle={t("pages.monitoring.alerts.title")}
+      pageTitle={t("navigation.monitoring.alerts")}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex items-center gap-2">
@@ -344,47 +344,6 @@ const MonitoringAlertsPage = () => {
           )}
         </div>
       </div>
-
-      {/* AI Recommendations Section */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">
-            🤖 {t("pages.monitoring.alerts.aiRecommendations.title")}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="flex items-start gap-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-            <span className="text-blue-600 text-lg">🔧</span>
-            <div className="flex-1 min-w-0">
-              <h4 className="font-medium text-blue-900">
-                {t(
-                  "pages.monitoring.alerts.aiRecommendations.preventiveMaintenance"
-                )}
-              </h4>
-              <p className="text-sm text-blue-700 mt-1">
-                {t(
-                  "pages.monitoring.alerts.aiRecommendations.preventiveMaintenanceDesc"
-                )}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-            <span className="text-green-600 text-lg">💧</span>
-            <div className="flex-1 min-w-0">
-              <h4 className="font-medium text-green-900">
-                {t(
-                  "pages.monitoring.alerts.aiRecommendations.irrigationOptimization"
-                )}
-              </h4>
-              <p className="text-sm text-green-700 mt-1">
-                {t(
-                  "pages.monitoring.alerts.aiRecommendations.irrigationOptimizationDesc"
-                )}
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Alerts List Header */}
       <div className="bg-background border rounded-lg">

@@ -1,0 +1,365 @@
+# ShadCN/UI Components Usage
+
+**ALWAYS use shadcn/ui components** as the foundation for all UI elements. Never create custom UI primitives when shadcn/ui equivalents exist.
+
+## Core Principles
+
+### 🎨 **shadcn/ui First Approach**
+
+- **MANDATORY**: Use shadcn/ui components from `@/components/ui/` for ALL base UI elements
+- **NO custom primitives** when shadcn/ui equivalents exist
+- **Consistent styling** through the shared design system
+- **Accessibility built-in** through radix-ui primitives
+
+### 📁 **Component Directory Structure**
+
+```
+components/
+├── ui/                    # 🎯 shadcn/ui components (CLI installed)
+│   ├── button.tsx         # Base button component
+│   ├── card.tsx          # Card layout components
+│   ├── input.tsx         # Form input elements
+│   ├── dialog.tsx        # Modal/dialog components
+│   └── ...               # Other shadcn/ui components
+├── atoms/                # Custom atoms built ON TOP of shadcn/ui
+├── molecules/            # Combinations using shadcn/ui + atoms
+└── organisms/            # Complex sections using all above
+```
+
+## Component Usage Rules
+
+### 🔲 **Form Components**
+
+#### **Buttons** - `@/components/ui/button`
+
+```tsx
+// ✅ CORRECT: Use shadcn Button
+import { Button } from "@/components/ui/button";
+
+const MyComponent = () => (
+  <Button variant="default" size="md">
+    Click me
+  </Button>
+);
+```
+
+```tsx
+// ❌ WRONG: Custom button element
+const MyComponent = () => (
+  <button className="px-4 py-2 bg-blue-500 text-white rounded">Click me</button>
+);
+```
+
+#### **Inputs** - `@/components/ui/input`
+
+```tsx
+// ✅ CORRECT: Use shadcn Input
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+const FormField = () => (
+  <div>
+    <Label htmlFor="email">Email</Label>
+    <Input id="email" type="email" placeholder="Enter your email" />
+  </div>
+);
+```
+
+```tsx
+// ❌ WRONG: Native input
+const FormField = () => (
+  <input
+    type="email"
+    className="border rounded px-3 py-2"
+    placeholder="Enter your email"
+  />
+);
+```
+
+### 📋 **Layout Components**
+
+#### **Cards** - `@/components/ui/card`
+
+```tsx
+// ✅ CORRECT: Use shadcn Card components
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const InfoCard = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Title</CardTitle>
+      <CardDescription>Description</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <p>Content goes here</p>
+    </CardContent>
+  </Card>
+);
+```
+
+```tsx
+// ❌ WRONG: Custom card div
+const InfoCard = () => (
+  <div className="border rounded-lg p-4 shadow-sm">
+    <h3 className="font-semibold">Title</h3>
+    <p className="text-gray-600">Description</p>
+    <p>Content goes here</p>
+  </div>
+);
+```
+
+#### **Dialogs** - `@/components/ui/dialog`
+
+```tsx
+// ✅ CORRECT: Use shadcn Dialog
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+const MyModal = () => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button>Open Dialog</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Modal Title</DialogTitle>
+        <DialogDescription>Modal description</DialogDescription>
+      </DialogHeader>
+      {/* Modal content */}
+    </DialogContent>
+  </Dialog>
+);
+```
+
+### 🎛️ **Interactive Components**
+
+#### **Select** - `@/components/ui/select`
+
+```tsx
+// ✅ CORRECT: Use shadcn Select
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const MySelect = () => (
+  <Select>
+    <SelectTrigger>
+      <SelectValue placeholder="Select option" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="option1">Option 1</SelectItem>
+      <SelectItem value="option2">Option 2</SelectItem>
+    </SelectContent>
+  </Select>
+);
+```
+
+## Implementation Rules
+
+### ✅ **DO:**
+
+- **Use shadcn/ui components** for ALL base UI elements
+- **Import from `@/components/ui/`** path alias
+- **Leverage component variants** (size, variant, etc.)
+- **Combine shadcn components** to build complex molecules
+- **Extend shadcn components** when additional functionality is needed
+- **Use proper TypeScript types** from shadcn components
+- **Follow accessibility patterns** built into shadcn components
+
+### ❌ **DON'T:**
+
+- **Create custom buttons, inputs, cards** when shadcn equivalents exist
+- **Use native HTML elements** for styled components
+- **Duplicate shadcn component functionality**
+- **Skip shadcn variants** - use the provided customization options
+- **Import from external UI libraries** when shadcn has the component
+- **Hardcode styles** that should use shadcn's design tokens
+
+## Available Components Checklist
+
+### 🎯 **Always Use These Instead of Custom:**
+
+- ✅ `Button` instead of `<button>` + custom styles
+- ✅ `Input` instead of `<input>` + custom styles
+- ✅ `Card, CardHeader, CardContent` instead of custom divs
+- ✅ `Dialog, DialogContent` instead of custom modals
+- ✅ `Select, SelectItem` instead of custom dropdowns
+- ✅ `Label` instead of `<label>` + custom styles
+- ✅ `Badge` instead of custom status indicators
+- ✅ `Alert` instead of custom notification components
+- ✅ `Separator` instead of `<hr>` or custom dividers
+- ✅ `Skeleton` instead of custom loading states
+
+### 📦 **Installing New Components**
+
+When you need a new shadcn component:
+
+```bash
+# Install component via CLI
+npx shadcn-ui@latest add [component-name]
+
+# Example:
+npx shadcn-ui@latest add dropdown-menu
+npx shadcn-ui@latest add avatar
+npx shadcn-ui@latest add calendar
+```
+
+## Integration with Atomic Design
+
+### 🔬 **Atoms** (`/components/atoms/`)
+
+Build custom atoms **ON TOP** of shadcn components:
+
+```tsx
+// ✅ Custom atom using shadcn base
+import { Button } from "@/components/ui/button";
+
+export const SubmitButton: React.FC<SubmitButtonProps> = ({
+  isLoading,
+  children,
+  ...props
+}) => (
+  <Button type="submit" disabled={isLoading} {...props}>
+    {isLoading ? "Loading..." : children}
+  </Button>
+);
+```
+
+### 🧬 **Molecules** (`/components/molecules/`)
+
+Combine shadcn components into functional units:
+
+```tsx
+// ✅ Molecule combining shadcn components
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+export const StatusCard: React.FC<StatusCardProps> = ({
+  title,
+  status,
+  actions,
+}) => (
+  <Card>
+    <CardHeader>
+      <div className="flex justify-between items-center">
+        <CardTitle>{title}</CardTitle>
+        <Badge variant={status === "active" ? "default" : "secondary"}>
+          {status}
+        </Badge>
+      </div>
+    </CardHeader>
+    <CardContent>
+      <div className="flex gap-2">
+        {actions.map((action) => (
+          <Button key={action.id} variant="outline" size="sm">
+            {action.label}
+          </Button>
+        ))}
+      </div>
+    </CardContent>
+  </Card>
+);
+```
+
+## Common Patterns
+
+### 🎨 **Styling Approach**
+
+```tsx
+// ✅ Extend shadcn components with className
+<Button
+  variant="outline"
+  size="sm"
+  className="w-full gap-2" // Additional styles
+>
+  <Icon /> Submit
+</Button>
+
+// ✅ Use cn() utility for conditional classes
+import { cn } from "@/lib/utils";
+
+<Card className={cn(
+  "hover:shadow-md transition-shadow",
+  isSelected && "border-primary"
+)}>
+```
+
+### 🔄 **Form Integration**
+
+```tsx
+// ✅ shadcn + react-hook-form
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+<div className="space-y-2">
+  <Label htmlFor="username">Username</Label>
+  <Input id="username" {...register("username")} placeholder="Enter username" />
+</div>;
+```
+
+## Quality Standards
+
+### 🎯 **Component Selection Priority**
+
+1. **First**: Check if shadcn/ui has the component
+2. **Second**: If not available, install it via CLI if possible
+3. **Third**: Build custom component using shadcn primitives
+4. **Last Resort**: Create from scratch (only for very specific needs)
+
+### 🔍 **Code Review Checklist**
+
+- [ ] Are all UI primitives using shadcn/ui components?
+- [ ] Are imports using the correct `@/components/ui/` paths?
+- [ ] Are component variants being used appropriately?
+- [ ] Is the `cn()` utility used for conditional styling?
+- [ ] Are accessibility patterns from shadcn preserved?
+
+## Examples from Project
+
+### ✅ **Good Implementation:**
+
+```tsx
+// Following atomic design + shadcn
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+// Custom atom built on shadcn
+export const StatCard = ({ title, value, icon }) => (
+  <Card>
+    <CardContent className="p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-2xl font-bold">{value}</p>
+        </div>
+        <span className="text-2xl">{icon}</span>
+      </div>
+    </CardContent>
+  </Card>
+);
+```
+
+**Remember**: shadcn/ui components are the building blocks of our design system. Always start there before creating custom solutions.
+description:
+globs:
+alwaysApply: false
+
+---

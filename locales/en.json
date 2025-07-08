@@ -548,6 +548,116 @@
           "export": "Export Settings",
           "import": "Import Settings"
         }
+      },
+      "users": {
+        "title": "User Management",
+        "subtitle": "Manage users, roles, and permissions for your GreenHub garden",
+        "stats": {
+          "totalUsers": "Total Users",
+          "activeUsers": "Active Users",
+          "adminUsers": "Administrators",
+          "pendingInvites": "Pending Invites"
+        },
+        "inviteUser": "Invite User",
+        "viewMode": {
+          "grid": "Grid View",
+          "list": "List View"
+        },
+        "filterBy": "Filter by",
+        "filterAll": "All Users",
+        "filterActive": "Active",
+        "filterPending": "Pending",
+        "filterInactive": "Inactive",
+        "searchPlaceholder": "Search users...",
+        "roles": {
+          "owner": "Owner",
+          "admin": "Administrator",
+          "manager": "Manager",
+          "viewer": "Viewer",
+          "guest": "Guest"
+        },
+        "permissions": {
+          "fullAccess": "Full Access",
+          "gardenManagement": "Garden Management",
+          "monitoringOnly": "Monitoring Only",
+          "guestAccess": "Guest Access"
+        },
+        "status": {
+          "active": "Active",
+          "pending": "Pending",
+          "inactive": "Inactive",
+          "suspended": "Suspended"
+        },
+        "userCard": {
+          "lastSeen": "Last seen",
+          "joinedOn": "Joined",
+          "neverLoggedIn": "Never logged in",
+          "today": "today",
+          "yesterday": "yesterday",
+          "daysAgo": "days ago"
+        },
+        "actions": {
+          "changeRole": "Change Role",
+          "editUser": "Edit User",
+          "suspendUser": "Suspend User",
+          "activateUser": "Activate User",
+          "removeUser": "Remove User",
+          "resendInvite": "Resend Invite",
+          "cancelInvite": "Cancel Invite",
+          "viewProfile": "View Profile"
+        },
+        "inviteDialog": {
+          "title": "Invite New User",
+          "subtitle": "Send an invitation to join your GreenHub garden",
+          "email": "Email Address",
+          "emailPlaceholder": "user@example.com",
+          "role": "User Role",
+          "rolePlaceholder": "Select user role",
+          "personalMessage": "Personal Message (Optional)",
+          "personalMessagePlaceholder": "Add a personal message to the invitation...",
+          "sendInvite": "Send Invitation",
+          "sending": "Sending...",
+          "sent": "Invitation sent successfully",
+          "errors": {
+            "emailRequired": "Email address is required",
+            "emailInvalid": "Please enter a valid email address",
+            "roleRequired": "Please select a user role",
+            "userExists": "This user is already part of your garden"
+          }
+        },
+        "roleDialog": {
+          "title": "Change User Role",
+          "subtitle": "Update user permissions and access level",
+          "currentRole": "Current Role",
+          "newRole": "New Role",
+          "roleDescription": "Role Description",
+          "confirmChange": "Confirm Role Change",
+          "changing": "Changing...",
+          "changed": "User role updated successfully"
+        },
+        "removeDialog": {
+          "title": "Remove User",
+          "subtitle": "Are you sure you want to remove this user?",
+          "description": "This action cannot be undone. The user will lose access to your garden and all associated data.",
+          "confirmText": "Type 'REMOVE' to confirm",
+          "confirmPlaceholder": "Type REMOVE",
+          "removeUser": "Remove User",
+          "removing": "Removing...",
+          "removed": "User removed successfully"
+        },
+        "roleDescriptions": {
+          "owner": "Full control over the garden and all settings. Can manage users and billing.",
+          "admin": "Can manage garden settings, users, and all garden operations.",
+          "manager": "Can manage garden operations, crops, and irrigation but cannot manage users.",
+          "viewer": "Can view all garden data and monitoring but cannot make changes.",
+          "guest": "Limited access to basic garden information and public areas."
+        },
+        "emptyStates": {
+          "noUsers": "No users found",
+          "noUsersDescription": "Start by inviting users to collaborate on your garden",
+          "noSearchResults": "No users match your search",
+          "noSearchResultsDescription": "Try adjusting your search criteria"
+        }
       }
     },
     "monitoring": {
