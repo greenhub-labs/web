@@ -10,11 +10,13 @@ import {
   CardTitle,
 } from "@/contexts/shared/presentation/components/ui/card";
 import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import {
-  Alert,
-  AlertDescription,
-} from "@/contexts/shared/presentation/components/ui/alert";
 import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/contexts/shared/presentation/components/ui/dropdown-menu";
 
 // Atomic components
 import { StatCard } from "@/contexts/shared/presentation/components/atoms";
@@ -30,6 +32,8 @@ const MonitoringAlertsPage = () => {
     {
       id: "alert-1",
       name: "Low Soil Moisture - Plot A",
+      description:
+        "Triggers when the soil moisture goes to or below 30% for 1 consecutive minutes",
       category: "irrigation",
       priority: "high",
       status: "active",
@@ -39,8 +43,6 @@ const MonitoringAlertsPage = () => {
       condition: "Soil moisture < 30%",
       currentValue: "25%",
       threshold: "30%",
-      description:
-        "Soil moisture in Plot A has dropped below the optimal level",
       location: "Garden Plot A",
       sensor: "Moisture Sensor #1",
       escalated: false,
@@ -49,6 +51,8 @@ const MonitoringAlertsPage = () => {
     {
       id: "alert-2",
       name: "Battery Level Critical - Node C",
+      description:
+        "Triggers when the battery level of any node goes to or below 20% for 5 consecutive minutes",
       category: "power",
       priority: "critical",
       status: "active",
@@ -58,7 +62,6 @@ const MonitoringAlertsPage = () => {
       condition: "Battery level < 20%",
       currentValue: "15%",
       threshold: "20%",
-      description: "Battery level critically low, immediate attention required",
       location: "Garden Plot C",
       sensor: "Power Management Unit",
       escalated: true,
@@ -67,6 +70,8 @@ const MonitoringAlertsPage = () => {
     {
       id: "alert-3",
       name: "High Temperature Warning",
+      description:
+        "Triggers when the temperature goes to or above 35°C for 2 consecutive minutes",
       category: "weather",
       priority: "medium",
       status: "resolved",
@@ -76,7 +81,6 @@ const MonitoringAlertsPage = () => {
       condition: "Temperature > 35°C",
       currentValue: "32°C",
       threshold: "35°C",
-      description: "Temperature exceeded safe levels for current crops",
       location: "Garden Plot B",
       sensor: "Temperature Sensor #2",
       escalated: false,
@@ -85,6 +89,8 @@ const MonitoringAlertsPage = () => {
     {
       id: "alert-4",
       name: "Connectivity Loss - Node D",
+      description:
+        "Triggers when no data received from node for more than 30 consecutive minutes",
       category: "connectivity",
       priority: "medium",
       status: "snoozed",
@@ -94,7 +100,6 @@ const MonitoringAlertsPage = () => {
       condition: "No data received > 30 minutes",
       currentValue: "45 minutes",
       threshold: "30 minutes",
-      description: "Node has stopped sending data",
       location: "Garden Plot D",
       sensor: "Communication Module",
       escalated: false,
@@ -103,6 +108,8 @@ const MonitoringAlertsPage = () => {
     {
       id: "alert-5",
       name: "Pest Detection Alert",
+      description:
+        "Triggers when camera detects unusual movement patterns for 3 consecutive minutes",
       category: "sensor",
       priority: "low",
       status: "active",
@@ -112,7 +119,6 @@ const MonitoringAlertsPage = () => {
       condition: "Unusual movement detected",
       currentValue: "Motion detected",
       threshold: "No motion",
-      description: "Camera detected unusual movement in the garden area",
       location: "Garden Plot A",
       sensor: "Motion Camera #1",
       escalated: false,
@@ -137,6 +143,19 @@ const MonitoringAlertsPage = () => {
   });
 
   // Helper functions
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "active":
+        return "🔴";
+      case "resolved":
+        return "✅";
+      case "snoozed":
+        return "⏸️";
+      default:
+        return "⚠️";
+    }
+  };
+
   const getPriorityVariant = (priority: string) => {
     switch (priority) {
       case "critical":
@@ -184,13 +203,6 @@ const MonitoringAlertsPage = () => {
     }
   };
 
-  const getAlertVariant = (priority: string, status: string) => {
-    if (status === "resolved") return "default";
-    if (priority === "critical") return "destructive";
-    if (priority === "high") return "destructive";
-    return "default";
-  };
-
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
     const now = new Date();
@@ -202,18 +214,22 @@ const MonitoringAlertsPage = () => {
       const diffInMinutes = Math.floor(
         (now.getTime() - date.getTime()) / (1000 * 60)
       );
-      return `${diffInMinutes} min ago`;
+      return `${diffInMinutes} minutes ago`;
     } else if (diffInHours < 24) {
-      return `${diffInHours}h ago`;
+      return `${diffInHours} hours ago`;
     } else {
       const diffInDays = Math.floor(diffInHours / 24);
-      return `${diffInDays}d ago`;
+      return `${diffInDays} days ago`;
     }
   };
 
-  const formatFullTimestamp = (timestamp: string) => {
+  const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleString();
+    return (
+      date.toLocaleDateString() +
+      ", " +
+      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    );
   };
 
   const handleResolveAlert = (alertId: string) => {
@@ -370,163 +386,220 @@ const MonitoringAlertsPage = () => {
         </CardContent>
       </Card>
 
-      {/* Alerts List */}
-      <div className="space-y-3">
-        {filteredAlerts.map((alert) => (
-          <Alert
-            key={alert.id}
-            variant={getAlertVariant(alert.priority, alert.status)}
-            className="relative"
-          >
-            <div className="flex items-start justify-between w-full">
-              {/* Left side - Alert content */}
-              <div className="flex items-start gap-3 flex-1 min-w-0">
-                {/* Category icon */}
-                <span className="text-xl flex-shrink-0 mt-1">
-                  {getCategoryIcon(alert.category)}
-                </span>
+      {/* Alerts List Header */}
+      <div className="bg-background border rounded-lg">
+        {/* Table Header */}
+        <div className="hidden md:grid md:grid-cols-12 gap-4 p-4 border-b bg-muted/30 text-sm font-medium text-muted-foreground">
+          <div className="col-span-1">STATUS</div>
+          <div className="col-span-4">NAME</div>
+          <div className="col-span-2">SERVICE</div>
+          <div className="col-span-1">SEVERITY</div>
+          <div className="col-span-2">LAST TRIGGER</div>
+          <div className="col-span-1">NODE</div>
+          <div className="col-span-1"></div>
+        </div>
 
-                {/* Alert content */}
-                <div className="flex-1 min-w-0">
-                  {/* Alert title and badges */}
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-sm leading-tight">
-                        {alert.name}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <Badge
-                          variant={getPriorityVariant(alert.priority)}
-                          className="text-xs"
-                        >
-                          {t(
-                            `pages.monitoring.alerts.priority.${alert.priority}`
-                          )}
-                        </Badge>
-                        <Badge
-                          variant={getStatusVariant(alert.status)}
-                          className="text-xs"
-                        >
-                          {t(`pages.monitoring.alerts.status.${alert.status}`)}
-                        </Badge>
-                        {alert.escalated && (
-                          <Badge variant="destructive" className="text-xs">
-                            🚨 Escalated
-                          </Badge>
-                        )}
-                      </div>
+        {/* Alerts List */}
+        <div className="divide-y">
+          {filteredAlerts.map((alert) => (
+            <div
+              key={alert.id}
+              className="p-4 hover:bg-muted/30 transition-colors"
+            >
+              {/* Desktop Layout */}
+              <div className="hidden md:grid md:grid-cols-12 gap-4 items-center">
+                {/* Status Icon */}
+                <div className="col-span-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">
+                      {getStatusIcon(alert.status)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Name & Description */}
+                <div className="col-span-4">
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-sm">{alert.name}</h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2">
+                      {alert.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Service */}
+                <div className="col-span-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">
+                      {getCategoryIcon(alert.category)}
+                    </span>
+                    <span className="text-sm font-medium">
+                      {t(`pages.monitoring.alerts.category.${alert.category}`)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Severity */}
+                <div className="col-span-1">
+                  <Badge
+                    variant={getPriorityVariant(alert.priority)}
+                    className="text-xs"
+                  >
+                    {t(`pages.monitoring.alerts.priority.${alert.priority}`)}
+                  </Badge>
+                </div>
+
+                {/* Last Trigger */}
+                <div className="col-span-2">
+                  <div className="space-y-1 text-xs">
+                    <div className="font-medium">
+                      {formatDate(alert.triggeredAt)}
+                    </div>
+                    <div className="text-muted-foreground">
+                      {formatTimestamp(alert.triggeredAt)}
                     </div>
                   </div>
+                </div>
 
-                  {/* Alert description */}
-                  <AlertDescription className="text-sm mb-2">
-                    {alert.description}
-                  </AlertDescription>
+                {/* Node */}
+                <div className="col-span-1">
+                  <span className="text-xs font-mono bg-muted px-2 py-1 rounded">
+                    {alert.nodeId}
+                  </span>
+                </div>
 
-                  {/* Alert details */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs text-muted-foreground mb-3">
-                    <div>
-                      <span className="font-medium">Location:</span>{" "}
-                      {alert.location}
-                    </div>
-                    <div>
-                      <span className="font-medium">Node:</span> {alert.nodeId}
-                    </div>
-                    <div>
-                      <span className="font-medium">Sensor:</span>{" "}
-                      {alert.sensor}
-                    </div>
-                  </div>
-
-                  {/* Condition and values */}
-                  <div className="bg-muted/50 p-2 rounded text-xs mb-3">
-                    <div className="font-mono mb-1">{alert.condition}</div>
-                    <div className="flex gap-4">
-                      <span>
-                        <span className="font-medium">Current:</span>{" "}
-                        <span className="text-red-600 font-medium">
-                          {alert.currentValue}
-                        </span>
-                      </span>
-                      <span>
-                        <span className="font-medium">Threshold:</span>{" "}
-                        {alert.threshold}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Action buttons */}
-                  {alert.status === "active" && (
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        onClick={() => handleResolveAlert(alert.id)}
-                        className="text-xs h-7"
-                      >
-                        ✅ {t("pages.monitoring.alerts.actions.resolve")}
+                {/* Actions */}
+                <div className="col-span-1 flex justify-end">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <span className="text-lg">⋯</span>
                       </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleSnoozeAlert(alert.id)}
-                        className="text-xs h-7"
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() => console.log("View details:", alert.id)}
                       >
-                        ⏰ {t("pages.monitoring.alerts.actions.snooze")}
-                      </Button>
-                      {!alert.escalated && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleEscalateAlert(alert.id)}
-                          className="text-xs h-7"
-                        >
-                          🚨 {t("pages.monitoring.alerts.actions.escalate")}
-                        </Button>
-                      )}
-                      <Button size="sm" variant="ghost" className="text-xs h-7">
                         👁️ {t("pages.monitoring.alerts.actions.viewDetails")}
-                      </Button>
-                    </div>
-                  )}
+                      </DropdownMenuItem>
+                      {alert.status === "active" && (
+                        <>
+                          <DropdownMenuItem
+                            onClick={() => handleResolveAlert(alert.id)}
+                          >
+                            ✅ {t("pages.monitoring.alerts.actions.resolve")}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleSnoozeAlert(alert.id)}
+                          >
+                            ⏰ {t("pages.monitoring.alerts.actions.snooze")}
+                          </DropdownMenuItem>
+                          {!alert.escalated && (
+                            <DropdownMenuItem
+                              onClick={() => handleEscalateAlert(alert.id)}
+                            >
+                              🚨 {t("pages.monitoring.alerts.actions.escalate")}
+                            </DropdownMenuItem>
+                          )}
+                        </>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               </div>
 
-              {/* Right side - Timestamp */}
-              <div className="flex flex-col items-end text-right flex-shrink-0 ml-4">
-                <div className="text-xs text-muted-foreground">
-                  {formatTimestamp(alert.triggeredAt)}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  {formatFullTimestamp(alert.triggeredAt)}
-                </div>
-                {alert.resolvedAt && (
-                  <div className="text-xs text-green-600 mt-1">
-                    Resolved: {formatTimestamp(alert.resolvedAt)}
+              {/* Mobile Layout */}
+              <div className="md:hidden space-y-3">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-3 flex-1">
+                    <span className="text-lg flex-shrink-0">
+                      {getStatusIcon(alert.status)}
+                    </span>
+                    <div className="space-y-1 flex-1">
+                      <h3 className="font-semibold text-sm">{alert.name}</h3>
+                      <p className="text-xs text-muted-foreground">
+                        {alert.description}
+                      </p>
+                    </div>
                   </div>
-                )}
-                {alert.snoozedUntil && (
-                  <div className="text-xs text-yellow-600 mt-1">
-                    Snoozed until:{" "}
-                    {new Date(alert.snoozedUntil).toLocaleTimeString()}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                        <span className="text-lg">⋯</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem
+                        onClick={() => console.log("View details:", alert.id)}
+                      >
+                        👁️ {t("pages.monitoring.alerts.actions.viewDetails")}
+                      </DropdownMenuItem>
+                      {alert.status === "active" && (
+                        <>
+                          <DropdownMenuItem
+                            onClick={() => handleResolveAlert(alert.id)}
+                          >
+                            ✅ {t("pages.monitoring.alerts.actions.resolve")}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => handleSnoozeAlert(alert.id)}
+                          >
+                            ⏰ {t("pages.monitoring.alerts.actions.snooze")}
+                          </DropdownMenuItem>
+                          {!alert.escalated && (
+                            <DropdownMenuItem
+                              onClick={() => handleEscalateAlert(alert.id)}
+                            >
+                              🚨 {t("pages.monitoring.alerts.actions.escalate")}
+                            </DropdownMenuItem>
+                          )}
+                        </>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+
+                <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1">
+                      <span>{getCategoryIcon(alert.category)}</span>
+                      <span>
+                        {t(
+                          `pages.monitoring.alerts.category.${alert.category}`
+                        )}
+                      </span>
+                    </div>
+                    <Badge
+                      variant={getPriorityVariant(alert.priority)}
+                      className="text-xs"
+                    >
+                      {t(`pages.monitoring.alerts.priority.${alert.priority}`)}
+                    </Badge>
+                    <span className="font-mono bg-muted px-2 py-1 rounded">
+                      {alert.nodeId}
+                    </span>
                   </div>
-                )}
+                  <div className="text-muted-foreground">
+                    {formatTimestamp(alert.triggeredAt)}
+                  </div>
+                </div>
               </div>
             </div>
-          </Alert>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Empty State */}
       {filteredAlerts.length === 0 && (
-        <Alert className="p-8 text-center">
+        <div className="text-center py-12 bg-background border rounded-lg">
           <div className="text-4xl mb-4">🎉</div>
           <h3 className="text-lg font-semibold mb-2">No alerts found</h3>
-          <AlertDescription>
+          <p className="text-muted-foreground">
             {filterBy === "all"
               ? "All systems are running smoothly!"
               : `No ${filterBy} alerts at this time.`}
-          </AlertDescription>
-        </Alert>
+          </p>
+        </div>
       )}
     </PageTemplate>
   );
