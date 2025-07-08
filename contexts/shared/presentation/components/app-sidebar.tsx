@@ -27,7 +27,8 @@ import {
 import {
   getNavigationConfig,
   getActiveNavigationItem,
-} from "@/contexts/shared/domain/navigation";
+  getActiveNavigationSection,
+} from "@/contexts/shared/domain/navigation/routes";
 
 /**
  * AppSidebar component using DDD navigation configuration
@@ -39,6 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const navigationConfig = getNavigationConfig();
   const activeItemId = getActiveNavigationItem(pathname);
+  const activeSectionId = getActiveNavigationSection(pathname);
 
   return (
     <Sidebar {...props}>
@@ -63,7 +65,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
-            {navigationConfig.main.map((item, index) => {
+            {navigationConfig.main.map((item) => {
+              // Determine if this section should be open
+              const shouldBeOpen = activeSectionId === item.id;
+
+              // Determine if this section or any of its children are active
+              const isSectionActive = activeItemId === item.id || shouldBeOpen;
+
               // Render simple items (like Home) without collapsible
               if (!item.items?.length) {
                 return (
@@ -78,16 +86,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 );
               }
 
-              // Render collapsible items (like Analytics with subitems)
+              // Render collapsible items (like Garden, Coop, etc. with subitems)
               return (
                 <Collapsible
                   key={item.id}
-                  defaultOpen={index === 2} // Monitoring section open by default
+                  defaultOpen={shouldBeOpen}
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton isActive={isSectionActive}>
                         {t(item.titleKey)}{" "}
                         <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
                         <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />

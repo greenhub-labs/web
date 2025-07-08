@@ -259,18 +259,60 @@ export const getNavigationConfig = (): NavigationConfig => {
 };
 
 /**
+ * Helper function to normalize pathname by removing locale prefix
+ * Handles paths like /en/garden/plots -> /garden/plots
+ */
+const normalizePathname = (pathname: string): string => {
+  // Remove locale prefix (e.g., /en, /es)
+  const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, "/");
+  // Ensure it starts with /
+  return pathWithoutLocale === "" ? "/" : pathWithoutLocale;
+};
+
+/**
  * Helper function to find active navigation item by current path
+ * Returns both the active item ID and parent section ID
  */
 export const getActiveNavigationItem = (currentPath: string): string | null => {
+  const normalizedPath = normalizePathname(currentPath);
+
   for (const section of navigationConfig.main) {
-    if (section.url === currentPath) {
+    if (section.url === normalizedPath) {
       return section.id;
     }
 
     if (section.items) {
       for (const item of section.items) {
-        if (item.url === currentPath) {
+        if (item.url === normalizedPath) {
           return item.id;
+        }
+      }
+    }
+  }
+
+  return null;
+};
+
+/**
+ * Helper function to find which navigation section should be open
+ * Based on the current path
+ */
+export const getActiveNavigationSection = (
+  currentPath: string
+): string | null => {
+  const normalizedPath = normalizePathname(currentPath);
+
+  for (const section of navigationConfig.main) {
+    // Check if we're directly on the section page
+    if (section.url === normalizedPath) {
+      return section.id;
+    }
+
+    // Check if we're on any of the section's subpages
+    if (section.items) {
+      for (const item of section.items) {
+        if (item.url === normalizedPath) {
+          return section.id;
         }
       }
     }
