@@ -16,6 +16,7 @@ import { Separator } from "@/contexts/shared/presentation/components/ui/separato
 import {
   StatCard,
   ProgressBar,
+  SearchInput,
 } from "@/contexts/shared/presentation/components/atoms";
 import {
   EntityCardHeader,
@@ -30,6 +31,7 @@ const PlantingPlannerPage = () => {
     "all" | "spring" | "summer" | "autumn" | "winter"
   >("all");
   const [viewMode, setViewMode] = useState<"grid" | "timeline">("grid");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Mock data for planting recommendations
   const plantingRecommendations = [
@@ -183,10 +185,27 @@ const PlantingPlannerPage = () => {
     },
   };
 
-  // Filter recommendations by season
+  // Filter recommendations by season and search query
   const filteredRecommendations = plantingRecommendations.filter((plant) => {
-    if (seasonFilter === "all") return true;
-    return plant.season === seasonFilter;
+    // Season filter
+    const matchesSeason =
+      seasonFilter === "all" || plant.season === seasonFilter;
+
+    // Search filter
+    const matchesSearch =
+      searchQuery === "" ||
+      [
+        plant.name.toLowerCase(),
+        plant.variety.toLowerCase(),
+        plant.notes.toLowerCase(),
+        plant.sunRequirement.toLowerCase(),
+        plant.waterRequirement.toLowerCase(),
+        plant.difficulty.toLowerCase(),
+        ...plant.companionPlants.map((p) => p.toLowerCase()),
+        ...plant.avoidPlants.map((p) => p.toLowerCase()),
+      ].some((field) => field.includes(searchQuery.toLowerCase()));
+
+    return matchesSeason && matchesSearch;
   });
 
   // Calculate stats
@@ -428,6 +447,52 @@ const PlantingPlannerPage = () => {
           />
         </div>
 
+        {/* Search Bar */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex-1">
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder={t("pages.garden.plantingPlanner.searchPlaceholder")}
+              size="md"
+              className="w-full"
+            />
+          </div>
+          {(searchQuery || seasonFilter !== "all") && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>
+                {filteredRecommendations.length}{" "}
+                {filteredRecommendations.length === 1 ? "result" : "results"}
+              </span>
+              {(searchQuery || seasonFilter !== "all") && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSeasonFilter("all");
+                  }}
+                  className="h-8 px-2 text-xs"
+                >
+                  {t("pages.garden.plantingPlanner.clearSearch")}
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Search Results Header */}
+        {searchQuery && (
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-semibold">
+              {t("pages.garden.plantingPlanner.searchResults")}
+            </h2>
+            <span className="text-sm text-muted-foreground">
+              "{searchQuery}"
+            </span>
+          </div>
+        )}
+
         {/* Current Season Overview */}
         <Card>
           <CardHeader className="pb-3 sm:pb-4">
@@ -476,215 +541,238 @@ const PlantingPlannerPage = () => {
         </Card>
 
         {/* Planting Recommendations */}
-        <div
-          className={
-            viewMode === "grid"
-              ? "grid gap-3 sm:gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
-              : "space-y-3 sm:space-y-4"
-          }
-        >
-          {filteredRecommendations.map((plant) => {
-            const plantActions: CardAction[] = [
-              {
-                label: plant.isPlanted
-                  ? t("pages.garden.plantingPlanner.viewDetails")
-                  : t("pages.garden.plantingPlanner.addToPlots"),
-                icon: plant.isPlanted ? "👁️" : "➕",
-                onClick: () =>
-                  console.log(
-                    plant.isPlanted ? "View details" : "Add to plots",
-                    plant.id
-                  ),
-                variant: plant.isPlanted ? "outline" : "default",
-                isPrimary: true,
-              },
-              {
-                label: t("pages.garden.plantingPlanner.learnMore"),
-                icon: "📚",
-                onClick: () => console.log("Learn more about", plant.id),
-                variant: "outline",
-              },
-            ];
+        {filteredRecommendations.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-lg font-semibold mb-2">
+              {t("pages.garden.plantingPlanner.noResults")}
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              {searchQuery
+                ? `No plants found matching "${searchQuery}"`
+                : "Try adjusting your filters"}
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchQuery("");
+                setSeasonFilter("all");
+              }}
+            >
+              {t("pages.garden.plantingPlanner.clearSearch")}
+            </Button>
+          </div>
+        ) : (
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid gap-3 sm:gap-4 lg:gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
+                : "space-y-3 sm:space-y-4"
+            }
+          >
+            {filteredRecommendations.map((plant) => {
+              const plantActions: CardAction[] = [
+                {
+                  label: plant.isPlanted
+                    ? t("pages.garden.plantingPlanner.viewDetails")
+                    : t("pages.garden.plantingPlanner.addToPlots"),
+                  icon: plant.isPlanted ? "👁️" : "➕",
+                  onClick: () =>
+                    console.log(
+                      plant.isPlanted ? "View details" : "Add to plots",
+                      plant.id
+                    ),
+                  variant: plant.isPlanted ? "outline" : "default",
+                  isPrimary: true,
+                },
+                {
+                  label: t("pages.garden.plantingPlanner.learnMore"),
+                  icon: "📚",
+                  onClick: () => console.log("Learn more about", plant.id),
+                  variant: "outline",
+                },
+              ];
 
-            const alerts = [
-              ...(plant.priority === "high"
-                ? [
-                    {
-                      type: "info" as const,
-                      icon: "⭐",
-                      message: t("pages.garden.plantingPlanner.highPriority"),
-                    },
-                  ]
-                : []),
-              ...(plant.avoidPlants.length > 0
-                ? [
-                    {
-                      type: "warning" as const,
-                      icon: "⚠️",
-                      message: `${t(
-                        "pages.garden.plantingPlanner.avoid"
-                      )}: ${plant.avoidPlants.join(", ")}`,
-                    },
-                  ]
-                : []),
-            ];
+              const alerts = [
+                ...(plant.priority === "high"
+                  ? [
+                      {
+                        type: "info" as const,
+                        icon: "⭐",
+                        message: t("pages.garden.plantingPlanner.highPriority"),
+                      },
+                    ]
+                  : []),
+                ...(plant.avoidPlants.length > 0
+                  ? [
+                      {
+                        type: "warning" as const,
+                        icon: "⚠️",
+                        message: `${t(
+                          "pages.garden.plantingPlanner.avoid"
+                        )}: ${plant.avoidPlants.join(", ")}`,
+                      },
+                    ]
+                  : []),
+              ];
 
-            return (
-              <Card
-                key={plant.id}
-                className={`hover:shadow-md transition-shadow border ${
-                  plant.isPlanted
-                    ? "bg-green-50/50 border-green-200"
-                    : "border-border"
-                }`}
-              >
-                <EntityCardHeader
-                  icon={plant.icon}
-                  title={plant.name}
-                  subtitle={`${plant.variety} • ${t(
-                    `pages.garden.plantingPlanner.seasons.${plant.season}`
-                  )}`}
-                  status={plant.isPlanted ? "planted" : plant.priority}
-                  statusType="planting"
-                  statusLabel={
+              return (
+                <Card
+                  key={plant.id}
+                  className={`hover:shadow-md transition-shadow border ${
                     plant.isPlanted
-                      ? t("pages.garden.plantingPlanner.status.planted")
-                      : t(
-                          `pages.garden.plantingPlanner.priority.${plant.priority}`
-                        )
-                  }
-                />
+                      ? "bg-green-50/50 border-green-200"
+                      : "border-border"
+                  }`}
+                >
+                  <EntityCardHeader
+                    icon={plant.icon}
+                    title={plant.name}
+                    subtitle={`${plant.variety} • ${t(
+                      `pages.garden.plantingPlanner.seasons.${plant.season}`
+                    )}`}
+                    status={plant.isPlanted ? "planted" : plant.priority}
+                    statusType="planting"
+                    statusLabel={
+                      plant.isPlanted
+                        ? t("pages.garden.plantingPlanner.status.planted")
+                        : t(
+                            `pages.garden.plantingPlanner.priority.${plant.priority}`
+                          )
+                    }
+                  />
 
-                <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4">
-                  {/* Planting & Harvest Windows */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                    <div className="space-y-1">
-                      <p className="text-muted-foreground font-medium">
-                        {t("pages.garden.plantingPlanner.plantingWindow")}
-                      </p>
-                      <p className="font-semibold text-foreground">
-                        {plant.plantingWindow}
-                      </p>
-                    </div>
-                    <div className="space-y-1">
-                      <p className="text-muted-foreground font-medium">
-                        {t("pages.garden.plantingPlanner.harvestWindow")}
-                      </p>
-                      <p className="font-semibold text-foreground">
-                        {plant.harvestWindow}
-                      </p>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  {/* Growing Requirements */}
-                  <div className="space-y-3">
-                    <p className="text-xs sm:text-sm font-medium text-foreground">
-                      {t("pages.garden.plantingPlanner.requirements")}
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                      <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
-                        {getSunIcon(plant.sunRequirement)}
-                        <span className="font-medium">
-                          {t(
-                            `pages.garden.plantingPlanner.sun.${plant.sunRequirement}`
-                          )}
-                        </span>
+                  <CardContent className="space-y-3 sm:space-y-4 p-3 sm:p-4">
+                    {/* Planting & Harvest Windows */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                      <div className="space-y-1">
+                        <p className="text-muted-foreground font-medium">
+                          {t("pages.garden.plantingPlanner.plantingWindow")}
+                        </p>
+                        <p className="font-semibold text-foreground">
+                          {plant.plantingWindow}
+                        </p>
                       </div>
+                      <div className="space-y-1">
+                        <p className="text-muted-foreground font-medium">
+                          {t("pages.garden.plantingPlanner.harvestWindow")}
+                        </p>
+                        <p className="font-semibold text-foreground">
+                          {plant.harvestWindow}
+                        </p>
+                      </div>
+                    </div>
+
+                    <Separator />
+
+                    {/* Growing Requirements */}
+                    <div className="space-y-3">
+                      <p className="text-xs sm:text-sm font-medium text-foreground">
+                        {t("pages.garden.plantingPlanner.requirements")}
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
+                          {getSunIcon(plant.sunRequirement)}
+                          <span className="font-medium">
+                            {t(
+                              `pages.garden.plantingPlanner.sun.${plant.sunRequirement}`
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
+                          <span>💧</span>
+                          <span
+                            className={`font-medium ${getDifficultyColor(
+                              plant.waterRequirement
+                            )}`}
+                          >
+                            {t(
+                              `pages.garden.plantingPlanner.water.${plant.waterRequirement}`
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
+                          <span>📏</span>
+                          <span className="font-medium">{plant.spacing}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Maturity Progress (if planted) */}
+                    {plant.isPlanted && (
+                      <>
+                        <Separator />
+                        <ProgressBar
+                          label={t("pages.garden.plantingPlanner.maturity")}
+                          value={75} // This would be calculated based on planting date
+                          maxValue={100}
+                          unit="%"
+                        />
+                      </>
+                    )}
+
+                    <Separator />
+
+                    {/* Companion Plants */}
+                    <div className="space-y-3">
+                      <p className="text-xs sm:text-sm font-medium text-foreground">
+                        {t("pages.garden.plantingPlanner.companionPlants")}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {plant.companionPlants.map((companion, index) => (
+                          <span
+                            key={index}
+                            className="px-2 py-1.5 bg-green-100 text-green-700 rounded-md text-xs font-medium"
+                          >
+                            {companion}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Difficulty & Info */}
+                    <Separator />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
                       <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
-                        <span>💧</span>
+                        <span>⚡</span>
                         <span
                           className={`font-medium ${getDifficultyColor(
-                            plant.waterRequirement
+                            plant.difficulty
                           )}`}
                         >
                           {t(
-                            `pages.garden.plantingPlanner.water.${plant.waterRequirement}`
+                            `pages.garden.plantingPlanner.difficulty.${plant.difficulty}`
                           )}
                         </span>
                       </div>
                       <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
-                        <span>📏</span>
-                        <span className="font-medium">{plant.spacing}</span>
+                        <span>⏱️</span>
+                        <span className="font-medium">
+                          {plant.daysToMaturity}{" "}
+                          {t("pages.garden.plantingPlanner.days")}
+                        </span>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Maturity Progress (if planted) */}
-                  {plant.isPlanted && (
-                    <>
-                      <Separator />
-                      <ProgressBar
-                        label={t("pages.garden.plantingPlanner.maturity")}
-                        value={75} // This would be calculated based on planting date
-                        maxValue={100}
-                        unit="%"
-                      />
-                    </>
-                  )}
-
-                  <Separator />
-
-                  {/* Companion Plants */}
-                  <div className="space-y-3">
-                    <p className="text-xs sm:text-sm font-medium text-foreground">
-                      {t("pages.garden.plantingPlanner.companionPlants")}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {plant.companionPlants.map((companion, index) => (
-                        <span
-                          key={index}
-                          className="px-2 py-1.5 bg-green-100 text-green-700 rounded-md text-xs font-medium"
-                        >
-                          {companion}
-                        </span>
-                      ))}
+                    {/* Notes */}
+                    <div className="bg-accent/50 p-3 rounded-lg">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        💡 {plant.notes}
+                      </p>
                     </div>
-                  </div>
 
-                  {/* Difficulty & Info */}
-                  <Separator />
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                    <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
-                      <span>⚡</span>
-                      <span
-                        className={`font-medium ${getDifficultyColor(
-                          plant.difficulty
-                        )}`}
-                      >
-                        {t(
-                          `pages.garden.plantingPlanner.difficulty.${plant.difficulty}`
-                        )}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-accent/50 rounded">
-                      <span>⏱️</span>
-                      <span className="font-medium">
-                        {plant.daysToMaturity}{" "}
-                        {t("pages.garden.plantingPlanner.days")}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Alerts */}
+                    <Separator />
+                    <AlertsSection alerts={alerts} />
 
-                  {/* Notes */}
-                  <div className="bg-accent/50 p-3 rounded-lg">
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      💡 {plant.notes}
-                    </p>
-                  </div>
-
-                  {/* Alerts */}
-                  <Separator />
-                  <AlertsSection alerts={alerts} />
-
-                  {/* Actions */}
-                  <EntityCardActions actions={plantActions} />
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                    {/* Actions */}
+                    <EntityCardActions actions={plantActions} />
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
 
         {/* AI Planting Assistant */}
         <Card>
