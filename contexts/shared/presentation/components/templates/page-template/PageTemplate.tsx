@@ -73,7 +73,7 @@ const PageTemplate: React.FC<PageTemplateProps> = ({
       {/* Contenido principal */}
       <div
         className={cn(
-          "flex flex-1 flex-col gap-3 md:gap-4 p-3 md:p-4",
+          "flex flex-1 flex-col gap-3 md:gap-4 p-3 md:p-4 min-w-0 overflow-x-hidden",
           className
         )}
       >

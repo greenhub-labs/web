@@ -230,6 +230,53 @@
             "expectedHarvestDaysInvalid": "Please enter a valid number of days"
           }
         }
+      },
+      "irrigation": {
+        "title": "Irrigation System",
+        "gridView": "Grid View",
+        "listView": "List View",
+        "filterBy": "Filter by",
+        "filterAll": "All Zones",
+        "filterActive": "Active",
+        "filterScheduled": "Scheduled",
+        "filterOffline": "Offline",
+        "addSchedule": "Add Schedule",
+        "stats": {
+          "activeZones": "Active Zones",
+          "scheduledZones": "Scheduled Zones",
+          "waterUsage": "Water Usage Today",
+          "avgMoisture": "Avg. Soil Moisture"
+        },
+        "soilMoisture": "Soil Moisture",
+        "waterUsage": "Water Usage",
+        "pressure": "Pressure",
+        "nextSchedule": "Next",
+        "manualMode": "Manual Mode",
+        "status": {
+          "active": "Active",
+          "scheduled": "Scheduled",
+          "offline": "Offline",
+          "manual": "Manual"
+        },
+        "viewDetails": "View Details",
+        "systemControls": {
+          "title": "System Controls",
+          "manualStart": "Manual Irrigation",
+          "manualStartDesc": "Start immediate watering for selected zones",
+          "emergencyStop": "Emergency Stop",
+          "emergencyStopDesc": "Stop all irrigation immediately",
+          "systemTest": "System Test",
+          "systemTestDesc": "Test all valves and sensors"
+        },
+        "aiRecommendations": {
+          "title": "AI Recommendations",
+          "increaseMoisture": "Increase South Zone Watering",
+          "increaseMoistureDesc": "Soil moisture below optimal for current crops",
+          "checkValve": "Check Herb Garden Valve",
+          "checkValveDesc": "Valve appears to be offline, recommend inspection",
+          "optimizeSchedule": "Optimize Morning Schedule",
+          "optimizeScheduleDesc": "Adjust timing based on weather forecast"
+        }
       }
     }
   },

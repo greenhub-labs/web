@@ -230,6 +230,53 @@
             "expectedHarvestDaysInvalid": "Por favor ingresa un número válido de días"
           }
         }
+      },
+      "irrigation": {
+        "title": "Sistema de Riego",
+        "gridView": "Vista de Cuadrícula",
+        "listView": "Vista de Lista",
+        "filterBy": "Filtrar por",
+        "filterAll": "Todas las Zonas",
+        "filterActive": "Activas",
+        "filterScheduled": "Programadas",
+        "filterOffline": "Desconectadas",
+        "addSchedule": "Añadir Programación",
+        "stats": {
+          "activeZones": "Zonas Activas",
+          "scheduledZones": "Zonas Programadas",
+          "waterUsage": "Uso de Agua Hoy",
+          "avgMoisture": "Humedad Promedio"
+        },
+        "soilMoisture": "Humedad del Suelo",
+        "waterUsage": "Uso de Agua",
+        "pressure": "Presión",
+        "nextSchedule": "Próximo",
+        "manualMode": "Modo Manual",
+        "status": {
+          "active": "Activa",
+          "scheduled": "Programada",
+          "offline": "Desconectada",
+          "manual": "Manual"
+        },
+        "viewDetails": "Ver Detalles",
+        "systemControls": {
+          "title": "Controles del Sistema",
+          "manualStart": "Riego Manual",
+          "manualStartDesc": "Iniciar riego inmediato para zonas seleccionadas",
+          "emergencyStop": "Parada de Emergencia",
+          "emergencyStopDesc": "Detener todo el riego inmediatamente",
+          "systemTest": "Prueba del Sistema",
+          "systemTestDesc": "Probar todas las válvulas y sensores"
+        },
+        "aiRecommendations": {
+          "title": "Recomendaciones de IA",
+          "increaseMoisture": "Aumentar Riego Zona Sur",
+          "increaseMoistureDesc": "Humedad del suelo por debajo del óptimo para cultivos actuales",
+          "checkValve": "Revisar Válvula del Huerto de Hierbas",
+          "checkValveDesc": "La válvula parece estar desconectada, se recomienda inspección",
+          "optimizeSchedule": "Optimizar Horario Matutino",
+          "optimizeScheduleDesc": "Ajustar horarios basado en pronóstico del tiempo"
+        }
       }
     }
   },
