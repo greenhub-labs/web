@@ -133,29 +133,38 @@ export const RuleCard: React.FC<RuleCardProps> = ({
 
   return (
     <Card className={`hover:shadow-md transition-shadow ${className}`}>
-      <CardHeader className="pb-3">
+      <CardHeader className="pb-3 sm:pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-3 flex-1 min-w-0">
-            <RuleTypeIcon type={rule.type} size={24} />
+            <div className="shrink-0">
+              <RuleTypeIcon type={rule.type} size={24} />
+            </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-semibold text-sm truncate">{rule.name}</h3>
+              {/* Title and status - Mobile optimized */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                <h3 className="font-semibold text-sm sm:text-base truncate flex-1">
+                  {rule.name}
+                </h3>
                 <RuleStatusBadge
                   status={rule.status}
                   statusText={statusTexts[rule.status]}
                 />
               </div>
-              <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
+
+              {/* Description */}
+              <p className="text-xs sm:text-sm text-muted-foreground mb-3 line-clamp-2">
                 {rule.description}
               </p>
-              <div className="flex items-center gap-2">
+
+              {/* Priority and plots - Mobile stack */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <PriorityIndicator
                   priority={rule.priority}
                   priorityText={priorityTexts[rule.priority]}
                   showIcon={false}
                 />
                 {rule.targetPlots.length > 0 && (
-                  <span className="text-xs text-muted-foreground flex items-center">
+                  <span className="text-xs sm:text-sm text-muted-foreground flex items-center">
                     <MapPin className="h-3 w-3 mr-1" />
                     {rule.targetPlots.length} plot
                     {rule.targetPlots.length !== 1 ? "s" : ""}
@@ -165,63 +174,68 @@ export const RuleCard: React.FC<RuleCardProps> = ({
             </div>
           </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => onEdit(rule)}>
-                <Edit className="h-4 w-4 mr-2" />
-                {actionTexts.edit}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onToggleStatus(rule)}>
-                {toggleAction.icon}
-                {toggleAction.text}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onTestRun(rule)}>
-                <Activity className="h-4 w-4 mr-2" />
-                {actionTexts.testRun}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => onDuplicate(rule)}>
-                <Copy className="h-4 w-4 mr-2" />
-                {actionTexts.duplicate}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => onDelete(rule)}
-                className="text-red-600 focus:text-red-600"
-              >
-                <Trash2 className="h-4 w-4 mr-2" />
-                {actionTexts.delete}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Actions dropdown */}
+          <div className="shrink-0 ml-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => onEdit(rule)}>
+                  <Edit className="h-4 w-4 mr-2" />
+                  {actionTexts.edit}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onToggleStatus(rule)}>
+                  {toggleAction.icon}
+                  {toggleAction.text}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onTestRun(rule)}>
+                  <Activity className="h-4 w-4 mr-2" />
+                  {actionTexts.testRun}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onDuplicate(rule)}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  {actionTexts.duplicate}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => onDelete(rule)}
+                  className="text-red-600 focus:text-red-600"
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  {actionTexts.delete}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </CardHeader>
 
       <CardContent className="pt-0">
-        <div className="grid grid-cols-3 gap-4 text-xs">
-          <div>
-            <p className="text-muted-foreground mb-1">Last Triggered</p>
+        {/* Stats - Responsive layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+          <div className="flex items-center justify-between sm:flex-col sm:items-start">
+            <p className="text-muted-foreground mb-0 sm:mb-1">Last Triggered</p>
             <p className="font-medium flex items-center">
               <Clock className="h-3 w-3 mr-1" />
               {formatLastTriggered(rule.lastTriggered)}
             </p>
           </div>
-          <div>
-            <p className="text-muted-foreground mb-1">Executions</p>
+          <div className="flex items-center justify-between sm:flex-col sm:items-start">
+            <p className="text-muted-foreground mb-0 sm:mb-1">Executions</p>
             <p className="font-medium">{rule.triggeredCount}</p>
           </div>
-          <div>
-            <p className="text-muted-foreground mb-1">Water Used</p>
+          <div className="flex items-center justify-between sm:flex-col sm:items-start">
+            <p className="text-muted-foreground mb-0 sm:mb-1">Water Used</p>
             <p className="font-medium">{rule.waterUsed}L</p>
           </div>
         </div>
 
+        {/* Next execution info */}
         {rule.nextExecution && rule.status === "active" && (
-          <div className="mt-3 pt-3 border-t text-xs">
+          <div className="mt-3 pt-3 border-t text-xs sm:text-sm">
             <p className="text-muted-foreground">
               Next execution:{" "}
               <span className="font-medium text-foreground">

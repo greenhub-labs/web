@@ -236,10 +236,45 @@ const IrrigationRulesPage: React.FC = () => {
     <PageTemplate
       pageTitle={tNavigation("automation.irrigationRules")}
       breadcrumbItems={breadcrumbItems}
+      headerActions={
+        <div className="flex items-center gap-2">
+          {/* Desktop: All controls */}
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" size="sm">
+              <Upload className="h-4 w-4 mr-2" />
+              {t("actions.importRules")}
+            </Button>
+            <Button variant="outline" size="sm">
+              <Download className="h-4 w-4 mr-2" />
+              {t("actions.exportRules")}
+            </Button>
+            <Button onClick={() => setCreateDialogOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              {t("actions.create")}
+            </Button>
+          </div>
+
+          {/* Mobile: Only essential actions */}
+          <div className="md:hidden flex items-center gap-2">
+            <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+              <Upload className="h-4 w-4" />
+            </Button>
+            <Button variant="outline" size="sm" className="h-8 w-8 p-0">
+              <Download className="h-4 w-4" />
+            </Button>
+            <Button
+              onClick={() => setCreateDialogOpen(true)}
+              className="h-8 w-8 p-0"
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      }
     >
-      <div className="space-y-6">
-        {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="space-y-6 px-1 sm:px-0">
+        {/* Stats - Responsive grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <StatCard
             title={t("stats.totalRules")}
             value={rules.length.toString()}
@@ -262,11 +297,12 @@ const IrrigationRulesPage: React.FC = () => {
           />
         </div>
 
-        {/* Header Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-          <div className="flex flex-col sm:flex-row gap-3 flex-1 w-full sm:w-auto">
+        {/* Search and Filters */}
+        <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:items-center lg:justify-between">
+          {/* Search and Filters */}
+          <div className="flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:space-x-3 lg:flex-1">
             {/* Search */}
-            <div className="relative flex-1 sm:max-w-sm">
+            <div className="relative flex-1 lg:max-w-sm">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder={tCommon("search")}
@@ -276,10 +312,10 @@ const IrrigationRulesPage: React.FC = () => {
               />
             </div>
 
-            {/* Filters */}
-            <div className="flex gap-2">
+            {/* Filters - Mobile responsive */}
+            <div className="flex flex-col sm:flex-row gap-2 lg:gap-3">
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full sm:w-40 lg:w-32">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -294,7 +330,7 @@ const IrrigationRulesPage: React.FC = () => {
               </Select>
 
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="w-36">
+                <SelectTrigger className="w-full sm:w-40 lg:w-36">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -318,28 +354,12 @@ const IrrigationRulesPage: React.FC = () => {
               </Select>
             </div>
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm">
-              <Upload className="h-4 w-4 mr-2" />
-              {t("actions.importRules")}
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              {t("actions.exportRules")}
-            </Button>
-            <Button onClick={() => setCreateDialogOpen(true)}>
-              <Plus className="h-4 w-4 mr-2" />
-              {t("actions.create")}
-            </Button>
-          </div>
         </div>
 
         {/* Rules List */}
         {filteredRules.length > 0 ? (
           <SettingsSection title={t("title")} subtitle={t("subtitle")}>
-            <div className="grid gap-4">
+            <div className="grid gap-3 sm:gap-4">
               {filteredRules.map((rule) => (
                 <RuleCard
                   key={rule.id}
@@ -375,12 +395,12 @@ const IrrigationRulesPage: React.FC = () => {
             </div>
           </SettingsSection>
         ) : (
-          <div className="text-center py-12">
+          <div className="text-center py-12 px-4">
             <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-semibold mb-2">
               {t("emptyStates.noRules")}
             </h3>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-muted-foreground mb-4 max-w-md mx-auto">
               {t("emptyStates.noRulesDescription")}
             </p>
             <Button onClick={() => setCreateDialogOpen(true)}>
@@ -410,7 +430,6 @@ const IrrigationRulesPage: React.FC = () => {
             description: t("form.description"),
             name: t("form.name"),
             namePlaceholder: t("form.namePlaceholder"),
-            description: t("form.description"),
             descriptionPlaceholder: t("form.descriptionPlaceholder"),
             ruleType: t("form.ruleType"),
             ruleTypePlaceholder: t("form.ruleTypePlaceholder"),

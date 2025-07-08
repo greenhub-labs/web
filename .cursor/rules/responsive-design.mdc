@@ -1,0 +1,339 @@
+# Responsive Design Pattern
+
+**ALWAYS implement responsive design** when creating pages and components. Every UI element must work perfectly on both mobile and desktop devices.
+
+## Core Principles
+
+### 📱 **Mobile-First Approach**
+
+- **Start with mobile design** then scale up to larger screens
+- **Use progressive enhancement** to add features for larger screens
+- **Prioritize touch-friendly interactions** for mobile users
+- **Optimize for thumb navigation** and finger-friendly tap targets
+
+### 🖥️ **Multi-Device Support**
+
+- **Mobile**: 320px - 768px (sm)
+- **Tablet**: 768px - 1024px (md)
+- **Desktop**: 1024px - 1440px (lg)
+- **Large Desktop**: 1440px+ (xl, 2xl)
+
+## Implementation Rules
+
+### 🎯 **Layout & Spacing**
+
+#### **Container Spacing**
+
+```tsx
+// ✅ CORRECT: Responsive padding
+<div className="space-y-6 px-1 sm:px-0">
+  <div className="grid gap-3 sm:gap-4">
+    // Content
+  </div>
+</div>
+
+// ❌ WRONG: Fixed spacing
+<div className="space-y-6 px-4">
+  <div className="grid gap-4">
+    // Content
+  </div>
+</div>
+```
+
+#### **Grid Systems**
+
+```tsx
+// ✅ CORRECT: Responsive grids
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+
+// ✅ CORRECT: Complex responsive grids
+<div className="grid gap-3 sm:gap-4 grid-cols-1 xl:grid-cols-2">
+
+// ❌ WRONG: Fixed grid
+<div className="grid grid-cols-4 gap-4">
+```
+
+### 🔧 **Component Design**
+
+#### **Button Groups**
+
+```tsx
+// ✅ CORRECT: Mobile-responsive buttons
+<div className="flex flex-col sm:flex-row gap-2 lg:gap-3">
+  <Button className="w-full sm:w-auto">Primary Action</Button>
+  <Button variant="outline" className="w-full sm:w-auto">Secondary</Button>
+</div>
+
+// ✅ CORRECT: Responsive button content
+<Button className="flex-1 sm:flex-none">
+  <Icon className="h-4 w-4 mr-2" />
+  <span className="hidden sm:inline">Full Text</span>
+  <span className="sm:hidden">Short</span>
+</Button>
+```
+
+#### **Form Elements**
+
+```tsx
+// ✅ CORRECT: Responsive form layout
+<div className="flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:space-x-3">
+  <Input className="flex-1" placeholder="Search..." />
+  <Select>
+    <SelectTrigger className="w-full sm:w-40 lg:w-32">
+      <SelectValue />
+    </SelectTrigger>
+  </Select>
+</div>
+
+// ❌ WRONG: Fixed widths
+<div className="flex gap-3">
+  <Input className="w-64" />
+  <Select>
+    <SelectTrigger className="w-32">
+  </Select>
+</div>
+```
+
+#### **Cards & Content**
+
+```tsx
+// ✅ CORRECT: Responsive card layout
+<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+  <div className="flex items-start space-x-3 flex-1 min-w-0">
+    <div className="text-2xl shrink-0">{icon}</div>
+    <div className="flex-1 min-w-0">
+      <h4 className="font-medium text-sm truncate">{title}</h4>
+      <p className="text-xs text-muted-foreground line-clamp-2">{description}</p>
+    </div>
+  </div>
+  <div className="flex flex-row sm:flex-col gap-2 shrink-0">
+    // Action buttons
+  </div>
+</div>
+
+// ❌ WRONG: Fixed horizontal layout
+<div className="flex items-center justify-between">
+  <div className="flex items-center space-x-3">
+    // Content
+  </div>
+  <div className="flex gap-2">
+    // Actions
+  </div>
+</div>
+```
+
+### 📏 **Text & Typography**
+
+#### **Text Sizing**
+
+```tsx
+// ✅ CORRECT: Responsive text
+<h1 className="text-lg sm:text-xl lg:text-2xl font-bold">
+<p className="text-sm sm:text-base text-muted-foreground">
+<Badge className="text-xs">
+
+// ✅ CORRECT: Text truncation
+<p className="text-xs text-muted-foreground line-clamp-2 sm:line-clamp-3">
+<h4 className="font-medium text-sm truncate">
+```
+
+#### **Content Overflow**
+
+```tsx
+// ✅ CORRECT: Prevent overflow
+<div className="flex-1 min-w-0">
+  <p className="truncate">{longText}</p>
+</div>
+
+// ✅ CORRECT: Multi-line clamp
+<p className="line-clamp-2 text-sm text-muted-foreground">
+  {description}
+</p>
+```
+
+### 🎛️ **Interactive Elements**
+
+#### **Touch Targets**
+
+```tsx
+// ✅ CORRECT: Touch-friendly sizes
+<Button size="sm" className="min-h-[44px] px-4">  // 44px minimum touch target
+<IconButton className="h-10 w-10">  // Adequate touch area
+
+// ❌ WRONG: Too small for touch
+<Button className="h-6 w-6 p-1">
+```
+
+#### **Navigation Elements**
+
+```tsx
+// ✅ CORRECT: Responsive navigation
+<div className="flex items-center justify-between">
+  <div className="flex items-center space-x-2 sm:space-x-4">
+    // Navigation items
+  </div>
+  <Button className="sm:hidden">
+    <Menu className="h-5 w-5" />
+  </Button>
+</div>
+```
+
+### 🖼️ **Dialogs & Modals**
+
+#### **Modal Responsiveness**
+
+```tsx
+// ✅ CORRECT: Mobile-responsive dialog
+<DialogContent className="w-[95vw] max-w-md mx-auto max-h-[90vh] overflow-y-auto">
+  <DialogHeader className="space-y-3">
+    <DialogTitle className="text-lg">{title}</DialogTitle>
+  </DialogHeader>
+  <div className="space-y-4 pt-2">
+    // Content
+  </div>
+  <div className="flex flex-col sm:flex-row gap-3 pt-6">
+    <Button className="order-2 sm:order-1" variant="outline">Cancel</Button>
+    <Button className="order-1 sm:order-2">Save</Button>
+  </div>
+</DialogContent>
+
+// ❌ WRONG: Fixed dialog size
+<DialogContent className="max-w-md">
+```
+
+### 📊 **Data Display**
+
+#### **Tables & Lists**
+
+```tsx
+// ✅ CORRECT: Responsive data display
+<div className="overflow-x-auto">
+  <table className="min-w-full">
+    // Table content
+  </table>
+</div>
+
+// ✅ CORRECT: Mobile-friendly stats
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+  {stats.map((stat) => (
+    <StatCard key={stat.id} {...stat} />
+  ))}
+</div>
+```
+
+## Breakpoint Strategy
+
+### 🎯 **Tailwind CSS Breakpoints**
+
+```css
+/* Mobile First Approach */
+.element {
+  /* Mobile styles (default) */
+}
+
+@media (min-width: 640px) {
+  /* sm: */
+}
+@media (min-width: 768px) {
+  /* md: */
+}
+@media (min-width: 1024px) {
+  /* lg: */
+}
+@media (min-width: 1280px) {
+  /* xl: */
+}
+@media (min-width: 1536px) {
+  /* 2xl: */
+}
+```
+
+### 📱 **Common Responsive Patterns**
+
+```tsx
+// Layout stacking
+className = "flex flex-col lg:flex-row";
+
+// Conditional visibility
+className = "hidden sm:block";
+className = "sm:hidden";
+
+// Responsive sizing
+className = "w-full sm:w-auto";
+className = "text-sm sm:text-base lg:text-lg";
+
+// Spacing progression
+className = "p-2 sm:p-4 lg:p-6";
+className = "gap-2 sm:gap-4 lg:gap-6";
+
+// Grid responsiveness
+className = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
+```
+
+## Testing & Validation
+
+### ✅ **Required Testing**
+
+1. **Test on actual devices** (iPhone, Android, iPad)
+2. **Use browser dev tools** for various screen sizes
+3. **Check touch interactions** on mobile devices
+4. **Verify text readability** at all sizes
+5. **Test form usability** on mobile devices
+6. **Validate scroll behavior** and content overflow
+
+### 🔍 **Common Issues to Avoid**
+
+- **Horizontal scrolling** on mobile devices
+- **Text too small** to read comfortably
+- **Touch targets too small** (< 44px)
+- **Fixed widths** that break on small screens
+- **Unresponsive images** that overflow containers
+- **Poor contrast** on mobile screens
+
+## Implementation Checklist
+
+### 📋 **For Every New Component/Page**
+
+- [ ] Works on screens 320px and wider
+- [ ] Touch targets are at least 44px
+- [ ] Text is readable without zooming
+- [ ] No horizontal scroll on mobile
+- [ ] Proper spacing on all screen sizes
+- [ ] Images scale appropriately
+- [ ] Forms are usable on mobile
+- [ ] Navigation works on touch devices
+
+### 🎯 **Performance Considerations**
+
+- **Use responsive images** (`next/image` with sizes prop)
+- **Lazy load** content below the fold
+- **Optimize font loading** for mobile
+- **Minimize layout shifts** (CLS)
+- **Test on slow networks** (3G simulation)
+
+## Integration with Project Architecture
+
+### 🏗️ **With Atomic Design**
+
+- **Atoms**: Responsive by default (buttons, inputs, icons)
+- **Molecules**: Responsive combinations of atoms
+- **Organisms**: Complex responsive layouts
+- **Pages**: Full responsive experience
+
+### 🌐 **With Internationalization**
+
+- **Text scaling**: Account for longer text in different languages
+- **RTL support**: Consider right-to-left languages
+- **Cultural preferences**: Different mobile usage patterns
+
+**Remember: Responsive design is not optional. Every component and page must provide an excellent experience across all device sizes and interaction methods.**
+
+alwaysApply: true
+
+---
+
+description:
+globs:
+alwaysApply: false
+
+---

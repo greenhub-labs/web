@@ -1173,6 +1173,165 @@
           "noRulesDescription": "Create your first automation rule to start smart irrigation management",
           "createFirstRule": "Create Your First Rule"
         }
+      },
+      "schedules": {
+        "title": "Automation Schedules",
+        "subtitle": "Manage time-based automation schedules for irrigation, lighting, and climate control",
+        "stats": {
+          "totalSchedules": "Total Schedules",
+          "activeSchedules": "Active Schedules",
+          "executionsToday": "Executions Today",
+          "nextExecution": "Next Execution"
+        },
+        "scheduleTypes": {
+          "irrigation": "Irrigation",
+          "lighting": "Lighting",
+          "climate": "Climate Control",
+          "feeding": "Feeding",
+          "doors": "Door Control",
+          "custom": "Custom Action"
+        },
+        "frequency": {
+          "once": "Once",
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "monthly": "Monthly",
+          "custom": "Custom"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "paused": "Paused",
+          "completed": "Completed",
+          "error": "Error"
+        },
+        "priority": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "days": {
+          "monday": "Monday",
+          "tuesday": "Tuesday",
+          "wednesday": "Wednesday",
+          "thursday": "Thursday",
+          "friday": "Friday",
+          "saturday": "Saturday",
+          "sunday": "Sunday",
+          "weekdays": "Weekdays",
+          "weekends": "Weekends",
+          "everyday": "Every day"
+        },
+        "timeSettings": {
+          "title": "Time Settings",
+          "startTime": "Start Time",
+          "endTime": "End Time",
+          "duration": "Duration",
+          "timezone": "Timezone",
+          "repeatInterval": "Repeat Interval",
+          "occurrences": "Number of Occurrences",
+          "infinite": "Run Indefinitely"
+        },
+        "conditions": {
+          "title": "Execution Conditions",
+          "weatherDependent": "Weather Dependent",
+          "sensorBased": "Sensor Based",
+          "temperatureRange": "Temperature Range",
+          "humidityRange": "Humidity Range",
+          "lightLevel": "Light Level",
+          "rainDetection": "Rain Detection",
+          "skipIfRaining": "Skip if raining",
+          "skipIfTooHot": "Skip if too hot",
+          "skipIfTooCold": "Skip if too cold"
+        },
+        "actions": {
+          "title": "Schedule Actions",
+          "startIrrigation": "Start Irrigation",
+          "stopIrrigation": "Stop Irrigation",
+          "turnOnLights": "Turn On Lights",
+          "turnOffLights": "Turn Off Lights",
+          "openDoor": "Open Door",
+          "closeDoor": "Close Door",
+          "sendNotification": "Send Notification",
+          "customCommand": "Custom Command"
+        },
+        "form": {
+          "title": "Create Schedule",
+          "editTitle": "Edit Schedule",
+          "description": "Create time-based automation schedules for your garden systems",
+          "name": "Schedule Name",
+          "namePlaceholder": "e.g., Morning Garden Watering",
+          "description": "Description",
+          "descriptionPlaceholder": "Brief description of this schedule...",
+          "scheduleType": "Schedule Type",
+          "scheduleTypePlaceholder": "Select schedule type",
+          "frequency": "Frequency",
+          "frequencyPlaceholder": "Select frequency",
+          "targetSystems": "Target Systems",
+          "targetSystemsPlaceholder": "Select systems to control",
+          "priority": "Priority Level",
+          "priorityPlaceholder": "Select priority",
+          "enabled": "Enable Schedule",
+          "enabledDescription": "Schedule will be active immediately after creation",
+          "create": "Create Schedule",
+          "update": "Update Schedule",
+          "creating": "Creating Schedule...",
+          "updating": "Updating Schedule...",
+          "errors": {
+            "nameRequired": "Schedule name is required",
+            "typeRequired": "Please select a schedule type",
+            "frequencyRequired": "Please select a frequency",
+            "timeRequired": "Start time is required",
+            "systemsRequired": "Please select at least one system",
+            "invalidTimeRange": "End time must be after start time"
+          }
+        },
+        "actions": {
+          "create": "Create Schedule",
+          "edit": "Edit Schedule",
+          "delete": "Delete Schedule",
+          "duplicate": "Duplicate Schedule",
+          "enable": "Enable",
+          "disable": "Disable",
+          "pause": "Pause",
+          "resume": "Resume",
+          "runNow": "Run Now",
+          "viewHistory": "View History",
+          "exportSchedules": "Export Schedules",
+          "importSchedules": "Import Schedules"
+        },
+        "tabs": {
+          "overview": "Overview",
+          "timing": "Timing",
+          "conditions": "Conditions",
+          "actions": "Actions",
+          "history": "History"
+        },
+        "history": {
+          "title": "Schedule Execution History",
+          "lastExecution": "Last Execution",
+          "executionCount": "Total Executions",
+          "successRate": "Success Rate",
+          "averageDuration": "Avg Duration",
+          "failureReason": "Failure Reason",
+          "noHistory": "No execution history available",
+          "viewDetails": "View Details"
+        },
+        "emptyStates": {
+          "noSchedules": "No automation schedules created yet",
+          "noSchedulesDescription": "Create your first schedule to automate your garden systems",
+          "createFirstSchedule": "Create Your First Schedule"
+        },
+        "calendar": {
+          "title": "Schedule Calendar",
+          "monthView": "Month View",
+          "weekView": "Week View",
+          "dayView": "Day View",
+          "today": "Today",
+          "nextWeek": "Next Week",
+          "noEventsToday": "No scheduled events today",
+          "upcomingEvents": "Upcoming Events"
+        }
       }
     }
   },

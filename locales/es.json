@@ -1173,6 +1173,165 @@
           "noRulesDescription": "Crea tu primera regla de automatización para comenzar la gestión inteligente de riego",
           "createFirstRule": "Crear Tu Primera Regla"
         }
+      },
+      "schedules": {
+        "title": "Programaciones de Automatización",
+        "subtitle": "Gestiona programaciones automáticas basadas en tiempo para riego, iluminación y control climático",
+        "stats": {
+          "totalSchedules": "Total Programaciones",
+          "activeSchedules": "Programaciones Activas",
+          "executionsToday": "Ejecuciones Hoy",
+          "nextExecution": "Próxima Ejecución"
+        },
+        "scheduleTypes": {
+          "irrigation": "Riego",
+          "lighting": "Iluminación",
+          "climate": "Control Climático",
+          "feeding": "Alimentación",
+          "doors": "Control de Puertas",
+          "custom": "Acción Personalizada"
+        },
+        "frequency": {
+          "once": "Una vez",
+          "daily": "Diariamente",
+          "weekly": "Semanalmente",
+          "monthly": "Mensualmente",
+          "custom": "Personalizado"
+        },
+        "status": {
+          "active": "Activa",
+          "inactive": "Inactiva",
+          "paused": "Pausada",
+          "completed": "Completada",
+          "error": "Error"
+        },
+        "priority": {
+          "high": "Alta",
+          "medium": "Media",
+          "low": "Baja"
+        },
+        "days": {
+          "monday": "Lunes",
+          "tuesday": "Martes",
+          "wednesday": "Miércoles",
+          "thursday": "Jueves",
+          "friday": "Viernes",
+          "saturday": "Sábado",
+          "sunday": "Domingo",
+          "weekdays": "Entre semana",
+          "weekends": "Fines de semana",
+          "everyday": "Todos los días"
+        },
+        "timeSettings": {
+          "title": "Configuración de Tiempo",
+          "startTime": "Hora de Inicio",
+          "endTime": "Hora de Fin",
+          "duration": "Duración",
+          "timezone": "Zona Horaria",
+          "repeatInterval": "Intervalo de Repetición",
+          "occurrences": "Número de Ocurrencias",
+          "infinite": "Ejecutar Indefinidamente"
+        },
+        "conditions": {
+          "title": "Condiciones de Ejecución",
+          "weatherDependent": "Dependiente del Clima",
+          "sensorBased": "Basado en Sensores",
+          "temperatureRange": "Rango de Temperatura",
+          "humidityRange": "Rango de Humedad",
+          "lightLevel": "Nivel de Luz",
+          "rainDetection": "Detección de Lluvia",
+          "skipIfRaining": "Omitir si llueve",
+          "skipIfTooHot": "Omitir si hace mucho calor",
+          "skipIfTooCold": "Omitir si hace mucho frío"
+        },
+        "actions": {
+          "title": "Acciones de Programación",
+          "startIrrigation": "Iniciar Riego",
+          "stopIrrigation": "Detener Riego",
+          "turnOnLights": "Encender Luces",
+          "turnOffLights": "Apagar Luces",
+          "openDoor": "Abrir Puerta",
+          "closeDoor": "Cerrar Puerta",
+          "sendNotification": "Enviar Notificación",
+          "customCommand": "Comando Personalizado"
+        },
+        "form": {
+          "title": "Crear Programación",
+          "editTitle": "Editar Programación",
+          "description": "Crea programaciones de automatización basadas en tiempo para los sistemas de tu huerto",
+          "name": "Nombre de la Programación",
+          "namePlaceholder": "ej., Riego Matutino del Huerto",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Breve descripción de esta programación...",
+          "scheduleType": "Tipo de Programación",
+          "scheduleTypePlaceholder": "Selecciona tipo de programación",
+          "frequency": "Frecuencia",
+          "frequencyPlaceholder": "Selecciona frecuencia",
+          "targetSystems": "Sistemas Objetivo",
+          "targetSystemsPlaceholder": "Selecciona sistemas a controlar",
+          "priority": "Nivel de Prioridad",
+          "priorityPlaceholder": "Selecciona prioridad",
+          "enabled": "Habilitar Programación",
+          "enabledDescription": "La programación estará activa inmediatamente después de la creación",
+          "create": "Crear Programación",
+          "update": "Actualizar Programación",
+          "creating": "Creando Programación...",
+          "updating": "Actualizando Programación...",
+          "errors": {
+            "nameRequired": "El nombre de la programación es obligatorio",
+            "typeRequired": "Por favor selecciona un tipo de programación",
+            "frequencyRequired": "Por favor selecciona una frecuencia",
+            "timeRequired": "La hora de inicio es obligatoria",
+            "systemsRequired": "Por favor selecciona al menos un sistema",
+            "invalidTimeRange": "La hora de fin debe ser posterior a la hora de inicio"
+          }
+        },
+        "actions": {
+          "create": "Crear Programación",
+          "edit": "Editar Programación",
+          "delete": "Eliminar Programación",
+          "duplicate": "Duplicar Programación",
+          "enable": "Habilitar",
+          "disable": "Deshabilitar",
+          "pause": "Pausar",
+          "resume": "Reanudar",
+          "runNow": "Ejecutar Ahora",
+          "viewHistory": "Ver Historial",
+          "exportSchedules": "Exportar Programaciones",
+          "importSchedules": "Importar Programaciones"
+        },
+        "tabs": {
+          "overview": "Vista General",
+          "timing": "Horarios",
+          "conditions": "Condiciones",
+          "actions": "Acciones",
+          "history": "Historial"
+        },
+        "history": {
+          "title": "Historial de Ejecución de Programaciones",
+          "lastExecution": "Última Ejecución",
+          "executionCount": "Total Ejecuciones",
+          "successRate": "Tasa de Éxito",
+          "averageDuration": "Duración Promedio",
+          "failureReason": "Motivo de Fallo",
+          "noHistory": "No hay historial de ejecución disponible",
+          "viewDetails": "Ver Detalles"
+        },
+        "emptyStates": {
+          "noSchedules": "Aún no se han creado programaciones de automatización",
+          "noSchedulesDescription": "Crea tu primera programación para automatizar los sistemas de tu huerto",
+          "createFirstSchedule": "Crear Tu Primera Programación"
+        },
+        "calendar": {
+          "title": "Calendario de Programaciones",
+          "monthView": "Vista Mensual",
+          "weekView": "Vista Semanal",
+          "dayView": "Vista Diaria",
+          "today": "Hoy",
+          "nextWeek": "Próxima Semana",
+          "noEventsToday": "No hay eventos programados hoy",
+          "upcomingEvents": "Próximos Eventos"
+        }
       }
     }
   },

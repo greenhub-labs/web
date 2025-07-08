@@ -11,6 +11,9 @@ export { SettingRow } from "./SettingRow";
 export { RuleStatusBadge } from "./RuleStatusBadge";
 export { RuleTypeIcon } from "./RuleTypeIcon";
 export { PriorityIndicator } from "./PriorityIndicator";
+export { ScheduleStatusBadge } from "./ScheduleStatusBadge";
+export { ScheduleTypeIcon } from "./ScheduleTypeIcon";
+export { FrequencyIndicator } from "./FrequencyIndicator";
 
 export type { StatusBadgeProps } from "./StatusBadge";
 export type { StatCardProps } from "./StatCard";
@@ -20,3 +23,6 @@ export type { SettingRowProps } from "./SettingRow";
 export type { RuleStatus } from "./RuleStatusBadge";
 export type { RuleType } from "./RuleTypeIcon";
 export type { Priority } from "./PriorityIndicator";
+export type { ScheduleStatus } from "./ScheduleStatusBadge";
+export type { ScheduleType } from "./ScheduleTypeIcon";
+export type { Frequency } from "./FrequencyIndicator";
