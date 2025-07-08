@@ -7,7 +7,7 @@ export interface EntityCardHeaderProps {
   title: string;
   subtitle: string;
   status: string;
-  statusType: "plot" | "crop" | "irrigation";
+  statusType: "plot" | "crop" | "irrigation" | "planting";
   statusLabel: string;
   className?: string;
 }

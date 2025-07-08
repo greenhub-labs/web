@@ -277,6 +277,76 @@
           "optimizeSchedule": "Optimizar Horario Matutino",
           "optimizeScheduleDesc": "Ajustar horarios basado en pronóstico del tiempo"
         }
+      },
+      "plantingPlanner": {
+        "title": "Planificador de Plantación",
+        "gridView": "Vista Cuadrícula",
+        "timelineView": "Vista Cronológica",
+        "filterAll": "Todas las Estaciones",
+        "filterBySeason": "Filtrar por Estación",
+        "all": "Todas",
+        "spring": "Primavera",
+        "summer": "Verano",
+        "autumn": "Otoño",
+        "winter": "Invierno",
+        "seasons": {
+          "spring": "Primavera",
+          "summer": "Verano",
+          "autumn": "Otoño",
+          "winter": "Invierno"
+        },
+        "stats": {
+          "totalRecommendations": "Total Recomendaciones",
+          "alreadyPlanted": "Ya Plantados",
+          "highPriority": "Alta Prioridad",
+          "currentSeason": "Estación Actual"
+        },
+        "currentSeasonTasks": "Tareas de la Estación Actual",
+        "thisMonth": "Este Mes",
+        "seasonalTips": "Consejos Estacionales",
+        "tip": "Consejo",
+        "springTip": "Momento perfecto para iniciar semilleros en interior antes de trasplantar",
+        "plantingWindow": "Ventana de Plantación",
+        "harvestWindow": "Ventana de Cosecha",
+        "requirements": "Requerimientos de Cultivo",
+        "sun": {
+          "full": "Sol Completo",
+          "partial": "Sol Parcial",
+          "shade": "Sombra"
+        },
+        "water": {
+          "high": "Alto",
+          "medium": "Medio",
+          "low": "Bajo"
+        },
+        "difficulty": {
+          "easy": "Fácil",
+          "medium": "Medio",
+          "hard": "Difícil"
+        },
+        "priority": {
+          "high": "Alta Prioridad",
+          "medium": "Prioridad Media",
+          "low": "Baja Prioridad"
+        },
+        "status": {
+          "planted": "Ya Plantado"
+        },
+        "maturity": "Días hasta Madurez",
+        "days": "días",
+        "companionPlants": "Plantas Compañeras",
+        "avoid": "Evitar plantar con",
+        "highPriority": "Recomendación de alta prioridad",
+        "viewDetails": "Ver Detalles",
+        "addToPlots": "Agregar a Parcelas",
+        "learnMore": "Saber Más",
+        "aiAssistant": {
+          "title": "Asistente IA de Plantación",
+          "suggestion": "Momento Perfecto para Tomates",
+          "suggestionDesc": "Las condiciones climáticas y temperatura del suelo son ideales para trasplantes de tomate",
+          "timing": "Programar Plantación Sucesiva",
+          "timingDesc": "Planta lechugas cada 2 semanas para cosecha continua durante la temporada"
+        }
       }
     }
   },

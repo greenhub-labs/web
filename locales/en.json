@@ -277,6 +277,76 @@
           "optimizeSchedule": "Optimize Morning Schedule",
           "optimizeScheduleDesc": "Adjust timing based on weather forecast"
         }
+      },
+      "plantingPlanner": {
+        "title": "Planting Planner",
+        "gridView": "Grid View",
+        "timelineView": "Timeline View",
+        "filterAll": "All Seasons",
+        "filterBySeason": "Filter by Season",
+        "all": "All",
+        "spring": "Spring",
+        "summer": "Summer",
+        "autumn": "Autumn",
+        "winter": "Winter",
+        "seasons": {
+          "spring": "Spring",
+          "summer": "Summer",
+          "autumn": "Autumn",
+          "winter": "Winter"
+        },
+        "stats": {
+          "totalRecommendations": "Total Recommendations",
+          "alreadyPlanted": "Already Planted",
+          "highPriority": "High Priority",
+          "currentSeason": "Current Season"
+        },
+        "currentSeasonTasks": "Current Season Tasks",
+        "thisMonth": "This Month",
+        "seasonalTips": "Seasonal Tips",
+        "tip": "Tip",
+        "springTip": "Perfect time for starting seedlings indoors before transplanting outside",
+        "plantingWindow": "Planting Window",
+        "harvestWindow": "Harvest Window",
+        "requirements": "Growing Requirements",
+        "sun": {
+          "full": "Full Sun",
+          "partial": "Partial Sun",
+          "shade": "Shade"
+        },
+        "water": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "difficulty": {
+          "easy": "Easy",
+          "medium": "Medium",
+          "hard": "Hard"
+        },
+        "priority": {
+          "high": "High Priority",
+          "medium": "Medium Priority",
+          "low": "Low Priority"
+        },
+        "status": {
+          "planted": "Already Planted"
+        },
+        "maturity": "Days to Maturity",
+        "days": "days",
+        "companionPlants": "Companion Plants",
+        "avoid": "Avoid planting with",
+        "highPriority": "High priority recommendation",
+        "viewDetails": "View Details",
+        "addToPlots": "Add to Plots",
+        "learnMore": "Learn More",
+        "aiAssistant": {
+          "title": "AI Planting Assistant",
+          "suggestion": "Perfect Time for Tomatoes",
+          "suggestionDesc": "Weather conditions and soil temperature are ideal for tomato transplants",
+          "timing": "Schedule Succession Planting",
+          "timingDesc": "Plant lettuce every 2 weeks for continuous harvest throughout the season"
+        }
       }
     }
   },

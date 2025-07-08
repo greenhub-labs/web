@@ -4,7 +4,7 @@ import { cn } from "../../lib/utils";
 
 export interface StatusBadgeProps {
   status: string;
-  type: "plot" | "crop" | "irrigation";
+  type: "plot" | "crop" | "irrigation" | "planting";
   label: string;
   className?: string;
   showTextOnMobile?: boolean;
@@ -43,6 +43,22 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
           return { color: "bg-gray-100 text-gray-700", icon: "📦" };
         default:
           return { color: "bg-red-100 text-red-700", icon: "⚠️" };
+      }
+    }
+
+    // Planting status configs
+    if (type === "planting") {
+      switch (status) {
+        case "planted":
+          return { color: "bg-green-100 text-green-700", icon: "✅" };
+        case "high":
+          return { color: "bg-red-100 text-red-700", icon: "⭐" };
+        case "medium":
+          return { color: "bg-yellow-100 text-yellow-700", icon: "⚡" };
+        case "low":
+          return { color: "bg-gray-100 text-gray-700", icon: "🔽" };
+        default:
+          return { color: "bg-blue-100 text-blue-700", icon: "🌱" };
       }
     }
 
