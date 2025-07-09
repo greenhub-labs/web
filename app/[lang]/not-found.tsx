@@ -59,7 +59,7 @@ const NotFoundPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="max-w-4xl w-full space-y-8">
         {/* Header with animated plants */}
         <div className="text-center space-y-4">

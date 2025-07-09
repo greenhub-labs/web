@@ -1,20 +1,42 @@
 import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import React from "react";
+import ReactQueryClientProvider from "@/contexts/shared/presentation/providers/ReactQueryClientProvider";
+import { ThemeProvider } from "next-themes";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "GreenHub Labs",
-  description: "Smart IoT system for garden and greenhouse management",
+  title: "GreenHub Labs - Smart Agriculture",
+  description: "IoT-powered agricultural management system for smart farming",
+  viewport: "width=device-width, initial-scale=1",
 };
 
-/**
- * Root layout required when having a root not-found.tsx page
- * This layout passes children through and is minimal since
- * most functionality is handled in [lang]/layout.tsx
- */
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  return children;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ReactQueryClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </ReactQueryClientProvider>
+      </body>
+    </html>
+  );
 }
