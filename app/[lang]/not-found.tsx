@@ -1,230 +1,214 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+// Templates
+import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
 
 // UI Components
 import { Button } from "@/contexts/shared/presentation/components/ui/button";
 import {
   Card,
   CardContent,
+  CardHeader,
+  CardTitle,
 } from "@/contexts/shared/presentation/components/ui/card";
 import { Separator } from "@/contexts/shared/presentation/components/ui/separator";
 
 // Atomic Design Components
-import { StatCard } from "@/contexts/shared/presentation/components/atoms/StatCard";
-
-// Icons
-import {
-  Home,
-  ArrowLeft,
-  Search,
-  MessageCircle,
-  Zap,
-  Leaf,
-  Sprout,
-} from "lucide-react";
+import { StatCard } from "@/contexts/shared/presentation/components/atoms";
 
 const NotFoundPage: React.FC = () => {
   const t = useTranslations("pages.notFound");
+  const tNav = useTranslations("navigation");
   const router = useRouter();
 
-  // Fun animated counter for "time wasted"
-  const [timeWasted, setTimeWasted] = useState(0);
-  const [currentFactIndex, setCurrentFactIndex] = useState(0);
-
-  useEffect(() => {
-    // Animate the "time wasted" counter
-    const interval = setInterval(() => {
-      setTimeWasted((prev) => prev + 1);
-    }, 1000);
-
-    // Rotate through fun facts
-    const factInterval = setInterval(() => {
-      setCurrentFactIndex((prev) => (prev + 1) % 4);
-    }, 3000);
-
-    return () => {
-      clearInterval(interval);
-      clearInterval(factInterval);
-    };
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  const handleGoBack = () => {
+    router.back();
   };
 
+  const breadcrumbItems = [
+    { label: tNav("home"), href: "/" },
+    { label: t("title"), href: "/404" },
+  ];
+
+  const funFacts = t.raw("funFacts.facts") as string[];
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full space-y-8">
-        {/* Header with animated plants */}
-        <div className="text-center space-y-4">
-          <div className="flex justify-center items-center space-x-4 mb-6">
-            <div className="animate-bounce delay-0">
-              <Sprout className="h-12 w-12 text-green-500" />
-            </div>
-            <div className="animate-bounce delay-150">
-              <Leaf className="h-16 w-16 text-emerald-600" />
-            </div>
-            <div className="animate-bounce delay-300">
-              <Sprout className="h-12 w-12 text-green-500" />
-            </div>
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-bold text-green-800">
-            {t("title")}
-          </h1>
-          <p className="text-lg md:text-xl text-green-600 font-medium">
-            {t("subtitle")}
-          </p>
-          <p className="text-gray-600 max-w-2xl mx-auto">{t("message")}</p>
+    <PageTemplate pageTitle={t("title")} breadcrumbItems={breadcrumbItems}>
+      <div className="space-y-6">
+        {/* Error Stats */}
+        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+          <StatCard title={t("stats.errorCode")} value="404" icon="🚫" />
+          <StatCard title={t("stats.timeWasted")} value="30s" icon="⏰" />
+          <StatCard title={t("stats.pagesAvailable")} value="12+" icon="📄" />
+          <StatCard title={t("stats.systemStatus")} value="100%" icon="✅" />
         </div>
 
-        {/* Fun Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard
-            title={t("stats.errorCode")}
-            value="404"
-            icon="🚫"
-            className="border-red-200 bg-red-50"
-          />
-          <StatCard
-            title={t("stats.timeWasted")}
-            value={formatTime(timeWasted)}
-            icon="⏰"
-            className="border-orange-200 bg-orange-50"
-          />
-          <StatCard
-            title={t("stats.pagesAvailable")}
-            value="42+"
-            icon="📄"
-            className="border-blue-200 bg-blue-50"
-          />
-          <StatCard
-            title={t("stats.systemStatus")}
-            value="Online"
-            icon="🟢"
-            className="border-green-200 bg-green-50"
-          />
-        </div>
+        {/* Main Error Content */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Error Message Card */}
+          <Card className="h-fit">
+            <CardHeader className="text-center pb-3">
+              <div className="mx-auto w-20 h-20 flex items-center justify-center text-4xl mb-4 bg-red-50 rounded-full">
+                🌱
+              </div>
+              <CardTitle className="text-xl sm:text-2xl text-red-600">
+                {t("subtitle")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-muted-foreground text-center text-sm sm:text-base">
+                {t("message")}
+              </p>
 
-        {/* Main Content Area */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Left: Suggestions */}
-          <Card className="border-green-200 shadow-lg">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-green-800 mb-4 flex items-center">
-                <Search className="h-5 w-5 mr-2" />
-                {t("suggestions.title")}
-              </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">•</span>
-                  {t("suggestions.checkUrl")}
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">•</span>
-                  {t("suggestions.navigation")}
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">•</span>
-                  {t("suggestions.search")}
-                </li>
-                <li className="flex items-start">
-                  <span className="text-green-500 mr-2">•</span>
-                  {t("suggestions.home")}
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+              <Separator />
 
-          {/* Right: Fun Facts */}
-          <Card className="border-emerald-200 shadow-lg">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-emerald-800 mb-4 flex items-center">
-                <Zap className="h-5 w-5 mr-2" />
-                {t("funFacts.title")}
-              </h3>
-              <div className="h-20 flex items-center">
-                <div className="transition-all duration-500 ease-in-out">
-                  <p className="text-gray-700 flex items-start">
-                    <span className="text-emerald-500 mr-2">🌱</span>
-                    {t(`funFacts.facts.${currentFactIndex}`)}
-                  </p>
+              <div className="space-y-3">
+                <h3 className="font-medium text-sm sm:text-base flex items-center gap-2">
+                  💡 {t("suggestions.title")}
+                </h3>
+                <div className="space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <span>•</span>
+                    <span>{t("suggestions.checkUrl")}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>•</span>
+                    <span>{t("suggestions.navigation")}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>•</span>
+                    <span>{t("suggestions.search")}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span>•</span>
+                    <span>{t("suggestions.home")}</span>
+                  </div>
                 </div>
               </div>
-              <div className="flex justify-center mt-4 space-x-1">
-                {[0, 1, 2, 3].map((index) => (
+
+              <Separator />
+
+              {/* Action Buttons */}
+              <div className="grid gap-2 sm:grid-cols-2">
+                <Button asChild className="w-full">
+                  <Link href="/">{t("actions.goHome")}</Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleGoBack}
+                  className="w-full"
+                >
+                  {t("actions.goBack")}
+                </Button>
+              </div>
+
+              <div className="grid gap-2 sm:grid-cols-2">
+                <Button asChild variant="outline" className="w-full">
+                  <Link href="/garden/plots">{t("actions.explore")}</Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full">
+                  <Link href="/settings/profile">{t("actions.contact")}</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Fun Facts Card */}
+          <Card className="h-fit">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                🌿 {t("funFacts.title")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                {funFacts.map((fact, index) => (
                   <div
                     key={index}
-                    className={`h-2 w-2 rounded-full transition-colors duration-300 ${
-                      index === currentFactIndex
-                        ? "bg-emerald-500"
-                        : "bg-gray-300"
-                    }`}
-                  />
+                    className="p-3 bg-green-50 rounded-lg border border-green-100"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-sm font-medium">
+                        {index + 1}
+                      </div>
+                      <p className="text-sm text-green-700 flex-1">{fact}</p>
+                    </div>
+                  </div>
                 ))}
+              </div>
+
+              <Separator />
+
+              <div className="text-center">
+                <p className="text-xs text-muted-foreground mb-3">
+                  Sistema operativo al 100% 🚀
+                </p>
+                <div className="flex justify-center space-x-2">
+                  <span className="text-green-500">🌱</span>
+                  <span className="text-blue-500">💧</span>
+                  <span className="text-yellow-500">☀️</span>
+                  <span className="text-purple-500">📊</span>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link href="/">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto bg-green-600 hover:bg-green-700"
-            >
-              <Home className="h-4 w-4 mr-2" />
-              {t("actions.goHome")}
-            </Button>
-          </Link>
-
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => router.back()}
-            className="w-full sm:w-auto border-green-600 text-green-600 hover:bg-green-50"
-          >
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {t("actions.goBack")}
-          </Button>
-
-          <Link href="/garden">
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto border-emerald-600 text-emerald-600 hover:bg-emerald-50"
-            >
-              <Leaf className="h-4 w-4 mr-2" />
-              {t("actions.explore")}
-            </Button>
-          </Link>
-        </div>
-
-        <Separator className="my-8" />
-
-        {/* Footer */}
-        <div className="text-center text-gray-500 space-y-2">
-          <p className="text-sm">
-            Lost in the digital garden? Our AI assistant is here to help! 🤖
-          </p>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-green-600 hover:text-green-700 hover:bg-green-50"
-          >
-            <MessageCircle className="h-4 w-4 mr-2" />
-            {t("actions.contact")}
-          </Button>
-        </div>
+        {/* Quick Navigation */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              🗺️ Navegación Rápida
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <Button asChild variant="outline" className="h-auto py-3">
+                <Link
+                  href="/garden/plots"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <span className="text-xl">🗺️</span>
+                  <span className="text-xs">{tNav("garden.plots")}</span>
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="h-auto py-3">
+                <Link
+                  href="/monitoring/alerts"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <span className="text-xl">📊</span>
+                  <span className="text-xs">{tNav("monitoring.title")}</span>
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="h-auto py-3">
+                <Link
+                  href="/automation/schedules"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <span className="text-xl">🤖</span>
+                  <span className="text-xs">{tNav("automation.title")}</span>
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="h-auto py-3">
+                <Link
+                  href="/settings/profile"
+                  className="flex flex-col items-center gap-2"
+                >
+                  <span className="text-xl">⚙️</span>
+                  <span className="text-xs">{tNav("settings.title")}</span>
+                </Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
-    </div>
+    </PageTemplate>
   );
 };
 
