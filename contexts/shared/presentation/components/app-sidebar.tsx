@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { GalleryVerticalEnd, Minus, Plus } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
+import * as React from 'react';
+import { GalleryVerticalEnd, Minus, Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
-import { SearchForm } from "@/contexts/shared/presentation/components/search-form";
+import { SearchForm } from '@/contexts/shared/presentation/components/search-form';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/contexts/shared/presentation/components/ui/collapsible";
+} from '@/contexts/shared/presentation/components/ui/collapsible';
 import {
   Sidebar,
   SidebarContent,
@@ -23,12 +23,13 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
-} from "@/contexts/shared/presentation/components/ui/sidebar";
+} from '@/contexts/shared/presentation/components/ui/sidebar';
 import {
   getNavigationConfig,
   getActiveNavigationItem,
   getActiveNavigationSection,
-} from "@/contexts/shared/domain/navigation/routes";
+} from '@/contexts/shared/domain/navigation/routes';
+import Image from 'next/image';
 
 /**
  * AppSidebar component using DDD navigation configuration
@@ -50,10 +51,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <a href="/">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GalleryVerticalEnd className="size-4" />
+                  <Image
+                    src="/logo.svg"
+                    alt="Logo"
+                    width={32}
+                    height={32}
+                    className="size-4"
+                  />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">{t("common.appName")}</span>
+                  <span className="font-medium">{t('common.appName')}</span>
                   <span className="">v1.0.0</span>
                 </div>
               </a>
@@ -96,7 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton isActive={isSectionActive}>
-                        {t(item.titleKey)}{" "}
+                        {t(item.titleKey)}{' '}
                         <Plus className="ml-auto group-data-[state=open]/collapsible:hidden" />
                         <Minus className="ml-auto group-data-[state=closed]/collapsible:hidden" />
                       </SidebarMenuButton>
