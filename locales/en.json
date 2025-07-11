@@ -12,6 +12,8 @@
     "creating": "Creating",
     "update": "Update",
     "search": "Search",
+    "clear": "Clear",
+    "noResults": "No results for",
     "close": "Close",
     "back": "Back",
     "home": "Home",

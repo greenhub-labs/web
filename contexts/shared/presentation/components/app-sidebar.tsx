@@ -29,11 +29,12 @@ import {
   getActiveNavigationItem,
   getActiveNavigationSection,
 } from '@/contexts/shared/domain/navigation/routes';
+import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
 import Image from 'next/image';
 
 /**
  * AppSidebar component using DDD navigation configuration
- * Automatically handles translations and active states
+ * Automatically handles translations, active states, and search functionality
  */
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -42,6 +43,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigationConfig = getNavigationConfig();
   const activeItemId = getActiveNavigationItem(pathname);
   const activeSectionId = getActiveNavigationSection(pathname);
+
+  // Use the search hook for filtering navigation
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredNavigation,
+    expandedSections,
+    clearSearch,
+    hasResults,
+    isSearching,
+  } = useSidebarSearch(navigationConfig);
 
   return (
     <Sidebar {...props}>
@@ -67,17 +79,36 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        <SearchForm />
+        <SearchForm
+          value={searchQuery}
+          onValueChange={setSearchQuery}
+          onClear={clearSearch}
+          placeholder={t('common.search')}
+        />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          {/* Show "no results" message when searching but no results found */}
+          {isSearching && !hasResults && (
+            <div className="px-2 py-4 text-sm text-muted-foreground text-center">
+              {t('common.noResults')} "{searchQuery}"
+            </div>
+          )}
+
           <SidebarMenu>
-            {navigationConfig.main.map((item) => {
-              // Determine if this section should be open
-              const shouldBeOpen = activeSectionId === item.id;
+            {filteredNavigation.main.map((item) => {
+              // Determine if this section should be open by default (for normal navigation)
+              const shouldBeOpenByDefault = activeSectionId === item.id;
+
+              // When searching, force sections open if they have matching children
+              const shouldBeOpenDuringSearch = expandedSections.includes(
+                item.id,
+              );
 
               // Determine if this section or any of its children are active
-              const isSectionActive = activeItemId === item.id || shouldBeOpen;
+              const isSectionActive =
+                activeItemId === item.id ||
+                (activeSectionId === item.id && !isSearching);
 
               // Render simple items (like Home) without collapsible
               if (!item.items?.length) {
@@ -97,7 +128,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               return (
                 <Collapsible
                   key={item.id}
-                  defaultOpen={shouldBeOpen}
+                  // Use controlled mode during search, uncontrolled during normal navigation
+                  {...(isSearching
+                    ? { open: shouldBeOpenDuringSearch }
+                    : { defaultOpen: shouldBeOpenByDefault })}
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
