@@ -1,0 +1,358 @@
+# GreenHub Translation Structure Rules
+
+**MANDATORY**: Follow the exact translation structure established in the GreenHub project. All translations must adhere to the specific hierarchical organization and naming conventions.
+
+## 🌐 Core Translation Structure
+
+### 📁 **Main Categories (TOP LEVEL)**
+
+```json
+{
+  "common": {
+    /* Global reusable elements */
+  },
+  "pages": {
+    /* Page-specific content */
+  },
+  "navigation": {
+    /* Menu and navigation items */
+  }
+}
+```
+
+### 🔧 **Common Section (`common`)**
+
+Contains globally reusable text elements:
+
+```json
+{
+  "common": {
+    "appName": "GreenHub",
+    "welcome": "Welcome to",
+    "loading": "Loading...",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "creating": "Creating",
+    "update": "Update",
+    "search": "Search",
+    "clear": "Clear",
+    "noResults": "No results for",
+    "close": "Close",
+    "back": "Back",
+    "home": "Home",
+    "done": "Done",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info"
+  }
+}
+```
+
+**Rules for `common`:**
+
+- Use **camelCase** for all keys
+- Keep entries **generic and reusable** across the entire app
+- Include **action verbs** (save, cancel, create, edit, delete)
+- Include **status messages** (loading, error, success, warning)
+- Include **navigation terms** (back, close, home)
+
+### 📄 **Pages Section (`pages`)**
+
+Organized by feature areas with nested subsections:
+
+```json
+{
+  "pages": {
+    "home": {
+      /* Dashboard/landing content */
+    },
+    "garden": {
+      "plots": {
+        /* Plot management */
+      },
+      "crops": {
+        /* Crop cultivation */
+      },
+      "irrigation": {
+        /* Irrigation system */
+      },
+      "plantingPlanner": {
+        /* Planting planner */
+      },
+      "rotation": {
+        /* Crop rotation */
+      }
+    },
+    "settings": {
+      "system": {
+        /* System configuration */
+      },
+      "integrations": {
+        /* External integrations */
+      },
+      "users": {
+        /* User management */
+      }
+    },
+    "monitoring": {
+      "alerts": {
+        /* System alerts */
+      }
+    },
+    "automation": {
+      "irrigationRules": {
+        /* Irrigation automation */
+      },
+      "schedules": {
+        /* Time-based automation */
+      }
+    },
+    "profile": {
+      /* User profile management */
+    },
+    "notFound": {
+      /* 404 error page */
+    }
+  }
+}
+```
+
+**Mandatory page subsections pattern:**
+
+- **`title`**: Main page heading
+- **`subtitle`**: Optional page description
+- **`stats`**: Statistics/metrics displayed on page
+- **`form`**: Form-related text (title, fields, errors, actions)
+- **`actions`**: Action buttons and operations
+- **`status`**: Status indicators and states
+- **`emptyStates`**: Empty state messages
+- **`tabs`**: Tab navigation labels
+
+### 🗺️ **Navigation Section (`navigation`)**
+
+**MANDATORY**: Use emojis for ALL navigation items following this exact pattern:
+
+```json
+{
+  "navigation": {
+    "home": "🏠 Home",
+    "garden": {
+      "title": "🌱 Garden",
+      "plots": "🗺️ Plot Management",
+      "crops": "🌾 Crops & Cultivation",
+      "irrigation": "💧 Irrigation System",
+      "plantingPlanner": "📅 Planting Planner",
+      "rotation": "🔄 Crop Rotation"
+    },
+    "settings": {
+      "title": "⚙️ Settings",
+      "profile": "👤 Profile",
+      "users": "👥 User Management",
+      "notifications": "📢 Notifications",
+      "integrations": "🔗 Integrations",
+      "system": "💻 System Config"
+    }
+  }
+}
+```
+
+**Navigation emoji conventions:**
+
+- **🏠** Home/Dashboard
+- **🌱** Garden (main)
+- **🗺️** Plot/Location management
+- **🌾** Crops/Plants
+- **💧** Water/Irrigation
+- **📅** Planning/Calendar
+- **🔄** Rotation/Cycles
+- **⚙️** Settings (main)
+- **👤** User Profile
+- **👥** User Management
+- **📢** Notifications
+- **🔗** Integrations
+- **💻** System
+
+## 📋 Required Subsection Patterns
+
+### 🎯 **Stats Pattern**
+
+Every page with metrics MUST include:
+
+```json
+{
+  "stats": {
+    "totalItems": "Total Items",
+    "activeItems": "Active Items",
+    "completedItems": "Completed Items",
+    "pendingItems": "Pending Items"
+  }
+}
+```
+
+### 📝 **Form Pattern**
+
+Every page with forms MUST include:
+
+```json
+{
+  "form": {
+    "title": "Create/Edit [Entity]",
+    "description": "Description of form purpose",
+    "[fieldName]": "Field Label",
+    "[fieldName]Placeholder": "Field placeholder text",
+    "create": "Create [Entity]",
+    "update": "Update [Entity]",
+    "creating": "Creating...",
+    "updating": "Updating...",
+    "errors": {
+      "[fieldName]Required": "[Field] is required",
+      "[fieldName]Invalid": "Invalid [field] format"
+    }
+  }
+}
+```
+
+### 🎬 **Actions Pattern**
+
+Standard actions across the app:
+
+```json
+{
+  "actions": {
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "viewDetails": "View Details",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Saved successfully",
+    "cancel": "Cancel Changes"
+  }
+}
+```
+
+### 🏷️ **Status Pattern**
+
+Consistent status indicators:
+
+```json
+{
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "completed": "Completed",
+    "error": "Error",
+    "paused": "Paused"
+  }
+}
+```
+
+## 🔄 Workflow for Adding Translations
+
+### ✅ **DO:**
+
+1. **Identify correct category**:
+
+   - Reusable → `common`
+   - Page-specific → `pages.[area].[page]`
+   - Navigation → `navigation.[section]`
+
+2. **Follow naming patterns**:
+
+   - Use **camelCase** for all keys
+   - Use **descriptive, semantic names**
+   - Include context in key names
+
+3. **Add to BOTH languages simultaneously**:
+
+   ```json
+   // en.json
+   "pages.garden.crops.form.title": "Plant New Crop"
+
+   // es.json
+   "pages.garden.crops.form.title": "Plantar Nuevo Cultivo"
+   ```
+
+4. **Use consistent terminology**:
+   - "Plot" → "Bancal" (ES)
+   - "Crop" → "Cultivo" (ES)
+   - "Irrigation" → "Riego" (ES)
+
+### ❌ **DON'T:**
+
+```json
+// ❌ WRONG: No emoji in navigation
+"navigation.garden.title": "Garden"
+
+// ❌ WRONG: Not following subsection pattern
+"pages.garden.plots.createButton": "Create Plot"
+// Should be: "pages.garden.plots.actions.create"
+
+// ❌ WRONG: Inconsistent key naming
+"pages.garden.plotsMgmt": "Plot Management"
+// Should be: "pages.garden.plots.title"
+
+// ❌ WRONG: Missing in one language
+// Only adding to en.json but not es.json
+```
+
+## 🌍 Language-Specific Rules
+
+### 🇺🇸 **English (en.json)**
+
+- Use **American English** spelling
+- **Concise and direct** language
+- **Professional tone** for technical terms
+
+### 🇪🇸 **Spanish (es.json)**
+
+- Use **neutral Latin American Spanish**
+- **Natural translations**, not literal
+- **Consistent technical terminology**
+- Use **formal "usted"** form when appropriate
+
+## 🔍 Quality Checklist
+
+Before adding any translation:
+
+- [ ] Added to **both en.json AND es.json**
+- [ ] Follows **correct hierarchical structure**
+- [ ] Uses **camelCase** key naming
+- [ ] Navigation items include **appropriate emojis**
+- [ ] Follows established **subsection patterns**
+- [ ] Uses **consistent terminology**
+- [ ] **Semantic and descriptive** key names
+- [ ] **No hardcoded strings** in components
+
+## 📖 Example Implementation
+
+```tsx
+// ✅ CORRECT: Following structure
+const PlotsPage = () => {
+  const t = useTranslations('pages.garden.plots');
+  const tCommon = useTranslations('common');
+
+  return (
+    <div>
+      <h1>{t('title')}</h1>
+      <p>{t('subtitle')}</p>
+      <Button>{t('actions.create')}</Button>
+      {loading && <p>{tCommon('loading')}</p>}
+    </div>
+  );
+};
+```
+
+**Remember**: The translation structure is the backbone of the user experience. Consistency in organization ensures maintainability and scalability across the entire GreenHub application.
+description:
+globs:
+alwaysApply: false
+
+---

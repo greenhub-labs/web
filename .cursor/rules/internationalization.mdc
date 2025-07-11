@@ -1,7 +1,3 @@
----
-alwaysApply: true
----
-
 # Internationalization (i18n) Rules
 
 **ALWAYS use internationalization** for any text content in the application. Never hardcode text strings in components.
@@ -25,119 +21,34 @@ locales/
 └── [locale].json
 ```
 
-## Translation Organization
-
-### 🗂️ **Hierarchical Structure**
-
-Organize translations in logical, nested categories:
-
-```json
-{
-  "common": {
-    "appName": "Pair Pay",
-    "loading": "Loading...",
-    "welcome": "Welcome!",
-    "add": "Add",
-    "edit": "Edit",
-    "delete": "Delete",
-    "save": "Save",
-    "cancel": "Cancel"
-  },
-  "navbar": {
-    "groups": "Groups",
-    "profile": "Profile",
-    "expenses": "Expenses"
-  },
-  "auth": {
-    "common": {
-      "email": "Email",
-      "password": "Password"
-    },
-    "login": {
-      "title": "Login",
-      "subtitle": "Please enter your details"
-    },
-    "validation": {
-      "required": "This field is required",
-      "invalidEmail": "Invalid email address"
-    }
-  },
-  "pages": {
-    "groups": {
-      "title": "Groups",
-      "create": "Create Group",
-      "empty": "No groups yet",
-      "searchPlaceholder": "Search groups..."
-    },
-    "profile": {
-      "title": "Profile",
-      "loading": "Loading profile...",
-      "error": "Error loading profile"
-    },
-    "notFound": {
-      "title": "Page Not Found",
-      "message": "The page you're looking for doesn't exist",
-      "goHome": "Go to Home",
-      "goBack": "Go Back"
-    }
-  }
-}
-```
-
-### 📚 **Categories Guidelines**
-
-#### **`common`**
-
-- Reusable text across the app (buttons, actions, states)
-- Generic messages (loading, success, error)
-
-#### **`navbar`**
-
-- Navigation menu items
-- Header elements
-
-#### **`auth`**
-
-- Authentication flows (login, register, forgot password)
-- Validation messages
-- Form labels
-
-#### **`pages.[pageName]`**
-
-- Page-specific content
-- Page titles and headers
-- Page-specific messages and actions
-
-#### **`components.[componentName]`**
-
-- Component-specific text
-- Component actions and states
+**Important**: For the specific translation structure and organization patterns, see the detailed **Translation Structure Rules** in `translation-structure.mdc`.
 
 ## Implementation Rules
 
 ### ✅ **DO:**
 
 ```tsx
-// ✅ CORRECT: Using useTranslations
+// ✅ CORRECT: Using useTranslations with proper structure
 import { useTranslations } from 'next-intl';
 
-const GroupsPage = () => {
-  const t = useTranslations('pages.groups');
+const GardenPlotsPage = () => {
+  const t = useTranslations('pages.garden.plots');
+  const tCommon = useTranslations('common');
 
   return (
     <div>
       <h1>{t('title')}</h1>
-      <Button>{t('create')}</Button>
-      <p>{t('empty')}</p>
+      <Button>{t('actions.create')}</Button>
+      <p>{tCommon('loading')}</p>
     </div>
   );
 };
 ```
 
 ```tsx
-// ✅ CORRECT: Scoped translations
-const CreateGroupDialog = () => {
-  const t = useTranslations('components.createGroupDialog');
+// ✅ CORRECT: Scoped translations for components
+const CreatePlotDialog = () => {
+  const t = useTranslations('pages.garden.plots.form');
   const tCommon = useTranslations('common');
 
   return (
@@ -154,11 +65,11 @@ const CreateGroupDialog = () => {
 
 ```tsx
 // ❌ WRONG: Hardcoded text
-const GroupsPage = () => {
+const GardenPlotsPage = () => {
   return (
     <div>
-      <h1>Groups</h1> {/* Should use t('title') */}
-      <Button>Create Group</Button> {/* Should use t('create') */}
+      <h1>Plot Management</h1> {/* Should use t('title') */}
+      <Button>Create Plot</Button> {/* Should use t('actions.create') */}
     </div>
   );
 };
@@ -178,45 +89,67 @@ const ProfilePage = () => {
 };
 ```
 
-## Naming Conventions
+## Translation Keys Best Practices
 
-### 🏷️ **Translation Keys**
+### 🏷️ **Key Naming Conventions**
 
-- **camelCase** for keys: `createGroup`, `searchPlaceholder`
+- **camelCase** for keys: `createPlot`, `searchPlaceholder`
 - **Descriptive names**: `passwordsDontMatch` not `error1`
-- **Hierarchical**: `auth.validation.required` not `authValidationRequired`
+- **Hierarchical structure**: Follow the patterns in `translation-structure.mdc`
 
-### 📂 **Namespace Patterns**
+### 📂 **Namespace Usage Patterns**
 
-- **Pages**: `pages.[pageName].[element]`
-- **Components**: `components.[componentName].[element]`
-- **Common**: `common.[element]`
-- **Features**: `[featureName].[context].[element]`
+- **Common elements**: `useTranslations('common')`
+- **Page content**: `useTranslations('pages.[area].[page]')`
+- **Navigation**: `useTranslations('navigation')`
+- **Forms**: `useTranslations('pages.[area].[page].form')`
+- **Actions**: `useTranslations('pages.[area].[page].actions')`
 
-## Workflow
+## Development Workflow
 
-### 🔄 **Adding New Text**
+### 🔄 **Adding New Text Content**
 
-1. **Identify the category** (common, pages, components, etc.)
-2. **Add to BOTH** `en.json` and `es.json`
-3. **Use descriptive keys** that make sense in context
-4. **Import and use** `useTranslations` in component
-5. **Test both languages** to ensure translations work
+1. **Check if translation exists** in `common` first
+2. **Identify correct namespace** according to structure rules
+3. **Add to BOTH** `en.json` and `es.json` simultaneously
+4. **Follow established patterns** for consistency
+5. **Import and use** `useTranslations` in component
+6. **Test both languages** to ensure translations work
 
 ### 📝 **Example Workflow**
 
-Adding a new error message for groups:
+Adding new validation error for irrigation form:
 
-1. **Add to locales:**
+1. **Add to both locales following structure:**
 
 ```json
-// en.json & es.json
+// en.json
 {
   "pages": {
-    "groups": {
-      "errors": {
-        "loadFailed": "Failed to load groups"  // en
-        "loadFailed": "Error al cargar grupos"  // es
+    "garden": {
+      "irrigation": {
+        "form": {
+          "errors": {
+            "durationRequired": "Duration is required",
+            "durationInvalid": "Please enter a valid duration"
+          }
+        }
+      }
+    }
+  }
+}
+
+// es.json
+{
+  "pages": {
+    "garden": {
+      "irrigation": {
+        "form": {
+          "errors": {
+            "durationRequired": "La duración es obligatoria",
+            "durationInvalid": "Por favor ingresa una duración válida"
+          }
+        }
       }
     }
   }
@@ -226,12 +159,17 @@ Adding a new error message for groups:
 2. **Use in component:**
 
 ```tsx
-const GroupsPage = () => {
-  const t = useTranslations('pages.groups.errors');
+const IrrigationForm = () => {
+  const t = useTranslations('pages.garden.irrigation.form.errors');
 
-  if (error) {
-    return <Alert>{t('loadFailed')}</Alert>;
-  }
+  const validate = (duration) => {
+    if (!duration) {
+      return t('durationRequired');
+    }
+    if (isNaN(duration)) {
+      return t('durationInvalid');
+    }
+  };
 };
 ```
 
@@ -239,10 +177,11 @@ const GroupsPage = () => {
 
 ### 🎯 **Translation Quality**
 
-- **Consistent terminology** across the app
+- **Consistent terminology** across the app (see translation-structure.mdc for terms)
 - **Natural language** in each locale
 - **Context-appropriate** tone and formality
 - **Complete coverage** - no missing translations
+- **Emoji usage** in navigation items as specified
 
 ### 🔍 **Code Quality**
 
@@ -251,24 +190,28 @@ const GroupsPage = () => {
 - **Type safety**: Use TypeScript for translation keys when possible
 - **Performance**: Scope translations appropriately (don't import all)
 
-## Integration with Project
+## Integration Guidelines
 
 ### 🏗️ **With Atomic Design**
 
 - **Atoms**: Use `common` translations for generic elements
-- **Molecules**: Component-specific translations or common combinations
+- **Molecules**: Component-specific translations from appropriate page namespace
 - **Organisms**: Feature/page-specific translations
-- **Pages**: Use `pages.[pageName]` namespace
+- **Pages**: Use `pages.[area].[page]` namespace structure
 
 ### 🔗 **With Next.js**
 
 - Follow Next.js i18n routing patterns
 - Use locale parameters in dynamic routes
 - Ensure SSR compatibility with translations
+- Respect the established GreenHub structure
 
-**Remember: Every piece of user-facing text must be translatable. This ensures accessibility for all users and maintains consistency across the application.**
-description:
-globs:
-alwaysApply: false
+## Related Documentation
+
+- **Translation Structure**: See `translation-structure.mdc` for detailed hierarchy and patterns
+- **Component Guidelines**: Follow Atomic Design principles
+- **Code Standards**: Maintain consistency with project conventions
+
+**Remember**: Every piece of user-facing text must be translatable and follow the GreenHub structure. This ensures accessibility, maintainability, and consistency across the entire application.
 
 ---
