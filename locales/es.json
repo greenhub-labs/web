@@ -136,7 +136,6 @@
           "sizePlaceholder": "ej., 10x5 metros, 50 m²",
           "soilType": "Tipo de Suelo",
           "soilTypePlaceholder": "Selecciona tipo de suelo",
-          "description": "Descripción",
           "descriptionPlaceholder": "Notas adicionales sobre esta parcela...",
           "create": "Crear Parcela",
           "soilTypes": {
@@ -1100,7 +1099,19 @@
           "adjust": "Ajustar Horario",
           "duration": "Duración (minutos)",
           "intensity": "Intensidad de Riego",
-          "zones": "Zonas Objetivo"
+          "zones": "Zonas Objetivo",
+          "create": "Crear Regla",
+          "edit": "Editar Regla",
+          "delete": "Eliminar Regla",
+          "duplicate": "Duplicar Regla",
+          "enable": "Habilitar",
+          "disable": "Deshabilitar",
+          "pause": "Pausar",
+          "resume": "Reanudar",
+          "testRun": "Prueba de Ejecución",
+          "viewHistory": "Ver Historial",
+          "exportRules": "Exportar Reglas",
+          "importRules": "Importar Reglas"
         },
         "schedule": {
           "title": "Configuración de Horario",
@@ -1117,7 +1128,6 @@
           "description": "Crea reglas de riego automatizado basadas en datos de sensores y horarios",
           "name": "Nombre de la Regla",
           "namePlaceholder": "ej., Riego Matutino del Huerto de Verduras",
-          "description": "Descripción",
           "descriptionPlaceholder": "Breve descripción de lo que hace esta regla...",
           "ruleType": "Tipo de Regla",
           "ruleTypePlaceholder": "Selecciona tipo de regla",
@@ -1138,20 +1148,6 @@
             "conditionsRequired": "Se requiere al menos una condición",
             "actionsRequired": "Se requiere al menos una acción"
           }
-        },
-        "actions": {
-          "create": "Crear Regla",
-          "edit": "Editar Regla",
-          "delete": "Eliminar Regla",
-          "duplicate": "Duplicar Regla",
-          "enable": "Habilitar",
-          "disable": "Deshabilitar",
-          "pause": "Pausar",
-          "resume": "Reanudar",
-          "testRun": "Prueba de Ejecución",
-          "viewHistory": "Ver Historial",
-          "exportRules": "Exportar Reglas",
-          "importRules": "Importar Reglas"
         },
         "tabs": {
           "overview": "Vista General",
@@ -1255,7 +1251,19 @@
           "openDoor": "Abrir Puerta",
           "closeDoor": "Cerrar Puerta",
           "sendNotification": "Enviar Notificación",
-          "customCommand": "Comando Personalizado"
+          "customCommand": "Comando Personalizado",
+          "create": "Crear Programación",
+          "edit": "Editar Programación",
+          "delete": "Eliminar Programación",
+          "duplicate": "Duplicar Programación",
+          "enable": "Habilitar",
+          "disable": "Deshabilitar",
+          "pause": "Pausar",
+          "resume": "Reanudar",
+          "runNow": "Ejecutar Ahora",
+          "viewHistory": "Ver Historial",
+          "exportSchedules": "Exportar Programaciones",
+          "importSchedules": "Importar Programaciones"
         },
         "form": {
           "title": "Crear Programación",
@@ -1263,7 +1271,6 @@
           "description": "Crea programaciones de automatización basadas en tiempo para los sistemas de tu huerto",
           "name": "Nombre de la Programación",
           "namePlaceholder": "ej., Riego Matutino del Huerto",
-          "description": "Descripción",
           "descriptionPlaceholder": "Breve descripción de esta programación...",
           "scheduleType": "Tipo de Programación",
           "scheduleTypePlaceholder": "Selecciona tipo de programación",
@@ -1287,20 +1294,6 @@
             "systemsRequired": "Por favor selecciona al menos un sistema",
             "invalidTimeRange": "La hora de fin debe ser posterior a la hora de inicio"
           }
-        },
-        "actions": {
-          "create": "Crear Programación",
-          "edit": "Editar Programación",
-          "delete": "Eliminar Programación",
-          "duplicate": "Duplicar Programación",
-          "enable": "Habilitar",
-          "disable": "Deshabilitar",
-          "pause": "Pausar",
-          "resume": "Reanudar",
-          "runNow": "Ejecutar Ahora",
-          "viewHistory": "Ver Historial",
-          "exportSchedules": "Exportar Programaciones",
-          "importSchedules": "Importar Programaciones"
         },
         "tabs": {
           "overview": "Vista General",

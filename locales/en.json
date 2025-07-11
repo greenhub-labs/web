@@ -136,7 +136,6 @@
           "sizePlaceholder": "e.g., 10x5 meters, 50 sq ft",
           "soilType": "Soil Type",
           "soilTypePlaceholder": "Select soil type",
-          "description": "Description",
           "descriptionPlaceholder": "Additional notes about this plot...",
           "create": "Create Plot",
           "soilTypes": {
@@ -1100,7 +1099,19 @@
           "adjust": "Adjust Schedule",
           "duration": "Duration (minutes)",
           "intensity": "Irrigation Intensity",
-          "zones": "Target Zones"
+          "zones": "Target Zones",
+          "create": "Create Rule",
+          "edit": "Edit Rule",
+          "delete": "Delete Rule",
+          "duplicate": "Duplicate Rule",
+          "enable": "Enable",
+          "disable": "Disable",
+          "pause": "Pause",
+          "resume": "Resume",
+          "testRun": "Test Run",
+          "viewHistory": "View History",
+          "exportRules": "Export Rules",
+          "importRules": "Import Rules"
         },
         "schedule": {
           "title": "Schedule Settings",
@@ -1117,7 +1128,6 @@
           "description": "Create automated irrigation rules based on sensor data and schedules",
           "name": "Rule Name",
           "namePlaceholder": "e.g., Morning Vegetable Garden Watering",
-          "description": "Description",
           "descriptionPlaceholder": "Brief description of what this rule does...",
           "ruleType": "Rule Type",
           "ruleTypePlaceholder": "Select rule type",
@@ -1138,20 +1148,6 @@
             "conditionsRequired": "At least one condition is required",
             "actionsRequired": "At least one action is required"
           }
-        },
-        "actions": {
-          "create": "Create Rule",
-          "edit": "Edit Rule",
-          "delete": "Delete Rule",
-          "duplicate": "Duplicate Rule",
-          "enable": "Enable",
-          "disable": "Disable",
-          "pause": "Pause",
-          "resume": "Resume",
-          "testRun": "Test Run",
-          "viewHistory": "View History",
-          "exportRules": "Export Rules",
-          "importRules": "Import Rules"
         },
         "tabs": {
           "overview": "Overview",
@@ -1255,7 +1251,19 @@
           "openDoor": "Open Door",
           "closeDoor": "Close Door",
           "sendNotification": "Send Notification",
-          "customCommand": "Custom Command"
+          "customCommand": "Custom Command",
+          "create": "Create Schedule",
+          "edit": "Edit Schedule",
+          "delete": "Delete Schedule",
+          "duplicate": "Duplicate Schedule",
+          "enable": "Enable",
+          "disable": "Disable",
+          "pause": "Pause",
+          "resume": "Resume",
+          "runNow": "Run Now",
+          "viewHistory": "View History",
+          "exportSchedules": "Export Schedules",
+          "importSchedules": "Import Schedules"
         },
         "form": {
           "title": "Create Schedule",
@@ -1263,7 +1271,6 @@
           "description": "Create time-based automation schedules for your garden systems",
           "name": "Schedule Name",
           "namePlaceholder": "e.g., Morning Garden Watering",
-          "description": "Description",
           "descriptionPlaceholder": "Brief description of this schedule...",
           "scheduleType": "Schedule Type",
           "scheduleTypePlaceholder": "Select schedule type",
@@ -1287,20 +1294,6 @@
             "systemsRequired": "Please select at least one system",
             "invalidTimeRange": "End time must be after start time"
           }
-        },
-        "actions": {
-          "create": "Create Schedule",
-          "edit": "Edit Schedule",
-          "delete": "Delete Schedule",
-          "duplicate": "Duplicate Schedule",
-          "enable": "Enable",
-          "disable": "Disable",
-          "pause": "Pause",
-          "resume": "Resume",
-          "runNow": "Run Now",
-          "viewHistory": "View History",
-          "exportSchedules": "Export Schedules",
-          "importSchedules": "Import Schedules"
         },
         "tabs": {
           "overview": "Overview",
