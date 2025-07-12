@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GraphQLClient } from 'graphql-request';
 import { ME_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
+import { User } from '@/contexts/users/domain/entities/user.entity';
 
 const client = new GraphQLClient(process.env.BACKEND_URL!, {
   headers: {
@@ -12,7 +13,7 @@ export async function GET(req: NextRequest) {
   try {
     const variables = {};
     const data = (await client.request(ME_QUERY, variables)) as {
-      me: { id: string; email: string };
+      me: User;
     };
     return NextResponse.json(data.me);
   } catch (error) {
