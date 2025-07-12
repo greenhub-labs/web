@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "git:clean:local": "git branch --merged main | grep -v '^* main$' | xargs git branch -d"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
