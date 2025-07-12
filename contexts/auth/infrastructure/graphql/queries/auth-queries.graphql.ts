@@ -6,6 +6,7 @@ export const ME_QUERY = `
         firstName
         lastName
         email
+        phone
         avatar
         bio
         isActive
