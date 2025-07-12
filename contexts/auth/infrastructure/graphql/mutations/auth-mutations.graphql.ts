@@ -1,16 +1,16 @@
 export const LOGIN_MUTATION = `
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      id
-      email
-      token
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
+        accessToken
+        refreshToken
+      
     }
   }
 `;
 
 export const REGISTER_MUTATION = `
-  mutation Register($email: String!, $password: String!) {
-    register(email: $email, password: $password) {
+  mutation Register($input: RegisterInput!) {
+    register(input: $input) {
       id
       email
       token
@@ -19,8 +19,8 @@ export const REGISTER_MUTATION = `
 `;
 
 export const REFRESH_TOKEN_MUTATION = `
-  mutation RefreshToken($token: String!) {
-    refreshToken(token: $token) {
+  mutation RefreshToken($refreshToken: String!) {
+    refreshToken(refreshToken: $refreshToken) {
       id
       email
       token

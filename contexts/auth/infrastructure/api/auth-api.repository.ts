@@ -10,6 +10,7 @@ export class AuthApiRepository implements AuthRepository {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
+      credentials: 'include',
     });
     const data: Auth = await response.json();
     return data;
@@ -19,6 +20,7 @@ export class AuthApiRepository implements AuthRepository {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ email, password }),
+      credentials: 'include',
     });
     const data: Auth = await response.json();
     return data;
@@ -27,6 +29,7 @@ export class AuthApiRepository implements AuthRepository {
     const url = `/api/auth/logout`;
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'include',
     });
     return response.json();
   }
@@ -35,6 +38,7 @@ export class AuthApiRepository implements AuthRepository {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ token }),
+      credentials: 'include',
     });
     const data: Auth = await response.json();
     return data;
@@ -44,6 +48,7 @@ export class AuthApiRepository implements AuthRepository {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ token }),
+      credentials: 'include',
     });
     return response.json();
   }
@@ -51,6 +56,7 @@ export class AuthApiRepository implements AuthRepository {
     const url = `/api/auth/me`;
     const response = await fetch(url, {
       method: 'GET',
+      credentials: 'include',
     });
     const data: Auth = await response.json();
     return data;

@@ -13,29 +13,24 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   loginSchema,
   registerSchema,
-  LoginForm,
-  RegisterForm,
   AuthFormType,
 } from '@/contexts/auth/domain/validators/auth-form.schema';
+import { Loader2 } from 'lucide-react';
 
-export interface AuthFormProps extends React.ComponentProps<'form'> {
+export interface AuthFormProps {
   mode: 'login' | 'signup';
-  /**
-   * URL to navigate to when switching between login/signup
-   */
   switchUrl: string;
-  /**
-   * Text for the switch link (e.g., 'Sign up' or 'Login')
-   */
   switchText: string;
+  isLoading: boolean;
+  onSubmit: (data: AuthFormType) => Promise<void>;
 }
 
 export function AuthForm({
-  className,
   mode,
   switchUrl,
   switchText,
-  ...props
+  isLoading,
+  onSubmit,
 }: AuthFormProps) {
   const { resolvedTheme } = useTheme();
   const t = useTranslations();
@@ -53,11 +48,6 @@ export function AuthForm({
   } = useForm<AuthFormType>({
     resolver: zodResolver(schema),
   });
-
-  // Handler de submit (por ahora solo log)
-  const onSubmit = (data: any) => {
-    console.log('Form data:', data);
-  };
 
   // Helper para traducción de errores
   const getErrorMessage = (msg: unknown) =>
@@ -87,9 +77,8 @@ export function AuthForm({
 
   return (
     <form
-      className={cn('flex flex-col gap-6 w-full max-w-[400px]', className)}
+      className={cn('flex flex-col gap-6 w-full max-w-[400px]')}
       onSubmit={handleSubmit(onSubmit)}
-      {...props}
     >
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">
@@ -158,10 +147,19 @@ export function AuthForm({
             </a>
           </div>
         )}
-        <Button type="submit" className="w-full">
-          {isSignup
-            ? t('pages.auth.register.title')
-            : t('pages.auth.login.title')}
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 ml-2" />
+              {t('common.loading')}
+            </>
+          ) : (
+            <>
+              {isSignup
+                ? t('pages.auth.register.title')
+                : t('pages.auth.login.title')}
+            </>
+          )}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
