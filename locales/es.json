@@ -24,6 +24,36 @@
     "info": "Información"
   },
   "pages": {
+    "auth": {
+      "login": {
+        "title": "Iniciar sesión",
+        "subtitle": "Bienvenido de nuevo! Por favor, ingresa tus detalles.",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "register": "¿No tienes una cuenta? Regístrate",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "orContinueWith": "O continuar con",
+        "signInWithGitHub": "Inicia sesión con GitHub",
+        "signInWithGoogle": "Inicia sesión con Google"
+      },
+      "register": {
+        "title": "Regístrate",
+        "subtitle": "Crea tu cuenta para comenzar.",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmar contraseña",
+        "login": "¿Ya tienes una cuenta? Inicia sesión",
+        "orContinueWith": "O continuar con",
+        "signUpWithGitHub": "Regístrate con GitHub",
+        "signUpWithGoogle": "Regístrate con Google"
+      },
+      "validation": {
+        "email": "Please enter a valid email address",
+        "password": "Password must be at least 6 characters",
+        "confirmPassword": "Please confirm your password",
+        "passwordsDontMatch": "Passwords do not match"
+      }
+    },
     "home": {
       "subtitle": "Automatización agrícola inteligente con IoT, IA y energía renovable.",
       "systemStatus": {
