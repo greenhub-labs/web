@@ -5,6 +5,7 @@ import React from 'react';
 export interface SocialSignInButtonProps {
   icon: React.ReactNode | string;
   text: string;
+  isDisabled?: boolean;
   onClick?: () => void;
   className?: string;
 }
@@ -15,6 +16,7 @@ export interface SocialSignInButtonProps {
 export const SocialSignInButton: React.FC<SocialSignInButtonProps> = ({
   icon,
   text,
+  isDisabled = false,
   onClick,
   className,
 }) => (
@@ -23,6 +25,7 @@ export const SocialSignInButton: React.FC<SocialSignInButtonProps> = ({
     className={`w-full flex items-center justify-center ${className ?? ''}`}
     onClick={onClick}
     type="button"
+    disabled={isDisabled}
   >
     {typeof icon === 'string' ? (
       <Image

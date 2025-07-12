@@ -44,12 +44,14 @@ export function AuthForm({
       text: isSignup
         ? t('pages.auth.register.signUpWithGitHub')
         : t('pages.auth.login.signInWithGitHub'),
+      isDisabled: true,
     },
     {
       icon: '/icons/social/social-google.svg',
       text: isSignup
         ? t('pages.auth.register.signUpWithGoogle')
         : t('pages.auth.login.signInWithGoogle'),
+      isDisabled: true,
     },
   ];
 
