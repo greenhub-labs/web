@@ -30,7 +30,6 @@ import {
   getActiveNavigationSection,
 } from '@/contexts/shared/domain/navigation/routes';
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
-import Image from 'next/image';
 
 /**
  * AppSidebar component using DDD navigation configuration
