@@ -31,7 +31,10 @@
         "email": "Email",
         "password": "Password",
         "register": "Don't have an account? Sign up",
-        "forgotPassword": "Forgot your password?"
+        "forgotPassword": "Forgot your password?",
+        "orContinueWith": "Or continue with",
+        "signInWithGitHub": "Sign in with GitHub",
+        "signInWithGoogle": "Sign in with Google"
       },
       "register": {
         "title": "Sign up",
@@ -39,7 +42,10 @@
         "email": "Email",
         "password": "Password",
         "confirmPassword": "Confirm password",
-        "login": "Already have an account? Login"
+        "login": "Already have an account? Login",
+        "orContinueWith": "Or continue with",
+        "signUpWithGitHub": "Sign up with GitHub",
+        "signUpWithGoogle": "Sign up with Google"
       }
     },
     "home": {
