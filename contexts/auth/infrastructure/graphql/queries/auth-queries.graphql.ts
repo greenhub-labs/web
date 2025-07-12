@@ -16,7 +16,7 @@ export const ME_QUERY = `
     }
   }
 `;
-export const VERIFY_TOKEN_MUTATION = `
+export const VERIFY_TOKEN_QUERY = `
   query VerifyToken($token: String!) {
     verifyToken(
         token: $token

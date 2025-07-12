@@ -1,27 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { GraphQLClient } from 'graphql-request';
+import { ME_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
+
+const client = new GraphQLClient(process.env.BACKEND_URL!, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 export async function GET(req: NextRequest) {
-  const token = req.headers.get('authorization')?.replace('Bearer ', '');
-
-  const graphqlResponse = await fetch(process.env.NEST_GRAPHQL_URL!, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: JSON.stringify({
-      query: `
-        query Me {
-          me {
-            id
-            email
-          }
-        }
-      `,
-    }),
-  });
-
-  const { data, errors } = await graphqlResponse.json();
-  if (errors) return NextResponse.json({ errors }, { status: 400 });
-  return NextResponse.json(data.me);
+  try {
+    const variables = {};
+    const data = (await client.request(ME_QUERY, variables)) as {
+      me: { id: string; email: string };
+    };
+    return NextResponse.json(data.me);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
