@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import axiosClient from '@/contexts/shared/infrastructure/api/axios-client';
 import { ME_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
 import { User } from '@/contexts/users/domain/entities/user.entity';
+import { meResponseSchema } from '@/contexts/auth/domain/validators/me-response.schema';
 
 export async function GET(req: NextRequest) {
   try {
@@ -22,8 +23,17 @@ export async function GET(req: NextRequest) {
       },
     );
 
-    const data = response.data as { data: { me: User } };
-    return NextResponse.json(data.data.me);
+    const data = response.data as { data: { me: any } };
+    // Validate with Zod
+    const parseResult = meResponseSchema.safeParse(data.data.me);
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: parseResult.error.issues },
+        { status: 500 },
+      );
+    }
+    // Return the validated user object as is
+    return NextResponse.json(parseResult.data);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
