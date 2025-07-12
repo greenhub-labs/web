@@ -27,6 +27,7 @@ import {
 import { StatCard } from '@/contexts/shared/presentation/components/atoms/StatCard';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
+import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 
 // Icons
 import {
@@ -72,6 +73,7 @@ const mockUser = {
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
+  const { updateUserMutation } = useUser();
 
   console.log(user);
   const t = useTranslations('pages.profile');
@@ -105,8 +107,13 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleSave = () => {
-    // TODO: Implement save logic
-    console.log('Saving profile data:', formData);
+    updateUserMutation.mutate({
+      id: user?.id || '',
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      bio: formData.bio,
+      avatar: formData.avatar,
+    });
     setIsEditing(false);
   };
 

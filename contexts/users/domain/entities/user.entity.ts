@@ -10,9 +10,9 @@ export type User = {
   lastName?: string;
   bio?: string;
   avatar?: string;
-  isActive: boolean;
-  isDeleted: boolean;
-  createdAt: string;
-  updatedAt: string;
+  isActive?: boolean;
+  isDeleted?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
   deletedAt?: string;
 };
