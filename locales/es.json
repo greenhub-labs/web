@@ -46,6 +46,12 @@
         "orContinueWith": "O continuar con",
         "signUpWithGitHub": "Regístrate con GitHub",
         "signUpWithGoogle": "Regístrate con Google"
+      },
+      "validation": {
+        "email": "Please enter a valid email address",
+        "password": "Password must be at least 6 characters",
+        "confirmPassword": "Please confirm your password",
+        "passwordsDontMatch": "Passwords do not match"
       }
     },
     "home": {

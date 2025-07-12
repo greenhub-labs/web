@@ -8,6 +8,15 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { SocialSignInGroup } from '../../molecules/social-sign-in-group/social-sign-in-group';
 import { useTheme } from 'next-themes';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  loginSchema,
+  registerSchema,
+  LoginForm,
+  RegisterForm,
+  AuthFormType,
+} from '@/contexts/auth/domain/validators/auth-form.schema';
 
 export interface AuthFormProps extends React.ComponentProps<'form'> {
   mode: 'login' | 'signup';
@@ -32,6 +41,27 @@ export function AuthForm({
   const t = useTranslations();
 
   const isSignup = mode === 'signup';
+
+  // Elegir el esquema según el modo
+  const schema = isSignup ? registerSchema : loginSchema;
+
+  // Integrar react-hook-form
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AuthFormType>({
+    resolver: zodResolver(schema),
+  });
+
+  // Handler de submit (por ahora solo log)
+  const onSubmit = (data: any) => {
+    console.log('Form data:', data);
+  };
+
+  // Helper para traducción de errores
+  const getErrorMessage = (msg: unknown) =>
+    typeof msg === 'string' ? t(msg) : '';
 
   console.log(resolvedTheme);
 
@@ -58,6 +88,7 @@ export function AuthForm({
   return (
     <form
       className={cn('flex flex-col gap-6 w-full max-w-[400px]', className)}
+      onSubmit={handleSubmit(onSubmit)}
       {...props}
     >
       <div className="flex flex-col items-center gap-2 text-center">
@@ -75,18 +106,49 @@ export function AuthForm({
       <div className="grid gap-6">
         <div className="grid gap-3">
           <Label htmlFor="email">{t('pages.auth.login.email')}</Label>
-          <Input id="email" type="email" placeholder="m@example.com" required />
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            required
+            {...register('email')}
+          />
+          {errors.email?.message && (
+            <span className="text-xs text-destructive">
+              {getErrorMessage(errors.email.message)}
+            </span>
+          )}
         </div>
         <div className="grid gap-3">
           <Label htmlFor="password">{t('pages.auth.login.password')}</Label>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            required
+            {...register('password')}
+          />
+          {errors.password?.message && (
+            <span className="text-xs text-destructive">
+              {getErrorMessage(errors.password.message)}
+            </span>
+          )}
         </div>
         {isSignup && (
           <div className="grid gap-3">
             <Label htmlFor="confirmPassword">
               {t('pages.auth.register.confirmPassword')}
             </Label>
-            <Input id="confirmPassword" type="password" required />
+            <Input
+              id="confirmPassword"
+              type="password"
+              required
+              {...register('confirmPassword')}
+            />
+            {(errors as any).confirmPassword?.message && (
+              <span className="text-xs text-destructive">
+                {getErrorMessage((errors as any).confirmPassword.message)}
+              </span>
+            )}
           </div>
         )}
         {!isSignup && (
