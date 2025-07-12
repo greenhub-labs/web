@@ -1,10 +1,10 @@
 // app/[lang]/layout.tsx
-import { notFound } from "next/navigation";
-import I18nProvider from "@/contexts/shared/presentation/providers/I18nProvider";
-import { AppSidebar } from "@/contexts/shared/presentation/components/app-sidebar";
-import { SidebarProvider } from "@/contexts/shared/presentation/components/ui/sidebar";
+import { notFound } from 'next/navigation';
+import I18nProvider from '@/contexts/shared/presentation/providers/I18nProvider';
+import { AppSidebar } from '@/contexts/shared/presentation/components/app-sidebar';
+import { SidebarProvider } from '@/contexts/shared/presentation/components/ui/sidebar';
 
-const locales = ["en", "es"];
+const locales = ['en', 'es'];
 
 export default async function LangLayout({
   children,
