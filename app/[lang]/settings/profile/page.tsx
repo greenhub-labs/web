@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 
@@ -28,6 +28,7 @@ import { StatCard } from '@/contexts/shared/presentation/components/atoms/StatCa
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useUser } from '@/contexts/users/presentation/hooks/use-user';
+import { userSchema } from '@/contexts/users/domain/validators/user.schema';
 
 // Icons
 import {
@@ -52,25 +53,6 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 
-// Mock user data
-const mockUser = {
-  id: 'user-1',
-  firstName: 'María',
-  lastName: 'González',
-  email: 'maria.gonzalez@example.com',
-  phone: '+34 612 345 678',
-  bio: 'Passionate about sustainable gardening and smart agriculture technology. I love experimenting with different crops and sharing knowledge with the community.',
-  location: 'Valencia, Spain',
-  timezone: 'Europe/Madrid',
-  language: 'es',
-  avatar:
-    'https://images.unsplash.com/photo-1494790108755-2616b612c3e0?w=150&h=150&fit=crop&crop=face',
-  role: 'admin',
-  memberSince: '2023-06-15',
-  lastLogin: '2024-01-15T10:30:00Z',
-  totalLogins: 156,
-};
-
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
   const { updateUserMutation } = useUser();
@@ -84,19 +66,35 @@ const ProfilePage: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [formData, setFormData] = useState(mockUser);
+  const [formData, setFormData] = useState(user);
   const [passwordData, setPasswordData] = useState({
     current: '',
     new: '',
     confirm: '',
   });
 
+  // Sync formData with real user data when available
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        ...user,
+        firstName: user.firstName ?? '',
+        lastName: user.lastName ?? '',
+        bio: user.bio ?? '',
+        avatar: user.avatar ?? '',
+      });
+    }
+  }, [user]);
+
   // Handle form updates
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setFormData((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
   };
 
   const handlePasswordChange = (field: string, value: string) => {
@@ -107,13 +105,22 @@ const ProfilePage: React.FC = () => {
   };
 
   const handleSave = () => {
-    updateUserMutation.mutate({
+    // Validate with Zod before updating
+    const safeString = (value: unknown) =>
+      typeof value === 'string' ? value : undefined;
+    const parseResult = userSchema.safeParse({
       id: user?.id || '',
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      bio: formData.bio,
-      avatar: formData.avatar,
+      firstName: safeString(formData?.firstName),
+      lastName: safeString(formData?.lastName),
+      bio: safeString(formData?.bio),
+      avatar: safeString(formData?.avatar),
     });
+    if (!parseResult.success) {
+      // TODO: Show error to user (for now, log it)
+      console.error('Validation error:', parseResult.error.issues);
+      return;
+    }
+    updateUserMutation.mutate(parseResult.data);
     setIsEditing(false);
   };
 
@@ -171,12 +178,14 @@ const ProfilePage: React.FC = () => {
             <div className="flex flex-col items-center space-y-4">
               <Avatar className="h-32 w-32">
                 <AvatarImage
-                  src={user?.avatar}
-                  alt={`${user?.firstName} ${user?.lastName}`}
+                  src={formData?.avatar ?? ''}
+                  alt={`${formData?.firstName ?? ''} ${
+                    formData?.lastName ?? ''
+                  }`}
                 />
                 <AvatarFallback className="text-2xl">
-                  {user?.firstName?.charAt(0) || ''}
-                  {user?.lastName?.charAt(0) || ''}
+                  {formData?.firstName?.charAt(0) || ''}
+                  {formData?.lastName?.charAt(0) || ''}
                 </AvatarFallback>
               </Avatar>
 
@@ -226,7 +235,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.firstName')}
                 </label>
                 <Input
-                  value={user?.firstName}
+                  value={formData?.firstName ?? ''}
                   onChange={(e) =>
                     handleInputChange('firstName', e.target.value)
                   }
@@ -238,7 +247,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.lastName')}
                 </label>
                 <Input
-                  value={user?.lastName}
+                  value={formData?.lastName ?? ''}
                   onChange={(e) =>
                     handleInputChange('lastName', e.target.value)
                   }
@@ -253,7 +262,7 @@ const ProfilePage: React.FC = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={user?.email}
+                    value={formData?.email ?? ''}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     disabled={!isEditing}
                   />
@@ -267,7 +276,7 @@ const ProfilePage: React.FC = () => {
                   <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={user?.phone}
+                    value={formData?.phone ?? ''}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     disabled={!isEditing}
                   />
@@ -279,7 +288,7 @@ const ProfilePage: React.FC = () => {
                 </label>
                 <Textarea
                   placeholder={t('sections.personalInfo.bioPlaceholder')}
-                  value={user?.bio}
+                  value={formData?.bio ?? ''}
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                   disabled={!isEditing}
                   className="min-h-20"
