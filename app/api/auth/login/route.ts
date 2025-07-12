@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { LOGIN_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
+import { LOGIN_EMAIL_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 import { NextResponse } from 'next/server';
 
 const client = new GraphQLClient(process.env.BACKEND_URL!, {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
     const variables = { input: { email, password } };
-    const data = (await client.request(LOGIN_MUTATION, variables)) as {
+    const data = (await client.request(LOGIN_EMAIL_MUTATION, variables)) as {
       login: { accessToken: string; refreshToken: string };
     };
     const response = NextResponse.json(data, { status: 200 });
