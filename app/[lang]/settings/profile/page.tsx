@@ -89,12 +89,6 @@ const ProfilePage: React.FC = () => {
     confirm: '',
   });
 
-  // Calculate days since member
-  const memberSince = new Date(mockUser.memberSince);
-  const daysSinceMember = Math.floor(
-    (Date.now() - memberSince.getTime()) / (1000 * 60 * 60 * 24),
-  );
-
   // Handle form updates
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
@@ -130,19 +124,6 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  const formatLastLogin = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffHours = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60),
-    );
-
-    if (diffHours < 1) return t('userCard.today');
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffHours < 48) return t('userCard.yesterday');
-    return `${Math.floor(diffHours / 24)} ${t('userCard.daysAgo')}`;
-  };
-
   // Breadcrumb configuration
   const breadcrumbItems = [
     {
@@ -173,30 +154,6 @@ const ProfilePage: React.FC = () => {
       }
     >
       <div className="space-y-6">
-        {/* Profile Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard
-            title={t('stats.memberSince')}
-            value={`${daysSinceMember} days`}
-            icon="📅"
-          />
-          <StatCard
-            title={t('stats.lastLogin')}
-            value={formatLastLogin(mockUser.lastLogin)}
-            icon="⏰"
-          />
-          <StatCard
-            title={t('stats.totalLogins')}
-            value={mockUser.totalLogins.toString()}
-            icon="👤"
-          />
-          <StatCard
-            title={t('stats.gardenRole')}
-            value={mockUser.role}
-            icon="🛡️"
-          />
-        </div>
-
         <div className="space-y-6">
           {/* Profile Picture Section */}
           <SettingsSection
@@ -207,12 +164,12 @@ const ProfilePage: React.FC = () => {
             <div className="flex flex-col items-center space-y-4">
               <Avatar className="h-32 w-32">
                 <AvatarImage
-                  src={formData.avatar}
-                  alt={`${formData.firstName} ${formData.lastName}`}
+                  src={user?.avatar}
+                  alt={`${user?.firstName} ${user?.lastName}`}
                 />
                 <AvatarFallback className="text-2xl">
-                  {formData.firstName.charAt(0)}
-                  {formData.lastName.charAt(0)}
+                  {user?.firstName?.charAt(0) || ''}
+                  {user?.lastName?.charAt(0) || ''}
                 </AvatarFallback>
               </Avatar>
 
@@ -262,7 +219,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.firstName')}
                 </label>
                 <Input
-                  value={formData.firstName}
+                  value={user?.firstName}
                   onChange={(e) =>
                     handleInputChange('firstName', e.target.value)
                   }
@@ -274,7 +231,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.lastName')}
                 </label>
                 <Input
-                  value={formData.lastName}
+                  value={user?.lastName}
                   onChange={(e) =>
                     handleInputChange('lastName', e.target.value)
                   }
@@ -289,7 +246,7 @@ const ProfilePage: React.FC = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={formData.email}
+                    value={user?.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     disabled={!isEditing}
                   />
@@ -303,58 +260,11 @@ const ProfilePage: React.FC = () => {
                   <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={formData.phone}
+                    value={user?.phone}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     disabled={!isEditing}
                   />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.location')}
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    placeholder={t('sections.personalInfo.locationPlaceholder')}
-                    value={formData.location}
-                    onChange={(e) =>
-                      handleInputChange('location', e.target.value)
-                    }
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.timezone')}
-                </label>
-                <Select
-                  value={formData.timezone}
-                  onValueChange={(value) =>
-                    handleInputChange('timezone', value)
-                  }
-                  disabled={!isEditing}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Europe/Madrid">
-                      Europe/Madrid (GMT+1)
-                    </SelectItem>
-                    <SelectItem value="Europe/London">
-                      Europe/London (GMT+0)
-                    </SelectItem>
-                    <SelectItem value="America/New_York">
-                      America/New_York (GMT-5)
-                    </SelectItem>
-                    <SelectItem value="America/Los_Angeles">
-                      America/Los_Angeles (GMT-8)
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
               </div>
               <div className="md:col-span-2 space-y-2">
                 <label className="text-sm font-medium">
@@ -362,7 +272,7 @@ const ProfilePage: React.FC = () => {
                 </label>
                 <Textarea
                   placeholder={t('sections.personalInfo.bioPlaceholder')}
-                  value={formData.bio}
+                  value={user?.bio}
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                   disabled={!isEditing}
                   className="min-h-20"
