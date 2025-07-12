@@ -1,54 +1,48 @@
 import { Auth } from '@/contexts/auth/domain/entities/auth.entity';
 
 /**
- * Token for AuthRepository dependency injection
- */
-export const AUTH_REPOSITORY_TOKEN = Symbol('AuthRepository');
-
-/**
- * AuthRepository port for auth persistence
- * Defines the contract for auth data operations
- *
- * @author GreenHub Labs
+ * Repository interface for authentication operations
  */
 export interface AuthRepository {
   /**
-   * Finds auth record by user ID
-   * @param userId - User ID
-   * @returns Auth or null if not found
+   * Authenticates a user with email and password
+   * @param email - User's email address
+   * @param password - User's password
+   * @returns Promise resolving to authenticated user data
    */
-  findByUserId(userId: string): Promise<Auth | null>;
+  login(email: string, password: string): Promise<Auth>;
 
   /**
-   * Finds auth record by email
-   * @param email - Email address
-   * @returns Auth or null if not found
+   * Creates a new user account
+   * @param email - Email for the new account
+   * @param password - Password for the new account
+   * @returns Promise resolving to the created user data
    */
-  findByEmail(email: string): Promise<Auth | null>;
+  register(email: string, password: string): Promise<Auth>;
 
   /**
-   * Saves an auth record (create or update)
-   * @param auth - Auth entity to save
-   * @returns Auth ID
+   * Logs out the current user
+   * @returns Promise that resolves when logout is complete
    */
-  save(auth: Auth): Promise<string>;
+  logout(): Promise<void>;
 
   /**
-   * Updates an existing auth record
-   * @param auth - Auth entity to update
+   * Refreshes an authentication token
+   * @param token - Current authentication token
+   * @returns Promise resolving to refreshed user data
    */
-  update(auth: Auth): Promise<void>;
+  refreshToken(token: string): Promise<Auth>;
 
   /**
-   * Soft deletes an auth record by user ID
-   * @param userId - User ID
+   * Verifies if a token is valid
+   * @param token - Token to verify
+   * @returns Promise that resolves if token is valid, rejects if invalid
    */
-  softDelete(userId: string): Promise<void>;
+  verifyToken(token: string): Promise<void>;
 
   /**
-   * Checks if email already exists
-   * @param email - Email to check
-   * @returns True if email exists
+   * Gets the current authenticated user's data
+   * @returns Promise resolving to current user data
    */
-  emailExists(email: string): Promise<boolean>;
+  me(): Promise<Auth>;
 }
