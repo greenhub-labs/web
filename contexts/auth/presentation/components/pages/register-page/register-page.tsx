@@ -7,12 +7,12 @@ import { AuthFormType } from '@/contexts/auth/domain/validators/auth-form.schema
 
 export interface RegisterPageComponentProps {
   handleRegister: (data: AuthFormType) => Promise<void>;
-  registerStatus: 'error' | 'idle' | 'pending' | 'success';
+  isLoading: boolean;
 }
 
 const RegisterPageComponent = ({
   handleRegister,
-  registerStatus,
+  isLoading,
 }: RegisterPageComponentProps) => {
   const t = useTranslations();
 
@@ -23,7 +23,7 @@ const RegisterPageComponent = ({
         switchUrl="/auth/login"
         switchText={t('pages.auth.register.login')}
         onSubmit={handleRegister}
-        isLoading={registerStatus === 'pending'}
+        isLoading={isLoading}
       />
     </AuthTemplate>
   );

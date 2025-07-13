@@ -12,18 +12,6 @@ import { SettingsSection } from '@/contexts/shared/presentation/components/molec
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';
-import { UserAvatarSection } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section';
-import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
-import { UserPersonalInfoSection } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section';
-import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
-import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
-import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
-import { useSonnerNotification } from '@/contexts/shared/presentation/hooks/use-sonner-notification';
-import { UserChangePasswordSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section-skeleton';
-import { UserSecurityAlertsSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section-skeleton';
-import { UserTwoFactorSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section-skeleton';
-import { UserDataPrivacySectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section-skeleton';
-import { UserSecuritySettingsSectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section-skeleton';
 import ProfilePageComponent from '@/contexts/users/presentation/components/pages/profile-page/profile-page';
 
 const ProfilePage: React.FC = () => {

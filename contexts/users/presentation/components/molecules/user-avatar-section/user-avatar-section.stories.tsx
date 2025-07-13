@@ -27,6 +27,9 @@ type Story = StoryObj<typeof UserAvatarSection>;
 
 export const Default: Story = {
   args: {
+    sectionTitle: 'Avatar',
+    sectionSubtitle: 'Upload your avatar',
+    sectionIcon: '👤',
     avatarUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
     firstName: 'John',
     lastName: 'Doe',

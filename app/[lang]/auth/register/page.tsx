@@ -5,31 +5,41 @@ import AuthTemplate from '@/contexts/auth/presentation/components/templates/auth
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import RegisterPageComponent from '@/contexts/auth/presentation/components/pages/register-page/register-page';
+import { toast } from 'sonner';
 
 const RegisterPage = () => {
   const t = useTranslations();
   const { register, registerStatus } = useAuth();
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleRegister = useCallback(
     async (data: AuthFormType) => {
+      setIsLoading(true);
       await register({ email: data.email, password: data.password });
+      setIsLoading(false);
     },
     [register],
   );
 
   useEffect(() => {
-    if (registerStatus === 'success') {
-      router.push('/');
+    switch (registerStatus) {
+      case 'success':
+        router.push('/');
+        break;
+      case 'error':
+        toast.error(t('pages.auth.register.error'));
+        break;
     }
   }, [registerStatus, router]);
 
   return (
     <RegisterPageComponent
       handleRegister={handleRegister}
-      registerStatus={registerStatus}
+      isLoading={isLoading}
     />
   );
 };

@@ -7,12 +7,12 @@ import { AuthFormType } from '@/contexts/auth/domain/validators/auth-form.schema
 
 export interface LoginPageComponentProps {
   handleLogin: (data: AuthFormType) => Promise<void>;
-  loginStatus: 'error' | 'idle' | 'pending' | 'success';
+  isLoading: boolean;
 }
 
 const LoginPageComponent = ({
   handleLogin,
-  loginStatus,
+  isLoading,
 }: LoginPageComponentProps) => {
   const t = useTranslations();
 
@@ -23,7 +23,7 @@ const LoginPageComponent = ({
         switchUrl="/auth/register"
         switchText={t('pages.auth.login.register')}
         onSubmit={handleLogin}
-        isLoading={loginStatus === 'pending'}
+        isLoading={isLoading}
       />
     </AuthTemplate>
   );

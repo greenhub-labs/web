@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 import { UserChangePasswordSection } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section';
-import { UserTwoFactorSection } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section';
-import { UserSecurityAlertsSection } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section';
+import { ToggleSection } from '@/contexts/shared/presentation/components/molecules/toggle-section/toggle-section';
 
 export interface UserSecuritySettingsSectionProps {
   sectionTitle: string;
@@ -91,7 +90,7 @@ export const UserSecuritySettingsSection: React.FC<
 
       {/* Two Factor Authentication */}
       <div className="space-y-4 pt-4 border-t">
-        <UserTwoFactorSection
+        <ToggleSection
           title={twoFactorTitle}
           description={twoFactorDescription}
           enabled={twoFactorEnabled}
@@ -101,7 +100,7 @@ export const UserSecuritySettingsSection: React.FC<
 
       {/* Security Alerts */}
       <div className="space-y-4 pt-4 border-t">
-        <UserSecurityAlertsSection
+        <ToggleSection
           title={alertsTitle}
           description={alertsDescription}
           enabled={securityAlertsEnabled}
