@@ -1,17 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axiosClient from '@/contexts/shared/infrastructure/graphql/apollo-client';
+import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { LOGOUT_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 
 export async function POST(req: NextRequest) {
   try {
-    const accessToken = req.cookies.get('accessToken')?.value;
-    await axiosClient.post(
-      '',
-      { query: LOGOUT_MUTATION },
-      { headers: { _accessToken: accessToken } },
-    );
+    const cookies = req.headers.get('cookie') || undefined;
+    const client = createApolloClient(cookies);
+    await client.mutate({
+      mutation: LOGOUT_MUTATION,
+    });
 
-    // Clean the cookies in the response
     const response = NextResponse.json({ success: true }, { status: 200 });
     response.headers.append(
       'Set-Cookie',

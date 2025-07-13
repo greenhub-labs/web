@@ -15,11 +15,11 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({ login }, { status: 200 });
     res.headers.append(
       'Set-Cookie',
-      `accessToken=${login.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `accessToken=${login.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.ACCESS_TOKEN_COOKIE_MAX_AGE}`,
     );
     res.headers.append(
       'Set-Cookie',
-      `refreshToken=${login.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `refreshToken=${login.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.REFRESH_TOKEN_COOKIE_MAX_AGE};`,
     );
     return res;
   } catch (error) {

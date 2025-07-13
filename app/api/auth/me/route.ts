@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
     // Return the validated user object as is
     return NextResponse.json(parseResult.data);
   } catch (error) {
+    console.log('error', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
