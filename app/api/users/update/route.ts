@@ -2,52 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import { UPDATE_USER_MUTATION } from '@/contexts/users/infrastructure/graphql/mutations/users-mutations.graphql';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';
 import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
-
-function extractToken(cookie: string | undefined, name: string) {
-  if (!cookie) return undefined;
-  const match = cookie.match(new RegExp(`${name}=([^;]+)`));
-  return match ? match[1] : undefined;
-}
+import {
+  extractTokenFromCookie,
+  rebuildCookieWithAccessToken,
+  tryRefreshAccessToken,
+} from '@/contexts/shared/infrastructure/lib/cookie-auth';
 
 export async function POST(req: NextRequest) {
   try {
     const cookies = req.headers.get('cookie') || undefined;
-    let accessToken = extractToken(cookies, 'accessToken');
-    const refreshToken = extractToken(cookies, 'refreshToken');
+    let accessToken = extractTokenFromCookie(cookies, 'accessToken');
+    const refreshToken = extractTokenFromCookie(cookies, 'refreshToken');
     let setCookieHeader: string | null = null;
 
     if (!accessToken && refreshToken) {
-      const res = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-        }/api/auth/refresh-token`,
-        {
-          method: 'POST',
-          headers: { cookie: cookies || '' },
-        },
+      const {
+        accessToken: newToken,
+        setCookieHeader: newSetCookie,
+        error,
+      } = await tryRefreshAccessToken(
+        cookies,
+        process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
       );
-      if (res.ok) {
-        const data = await res.json();
-        accessToken = data.refreshToken.accessToken;
-        // Extrae la cabecera Set-Cookie
-        setCookieHeader = res.headers.get('set-cookie');
-      } else {
-        return NextResponse.json({ error: 'Session expired' }, { status: 401 });
+      if (error) {
+        return NextResponse.json({ error }, { status: 401 });
       }
+      accessToken = newToken;
+      setCookieHeader = newSetCookie || null;
     }
 
     let cookieHeader = cookies;
     if (accessToken) {
-      // Reconstruye la cookie para incluir el nuevo accessToken si fue refrescado
-      const otherCookies = cookies
-        ? cookies
-            .split(';')
-            .filter((c) => !c.trim().startsWith('accessToken='))
-            .join('; ')
-        : '';
-      cookieHeader = `accessToken=${accessToken};${
-        otherCookies ? ' ' + otherCookies : ''
-      }`;
+      cookieHeader = rebuildCookieWithAccessToken(cookies, accessToken);
     }
 
     const client = createApolloClient(cookieHeader);
