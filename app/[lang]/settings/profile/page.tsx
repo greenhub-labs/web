@@ -33,6 +33,11 @@ import { UserAvatarSection } from '@/contexts/users/presentation/components/mole
 import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
 import { UserPersonalInfoSection } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section';
 import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
+import { UserChangePasswordSection } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section';
+import { UserTwoFactorSection } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section';
+import { UserSecurityAlertsSection } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section';
+import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
+import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
 
 // Icons
 import {
@@ -76,6 +81,8 @@ const ProfilePage: React.FC = () => {
     new: '',
     confirm: '',
   });
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const [securityAlertsEnabled, setSecurityAlertsEnabled] = useState(true);
 
   // Sync formData with real user data when available
   useEffect(() => {
@@ -139,6 +146,15 @@ const ProfilePage: React.FC = () => {
       // TODO: Implement avatar upload logic
       console.log('Uploading avatar:', file);
     }
+  };
+
+  const handleExportData = () => {
+    // TODO: Implement export data logic
+    console.log('Export data');
+  };
+  const handleDeleteAccount = () => {
+    // TODO: Implement delete account logic
+    console.log('Delete account');
   };
 
   // Breadcrumb configuration
@@ -227,167 +243,35 @@ const ProfilePage: React.FC = () => {
           </SettingsSection>
 
           {/* Security Settings */}
-          <SettingsSection
-            title={t('sections.security.title')}
-            subtitle={t('sections.security.subtitle')}
-            icon="🔒"
-          >
-            <div className="space-y-6">
-              {/* Change Password */}
-              <div className="space-y-4">
-                <h4 className="text-md font-medium">
-                  {t('sections.security.changePassword')}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t('sections.security.currentPassword')}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type={showCurrentPassword ? 'text' : 'password'}
-                        value={passwordData.current}
-                        onChange={(e) =>
-                          handlePasswordChange('current', e.target.value)
-                        }
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() =>
-                          setShowCurrentPassword(!showCurrentPassword)
-                        }
-                      >
-                        {showCurrentPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t('sections.security.newPassword')}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type={showNewPassword ? 'text' : 'password'}
-                        value={passwordData.new}
-                        onChange={(e) =>
-                          handlePasswordChange('new', e.target.value)
-                        }
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowNewPassword(!showNewPassword)}
-                      >
-                        {showNewPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t('sections.security.confirmPassword')}
-                    </label>
-                    <Input
-                      type="password"
-                      value={passwordData.confirm}
-                      onChange={(e) =>
-                        handlePasswordChange('confirm', e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-                <Button
-                  onClick={handlePasswordSave}
-                  className="w-full md:w-auto"
-                >
-                  {t('actions.changePassword')}
-                </Button>
-              </div>
-
-              {/* Two Factor Authentication */}
-              <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-md font-medium">
-                      {t('sections.security.twoFactor')}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('sections.security.twoFactorDescription')}
-                    </p>
-                  </div>
-                  <Switch />
-                </div>
-              </div>
-
-              {/* Security Alerts */}
-              <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-md font-medium">
-                      {t('sections.security.securityAlerts')}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t('sections.security.securityAlertsDescription')}
-                    </p>
-                  </div>
-                  <Switch defaultChecked />
-                </div>
-              </div>
-            </div>
-          </SettingsSection>
+          <UserSecuritySettingsSection
+            sectionTitle={t('sections.security.title')}
+            sectionSubtitle={t('sections.security.subtitle')}
+            sectionIcon="🔒"
+            changePasswordTitle={t('sections.security.changePassword')}
+            currentLabel={t('sections.security.currentPassword')}
+            newLabel={t('sections.security.newPassword')}
+            confirmLabel={t('sections.security.confirmPassword')}
+            buttonLabel={t('actions.changePassword')}
+            twoFactorTitle={t('sections.security.twoFactor')}
+            twoFactorDescription={t('sections.security.twoFactorDescription')}
+            alertsTitle={t('sections.security.securityAlerts')}
+            alertsDescription={t('sections.security.securityAlertsDescription')}
+          />
 
           {/* Data & Privacy */}
-          <SettingsSection
-            title={t('sections.data.title')}
-            subtitle={t('sections.data.subtitle')}
-            icon="🗂️"
-          >
-            <div className="space-y-6">
-              {/* Export Data */}
-              <div className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <h4 className="text-md font-medium">
-                    {t('sections.data.exportData')}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {t('sections.data.exportDescription')}
-                  </p>
-                </div>
-                <Button variant="outline">
-                  <Download className="h-4 w-4 mr-2" />
-                  {t('sections.data.downloadData')}
-                </Button>
-              </div>
-
-              {/* Delete Account */}
-              <div className="flex items-center justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
-                <div>
-                  <h4 className="text-md font-medium text-destructive">
-                    {t('sections.data.deleteAccount')}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {t('sections.data.deleteAccountDescription')}
-                  </p>
-                </div>
-                <Button variant="destructive">
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  {t('sections.data.requestDeletion')}
-                </Button>
-              </div>
-            </div>
-          </SettingsSection>
+          <UserDataPrivacySection
+            sectionTitle={t('sections.data.title')}
+            sectionSubtitle={t('sections.data.subtitle')}
+            sectionIcon="🗂️"
+            exportTitle={t('sections.data.exportData')}
+            exportDescription={t('sections.data.exportDescription')}
+            exportButtonLabel={t('sections.data.downloadData')}
+            onExport={handleExportData}
+            deleteTitle={t('sections.data.deleteAccount')}
+            deleteDescription={t('sections.data.deleteAccountDescription')}
+            deleteButtonLabel={t('sections.data.requestDeletion')}
+            onDelete={handleDeleteAccount}
+          />
         </div>
       </div>
     </PageTemplate>
