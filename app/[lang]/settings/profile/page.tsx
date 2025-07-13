@@ -29,6 +29,8 @@ import { SettingsSection } from '@/contexts/shared/presentation/components/molec
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';
+import { UserAvatarSection } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section';
+import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
 
 // Icons
 import {
@@ -130,8 +132,7 @@ const ProfilePage: React.FC = () => {
     setPasswordData({ current: '', new: '', confirm: '' });
   };
 
-  const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleAvatarUpload = (file: File) => {
     if (file) {
       // TODO: Implement avatar upload logic
       console.log('Uploading avatar:', file);
@@ -175,50 +176,25 @@ const ProfilePage: React.FC = () => {
             subtitle={t('sections.avatar.subtitle')}
             icon="📷"
           >
-            <div className="flex flex-col items-center space-y-4">
-              <Avatar className="h-32 w-32">
-                <AvatarImage
-                  src={formData?.avatar || ''}
-                  alt={`${formData?.firstName} ${formData?.lastName}`}
-                />
-                <AvatarFallback className="text-2xl">
-                  {formData?.firstName?.charAt(0) || ''}
-                  {formData?.lastName?.charAt(0) || ''}
-                </AvatarFallback>
-              </Avatar>
-
-              <div className="text-center space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  {t('sections.avatar.maxSize')}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {t('sections.avatar.supportedFormats')}
-                </p>
-              </div>
-
-              <div className="flex gap-2 w-full max-w-xs">
-                <Button
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() =>
-                    document.getElementById('avatar-upload')?.click()
-                  }
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  {t('sections.avatar.upload')}
-                </Button>
-                <Button variant="outline" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-              <input
-                id="avatar-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleAvatarUpload}
+            {user ? (
+              <UserAvatarSection
+                avatarUrl={formData?.avatar || undefined}
+                firstName={formData?.firstName || undefined}
+                lastName={formData?.lastName || undefined}
+                onUpload={handleAvatarUpload}
+                onDelete={() => {
+                  // TODO: Implement avatar delete logic
+                  setFormData((prev) =>
+                    prev ? { ...prev, avatar: null } : prev,
+                  );
+                }}
+                uploadLabel={t('sections.avatar.upload')}
+                maxSizeText={t('sections.avatar.maxSize')}
+                supportedFormatsText={t('sections.avatar.supportedFormats')}
               />
-            </div>
+            ) : (
+              <UserAvatarSectionSkeleton />
+            )}
           </SettingsSection>
 
           {/* Personal Information */}
