@@ -23,8 +23,12 @@ export const UserAvatarSectionSkeleton: React.FC<
 
         {/* Texts Skeleton */}
         <div className="text-center space-y-2 w-40">
-          <Skeleton className="h-4 w-full mx-auto" />
-          <Skeleton className="h-3 w-3/4 mx-auto" />
+          <div className="flex flex-col h-6">
+            <Skeleton className="h-4 w-full mx-auto" />
+          </div>
+          <div className="flex flex-col h-6">
+            <Skeleton className="h-4 w-3/4 mx-auto" />
+          </div>
         </div>
 
         {/* Buttons Skeleton */}

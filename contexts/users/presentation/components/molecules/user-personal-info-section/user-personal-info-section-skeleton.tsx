@@ -21,22 +21,22 @@ export const UserPersonalInfoSectionSkeleton: React.FC<
         {/* First Name */}
         <div className="space-y-2">
           <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-9 w-full" />
         </div>
         {/* Last Name */}
         <div className="space-y-2">
           <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-9 w-full" />
         </div>
         {/* Email */}
         <div className="space-y-2">
           <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-9 w-full" />
         </div>
         {/* Phone */}
         <div className="space-y-2">
           <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-10 w-full" />
+          <Skeleton className="h-9 w-full" />
         </div>
         {/* Bio */}
         <div className="md:col-span-2 space-y-2">
