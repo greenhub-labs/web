@@ -19,6 +19,11 @@ import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/c
 import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
 import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
 import { useSonnerNotification } from '@/contexts/shared/presentation/hooks/use-sonner-notification';
+import { UserChangePasswordSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section-skeleton';
+import { UserSecurityAlertsSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section-skeleton';
+import { UserTwoFactorSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section-skeleton';
+import { UserDataPrivacySectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section-skeleton';
+import { UserSecuritySettingsSectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section-skeleton';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -181,35 +186,59 @@ const ProfilePage: React.FC = () => {
           </SettingsSection>
 
           {/* Security Settings */}
-          <UserSecuritySettingsSection
-            sectionTitle={t('sections.security.title')}
-            sectionSubtitle={t('sections.security.subtitle')}
-            sectionIcon="🔒"
-            changePasswordTitle={t('sections.security.changePassword')}
-            currentLabel={t('sections.security.currentPassword')}
-            newLabel={t('sections.security.newPassword')}
-            confirmLabel={t('sections.security.confirmPassword')}
-            buttonLabel={t('actions.changePassword')}
-            twoFactorTitle={t('sections.security.twoFactor')}
-            twoFactorDescription={t('sections.security.twoFactorDescription')}
-            alertsTitle={t('sections.security.securityAlerts')}
-            alertsDescription={t('sections.security.securityAlertsDescription')}
-          />
+          <SettingsSection
+            title={t('sections.security.title')}
+            subtitle={t('sections.security.subtitle')}
+            icon="🔒"
+          >
+            {user ? (
+              <UserSecuritySettingsSection
+                sectionTitle={t('sections.security.title')}
+                sectionSubtitle={t('sections.security.subtitle')}
+                sectionIcon=""
+                changePasswordTitle={t('sections.security.changePassword')}
+                currentLabel={t('sections.security.currentPassword')}
+                newLabel={t('sections.security.newPassword')}
+                confirmLabel={t('sections.security.confirmPassword')}
+                buttonLabel={t('actions.changePassword')}
+                twoFactorTitle={t('sections.security.twoFactor')}
+                twoFactorDescription={t(
+                  'sections.security.twoFactorDescription',
+                )}
+                alertsTitle={t('sections.security.securityAlerts')}
+                alertsDescription={t(
+                  'sections.security.securityAlertsDescription',
+                )}
+              />
+            ) : (
+              <UserSecuritySettingsSectionSkeleton />
+            )}
+          </SettingsSection>
 
           {/* Data & Privacy */}
-          <UserDataPrivacySection
-            sectionTitle={t('sections.data.title')}
-            sectionSubtitle={t('sections.data.subtitle')}
-            sectionIcon="🗂️"
-            exportTitle={t('sections.data.exportData')}
-            exportDescription={t('sections.data.exportDescription')}
-            exportButtonLabel={t('sections.data.downloadData')}
-            onExport={handleExportData}
-            deleteTitle={t('sections.data.deleteAccount')}
-            deleteDescription={t('sections.data.deleteAccountDescription')}
-            deleteButtonLabel={t('sections.data.requestDeletion')}
-            onDelete={handleDeleteAccount}
-          />
+          <SettingsSection
+            title={t('sections.data.title')}
+            subtitle={t('sections.data.subtitle')}
+            icon="🗂️"
+          >
+            {user ? (
+              <UserDataPrivacySection
+                sectionTitle={t('sections.data.title')}
+                sectionSubtitle={t('sections.data.subtitle')}
+                sectionIcon=""
+                exportTitle={t('sections.data.exportData')}
+                exportDescription={t('sections.data.exportDescription')}
+                exportButtonLabel={t('sections.data.downloadData')}
+                onExport={handleExportData}
+                deleteTitle={t('sections.data.deleteAccount')}
+                deleteDescription={t('sections.data.deleteAccountDescription')}
+                deleteButtonLabel={t('sections.data.requestDeletion')}
+                onDelete={handleDeleteAccount}
+              />
+            ) : (
+              <UserDataPrivacySectionSkeleton />
+            )}
+          </SettingsSection>
         </div>
       </div>
     </PageTemplate>
