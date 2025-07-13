@@ -44,6 +44,7 @@ export function middleware(request: NextRequest) {
 
   // Comprobar si el usuario está autenticado
   const accessToken = request.cookies.get('accessToken')?.value;
+  const refreshToken = request.cookies.get('refreshToken')?.value;
 
   // Si está autenticado y va a una ruta de auth, redirigir a raíz
   if (isAuthRoute && accessToken) {
@@ -52,7 +53,7 @@ export function middleware(request: NextRequest) {
 
   // Si NO está autenticado y va a una ruta privada, redirigir a login
   const isPrivateRoute = !isAuthRoute;
-  if (isPrivateRoute && !accessToken) {
+  if (isPrivateRoute && !accessToken && !refreshToken) {
     return NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url));
   }
 
