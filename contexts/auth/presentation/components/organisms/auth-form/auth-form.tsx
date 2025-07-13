@@ -53,8 +53,6 @@ export function AuthForm({
   const getErrorMessage = (msg: unknown) =>
     typeof msg === 'string' ? t(msg) : '';
 
-  console.log(resolvedTheme);
-
   const socialSignInButtons = [
     {
       icon:

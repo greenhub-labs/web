@@ -40,7 +40,6 @@ export async function POST(req: NextRequest) {
     const { user } = await req.json();
     const parseResult = userSchema.safeParse(user);
     if (!parseResult.success) {
-      console.log('parseResult', parseResult.error.issues);
       return NextResponse.json(
         { error: parseResult.error.issues },
         { status: 400 },
@@ -59,8 +58,6 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
-    console.log('error', error);
-    console.log('error.graphQLErrors', JSON.stringify(error));
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });
   }
