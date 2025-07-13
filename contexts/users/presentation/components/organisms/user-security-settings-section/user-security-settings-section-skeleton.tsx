@@ -10,8 +10,6 @@ import { UserSecurityAlertsSectionSkeleton } from '@/contexts/users/presentation
  */
 export const UserSecuritySettingsSectionSkeleton: React.FC = () => (
   <div className="space-y-6">
-    <Skeleton className="h-6 w-40 mb-2" /> {/* Section Title */}
-    <Skeleton className="h-4 w-64 mb-4" /> {/* Section Subtitle */}
     {/* Change Password */}
     <div className="space-y-4">
       <Skeleton className="h-5 w-32 mb-2" /> {/* Change Password Title */}

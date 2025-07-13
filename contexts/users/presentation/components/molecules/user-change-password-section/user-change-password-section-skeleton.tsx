@@ -3,21 +3,35 @@ import { Skeleton } from '@/contexts/shared/presentation/components/ui/skeleton'
 
 /**
  * Skeleton for the Change Password section (molecule).
- * Simulates the loading state of the change password form.
+ * Matches the structure and sizing of the loaded component.
  */
 export const UserChangePasswordSectionSkeleton: React.FC = () => (
   <div className="space-y-4">
-    <Skeleton className="h-6 w-40 mb-2" /> {/* Title */}
-    <div className="space-y-3">
-      <Skeleton className="h-4 w-32" /> {/* Current password label */}
-      <Skeleton className="h-10 w-full" /> {/* Current password input */}
-      <Skeleton className="h-4 w-32" /> {/* New password label */}
-      <Skeleton className="h-10 w-full" /> {/* New password input */}
-      <Skeleton className="h-4 w-32" /> {/* Confirm password label */}
-      <Skeleton className="h-10 w-full" /> {/* Confirm password input */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Current password */}
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-24 mb-1" /> {/* Label */}
+        <div className="relative">
+          <Skeleton className="h-10 w-full" /> {/* Input */}
+          <Skeleton className="h-5 w-5 rounded-full absolute right-2 top-1/2 -translate-y-1/2" />{' '}
+          {/* Eye icon */}
+        </div>
+      </div>
+      {/* New password */}
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-24 mb-1" /> {/* Label */}
+        <div className="relative">
+          <Skeleton className="h-10 w-full" /> {/* Input */}
+          <Skeleton className="h-5 w-5 rounded-full absolute right-2 top-1/2 -translate-y-1/2" />{' '}
+          {/* Eye icon */}
+        </div>
+      </div>
+      {/* Confirm password */}
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-24 mb-1" /> {/* Label */}
+        <Skeleton className="h-10 w-full" /> {/* Input */}
+      </div>
     </div>
-    <div className="flex justify-end">
-      <Skeleton className="h-10 w-28" /> {/* Button */}
-    </div>
+    <Skeleton className="h-10 w-full md:w-32" /> {/* Button */}
   </div>
 );
