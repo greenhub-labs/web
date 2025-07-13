@@ -18,10 +18,12 @@ import { UserPersonalInfoSection } from '@/contexts/users/presentation/component
 import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
 import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
 import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
+import { useSonnerNotification } from '@/contexts/shared/presentation/hooks/use-sonner-notification';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
   const { updateUserMutation } = useUser();
+  const { showNotification } = useSonnerNotification();
 
   console.log(user);
   const t = useTranslations('pages.profile');
@@ -68,7 +70,8 @@ const ProfilePage: React.FC = () => {
       avatar: safeString(formData?.avatar),
     });
     if (!parseResult.success) {
-      // TODO: Show error to user (for now, log it)
+      // Show error to user with Sonner
+      showNotification(t('validation.genericError'), { type: 'error' });
       console.error('Validation error:', parseResult.error.issues);
       return;
     }

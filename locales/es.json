@@ -1073,7 +1073,8 @@
         "currentPasswordRequired": "La contraseña actual es obligatoria",
         "newPasswordRequired": "La nueva contraseña es obligatoria",
         "fileTooBig": "El archivo debe ser menor a 5MB",
-        "invalidFileType": "Solo se permiten archivos JPG, PNG y GIF"
+        "invalidFileType": "Solo se permiten archivos JPG, PNG y GIF",
+        "genericError": "Hubo un problema al guardar tu perfil. Por favor revisa los campos e inténtalo de nuevo."
       },
       "emptyStates": {
         "noProfilePicture": "Sin foto de perfil",

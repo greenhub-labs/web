@@ -1073,7 +1073,8 @@
         "currentPasswordRequired": "Current password is required",
         "newPasswordRequired": "New password is required",
         "fileTooBig": "File size must be less than 5MB",
-        "invalidFileType": "Only JPG, PNG and GIF files are allowed"
+        "invalidFileType": "Only JPG, PNG and GIF files are allowed",
+        "genericError": "There was a problem saving your profile. Please check the fields and try again."
       },
       "emptyStates": {
         "noProfilePicture": "No profile picture",
