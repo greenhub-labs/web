@@ -10,7 +10,6 @@ const withNextIntl = (Story, context) => (
     <div
       style={{
         minHeight: '100vh',
-        minWidth: '100vw',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

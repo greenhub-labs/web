@@ -6,20 +6,22 @@ import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useTranslations } from 'next-intl';
 import { AuthFormType } from '@/contexts/auth/domain/validators/auth-form.schema';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import LoginPageComponent from '@/contexts/auth/presentation/components/pages/login-page/login-page';
 
 const LoginPage = () => {
-  const t = useTranslations();
   const { login, loginStatus } = useAuth();
   const router = useRouter();
 
-  // Ahora recibimos los datos validados, no el evento
-  const handleLogin = async (data: AuthFormType) => {
-    await login({
-      email: data.email,
-      password: data.password,
-    });
-  };
+  const handleLogin = useCallback(
+    async (data: AuthFormType) => {
+      await login({
+        email: data.email,
+        password: data.password,
+      });
+    },
+    [login],
+  );
 
   useEffect(() => {
     if (loginStatus === 'success') {
@@ -28,15 +30,7 @@ const LoginPage = () => {
   }, [loginStatus, router]);
 
   return (
-    <AuthTemplate>
-      <AuthForm
-        mode="login"
-        switchUrl="/auth/register"
-        switchText={t('pages.auth.login.register')}
-        onSubmit={handleLogin}
-        isLoading={loginStatus === 'pending'}
-      />
-    </AuthTemplate>
+    <LoginPageComponent handleLogin={handleLogin} loginStatus={loginStatus} />
   );
 };
 

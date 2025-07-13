@@ -1,0 +1,75 @@
+# Storybook Addon Panel Convention
+
+## Purpose
+
+Establish a consistent convention for Storybook stories regarding the visibility of the addon panel (Controls, Actions, Interactions, etc.) based on the Atomic Design level of the component.
+
+---
+
+## Rule
+
+- **Pages & Templates:**
+
+  - Stories for components classified as **pages** or **templates** must be presented with a clean, white canvas and **should not display the Storybook addon panel** (Controls, Actions, Interactions, etc.).
+  - These stories should focus on layout, composition, and integration, not on prop manipulation.
+  - If possible, configure the story to hide the addon panel using Storybook parameters:
+    ```ts
+    export default {
+      // ...
+      parameters: {
+        controls: { hideNoControlsWarning: true, disabled: true },
+        actions: { disabled: true },
+        backgrounds: { disable: true },
+      },
+    };
+    ```
+
+- **Atoms, Molecules & Organisms:**
+  - Stories for **atoms**, **molecules**, and **organisms** must always display the Storybook addon panel.
+  - Ensure that all relevant props are exposed as controls, and that actions/interactions are visible when applicable.
+  - This allows for interactive testing, prop manipulation, and documentation of component APIs.
+
+---
+
+## Rationale
+
+- **Pages/Templates** are meant to show real-world usage and layout, not to be interactively manipulated.
+- **Atoms/Molecules/Organisms** are building blocks and benefit from interactive controls for development and documentation.
+
+---
+
+## Enforcement
+
+- Review all new and existing stories to ensure compliance with this convention.
+- Add Storybook parameters as needed to enable/disable the addon panel according to the component type.
+- Document this rule in onboarding and code review processes.
+
+---
+
+## Example
+
+```ts
+// Page/Template Story (no addon panel)
+export default {
+  title: 'Pages/MyPage',
+  component: MyPage,
+  parameters: {
+    controls: { hideNoControlsWarning: true, disabled: true },
+    actions: { disabled: true },
+    backgrounds: { disable: true },
+  },
+};
+
+// Atom/Molecule/Organism Story (with addon panel)
+export default {
+  title: 'Atoms/Button',
+  component: Button,
+  // No need to disable controls/actions
+};
+```
+
+description:
+globs:
+alwaysApply: false
+
+---
