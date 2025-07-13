@@ -7,7 +7,18 @@ import { NextIntlClientProvider } from 'next-intl';
 // Decorador global para Storybook
 const withNextIntl = (Story, context) => (
   <NextIntlClientProvider locale="en" messages={enMessages}>
-    {Story(context)}
+    <div
+      style={{
+        minHeight: '100vh',
+        minWidth: '100vw',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'transparent', // o el color que prefieras
+      }}
+    >
+      {Story(context)}
+    </div>
   </NextIntlClientProvider>
 );
 
