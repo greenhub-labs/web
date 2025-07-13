@@ -6,25 +6,8 @@ import { PageTemplate } from '@/contexts/shared/presentation/components/template
 
 // UI Components
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
-import { Input } from '@/contexts/shared/presentation/components/ui/input';
-import { Textarea } from '@/contexts/shared/presentation/components/ui/textarea';
-import { Badge } from '@/contexts/shared/presentation/components/ui/badge';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/contexts/shared/presentation/components/ui/select';
-import { Switch } from '@/contexts/shared/presentation/components/ui/switch';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/contexts/shared/presentation/components/ui/avatar';
 
 // Atomic Design Components
-import { StatCard } from '@/contexts/shared/presentation/components/atoms/StatCard';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useUser } from '@/contexts/users/presentation/hooks/use-user';
@@ -33,34 +16,8 @@ import { UserAvatarSection } from '@/contexts/users/presentation/components/mole
 import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
 import { UserPersonalInfoSection } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section';
 import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
-import { UserChangePasswordSection } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section';
-import { UserTwoFactorSection } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section';
-import { UserSecurityAlertsSection } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section';
 import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
 import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
-
-// Icons
-import {
-  User,
-  Camera,
-  Shield,
-  Settings,
-  Download,
-  Upload,
-  Eye,
-  EyeOff,
-  Calendar,
-  Clock,
-  Mail,
-  Phone,
-  MapPin,
-  Globe2,
-  Palette,
-  Bell,
-  Lock,
-  Trash2,
-  AlertTriangle,
-} from 'lucide-react';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -73,16 +30,7 @@ const ProfilePage: React.FC = () => {
 
   // State management
   const [isEditing, setIsEditing] = useState(false);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
   const [formData, setFormData] = useState(user);
-  const [passwordData, setPasswordData] = useState({
-    current: '',
-    new: '',
-    confirm: '',
-  });
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
-  const [securityAlertsEnabled, setSecurityAlertsEnabled] = useState(true);
 
   // Sync formData with real user data when available
   useEffect(() => {
@@ -108,13 +56,6 @@ const ProfilePage: React.FC = () => {
     });
   };
 
-  const handlePasswordChange = (field: string, value: string) => {
-    setPasswordData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
   const handleSave = () => {
     // Validate with Zod before updating
     const safeString = (value: unknown) =>
@@ -133,12 +74,6 @@ const ProfilePage: React.FC = () => {
     }
     updateUserMutation.mutate(parseResult.data);
     setIsEditing(false);
-  };
-
-  const handlePasswordSave = () => {
-    // TODO: Implement password change logic
-    console.log('Changing password');
-    setPasswordData({ current: '', new: '', confirm: '' });
   };
 
   const handleAvatarUpload = (file: File) => {
