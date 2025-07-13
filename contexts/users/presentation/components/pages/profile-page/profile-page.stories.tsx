@@ -30,7 +30,7 @@ const noop = () => {};
 export const Loading: Story = {
   args: {
     isEditing: false,
-    isLoading: true,
+    isLoading: false,
     formData: { id: '' },
     onSave: noop,
     onChange: noop,

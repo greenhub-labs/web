@@ -3,8 +3,7 @@ import type { Preview, StoryContext, StoryFn } from '@storybook/nextjs-vite';
 import '../app/globals.css';
 import enMessages from '../locales/en.json'; // Importa el archivo de mensajes
 import { NextIntlClientProvider } from 'next-intl';
-import { SidebarProvider } from '@/contexts/shared/presentation/components/ui/sidebar';
-
+import { SidebarProvider } from '../contexts/shared/presentation/components/ui/sidebar';
 // Decorador global para Storybook
 const withProviders = (Story, context) => {
   // Detecta si la story es de Auth (ajusta el prefijo si es necesario)
