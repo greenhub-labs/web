@@ -78,10 +78,10 @@ const ProfilePage: React.FC = () => {
     if (user) {
       setFormData({
         ...user,
-        firstName: user.firstName ?? '',
-        lastName: user.lastName ?? '',
-        bio: user.bio ?? '',
-        avatar: user.avatar ?? '',
+        firstName: user.firstName,
+        lastName: user.lastName,
+        bio: user.bio,
+        avatar: user.avatar,
       });
     }
   }, [user]);
@@ -92,7 +92,7 @@ const ProfilePage: React.FC = () => {
       if (!prev) return prev;
       return {
         ...prev,
-        [field]: value,
+        [field]: value === '' ? null : value,
       };
     });
   };
@@ -178,10 +178,8 @@ const ProfilePage: React.FC = () => {
             <div className="flex flex-col items-center space-y-4">
               <Avatar className="h-32 w-32">
                 <AvatarImage
-                  src={formData?.avatar ?? ''}
-                  alt={`${formData?.firstName ?? ''} ${
-                    formData?.lastName ?? ''
-                  }`}
+                  src={formData?.avatar || ''}
+                  alt={`${formData?.firstName} ${formData?.lastName}`}
                 />
                 <AvatarFallback className="text-2xl">
                   {formData?.firstName?.charAt(0) || ''}
@@ -235,7 +233,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.firstName')}
                 </label>
                 <Input
-                  value={formData?.firstName ?? ''}
+                  value={formData?.firstName || ''}
                   onChange={(e) =>
                     handleInputChange('firstName', e.target.value)
                   }
@@ -247,7 +245,7 @@ const ProfilePage: React.FC = () => {
                   {t('sections.personalInfo.lastName')}
                 </label>
                 <Input
-                  value={formData?.lastName ?? ''}
+                  value={formData?.lastName || ''}
                   onChange={(e) =>
                     handleInputChange('lastName', e.target.value)
                   }
@@ -262,7 +260,7 @@ const ProfilePage: React.FC = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={formData?.email ?? ''}
+                    value={formData?.email || ''}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                     disabled={!isEditing}
                   />
@@ -276,7 +274,7 @@ const ProfilePage: React.FC = () => {
                   <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     className="pl-10"
-                    value={formData?.phone ?? ''}
+                    value={formData?.phone || ''}
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     disabled={!isEditing}
                   />
@@ -288,7 +286,7 @@ const ProfilePage: React.FC = () => {
                 </label>
                 <Textarea
                   placeholder={t('sections.personalInfo.bioPlaceholder')}
-                  value={formData?.bio ?? ''}
+                  value={formData?.bio || ''}
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                   disabled={!isEditing}
                   className="min-h-20"
