@@ -1,16 +1,22 @@
 import React from 'react';
 import { Switch } from '@/contexts/shared/presentation/components/ui/switch';
 
-export interface UserSecurityAlertsSectionProps {
+export interface ToggleSectionProps {
   title: string;
   description: string;
   enabled: boolean;
   onToggle: (value: boolean) => void;
 }
 
-export const UserSecurityAlertsSection: React.FC<
-  UserSecurityAlertsSectionProps
-> = ({ title, description, enabled, onToggle }) => {
+/**
+ * ToggleSection is a generic molecule for any setting with a title, description, and switch.
+ */
+export const ToggleSection: React.FC<ToggleSectionProps> = ({
+  title,
+  description,
+  enabled,
+  onToggle,
+}) => {
   return (
     <div className="flex items-center justify-between">
       <div>

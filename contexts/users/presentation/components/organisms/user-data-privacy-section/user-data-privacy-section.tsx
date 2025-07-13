@@ -33,40 +33,46 @@ export const UserDataPrivacySection: React.FC<UserDataPrivacySectionProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="space-y-6">
-      {/* Export Data */}
-      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between p-4 border rounded-lg">
-        <div>
-          <h4 className="text-md font-medium">{exportTitle}</h4>
-          <p className="text-sm text-muted-foreground">{exportDescription}</p>
+    <SettingsSection
+      title={sectionTitle}
+      subtitle={sectionSubtitle}
+      icon={sectionIcon}
+    >
+      <div className="space-y-6">
+        {/* Export Data */}
+        <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between p-4 border rounded-lg">
+          <div>
+            <h4 className="text-md font-medium">{exportTitle}</h4>
+            <p className="text-sm text-muted-foreground">{exportDescription}</p>
+          </div>
+          <Button
+            variant="outline"
+            onClick={onExport}
+            className="w-full md:w-auto"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            {exportButtonLabel}
+          </Button>
         </div>
-        <Button
-          variant="outline"
-          onClick={onExport}
-          className="w-full md:w-auto"
-        >
-          <Download className="h-4 w-4 mr-2" />
-          {exportButtonLabel}
-        </Button>
-      </div>
 
-      {/* Delete Account */}
-      <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
-        <div>
-          <h4 className="text-md font-medium text-destructive">
-            {deleteTitle}
-          </h4>
-          <p className="text-sm text-muted-foreground">{deleteDescription}</p>
+        {/* Delete Account */}
+        <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
+          <div>
+            <h4 className="text-md font-medium text-destructive">
+              {deleteTitle}
+            </h4>
+            <p className="text-sm text-muted-foreground">{deleteDescription}</p>
+          </div>
+          <Button
+            variant="destructive"
+            onClick={onDelete}
+            className="w-full md:w-auto"
+          >
+            <AlertTriangle className="h-4 w-4 mr-2" />
+            {deleteButtonLabel}
+          </Button>
         </div>
-        <Button
-          variant="destructive"
-          onClick={onDelete}
-          className="w-full md:w-auto"
-        >
-          <AlertTriangle className="h-4 w-4 mr-2" />
-          {deleteButtonLabel}
-        </Button>
       </div>
-    </div>
+    </SettingsSection>
   );
 };

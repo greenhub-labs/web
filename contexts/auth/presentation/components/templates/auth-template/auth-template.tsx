@@ -1,5 +1,6 @@
 import React from 'react';
-import { AuthTemplateProps } from './auth-template.interface';
+
+export interface AuthTemplateProps extends React.PropsWithChildren {}
 
 const AuthTemplate: React.FC<AuthTemplateProps> = ({ children }) => {
   return (

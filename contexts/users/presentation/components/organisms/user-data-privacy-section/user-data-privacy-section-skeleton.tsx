@@ -1,12 +1,25 @@
 import React from 'react';
 import { Skeleton } from '@/contexts/shared/presentation/components/ui/skeleton';
+import SettingsSection from '@/contexts/shared/presentation/components/molecules/SettingsSection';
+
+export interface UserDataPrivacySectionSkeletonProps {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  sectionIcon: string;
+}
 
 /**
  * Skeleton for the Data & Privacy section (organism).
  * Matches the structure and sizing of the loaded component.
  */
-export const UserDataPrivacySectionSkeleton: React.FC = () => (
-  <div className="space-y-6">
+export const UserDataPrivacySectionSkeleton: React.FC<
+  UserDataPrivacySectionSkeletonProps
+> = ({ sectionTitle, sectionSubtitle, sectionIcon }) => (
+  <SettingsSection
+    title={sectionTitle}
+    subtitle={sectionSubtitle}
+    icon={sectionIcon}
+  >
     {/* Export Data Skeleton */}
     <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between p-4 border rounded-lg">
       <div>
@@ -24,5 +37,5 @@ export const UserDataPrivacySectionSkeleton: React.FC = () => (
       </div>
       <Skeleton className="h-10 w-40" /> {/* Delete button */}
     </div>
-  </div>
+  </SettingsSection>
 );
