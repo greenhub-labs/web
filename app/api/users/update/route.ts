@@ -1,4 +1,4 @@
-import axiosClient from '@/contexts/shared/infrastructure/api/axios-client';
+import axiosClient from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { NextRequest, NextResponse } from 'next/server';
 import { UPDATE_USER_MUTATION } from '@/contexts/users/infrastructure/graphql/mutations/users-mutations.graphql';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';

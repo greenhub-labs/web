@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axiosClient from '@/contexts/shared/infrastructure/api/axios-client';
+import axiosClient from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { VERIFY_TOKEN_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
 
 export async function POST(req: NextRequest) {

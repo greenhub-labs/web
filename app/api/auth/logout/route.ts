@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axiosClient from '@/contexts/shared/infrastructure/api/axios-client';
+import axiosClient from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { LOGOUT_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 
 export async function POST(req: NextRequest) {

@@ -1,5 +1,5 @@
 import { REGISTER_EMAIL_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
-import axiosClient from '@/contexts/shared/infrastructure/api/axios-client';
+import axiosClient from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
