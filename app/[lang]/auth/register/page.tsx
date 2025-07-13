@@ -5,16 +5,20 @@ import AuthTemplate from '@/contexts/auth/presentation/components/templates/auth
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import RegisterPageComponent from '@/contexts/auth/presentation/components/pages/register-page/register-page';
 
 const RegisterPage = () => {
   const t = useTranslations();
   const { register, registerStatus } = useAuth();
   const router = useRouter();
 
-  const handleRegister = async (data: AuthFormType) => {
-    await register({ email: data.email, password: data.password });
-  };
+  const handleRegister = useCallback(
+    async (data: AuthFormType) => {
+      await register({ email: data.email, password: data.password });
+    },
+    [register],
+  );
 
   useEffect(() => {
     if (registerStatus === 'success') {
@@ -23,15 +27,10 @@ const RegisterPage = () => {
   }, [registerStatus, router]);
 
   return (
-    <AuthTemplate>
-      <AuthForm
-        mode="signup"
-        switchUrl="/auth/login"
-        switchText={t('pages.auth.register.login')}
-        onSubmit={handleRegister}
-        isLoading={registerStatus === 'pending'}
-      />
-    </AuthTemplate>
+    <RegisterPageComponent
+      handleRegister={handleRegister}
+      registerStatus={registerStatus}
+    />
   );
 };
 
