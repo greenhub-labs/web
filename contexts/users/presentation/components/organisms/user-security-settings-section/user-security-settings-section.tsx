@@ -63,7 +63,11 @@ export const UserSecuritySettingsSection: React.FC<
   };
 
   return (
-    <>
+    <SettingsSection
+      title={sectionTitle}
+      subtitle={sectionSubtitle}
+      icon={sectionIcon}
+    >
       {/* Change Password */}
       <div className="space-y-4">
         <h4 className="text-md font-medium">{changePasswordTitle}</h4>
@@ -104,6 +108,6 @@ export const UserSecuritySettingsSection: React.FC<
           onToggle={setSecurityAlertsEnabled}
         />
       </div>
-    </>
+    </SettingsSection>
   );
 };

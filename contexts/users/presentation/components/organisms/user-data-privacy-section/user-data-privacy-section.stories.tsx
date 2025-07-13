@@ -28,7 +28,7 @@ export const Default: Story = {
   args: {
     sectionTitle: 'Data & Privacy',
     sectionSubtitle: 'Export your data or delete your account permanently.',
-    sectionIcon: 'shield',
+    sectionIcon: '🗂️',
     exportTitle: 'Export Data',
     exportDescription: 'Download all your personal data in a single file.',
     exportButtonLabel: 'Export Data',

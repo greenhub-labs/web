@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 
@@ -24,20 +24,15 @@ import { UserSecurityAlertsSectionSkeleton } from '@/contexts/users/presentation
 import { UserTwoFactorSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section-skeleton';
 import { UserDataPrivacySectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section-skeleton';
 import { UserSecuritySettingsSectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section-skeleton';
+import ProfilePageComponent from '@/contexts/users/presentation/components/pages/profile-page/profile-page';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
   const { updateUserMutation } = useUser();
-  const { showNotification } = useSonnerNotification();
-
-  console.log(user);
-  const t = useTranslations('pages.profile');
-  const tCommon = useTranslations('common');
-  const tNavigation = useTranslations('navigation');
 
   // State management
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState(user);
+  const [formData, setFormData] = useState<any>(user);
 
   // Sync formData with real user data when available
   useEffect(() => {
@@ -48,22 +43,24 @@ const ProfilePage: React.FC = () => {
         lastName: user.lastName,
         bio: user.bio,
         avatar: user.avatar,
+        email: user.email,
+        phone: user.phone,
       });
     }
   }, [user]);
 
   // Handle form updates
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => {
+  const handleInputChange = useCallback((field: string, value: string) => {
+    setFormData((prev: any) => {
       if (!prev) return prev;
       return {
         ...prev,
         [field]: value === '' ? null : value,
       };
     });
-  };
+  }, []);
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     // Validate with Zod before updating
     const safeString = (value: unknown) =>
       typeof value === 'string' ? value : undefined;
@@ -76,172 +73,57 @@ const ProfilePage: React.FC = () => {
     });
     if (!parseResult.success) {
       // Show error to user with Sonner
-      showNotification(t('validation.genericError'), { type: 'error' });
       console.error('Validation error:', parseResult.error.issues);
       return;
     }
     updateUserMutation.mutate(parseResult.data);
     setIsEditing(false);
-  };
+  }, [formData, user, updateUserMutation]);
 
-  const handleAvatarUpload = (file: File) => {
+  const handleAvatarUpload = useCallback((file: File) => {
     if (file) {
       // TODO: Implement avatar upload logic
       console.log('Uploading avatar:', file);
     }
-  };
+  }, []);
 
-  const handleExportData = () => {
+  const handleAvatarDelete = useCallback(() => {
+    setFormData((prev: any) => (prev ? { ...prev, avatar: null } : prev));
+    // TODO: Implement avatar delete logic (API)
+  }, []);
+
+  const handleExportData = useCallback(() => {
     // TODO: Implement export data logic
     console.log('Export data');
-  };
-  const handleDeleteAccount = () => {
+  }, []);
+
+  const handleDeleteAccount = useCallback(() => {
     // TODO: Implement delete account logic
     console.log('Delete account');
-  };
+  }, []);
 
-  // Breadcrumb configuration
-  const breadcrumbItems = [
-    {
-      label: tNavigation('settings.title'),
-      href: '/settings',
-    },
-  ];
+  const handleEdit = useCallback(() => setIsEditing(true), []);
+  const handleCancel = useCallback(() => {
+    setIsEditing(false);
+    setFormData(user);
+  }, [user]);
+
+  const isLoading = !user;
 
   return (
-    <PageTemplate
-      pageTitle={tNavigation('settings.profile')}
-      breadcrumbItems={breadcrumbItems}
-      headerActions={
-        <div className="flex gap-2">
-          {isEditing ? (
-            <>
-              <Button variant="outline" onClick={() => setIsEditing(false)}>
-                {tCommon('cancel')}
-              </Button>
-              <Button onClick={handleSave}>{tCommon('save')}</Button>
-            </>
-          ) : (
-            <Button onClick={() => setIsEditing(true)}>
-              {tCommon('edit')}
-            </Button>
-          )}
-        </div>
-      }
-    >
-      <div className="space-y-6">
-        <div className="space-y-6">
-          {/* Profile Picture Section */}
-          <SettingsSection
-            title={t('sections.avatar.title')}
-            subtitle={t('sections.avatar.subtitle')}
-            icon="📷"
-          >
-            {user ? (
-              <UserAvatarSection
-                avatarUrl={formData?.avatar || undefined}
-                firstName={formData?.firstName || undefined}
-                lastName={formData?.lastName || undefined}
-                onUpload={handleAvatarUpload}
-                onDelete={() => {
-                  // TODO: Implement avatar delete logic
-                  setFormData((prev) =>
-                    prev ? { ...prev, avatar: null } : prev,
-                  );
-                }}
-                uploadLabel={t('sections.avatar.upload')}
-                maxSizeText={t('sections.avatar.maxSize')}
-                supportedFormatsText={t('sections.avatar.supportedFormats')}
-              />
-            ) : (
-              <UserAvatarSectionSkeleton />
-            )}
-          </SettingsSection>
-
-          {/* Personal Information */}
-          <SettingsSection
-            title={t('sections.personalInfo.title')}
-            subtitle={t('sections.personalInfo.subtitle')}
-            icon="👤"
-          >
-            {user ? (
-              <UserPersonalInfoSection
-                firstName={formData?.firstName || ''}
-                lastName={formData?.lastName || ''}
-                email={formData?.email || ''}
-                phone={formData?.phone || ''}
-                bio={formData?.bio || ''}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-                firstNameLabel={t('sections.personalInfo.firstName')}
-                lastNameLabel={t('sections.personalInfo.lastName')}
-                emailLabel={t('sections.personalInfo.email')}
-                phoneLabel={t('sections.personalInfo.phone')}
-                bioLabel={t('sections.personalInfo.bio')}
-                bioPlaceholder={t('sections.personalInfo.bioPlaceholder')}
-              />
-            ) : (
-              <UserPersonalInfoSectionSkeleton />
-            )}
-          </SettingsSection>
-
-          {/* Security Settings */}
-          <SettingsSection
-            title={t('sections.security.title')}
-            subtitle={t('sections.security.subtitle')}
-            icon="🔒"
-          >
-            {user ? (
-              <UserSecuritySettingsSection
-                sectionTitle={t('sections.security.title')}
-                sectionSubtitle={t('sections.security.subtitle')}
-                sectionIcon=""
-                changePasswordTitle={t('sections.security.changePassword')}
-                currentLabel={t('sections.security.currentPassword')}
-                newLabel={t('sections.security.newPassword')}
-                confirmLabel={t('sections.security.confirmPassword')}
-                buttonLabel={t('actions.changePassword')}
-                twoFactorTitle={t('sections.security.twoFactor')}
-                twoFactorDescription={t(
-                  'sections.security.twoFactorDescription',
-                )}
-                alertsTitle={t('sections.security.securityAlerts')}
-                alertsDescription={t(
-                  'sections.security.securityAlertsDescription',
-                )}
-              />
-            ) : (
-              <UserSecuritySettingsSectionSkeleton />
-            )}
-          </SettingsSection>
-
-          {/* Data & Privacy */}
-          <SettingsSection
-            title={t('sections.data.title')}
-            subtitle={t('sections.data.subtitle')}
-            icon="🗂️"
-          >
-            {user ? (
-              <UserDataPrivacySection
-                sectionTitle={t('sections.data.title')}
-                sectionSubtitle={t('sections.data.subtitle')}
-                sectionIcon=""
-                exportTitle={t('sections.data.exportData')}
-                exportDescription={t('sections.data.exportDescription')}
-                exportButtonLabel={t('sections.data.downloadData')}
-                onExport={handleExportData}
-                deleteTitle={t('sections.data.deleteAccount')}
-                deleteDescription={t('sections.data.deleteAccountDescription')}
-                deleteButtonLabel={t('sections.data.requestDeletion')}
-                onDelete={handleDeleteAccount}
-              />
-            ) : (
-              <UserDataPrivacySectionSkeleton />
-            )}
-          </SettingsSection>
-        </div>
-      </div>
-    </PageTemplate>
+    <ProfilePageComponent
+      isEditing={isEditing}
+      isLoading={isLoading}
+      formData={formData || { id: '' }}
+      onSave={handleSave}
+      onChange={handleInputChange}
+      onAvatarUpload={handleAvatarUpload}
+      onAvatarDelete={handleAvatarDelete}
+      onExportData={handleExportData}
+      onDeleteAccount={handleDeleteAccount}
+      onEdit={handleEdit}
+      onCancel={handleCancel}
+    />
   );
 };
 

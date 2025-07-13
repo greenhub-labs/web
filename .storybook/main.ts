@@ -1,3 +1,4 @@
+import { join } from 'path';
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 
 const config: StorybookConfig = {
@@ -18,5 +19,13 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['../public'],
+  viteFinal: async (config) => {
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      '@': join(__dirname, '../'),
+    };
+    return config;
+  },
 };
 export default config;

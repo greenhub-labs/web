@@ -4,6 +4,7 @@ import {
   UserSecuritySettingsSectionProps,
 } from './user-security-settings-section';
 import type { Meta, StoryObj } from '@storybook/react';
+import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 
 /**
  * UserSecuritySettingsSection provides a full section for user security settings.
@@ -16,6 +17,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 const meta: Meta<typeof UserSecuritySettingsSection> = {
   title: 'Users/Organisms/UserSecuritySettingsSection',
   component: UserSecuritySettingsSection,
+  decorators: [(Story) => <Story />],
 };
 export default meta;
 
@@ -26,7 +28,7 @@ export const Default: Story = {
     sectionTitle: 'Security Settings',
     sectionSubtitle:
       'Manage your password, two-factor authentication, and security alerts.',
-    sectionIcon: 'lock',
+    sectionIcon: '🔒',
     changePasswordTitle: 'Change Password',
     currentLabel: 'Current Password',
     newLabel: 'New Password',
