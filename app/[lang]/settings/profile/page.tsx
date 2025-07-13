@@ -31,6 +31,8 @@ import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';
 import { UserAvatarSection } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section';
 import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
+import { UserPersonalInfoSection } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section';
+import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
 
 // Icons
 import {
@@ -203,72 +205,25 @@ const ProfilePage: React.FC = () => {
             subtitle={t('sections.personalInfo.subtitle')}
             icon="👤"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.firstName')}
-                </label>
-                <Input
-                  value={formData?.firstName || ''}
-                  onChange={(e) =>
-                    handleInputChange('firstName', e.target.value)
-                  }
-                  disabled={!isEditing}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.lastName')}
-                </label>
-                <Input
-                  value={formData?.lastName || ''}
-                  onChange={(e) =>
-                    handleInputChange('lastName', e.target.value)
-                  }
-                  disabled={!isEditing}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.email')}
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    value={formData?.email || ''}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.phone')}
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    value={formData?.phone || ''}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-medium">
-                  {t('sections.personalInfo.bio')}
-                </label>
-                <Textarea
-                  placeholder={t('sections.personalInfo.bioPlaceholder')}
-                  value={formData?.bio || ''}
-                  onChange={(e) => handleInputChange('bio', e.target.value)}
-                  disabled={!isEditing}
-                  className="min-h-20"
-                />
-              </div>
-            </div>
+            {user ? (
+              <UserPersonalInfoSection
+                firstName={formData?.firstName || ''}
+                lastName={formData?.lastName || ''}
+                email={formData?.email || ''}
+                phone={formData?.phone || ''}
+                bio={formData?.bio || ''}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                firstNameLabel={t('sections.personalInfo.firstName')}
+                lastNameLabel={t('sections.personalInfo.lastName')}
+                emailLabel={t('sections.personalInfo.email')}
+                phoneLabel={t('sections.personalInfo.phone')}
+                bioLabel={t('sections.personalInfo.bio')}
+                bioPlaceholder={t('sections.personalInfo.bioPlaceholder')}
+              />
+            ) : (
+              <UserPersonalInfoSectionSkeleton />
+            )}
           </SettingsSection>
 
           {/* Security Settings */}
