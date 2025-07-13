@@ -1,34 +1,47 @@
-import { REFRESH_TOKEN_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 import { NextRequest, NextResponse } from 'next/server';
-import { GraphQLClient } from 'graphql-request';
-
-const client = new GraphQLClient(process.env.BACKEND_URL!, {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { REFRESH_TOKEN_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
+import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 
 export async function POST(req: NextRequest) {
   try {
-    const { refreshToken } = await req.json();
-
-    const variables = { refreshToken };
-    const data = (await client.request(REFRESH_TOKEN_MUTATION, variables)) as {
-      refreshToken: { accessToken: string; refreshToken: string };
-    };
-
-    const response = NextResponse.json(data, { status: 200 });
-    response.headers.append(
+    const cookies = req.headers.get('cookie') || undefined;
+    const client = createApolloClient(cookies);
+    const refreshToken = req.cookies.get('refreshToken')?.value;
+    if (!refreshToken) {
+      const res = NextResponse.json(
+        { error: 'Refresh token is missing' },
+        { status: 401 },
+      );
+      res.headers.append(
+        'Set-Cookie',
+        `accessToken=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0;`,
+      );
+      res.headers.append(
+        'Set-Cookie',
+        `refreshToken=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0;`,
+      );
+      return res;
+    }
+    const response = await client.mutate({
+      mutation: REFRESH_TOKEN_MUTATION,
+      variables: { refreshToken },
+    });
+    const tokens = response.data.refreshToken;
+    const res = NextResponse.json({ refreshToken: tokens }, { status: 200 });
+    res.headers.append(
       'Set-Cookie',
-      `accessToken=${data.refreshToken.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `accessToken=${tokens.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.ACCESS_TOKEN_COOKIE_MAX_AGE};`,
     );
-    response.headers.append(
+    res.headers.append(
       'Set-Cookie',
-      `refreshToken=${data.refreshToken.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `refreshToken=${tokens.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.REFRESH_TOKEN_COOKIE_MAX_AGE};`,
     );
-    return response;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    return NextResponse.json({ error: message }, { status: 500 });
+    return res;
+  } catch (error: any) {
+    const res = NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 },
+    );
+    return res;
   }
 }

@@ -1,30 +1,28 @@
 import { REGISTER_EMAIL_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
-import { GraphQLClient } from 'graphql-request';
+import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { NextRequest, NextResponse } from 'next/server';
 
-const client = new GraphQLClient(process.env.BACKEND_URL!, {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 export async function POST(req: NextRequest) {
   try {
+    const cookies = req.headers.get('cookie') || undefined;
+    const client = createApolloClient(cookies);
     const { email, password } = await req.json();
     const variables = { input: { email, password } };
-    const data = (await client.request(REGISTER_EMAIL_MUTATION, variables)) as {
-      register: { accessToken: string; refreshToken: string };
-    };
-    const response = NextResponse.json(data, { status: 200 });
-    // Set cookies in the response headers
-    response.headers.append(
+    const response = await client.mutate({
+      mutation: REGISTER_EMAIL_MUTATION,
+      variables,
+    });
+    const register = response.data.register;
+    const res = NextResponse.json({ register }, { status: 200 });
+    res.headers.append(
       'Set-Cookie',
-      `accessToken=${data.register.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `accessToken=${register.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.ACCESS_TOKEN_COOKIE_MAX_AGE};`,
     );
-    response.headers.append(
+    res.headers.append(
       'Set-Cookie',
-      `refreshToken=${data.register.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=3600;`,
+      `refreshToken=${register.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.REFRESH_TOKEN_COOKIE_MAX_AGE};`,
     );
-    return response;
+    return res;
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ error: message }, { status: 500 });

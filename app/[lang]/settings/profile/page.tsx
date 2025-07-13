@@ -1,533 +1,243 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
+import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 
 // UI Components
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { Input } from "@/contexts/shared/presentation/components/ui/input";
-import { Textarea } from "@/contexts/shared/presentation/components/ui/textarea";
-import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/contexts/shared/presentation/components/ui/select";
-import { Switch } from "@/contexts/shared/presentation/components/ui/switch";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/contexts/shared/presentation/components/ui/avatar";
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
 
 // Atomic Design Components
-import { StatCard } from "@/contexts/shared/presentation/components/atoms/StatCard";
-import { SettingsSection } from "@/contexts/shared/presentation/components/molecules/SettingsSection";
-
-// Icons
-import {
-  User,
-  Camera,
-  Shield,
-  Settings,
-  Download,
-  Upload,
-  Eye,
-  EyeOff,
-  Calendar,
-  Clock,
-  Mail,
-  Phone,
-  MapPin,
-  Globe2,
-  Palette,
-  Bell,
-  Lock,
-  Trash2,
-  AlertTriangle,
-} from "lucide-react";
-
-// Mock user data
-const mockUser = {
-  id: "user-1",
-  firstName: "María",
-  lastName: "González",
-  email: "maria.gonzalez@example.com",
-  phone: "+34 612 345 678",
-  bio: "Passionate about sustainable gardening and smart agriculture technology. I love experimenting with different crops and sharing knowledge with the community.",
-  location: "Valencia, Spain",
-  timezone: "Europe/Madrid",
-  language: "es",
-  avatar:
-    "https://images.unsplash.com/photo-1494790108755-2616b612c3e0?w=150&h=150&fit=crop&crop=face",
-  role: "admin",
-  memberSince: "2023-06-15",
-  lastLogin: "2024-01-15T10:30:00Z",
-  totalLogins: 156,
-};
+import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
+import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
+import { useUser } from '@/contexts/users/presentation/hooks/use-user';
+import { userSchema } from '@/contexts/users/domain/validators/user.schema';
+import { UserAvatarSection } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section';
+import { UserAvatarSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-avatar-section/user-avatar-section-skeleton';
+import { UserPersonalInfoSection } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section';
+import { UserPersonalInfoSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-personal-info-section/user-personal-info-section-skeleton';
+import { UserSecuritySettingsSection } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section';
+import { UserDataPrivacySection } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section';
+import { useSonnerNotification } from '@/contexts/shared/presentation/hooks/use-sonner-notification';
+import { UserChangePasswordSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-change-password-section/user-change-password-section-skeleton';
+import { UserSecurityAlertsSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-security-alerts-section/user-security-alerts-section-skeleton';
+import { UserTwoFactorSectionSkeleton } from '@/contexts/users/presentation/components/molecules/user-two-factor-section/user-two-factor-section-skeleton';
+import { UserDataPrivacySectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-data-privacy-section/user-data-privacy-section-skeleton';
+import { UserSecuritySettingsSectionSkeleton } from '@/contexts/users/presentation/components/organisms/user-security-settings-section/user-security-settings-section-skeleton';
 
 const ProfilePage: React.FC = () => {
-  const t = useTranslations("pages.profile");
-  const tCommon = useTranslations("common");
-  const tNavigation = useTranslations("navigation");
+  const { user } = useAuth();
+  const { updateUserMutation } = useUser();
+  const { showNotification } = useSonnerNotification();
+
+  console.log(user);
+  const t = useTranslations('pages.profile');
+  const tCommon = useTranslations('common');
+  const tNavigation = useTranslations('navigation');
 
   // State management
   const [isEditing, setIsEditing] = useState(false);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [formData, setFormData] = useState(mockUser);
-  const [passwordData, setPasswordData] = useState({
-    current: "",
-    new: "",
-    confirm: "",
-  });
+  const [formData, setFormData] = useState(user);
 
-  // Calculate days since member
-  const memberSince = new Date(mockUser.memberSince);
-  const daysSinceMember = Math.floor(
-    (Date.now() - memberSince.getTime()) / (1000 * 60 * 60 * 24)
-  );
+  // Sync formData with real user data when available
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        ...user,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        bio: user.bio,
+        avatar: user.avatar,
+      });
+    }
+  }, [user]);
 
   // Handle form updates
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handlePasswordChange = (field: string, value: string) => {
-    setPasswordData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setFormData((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        [field]: value === '' ? null : value,
+      };
+    });
   };
 
   const handleSave = () => {
-    // TODO: Implement save logic
-    console.log("Saving profile data:", formData);
+    // Validate with Zod before updating
+    const safeString = (value: unknown) =>
+      typeof value === 'string' ? value : undefined;
+    const parseResult = userSchema.safeParse({
+      id: user?.id || '',
+      firstName: safeString(formData?.firstName),
+      lastName: safeString(formData?.lastName),
+      bio: safeString(formData?.bio),
+      avatar: safeString(formData?.avatar),
+    });
+    if (!parseResult.success) {
+      // Show error to user with Sonner
+      showNotification(t('validation.genericError'), { type: 'error' });
+      console.error('Validation error:', parseResult.error.issues);
+      return;
+    }
+    updateUserMutation.mutate(parseResult.data);
     setIsEditing(false);
   };
 
-  const handlePasswordSave = () => {
-    // TODO: Implement password change logic
-    console.log("Changing password");
-    setPasswordData({ current: "", new: "", confirm: "" });
-  };
-
-  const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleAvatarUpload = (file: File) => {
     if (file) {
       // TODO: Implement avatar upload logic
-      console.log("Uploading avatar:", file);
+      console.log('Uploading avatar:', file);
     }
   };
 
-  const formatLastLogin = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffHours = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
-    );
-
-    if (diffHours < 1) return t("userCard.today");
-    if (diffHours < 24) return `${diffHours}h ago`;
-    if (diffHours < 48) return t("userCard.yesterday");
-    return `${Math.floor(diffHours / 24)} ${t("userCard.daysAgo")}`;
+  const handleExportData = () => {
+    // TODO: Implement export data logic
+    console.log('Export data');
+  };
+  const handleDeleteAccount = () => {
+    // TODO: Implement delete account logic
+    console.log('Delete account');
   };
 
   // Breadcrumb configuration
   const breadcrumbItems = [
     {
-      label: tNavigation("settings.title"),
-      href: "/settings",
+      label: tNavigation('settings.title'),
+      href: '/settings',
     },
   ];
 
   return (
     <PageTemplate
-      pageTitle={tNavigation("settings.profile")}
+      pageTitle={tNavigation('settings.profile')}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex gap-2">
           {isEditing ? (
             <>
               <Button variant="outline" onClick={() => setIsEditing(false)}>
-                {tCommon("cancel")}
+                {tCommon('cancel')}
               </Button>
-              <Button onClick={handleSave}>{tCommon("save")}</Button>
+              <Button onClick={handleSave}>{tCommon('save')}</Button>
             </>
           ) : (
             <Button onClick={() => setIsEditing(true)}>
-              {tCommon("edit")}
+              {tCommon('edit')}
             </Button>
           )}
         </div>
       }
     >
       <div className="space-y-6">
-        {/* Profile Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard
-            title={t("stats.memberSince")}
-            value={`${daysSinceMember} days`}
-            icon="📅"
-          />
-          <StatCard
-            title={t("stats.lastLogin")}
-            value={formatLastLogin(mockUser.lastLogin)}
-            icon="⏰"
-          />
-          <StatCard
-            title={t("stats.totalLogins")}
-            value={mockUser.totalLogins.toString()}
-            icon="👤"
-          />
-          <StatCard
-            title={t("stats.gardenRole")}
-            value={mockUser.role}
-            icon="🛡️"
-          />
-        </div>
-
         <div className="space-y-6">
           {/* Profile Picture Section */}
           <SettingsSection
-            title={t("sections.avatar.title")}
-            subtitle={t("sections.avatar.subtitle")}
+            title={t('sections.avatar.title')}
+            subtitle={t('sections.avatar.subtitle')}
             icon="📷"
           >
-            <div className="flex flex-col items-center space-y-4">
-              <Avatar className="h-32 w-32">
-                <AvatarImage
-                  src={formData.avatar}
-                  alt={`${formData.firstName} ${formData.lastName}`}
-                />
-                <AvatarFallback className="text-2xl">
-                  {formData.firstName.charAt(0)}
-                  {formData.lastName.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-
-              <div className="text-center space-y-2">
-                <p className="text-sm text-muted-foreground">
-                  {t("sections.avatar.maxSize")}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {t("sections.avatar.supportedFormats")}
-                </p>
-              </div>
-
-              <div className="flex gap-2 w-full max-w-xs">
-                <Button
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() =>
-                    document.getElementById("avatar-upload")?.click()
-                  }
-                >
-                  <Upload className="h-4 w-4 mr-2" />
-                  {t("sections.avatar.upload")}
-                </Button>
-                <Button variant="outline" size="icon">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </div>
-              <input
-                id="avatar-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleAvatarUpload}
+            {user ? (
+              <UserAvatarSection
+                avatarUrl={formData?.avatar || undefined}
+                firstName={formData?.firstName || undefined}
+                lastName={formData?.lastName || undefined}
+                onUpload={handleAvatarUpload}
+                onDelete={() => {
+                  // TODO: Implement avatar delete logic
+                  setFormData((prev) =>
+                    prev ? { ...prev, avatar: null } : prev,
+                  );
+                }}
+                uploadLabel={t('sections.avatar.upload')}
+                maxSizeText={t('sections.avatar.maxSize')}
+                supportedFormatsText={t('sections.avatar.supportedFormats')}
               />
-            </div>
+            ) : (
+              <UserAvatarSectionSkeleton />
+            )}
           </SettingsSection>
 
           {/* Personal Information */}
           <SettingsSection
-            title={t("sections.personalInfo.title")}
-            subtitle={t("sections.personalInfo.subtitle")}
+            title={t('sections.personalInfo.title')}
+            subtitle={t('sections.personalInfo.subtitle')}
             icon="👤"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.firstName")}
-                </label>
-                <Input
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    handleInputChange("firstName", e.target.value)
-                  }
-                  disabled={!isEditing}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.lastName")}
-                </label>
-                <Input
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    handleInputChange("lastName", e.target.value)
-                  }
-                  disabled={!isEditing}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.email")}
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.phone")}
-                </label>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange("phone", e.target.value)}
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.location")}
-                </label>
-                <div className="relative">
-                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    className="pl-10"
-                    placeholder={t("sections.personalInfo.locationPlaceholder")}
-                    value={formData.location}
-                    onChange={(e) =>
-                      handleInputChange("location", e.target.value)
-                    }
-                    disabled={!isEditing}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.timezone")}
-                </label>
-                <Select
-                  value={formData.timezone}
-                  onValueChange={(value) =>
-                    handleInputChange("timezone", value)
-                  }
-                  disabled={!isEditing}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Europe/Madrid">
-                      Europe/Madrid (GMT+1)
-                    </SelectItem>
-                    <SelectItem value="Europe/London">
-                      Europe/London (GMT+0)
-                    </SelectItem>
-                    <SelectItem value="America/New_York">
-                      America/New_York (GMT-5)
-                    </SelectItem>
-                    <SelectItem value="America/Los_Angeles">
-                      America/Los_Angeles (GMT-8)
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="md:col-span-2 space-y-2">
-                <label className="text-sm font-medium">
-                  {t("sections.personalInfo.bio")}
-                </label>
-                <Textarea
-                  placeholder={t("sections.personalInfo.bioPlaceholder")}
-                  value={formData.bio}
-                  onChange={(e) => handleInputChange("bio", e.target.value)}
-                  disabled={!isEditing}
-                  className="min-h-20"
-                />
-              </div>
-            </div>
+            {user ? (
+              <UserPersonalInfoSection
+                firstName={formData?.firstName || ''}
+                lastName={formData?.lastName || ''}
+                email={formData?.email || ''}
+                phone={formData?.phone || ''}
+                bio={formData?.bio || ''}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                firstNameLabel={t('sections.personalInfo.firstName')}
+                lastNameLabel={t('sections.personalInfo.lastName')}
+                emailLabel={t('sections.personalInfo.email')}
+                phoneLabel={t('sections.personalInfo.phone')}
+                bioLabel={t('sections.personalInfo.bio')}
+                bioPlaceholder={t('sections.personalInfo.bioPlaceholder')}
+              />
+            ) : (
+              <UserPersonalInfoSectionSkeleton />
+            )}
           </SettingsSection>
 
           {/* Security Settings */}
           <SettingsSection
-            title={t("sections.security.title")}
-            subtitle={t("sections.security.subtitle")}
+            title={t('sections.security.title')}
+            subtitle={t('sections.security.subtitle')}
             icon="🔒"
           >
-            <div className="space-y-6">
-              {/* Change Password */}
-              <div className="space-y-4">
-                <h4 className="text-md font-medium">
-                  {t("sections.security.changePassword")}
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t("sections.security.currentPassword")}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type={showCurrentPassword ? "text" : "password"}
-                        value={passwordData.current}
-                        onChange={(e) =>
-                          handlePasswordChange("current", e.target.value)
-                        }
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() =>
-                          setShowCurrentPassword(!showCurrentPassword)
-                        }
-                      >
-                        {showCurrentPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t("sections.security.newPassword")}
-                    </label>
-                    <div className="relative">
-                      <Input
-                        type={showNewPassword ? "text" : "password"}
-                        value={passwordData.new}
-                        onChange={(e) =>
-                          handlePasswordChange("new", e.target.value)
-                        }
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                        onClick={() => setShowNewPassword(!showNewPassword)}
-                      >
-                        {showNewPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">
-                      {t("sections.security.confirmPassword")}
-                    </label>
-                    <Input
-                      type="password"
-                      value={passwordData.confirm}
-                      onChange={(e) =>
-                        handlePasswordChange("confirm", e.target.value)
-                      }
-                    />
-                  </div>
-                </div>
-                <Button
-                  onClick={handlePasswordSave}
-                  className="w-full md:w-auto"
-                >
-                  {t("actions.changePassword")}
-                </Button>
-              </div>
-
-              {/* Two Factor Authentication */}
-              <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-md font-medium">
-                      {t("sections.security.twoFactor")}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t("sections.security.twoFactorDescription")}
-                    </p>
-                  </div>
-                  <Switch />
-                </div>
-              </div>
-
-              {/* Security Alerts */}
-              <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-md font-medium">
-                      {t("sections.security.securityAlerts")}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {t("sections.security.securityAlertsDescription")}
-                    </p>
-                  </div>
-                  <Switch defaultChecked />
-                </div>
-              </div>
-            </div>
+            {user ? (
+              <UserSecuritySettingsSection
+                sectionTitle={t('sections.security.title')}
+                sectionSubtitle={t('sections.security.subtitle')}
+                sectionIcon=""
+                changePasswordTitle={t('sections.security.changePassword')}
+                currentLabel={t('sections.security.currentPassword')}
+                newLabel={t('sections.security.newPassword')}
+                confirmLabel={t('sections.security.confirmPassword')}
+                buttonLabel={t('actions.changePassword')}
+                twoFactorTitle={t('sections.security.twoFactor')}
+                twoFactorDescription={t(
+                  'sections.security.twoFactorDescription',
+                )}
+                alertsTitle={t('sections.security.securityAlerts')}
+                alertsDescription={t(
+                  'sections.security.securityAlertsDescription',
+                )}
+              />
+            ) : (
+              <UserSecuritySettingsSectionSkeleton />
+            )}
           </SettingsSection>
 
           {/* Data & Privacy */}
           <SettingsSection
-            title={t("sections.data.title")}
-            subtitle={t("sections.data.subtitle")}
+            title={t('sections.data.title')}
+            subtitle={t('sections.data.subtitle')}
             icon="🗂️"
           >
-            <div className="space-y-6">
-              {/* Export Data */}
-              <div className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <h4 className="text-md font-medium">
-                    {t("sections.data.exportData")}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {t("sections.data.exportDescription")}
-                  </p>
-                </div>
-                <Button variant="outline">
-                  <Download className="h-4 w-4 mr-2" />
-                  {t("sections.data.downloadData")}
-                </Button>
-              </div>
-
-              {/* Delete Account */}
-              <div className="flex items-center justify-between p-4 border border-destructive/20 rounded-lg bg-destructive/5">
-                <div>
-                  <h4 className="text-md font-medium text-destructive">
-                    {t("sections.data.deleteAccount")}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">
-                    {t("sections.data.deleteAccountDescription")}
-                  </p>
-                </div>
-                <Button variant="destructive">
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  {t("sections.data.requestDeletion")}
-                </Button>
-              </div>
-            </div>
+            {user ? (
+              <UserDataPrivacySection
+                sectionTitle={t('sections.data.title')}
+                sectionSubtitle={t('sections.data.subtitle')}
+                sectionIcon=""
+                exportTitle={t('sections.data.exportData')}
+                exportDescription={t('sections.data.exportDescription')}
+                exportButtonLabel={t('sections.data.downloadData')}
+                onExport={handleExportData}
+                deleteTitle={t('sections.data.deleteAccount')}
+                deleteDescription={t('sections.data.deleteAccountDescription')}
+                deleteButtonLabel={t('sections.data.requestDeletion')}
+                onDelete={handleDeleteAccount}
+              />
+            ) : (
+              <UserDataPrivacySectionSkeleton />
+            )}
           </SettingsSection>
         </div>
       </div>
