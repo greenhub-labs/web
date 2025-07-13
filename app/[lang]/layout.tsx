@@ -25,8 +25,6 @@ export default async function LangLayout({
   // resolvedParams.rest puede ser undefined o un array vacío
   const isAuthPage = resolvedParams.rest && resolvedParams.rest[0] === 'auth';
 
-  console.log('isAuthPage', isAuthPage);
-
   return (
     <I18nProvider locale={resolvedParams.lang} messages={messages}>
       <SidebarProvider>

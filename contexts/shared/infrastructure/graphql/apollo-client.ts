@@ -76,7 +76,6 @@ export function createApolloClient(cookie?: string) {
           )
             .then(async (res) => {
               const text = await res.text();
-              console.log('Refresh response:', res.status, text);
               if (!res.ok) throw new Error('Session expired');
               const data = JSON.parse(text);
               const newAccessToken = data.refreshToken.accessToken;

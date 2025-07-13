@@ -1,5 +1,6 @@
 import { UsersRepository } from '../../application/ports/users.repository';
 import { User } from '../../domain/entities/user.entity';
+import { fetchWithAutoRefresh } from '@/contexts/shared/infrastructure/lib/fetch-with-auto-refresh';
 
 /**
  * Implementation of UsersRepository.
@@ -7,11 +8,9 @@ import { User } from '../../domain/entities/user.entity';
 export class UsersApiRepository implements UsersRepository {
   async update(user: User): Promise<void> {
     const url = `/api/users/update`;
-    const response = await fetch(url, {
+    await fetchWithAutoRefresh(url, {
       method: 'POST',
       body: JSON.stringify({ user }),
-      credentials: 'include',
     });
-    return response.json();
   }
 }

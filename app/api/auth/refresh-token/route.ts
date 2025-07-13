@@ -7,7 +7,6 @@ export async function POST(req: NextRequest) {
     const cookies = req.headers.get('cookie') || undefined;
     const client = createApolloClient(cookies);
     const refreshToken = req.cookies.get('refreshToken')?.value;
-    console.log('refreshToken', refreshToken);
     if (!refreshToken) {
       const res = NextResponse.json(
         { error: 'Refresh token is missing' },
@@ -28,7 +27,6 @@ export async function POST(req: NextRequest) {
       variables: { refreshToken },
     });
     const tokens = response.data.refreshToken;
-    console.log('tokens', tokens);
     const res = NextResponse.json({ refreshToken: tokens }, { status: 200 });
     res.headers.append(
       'Set-Cookie',
