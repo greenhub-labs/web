@@ -56,6 +56,11 @@ export function createApolloClient(cookie?: string) {
       }
 
       if (shouldRefresh) {
+        // Solo refrescar en el cliente
+        if (typeof window === 'undefined') {
+          // SSR: no intentar refrescar, devolver error directamente
+          return;
+        }
         return new Observable<any>((observer: Observer<any>) => {
           fetch(
             `${
