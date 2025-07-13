@@ -1,25 +1,29 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import LoginPageComponent, {
+import RegisterPageComponent, {
   RegisterPageComponentProps,
 } from './register-page';
 import React from 'react';
 
-const meta: Meta<typeof LoginPageComponent> = {
-  title: 'Auth/Pages/LoginPageComponent',
-  component: LoginPageComponent,
+const meta: Meta<typeof RegisterPageComponent> = {
+  title: 'Auth/Pages/RegisterPageComponent',
+  component: RegisterPageComponent,
   tags: ['autodocs'],
+  parameters: {
+    controls: { hideNoControlsWarning: true, disabled: true },
+    actions: { disabled: true },
+    backgrounds: { disable: true },
+  },
 };
 
 export default meta;
 
-type Story = StoryObj<typeof LoginPageComponent>;
+type Story = StoryObj<typeof RegisterPageComponent>;
 
 const mockHandleRegister: RegisterPageComponentProps['handleRegister'] = async (
   data,
 ) => {
-  // Simulate network delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  alert(`Login submitted: ${JSON.stringify(data)}`);
+  alert(`Register submitted: ${JSON.stringify(data)}`);
 };
 
 export const Default: Story = {
