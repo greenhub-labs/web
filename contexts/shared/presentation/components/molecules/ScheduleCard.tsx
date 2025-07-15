@@ -1,29 +1,29 @@
-import React from "react";
+import React from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
-} from "@/contexts/shared/presentation/components/ui/card";
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
+} from '@/contexts/shared/presentation/components/ui/card';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/contexts/shared/presentation/components/ui/dropdown-menu";
+} from '@/contexts/shared/presentation/components/ui/dropdown-menu';
 import {
   ScheduleStatusBadge,
   ScheduleTypeIcon,
   PriorityIndicator,
   FrequencyIndicator,
-} from "@/contexts/shared/presentation/components/atoms";
+} from '@/contexts/shared/presentation/components/atoms';
 import type {
   ScheduleStatus,
   ScheduleType,
   Priority,
   Frequency,
-} from "@/contexts/shared/presentation/components/atoms";
+} from '@/contexts/shared/presentation/components/atoms';
 import {
   MoreVertical,
   Play,
@@ -36,7 +36,7 @@ import {
   Activity,
   Calendar,
   Target,
-} from "lucide-react";
+} from 'lucide-react';
 
 export interface Schedule {
   id: string;
@@ -54,6 +54,10 @@ export interface Schedule {
   executionCount: number;
   successRate: number;
   isEnabled: boolean;
+  conditions: {
+    weatherDependent: boolean;
+    skipIfRaining: boolean;
+  };
 }
 
 export interface ScheduleCardProps {
@@ -81,24 +85,24 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
   onToggleStatus,
   onRunNow,
   onViewHistory,
-  className = "",
+  className = '',
 }) => {
   const formatTime = (timeString: string) => {
     return new Date(`2000-01-01T${timeString}`).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
   const formatNextExecution = (dateString?: string) => {
-    if (!dateString) return "Not scheduled";
+    if (!dateString) return 'Not scheduled';
     const date = new Date(dateString);
     const now = new Date();
     const diffHours = Math.floor(
-      (date.getTime() - now.getTime()) / (1000 * 60 * 60)
+      (date.getTime() - now.getTime()) / (1000 * 60 * 60),
     );
 
-    if (diffHours < 1) return "In less than 1 hour";
+    if (diffHours < 1) return 'In less than 1 hour';
     if (diffHours < 24) return `In ${diffHours} hours`;
     return `In ${Math.floor(diffHours / 24)} days`;
   };
@@ -146,7 +150,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              {schedule.status === "active" && onRunNow && (
+              {schedule.status === 'active' && onRunNow && (
                 <DropdownMenuItem onClick={() => onRunNow(schedule)}>
                   <Play className="h-4 w-4 mr-2" />
                   Run Now
@@ -154,7 +158,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
               )}
               {onToggleStatus && (
                 <DropdownMenuItem onClick={() => onToggleStatus(schedule)}>
-                  {schedule.status === "active" ? (
+                  {schedule.status === 'active' ? (
                     <>
                       <Pause className="h-4 w-4 mr-2" />
                       Pause
@@ -234,7 +238,7 @@ export const ScheduleCard: React.FC<ScheduleCardProps> = ({
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <MapPin className="h-3 w-3" />
               <span>
-                Targets: {schedule.targetSystems.slice(0, 2).join(", ")}
+                Targets: {schedule.targetSystems.slice(0, 2).join(', ')}
               </span>
               {schedule.targetSystems.length > 2 && (
                 <span>+{schedule.targetSystems.length - 2} more</span>
