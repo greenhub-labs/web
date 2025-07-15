@@ -6,8 +6,6 @@ export const ME_QUERY = gql`
       id
       firstName
       lastName
-      email
-      phone
       avatar
       bio
       isActive
@@ -15,6 +13,13 @@ export const ME_QUERY = gql`
       createdAt
       updatedAt
       deletedAt
+      farms {
+        farmId
+        farmName
+        role
+      }
+      email
+      phone
     }
   }
 `;

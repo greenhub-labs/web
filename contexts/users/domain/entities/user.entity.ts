@@ -1,3 +1,9 @@
+export type FarmMembership = {
+  farmId: string;
+  farmName: string;
+  role: string;
+};
+
 /**
  * UserEntity
  * Entity representation of the User entity for domain logic
@@ -15,4 +21,5 @@ export type User = {
   createdAt?: string | null | undefined;
   updatedAt?: string | null | undefined;
   deletedAt?: string | null | undefined;
+  farms?: FarmMembership[] | null | undefined;
 };

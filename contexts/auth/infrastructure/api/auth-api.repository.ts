@@ -57,6 +57,7 @@ export class AuthApiRepository implements AuthRepository {
     const response = await fetchWithAutoRefresh(url, {
       method: 'GET',
     });
+    console.log(response);
     const data: Auth = await response.json();
     return data;
   }

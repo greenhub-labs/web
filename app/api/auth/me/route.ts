@@ -46,16 +46,7 @@ export async function GET(req: NextRequest) {
       variables: {},
     });
 
-    // Validate with Zod
-    const parseResult = meResponseSchema.safeParse(response.data.me);
-    if (!parseResult.success) {
-      return NextResponse.json(
-        { error: parseResult.error.issues },
-        { status: 500 },
-      );
-    }
-    // Return the validated user object as is
-    const nextRes = NextResponse.json(parseResult.data);
+    const nextRes = NextResponse.json(response.data.me);
     // Si hay setCookieHeader, propágala en la respuesta
     if (setCookieHeader) {
       nextRes.headers.set('set-cookie', setCookieHeader);
