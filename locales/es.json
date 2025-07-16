@@ -1428,6 +1428,12 @@
           "Los paneles solares generan energía óptima"
         ]
       }
+    },
+    "teamSwitcher": {
+      "noFarms": "No se encontraron fincas",
+      "addFirstFarm": "Añade tu primera finca",
+      "addFarm": "Añadir finca",
+      "farms": "Fincas"
     }
   },
   "navigation": {

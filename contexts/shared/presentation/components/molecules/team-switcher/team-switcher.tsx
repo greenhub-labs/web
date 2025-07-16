@@ -19,12 +19,14 @@ import {
 import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { FarmMembership } from '@/contexts/users/domain/entities/user.entity';
 import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
+import { useTranslations } from 'next-intl';
 
 export interface TeamSwitcherProps {
   farms: FarmMembership[];
 }
 
 export function TeamSwitcher({ farms }: TeamSwitcherProps) {
+  const t = useTranslations('teamSwitcher');
   // Estado local para el farmId seleccionado
 
   const { currentFarm, setCurrentFarm } = useFarmStore();
@@ -57,8 +59,8 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
                   <span className="text-2xl">🌾</span>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">No farms found</span>
-                  <span className="truncate text-xs">Add your first farm</span>
+                  <span className="truncate font-medium">{t('noFarms')}</span>
+                  <span className="truncate text-xs">{t('addFirstFarm')}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
@@ -79,7 +81,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
                   <Plus className="size-4" />
                 </div>
                 <div className="text-muted-foreground font-medium">
-                  Add farm
+                  {t('addFarm')}
                 </div>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -121,7 +123,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Teams
+              {t('farms')}
             </DropdownMenuLabel>
             {farms.map((membership, index) => (
               <DropdownMenuItem
