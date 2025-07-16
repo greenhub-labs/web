@@ -25,4 +25,14 @@ export class FarmsApiRepository implements FarmsRepository {
     const data: Farm = await response.json();
     return data;
   }
+
+  async updateFarm(farm: Farm): Promise<Farm> {
+    const url = `/api/farms/update-farm`;
+    const response = await fetchWithAutoRefresh(url, {
+      method: 'POST',
+      body: JSON.stringify({ farm }),
+    });
+    const data: Farm = await response.json();
+    return data;
+  }
 }
