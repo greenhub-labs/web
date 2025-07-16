@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../contexts/**/*.mdx',
     '../contexts/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../contexts/**/presentation/components/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@chromatic-com/storybook',
