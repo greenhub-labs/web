@@ -507,7 +507,12 @@
         "latitudePlaceholder": "e.g. 37.7749",
         "latitudeHelper": "Latitude in decimal degrees (e.g. 37.7749).",
         "longitudePlaceholder": "e.g. -122.4194",
-        "longitudeHelper": "Longitude in decimal degrees (e.g. -122.4194)."
+        "longitudeHelper": "Longitude in decimal degrees (e.g. -122.4194).",
+        "create": {
+          "title": "Create Farm",
+          "description": "Fill in the details to create a new farm.",
+          "action": "Create Farm"
+        }
       },
       "system": {
         "title": "System Configuration",

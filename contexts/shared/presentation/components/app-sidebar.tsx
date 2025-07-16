@@ -31,8 +31,6 @@ import {
 } from '@/contexts/shared/domain/navigation/routes';
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
 import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher/TeamSwitcherSection';
-import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
-import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
 import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
 
 /**
