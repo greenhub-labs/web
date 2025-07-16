@@ -39,7 +39,8 @@ export function createApolloClient(cookie?: string) {
               typeof err.extensions.originalError === 'object' &&
               'statusCode' in err.extensions.originalError &&
               err.extensions.originalError.statusCode === 401) ||
-            err.message === 'Invalid or expired access token'
+            err.message === 'Invalid or expired access token' ||
+            err.message === 'Access token is required'
           ) {
             shouldRefresh = true;
           }
