@@ -32,6 +32,7 @@ import {
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
 import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher/TeamSwitcherSection';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
+import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
 
 /**
  * AppSidebar component using DDD navigation configuration
@@ -56,16 +57,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     isSearching,
   } = useSidebarSearch(navigationConfig);
 
-  const userFarms = user?.farms?.map((farm) => ({
-    name: farm.farmName,
-    logo: '🌾',
-    role: farm.role,
-  }));
-
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <TeamSwitcherSection teams={userFarms || []} loading={isUserLoading} />
+        <TeamSwitcherSection
+          farms={user?.farms || []}
+          loading={isUserLoading}
+        />
         <SearchForm
           value={searchQuery}
           onValueChange={setSearchQuery}

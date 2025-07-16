@@ -16,20 +16,34 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/contexts/shared/presentation/components/ui/sidebar';
-import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
-export function TeamSwitcher({
-  teams,
-}: {
-  teams: {
-    name: string;
-    logo: React.ElementType | string;
-    role: string;
-  }[];
-}) {
-  const { isMobile } = useSidebar();
-  const [currentFarm, setCurrentFarm] = React.useState(teams?.[0]);
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
+import { FarmMembership } from '@/contexts/users/domain/entities/user.entity';
+import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
 
-  if (!teams || teams.length === 0) {
+export interface TeamSwitcherProps {
+  farms: FarmMembership[];
+}
+
+export function TeamSwitcher({ farms }: TeamSwitcherProps) {
+  // Estado local para el farmId seleccionado
+
+  const { currentFarm, setCurrentFarm } = useFarmStore();
+  const [selectedFarmId, setSelectedFarmId] = React.useState(
+    currentFarm?.id || farms?.[0]?.farmId || '',
+  );
+  const { isMobile } = useSidebar();
+
+  // Hook para hacer fetch de la farm seleccionada
+  const { getFarmByIdQuery } = useFarm(selectedFarmId);
+
+  // Cuando el fetch termina, guarda la farm en el store
+  React.useEffect(() => {
+    if (getFarmByIdQuery.data) {
+      setCurrentFarm(getFarmByIdQuery.data);
+    }
+  }, [getFarmByIdQuery.data, setCurrentFarm]);
+
+  if (!farms || farms.length === 0) {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
@@ -93,7 +107,9 @@ export function TeamSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{currentFarm.name}</span>
-                <span className="truncate text-xs">{currentFarm.role}</span>
+                <span className="truncate text-xs">
+                  {currentFarm.description}
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
@@ -107,16 +123,16 @@ export function TeamSwitcher({
             <DropdownMenuLabel className="text-muted-foreground text-xs">
               Teams
             </DropdownMenuLabel>
-            {teams?.map((farm, index) => (
+            {farms.map((membership, index) => (
               <DropdownMenuItem
-                key={farm.name}
-                onClick={() => setCurrentFarm(farm)}
+                key={membership.farmId}
+                onClick={() => setSelectedFarmId(membership.farmId)}
                 className="gap-2 p-2"
               >
                 <div className="flex size-6 items-center justify-center rounded-md border">
                   <span className="text-2xl">🌾</span>
                 </div>
-                {farm.name}
+                {membership.farmName}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}

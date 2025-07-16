@@ -10,22 +10,21 @@ import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
 import { farmSchema } from '@/contexts/farms/domain/validators/farm.schema';
 import FarmPageComponent from '@/contexts/farms/presentation/components/pages/farm-page/farm-page';
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 
 const FarmSettingsPage: React.FC = () => {
   const t = useTranslations();
   const { user } = useAuth();
-  const { getFarmByIdQuery } = useFarm(user?.farms?.[0]?.farmId || '');
-  const farm = getFarmByIdQuery.data;
-
+  const { currentFarm } = useFarmStore();
   // Estado local para el formulario
-  const [formData, setFormData] = useState<any>(farm);
+  const [formData, setFormData] = useState<any>(currentFarm);
   const [isEditing, setIsEditing] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Sincroniza el formulario con los datos de la farm
   useEffect(() => {
-    if (farm) setFormData(farm);
-  }, [farm]);
+    if (currentFarm) setFormData(currentFarm);
+  }, [currentFarm]);
 
   // Maneja cambios en los campos
   const handleInputChange = useCallback((field: string, value: string) => {
@@ -36,7 +35,7 @@ const FarmSettingsPage: React.FC = () => {
   const handleSave = useCallback(() => {
     const parseResult = farmSchema.safeParse({
       ...formData,
-      id: farm?.id || '',
+      id: currentFarm?.id || '',
       latitude: formData?.latitude ? Number(formData.latitude) : null,
       longitude: formData?.longitude ? Number(formData.longitude) : null,
     });
@@ -52,20 +51,20 @@ const FarmSettingsPage: React.FC = () => {
     setErrors({});
     // TODO: Implementar lógica de guardado (update farm)
     setIsEditing(false);
-  }, [formData, farm, t]);
+  }, [formData, currentFarm, t]);
 
   const handleEdit = useCallback(() => setIsEditing(true), []);
   const handleCancel = useCallback(() => {
     setIsEditing(false);
-    setFormData(farm);
+    setFormData(currentFarm);
     setErrors({});
-  }, [farm]);
+  }, [currentFarm]);
 
-  const isLoading = getFarmByIdQuery.isLoading || !farm;
+  const isLoading = !currentFarm;
 
   return (
     <FarmPageComponent
-      farm={farm || null}
+      farm={currentFarm || null}
       isEditing={isEditing}
       handleEdit={handleEdit}
       handleCancel={handleCancel}

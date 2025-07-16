@@ -20,18 +20,19 @@
 import React from 'react';
 import { TeamSwitcher } from '../../molecules/team-switcher/team-switcher';
 import { TeamSwitcherSkeleton } from '../../molecules/team-switcher-skeleton/team-switcher-skeleton';
+import { FarmMembership } from '@/contexts/users/domain/entities/user.entity';
 
 interface TeamSwitcherSectionProps {
-  teams: { name: string; logo: React.ElementType | string; role: string }[];
+  farms: FarmMembership[];
   loading: boolean;
 }
 
 export const TeamSwitcherSection: React.FC<TeamSwitcherSectionProps> = ({
-  teams,
+  farms,
   loading,
 }) => {
   if (loading) {
     return <TeamSwitcherSkeleton />;
   }
-  return <TeamSwitcher teams={teams} />;
+  return <TeamSwitcher farms={farms} />;
 };
