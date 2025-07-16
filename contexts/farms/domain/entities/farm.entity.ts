@@ -4,7 +4,7 @@
  *
  * @author GreenHub Labs
  */
-export type Farm = Partial<{
+export type Farm = {
   id: string | null | undefined;
   name: string | null | undefined;
   description: string | null | undefined;
@@ -19,4 +19,4 @@ export type Farm = Partial<{
   createdAt: string | null | undefined;
   updatedAt: string | null | undefined;
   deletedAt: string | null | undefined;
-}>;
+};

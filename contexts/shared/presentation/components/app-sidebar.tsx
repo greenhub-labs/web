@@ -30,6 +30,8 @@ import {
   getActiveNavigationSection,
 } from '@/contexts/shared/domain/navigation/routes';
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
+import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher/TeamSwitcherSection';
+import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 
 /**
  * AppSidebar component using DDD navigation configuration
@@ -42,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigationConfig = getNavigationConfig();
   const activeItemId = getActiveNavigationItem(pathname);
   const activeSectionId = getActiveNavigationSection(pathname);
-
+  const { user, isUserLoading } = useAuth();
   // Use the search hook for filtering navigation
   const {
     searchQuery,
@@ -54,24 +56,16 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     isSearching,
   } = useSidebarSearch(navigationConfig);
 
+  const userFarms = user?.farms?.map((farm) => ({
+    name: farm.farmName,
+    logo: '🌾',
+    role: farm.role,
+  }));
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
-              <a href="/">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <span className="text-2xl">🌾</span>
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">{t('common.appName')}</span>
-                  <span className="">v1.0.0</span>
-                </div>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcherSection teams={userFarms || []} loading={isUserLoading} />
         <SearchForm
           value={searchQuery}
           onValueChange={setSearchQuery}
