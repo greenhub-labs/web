@@ -1,19 +1,19 @@
-import React from "react";
-import { Label } from "@/contexts/shared/presentation/components/ui/label";
-import { Input } from "@/contexts/shared/presentation/components/ui/input";
-import { Textarea } from "@/contexts/shared/presentation/components/ui/textarea";
+import React from 'react';
+import { Label } from '@/contexts/shared/presentation/components/ui/label';
+import { Input } from '@/contexts/shared/presentation/components/ui/input';
+import { Textarea } from '@/contexts/shared/presentation/components/ui/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/contexts/shared/presentation/components/ui/select";
+} from '@/contexts/shared/presentation/components/ui/select';
 
 interface FormFieldProps {
   label: string;
   name: string;
-  type?: "text" | "email" | "number" | "textarea" | "select";
+  type?: 'text' | 'email' | 'number' | 'textarea' | 'select';
   placeholder?: string;
   value: string;
   onChange: (value: string) => void;
@@ -21,12 +21,14 @@ interface FormFieldProps {
   required?: boolean;
   options?: { value: string; label: string }[];
   rows?: number;
+  disabled?: boolean;
+  helperText?: string;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
   label,
   name,
-  type = "text",
+  type = 'text',
   placeholder,
   value,
   onChange,
@@ -34,10 +36,12 @@ export const FormField: React.FC<FormFieldProps> = ({
   required = false,
   options = [],
   rows = 3,
+  disabled = false,
+  helperText,
 }) => {
   const renderInput = () => {
     switch (type) {
-      case "textarea":
+      case 'textarea':
         return (
           <Textarea
             id={name}
@@ -48,14 +52,18 @@ export const FormField: React.FC<FormFieldProps> = ({
               onChange(e.target.value)
             }
             rows={rows}
-            className={error ? "border-destructive" : ""}
+            className={error ? 'border-destructive' : ''}
+            disabled={disabled}
           />
         );
 
-      case "select":
+      case 'select':
         return (
-          <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className={error ? "border-destructive" : ""}>
+          <Select value={value} onValueChange={onChange} disabled={disabled}>
+            <SelectTrigger
+              className={error ? 'border-destructive' : ''}
+              disabled={disabled}
+            >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -79,7 +87,8 @@ export const FormField: React.FC<FormFieldProps> = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               onChange(e.target.value)
             }
-            className={error ? "border-destructive" : ""}
+            className={error ? 'border-destructive' : ''}
+            disabled={disabled}
           />
         );
     }
@@ -93,6 +102,9 @@ export const FormField: React.FC<FormFieldProps> = ({
       </Label>
       {renderInput()}
       {error && <p className="text-sm text-destructive">{error}</p>}
+      {!error && helperText && (
+        <p className="text-sm text-muted-foreground">{helperText}</p>
+      )}
     </div>
   );
 };

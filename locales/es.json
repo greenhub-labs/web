@@ -1360,6 +1360,23 @@
         }
       }
     },
+    "settings": {
+      "farm": {
+        "title": "Configuración de la Finca",
+        "general": "Información General",
+        "generalSubtitle": "Edita los detalles de tu finca",
+        "generalInfo": "Información General",
+        "location": "📍 Ubicación",
+        "coordinates": "🗺️ Coordenadas",
+        "name": "Nombre",
+        "description": "Descripción",
+        "namePlaceholder": "ej. Finca Los Olivos",
+        "nameHelper": "Introduce un nombre único para tu finca.",
+        "descriptionPlaceholder": "Describe tu finca, su ubicación o alguna característica especial.",
+        "descriptionHelper": "Opcional: Añade una descripción para identificar mejor tu finca.",
+        "locationMap": "Ubicación de la finca en el mapa"
+      }
+    },
     "notFound": {
       "title": "¡Ups! Sendero del Huerto No Encontrado",
       "subtitle": "404 - Parece que este cultivo no arraigó",
@@ -1451,11 +1468,30 @@
     },
     "settings": {
       "title": "⚙️ Configuración",
+      "farm": "🏠 Finca",
       "profile": "👤 Perfil",
       "users": "👥 Gestión de Usuarios",
       "notifications": "📢 Notificaciones",
       "integrations": "🔗 Integraciones",
       "system": "💻 Config. del Sistema"
     }
+  },
+  "farm": {
+    "name": "Nombre",
+    "description": "Descripción",
+    "country": "País",
+    "state": "Provincia/Estado",
+    "city": "Ciudad",
+    "postalCode": "Código Postal",
+    "street": "Calle",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "namePlaceholder": "ej. Finca Los Olivos",
+    "nameHelper": "Introduce un nombre único para tu finca.",
+    "descriptionPlaceholder": "Describe tu finca, su ubicación o alguna característica especial.",
+    "descriptionHelper": "Opcional: Añade una descripción para identificar mejor tu finca."
+  },
+  "validation": {
+    "required": "Este campo es obligatorio"
   }
 }

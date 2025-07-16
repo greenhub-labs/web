@@ -895,6 +895,21 @@
           "noSearchResults": "No users match your search",
           "noSearchResultsDescription": "Try adjusting your search criteria"
         }
+      },
+      "farm": {
+        "title": "Farm Settings",
+        "general": "General Information",
+        "generalSubtitle": "Edit your farm details",
+        "generalInfo": "General Information",
+        "location": "📍 Location",
+        "coordinates": "🗺️ Coordinates",
+        "name": "Name",
+        "description": "Description",
+        "namePlaceholder": "e.g. Green Valley Farm",
+        "nameHelper": "Enter a unique name for your farm.",
+        "descriptionPlaceholder": "Describe your farm, its location, or any special features.",
+        "descriptionHelper": "Optional: Add a description to help identify your farm.",
+        "locationMap": "Farm location on map"
       }
     },
     "monitoring": {
@@ -1451,11 +1466,30 @@
     },
     "settings": {
       "title": "⚙️ Settings",
+      "farm": "🏠 Farm",
       "profile": "👤 Profile",
       "users": "👥 User Management",
       "notifications": "📢 Notifications",
       "integrations": "🔗 Integrations",
       "system": "💻 System Config"
     }
+  },
+  "farm": {
+    "name": "Name",
+    "description": "Description",
+    "country": "Country",
+    "state": "State",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "street": "Street",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "namePlaceholder": "e.g. Green Valley Farm",
+    "nameHelper": "Enter a unique name for your farm.",
+    "descriptionPlaceholder": "Describe your farm, its location, or any special features.",
+    "descriptionHelper": "Optional: Add a description to help identify your farm."
+  },
+  "validation": {
+    "required": "This field is required"
   }
 }
