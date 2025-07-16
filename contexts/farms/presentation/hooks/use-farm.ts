@@ -1,10 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FarmsApiRepository } from '../../infrastructure/api/farm-api.repository';
-import { Farm } from '../../domain/entities/farm.entity';
 
 const farmsApiRepository = new FarmsApiRepository();
 
-export function useFarm() {
+export function useFarm(farmId: string) {
   const queryClient = useQueryClient();
 
   const getFarmsMutation = useMutation({
@@ -14,5 +13,12 @@ export function useFarm() {
       return data;
     },
   });
-  return { getFarmsMutation };
+
+  const getFarmByIdQuery = useQuery({
+    queryKey: ['farm', farmId],
+    queryFn: () => farmsApiRepository.getFarmById(farmId),
+    enabled: !!farmId,
+  });
+
+  return { getFarmsMutation, getFarmByIdQuery };
 }

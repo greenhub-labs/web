@@ -19,4 +19,21 @@ export type Farm = {
   createdAt: string | null | undefined;
   updatedAt: string | null | undefined;
   deletedAt: string | null | undefined;
+  members: FarmMember[];
+};
+
+export type FarmMember = {
+  id: string;
+  firstName: string;
+  createdAt: string;
+  lastName: string;
+  avatar: string;
+  bio: string;
+  phone: string;
+  email: string;
+  isActive: boolean;
+  isDeleted: boolean;
+  updatedAt: string;
+  deletedAt: string;
+  role: string;
 };

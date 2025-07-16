@@ -14,4 +14,15 @@ export class FarmsApiRepository implements FarmsRepository {
     const data: Farm[] = await response.json();
     return data;
   }
+
+  async getFarmById(farmId: string): Promise<Farm> {
+    const url = `/api/farms/get-farm-by-id`;
+    const response = await fetchWithAutoRefresh(url, {
+      method: 'POST',
+      body: JSON.stringify({ id: farmId }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data: Farm = await response.json();
+    return data;
+  }
 }

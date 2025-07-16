@@ -7,16 +7,16 @@ import {
   rebuildCookieWithAccessToken,
   tryRefreshAccessToken,
 } from '@/contexts/shared/infrastructure/lib/cookie-auth';
+import { GET_FARM_BY_ID_QUERY } from '@/contexts/farms/infrastructure/graphql/queries/farms-queries.graphql';
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
+    const { id } = await req.json();
+    console.log('id', id);
     const cookies = req.headers.get('cookie') || undefined;
     let accessToken = extractTokenFromCookie(cookies, 'accessToken');
     const refreshToken = extractTokenFromCookie(cookies, 'refreshToken');
     let setCookieHeader: string | null = null;
-
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
 
     if (!accessToken && refreshToken) {
       const {
@@ -42,14 +42,18 @@ export async function GET(req: NextRequest) {
 
     const client = createApolloClient(cookieHeader);
 
+    const variables = {
+      input: { id },
+    };
+
     // 1. Extract the accessToken from the cookie
     const response = await client.query({
-      query: ME_QUERY,
+      query: GET_FARM_BY_ID_QUERY,
       fetchPolicy: 'network-only',
-      variables: {},
+      variables,
     });
 
-    const nextRes = NextResponse.json(response.data.me);
+    const nextRes = NextResponse.json(response.data.getFarmById);
     // Si hay setCookieHeader, propágala en la respuesta
     if (setCookieHeader) {
       nextRes.headers.set('set-cookie', setCookieHeader);
