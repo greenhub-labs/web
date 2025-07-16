@@ -39,10 +39,10 @@ const FarmInfoSection = ({
           error={errors.name}
           required
           disabled={!isEditing}
-          placeholder={t('farm.namePlaceholder', {
+          placeholder={t('pages.settings.farm.namePlaceholder', {
             default: 'e.g. Green Valley Farm',
           })}
-          helperText={t('farm.nameHelper', {
+          helperText={t('pages.settings.farm.nameHelper', {
             default: 'Enter a unique name for your farm.',
           })}
         />
@@ -56,11 +56,11 @@ const FarmInfoSection = ({
           error={errors.description}
           type="textarea"
           disabled={!isEditing}
-          placeholder={t('farm.descriptionPlaceholder', {
+          placeholder={t('pages.settings.farm.descriptionPlaceholder', {
             default:
               'Describe your farm, its location, or any special features.',
           })}
-          helperText={t('farm.descriptionHelper', {
+          helperText={t('pages.settings.farm.descriptionHelper', {
             default: 'Optional: Add a description to help identify your farm.',
           })}
         />
@@ -72,44 +72,71 @@ const FarmInfoSection = ({
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <FormField
-          label={t('farm.country')}
+          label={t('pages.settings.farm.country')}
           name="country"
           value={formData?.country || ''}
           onChange={(v) => handleInputChange('country', v)}
           error={errors.country}
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.countryPlaceholder', {
+            default: 'e.g. Spain',
+          })}
+          helperText={t('pages.settings.farm.countryHelper', {
+            default: 'Country where your farm is located.',
+          })}
         />
         <FormField
-          label={t('farm.state')}
+          label={t('pages.settings.farm.state')}
           name="state"
           value={formData?.state || ''}
           onChange={(v) => handleInputChange('state', v)}
           error={errors.state}
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.statePlaceholder', {
+            default: 'e.g. Andalusia',
+          })}
+          helperText={t('pages.settings.farm.stateHelper', {
+            default: 'State, province or region.',
+          })}
         />
         <FormField
-          label={t('farm.city')}
+          label={t('pages.settings.farm.city')}
           name="city"
           value={formData?.city || ''}
           onChange={(v) => handleInputChange('city', v)}
           error={errors.city}
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.cityPlaceholder', {
+            default: 'City or town of your farm.',
+          })}
         />
         <FormField
-          label={t('farm.street')}
+          label={t('pages.settings.farm.street')}
           name="street"
           value={formData?.street || ''}
           onChange={(v) => handleInputChange('street', v)}
           error={errors.street}
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.streetPlaceholder', {
+            default: 'e.g. 123 Olive Road',
+          })}
+          helperText={t('pages.settings.farm.streetHelper', {
+            default: 'Street address or local description.',
+          })}
         />
         <FormField
-          label={t('farm.postalCode')}
+          label={t('pages.settings.farm.postalCode')}
           name="postalCode"
           value={formData?.postalCode || ''}
           onChange={(v) => handleInputChange('postalCode', v)}
           error={errors.postalCode}
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.postalCodePlaceholder', {
+            default: 'e.g. 41001',
+          })}
+          helperText={t('pages.settings.farm.postalCodeHelper', {
+            default: 'Postal or ZIP code.',
+          })}
         />
       </div>
       <Separator className="my-4" />
@@ -119,22 +146,34 @@ const FarmInfoSection = ({
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
-          label={t('farm.latitude')}
+          label={t('pages.settings.farm.latitude')}
           name="latitude"
           value={formData?.latitude?.toString() || ''}
           onChange={(v) => handleInputChange('latitude', v)}
           error={errors.latitude}
           type="number"
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.latitudePlaceholder', {
+            default: 'e.g. 37.7749',
+          })}
+          helperText={t('pages.settings.farm.latitudeHelper', {
+            default: 'Latitude in decimal degrees (e.g. 37.7749).',
+          })}
         />
         <FormField
-          label={t('farm.longitude')}
+          label={t('pages.settings.farm.longitude')}
           name="longitude"
           value={formData?.longitude?.toString() || ''}
           onChange={(v) => handleInputChange('longitude', v)}
           error={errors.longitude}
           type="number"
           disabled={!isEditing}
+          placeholder={t('pages.settings.farm.longitudePlaceholder', {
+            default: 'e.g. -122.4194',
+          })}
+          helperText={t('pages.settings.farm.longitudeHelper', {
+            default: 'Longitude in decimal degrees (e.g. -122.4194).',
+          })}
         />
       </div>
 

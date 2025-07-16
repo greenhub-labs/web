@@ -473,6 +473,42 @@
       }
     },
     "settings": {
+      "farm": {
+        "title": "Farm Settings",
+        "general": "General Information",
+        "generalSubtitle": "Edit your farm details",
+        "generalInfo": "General Information",
+        "location": "📍 Location",
+        "coordinates": "🗺️ Coordinates",
+        "name": "Name",
+        "description": "Description",
+        "namePlaceholder": "e.g. Green Valley Farm",
+        "nameHelper": "Enter a unique name for your farm.",
+        "descriptionPlaceholder": "Describe your farm, its location, or any special features.",
+        "descriptionHelper": "Optional: Add a description to help identify your farm.",
+        "locationMap": "Farm location on map",
+        "country": "Country",
+        "state": "State/Province",
+        "city": "City",
+        "postalCode": "Postal Code",
+        "street": "Street",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "countryPlaceholder": "e.g. Spain",
+        "countryHelper": "Country where your farm is located.",
+        "statePlaceholder": "e.g. Andalusia",
+        "stateHelper": "State, province or region.",
+        "cityPlaceholder": "e.g. Sevilla",
+        "cityHelper": "City or locality of the farm.",
+        "streetPlaceholder": "e.g. Calle Olivo 123",
+        "streetHelper": "Street address or local description.",
+        "postalCodePlaceholder": "e.g. 41001",
+        "postalCodeHelper": "Postal or ZIP code.",
+        "latitudePlaceholder": "e.g. 37.7749",
+        "latitudeHelper": "Latitude in decimal degrees (e.g. 37.7749).",
+        "longitudePlaceholder": "e.g. -122.4194",
+        "longitudeHelper": "Longitude in decimal degrees (e.g. -122.4194)."
+      },
       "system": {
         "title": "System Configuration",
         "subtitle": "Configure your GreenHub system settings and preferences",
@@ -895,21 +931,6 @@
           "noSearchResults": "No users match your search",
           "noSearchResultsDescription": "Try adjusting your search criteria"
         }
-      },
-      "farm": {
-        "title": "Farm Settings",
-        "general": "General Information",
-        "generalSubtitle": "Edit your farm details",
-        "generalInfo": "General Information",
-        "location": "📍 Location",
-        "coordinates": "🗺️ Coordinates",
-        "name": "Name",
-        "description": "Description",
-        "namePlaceholder": "e.g. Green Valley Farm",
-        "nameHelper": "Enter a unique name for your farm.",
-        "descriptionPlaceholder": "Describe your farm, its location, or any special features.",
-        "descriptionHelper": "Optional: Add a description to help identify your farm.",
-        "locationMap": "Farm location on map"
       }
     },
     "monitoring": {
@@ -1474,21 +1495,7 @@
       "system": "💻 System Config"
     }
   },
-  "farm": {
-    "name": "Name",
-    "description": "Description",
-    "country": "Country",
-    "state": "State",
-    "city": "City",
-    "postalCode": "Postal Code",
-    "street": "Street",
-    "latitude": "Latitude",
-    "longitude": "Longitude",
-    "namePlaceholder": "e.g. Green Valley Farm",
-    "nameHelper": "Enter a unique name for your farm.",
-    "descriptionPlaceholder": "Describe your farm, its location, or any special features.",
-    "descriptionHelper": "Optional: Add a description to help identify your farm."
-  },
+
   "validation": {
     "required": "This field is required"
   }
