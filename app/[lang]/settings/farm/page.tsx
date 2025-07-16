@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
-import { FormField } from '@/contexts/shared/presentation/components/molecules/FormField';
+import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';

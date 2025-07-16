@@ -1,6 +1,6 @@
 import { Farm } from '@/contexts/farms/domain/entities/farm.entity';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules';
-import { FormField } from '@/contexts/shared/presentation/components/molecules/FormField';
+import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 import { Separator } from '@/contexts/shared/presentation/components/ui/separator';
 import { useTranslations } from 'next-intl';
 import React from 'react';

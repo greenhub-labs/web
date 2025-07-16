@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
-import { FormField } from '@/contexts/shared/presentation/components/molecules/FormField';
+import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 import FarmInfoSection from '../../molecules/farm-info-section/farm-info-section';
 
 interface FarmPageComponentProps {
