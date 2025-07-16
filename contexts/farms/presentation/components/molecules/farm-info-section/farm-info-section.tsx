@@ -37,7 +37,6 @@ const FarmInfoSection = ({
           value={formData?.name || ''}
           onChange={(v) => handleInputChange('name', v)}
           error={errors.name}
-          required
           disabled={!isEditing}
           placeholder={t('pages.settings.farm.namePlaceholder', {
             default: 'e.g. Green Valley Farm',
