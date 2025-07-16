@@ -25,6 +25,7 @@ export function useFarm(farmId: string) {
     mutationFn: (farm: Farm) => farmsApiRepository.updateFarm(farm),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['farm', data.id] });
+      queryClient.invalidateQueries({ queryKey: ['me'] });
       return data;
     },
   });
