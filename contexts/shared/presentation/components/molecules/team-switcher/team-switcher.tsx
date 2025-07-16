@@ -146,7 +146,11 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
                     {currentFarm.name}
                   </span>
                   <span className="truncate text-xs">
-                    {currentFarm.description}
+                    {
+                      currentFarm.members.find(
+                        (member) => member.id === currentUser?.id,
+                      )?.role
+                    }
                   </span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />
