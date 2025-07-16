@@ -32,7 +32,7 @@ const FarmInfoSection = ({
     >
       <div className="mb-4">
         <FormField
-          label={`${t('farm.name')}`}
+          label={`${t('pages.settings.farm.name')}`}
           name="name"
           value={formData?.name || ''}
           onChange={(v) => handleInputChange('name', v)}
@@ -49,7 +49,7 @@ const FarmInfoSection = ({
       </div>
       <div className="mb-4">
         <FormField
-          label={`${t('farm.description')}`}
+          label={`${t('pages.settings.farm.description')}`}
           name="description"
           value={formData?.description || ''}
           onChange={(v) => handleInputChange('description', v)}
