@@ -26,6 +26,7 @@ import {
 } from '@/contexts/farms/presentation/components/organisms/create-farm-dialog/create-farm-dialog';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
+import { useRouter } from 'next/navigation';
 
 export interface TeamSwitcherProps {
   farms: FarmMembership[];
@@ -36,6 +37,8 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
 
   const { createFarmMutation } = useFarm();
   const { currentUser } = useAuthStore();
+
+  const router = useRouter();
 
   const { currentFarm, setCurrentFarm } = useFarmStore();
   const [selectedFarmId, setSelectedFarmId] = React.useState(
@@ -59,6 +62,9 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
     });
     setCurrentFarm(response);
     setIsCreateFarmOpen(false);
+
+    // Redirect to the new farm settings page
+    router.push('/settings/farm');
   };
 
   // Hook para hacer fetch de la farm seleccionada
