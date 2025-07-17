@@ -5,7 +5,7 @@ import { Separator } from '@/contexts/shared/presentation/components/ui/separato
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import LocationMap from '@/contexts/shared/presentation/components/molecules/location-map/location-map';
-import { SelectField } from '@/contexts/shared/presentation/components/atoms/select-field/select-field';
+import { SelectField } from '@/contexts/shared/presentation/components/molecules/select-field/select-field';
 import { useGeographicSelector } from '@/contexts/shared/presentation/hooks/use-geographic-selector';
 
 export interface FarmInfoSectionProps {

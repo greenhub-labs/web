@@ -3,7 +3,7 @@ import { SelectField } from './select-field';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof SelectField> = {
-  title: 'Atoms/SelectField',
+  title: 'Shared/Molecules/SelectField',
   component: SelectField,
   argTypes: {
     label: { control: 'text' },
