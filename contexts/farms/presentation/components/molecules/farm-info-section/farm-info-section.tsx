@@ -112,7 +112,7 @@ const FarmInfoSection = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <SelectField
           label={t('pages.settings.farm.country')}
-          value={selectedCountry?.id?.toString() || ''}
+          value={selectedCountry?.id?.toString() || undefined}
           onChange={(id) => {
             const country = countries.find((c) => c.id.toString() === id);
             setSelectedCountry(country || null);
@@ -133,7 +133,7 @@ const FarmInfoSection = ({
         />
         <SelectField
           label={t('pages.settings.farm.state')}
-          value={selectedState?.id?.toString() || ''}
+          value={selectedState?.id?.toString() || undefined}
           onChange={(id) => {
             const state = states.find((s) => s.id.toString() === id);
             setSelectedState(state || null);
@@ -154,7 +154,7 @@ const FarmInfoSection = ({
         />
         <SelectField
           label={t('pages.settings.farm.city')}
-          value={selectedCity?.id?.toString() || ''}
+          value={selectedCity?.id?.toString() || undefined}
           onChange={(id) => {
             const city = cities.find((c) => c.id.toString() === id);
             setSelectedCity(city || null);
