@@ -108,7 +108,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         {required && <span className="text-destructive ml-1">*</span>}
       </label>
       {renderInput()}
-      {error && <div className="mt-1 text-sm text-destructive">{error}</div>}
+      {error && <div className="mt-1 text-xs text-destructive">{error}</div>}
       {!error && helperText && (
         <div className="mt-1 text-xs text-muted-foreground">{helperText}</div>
       )}
