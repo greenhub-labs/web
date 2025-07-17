@@ -30,7 +30,7 @@ import {
   getActiveNavigationSection,
 } from '@/contexts/shared/domain/navigation/routes';
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
-import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher/TeamSwitcherSection';
+import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher-section/team-switcher-section';
 import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
 
 /**
