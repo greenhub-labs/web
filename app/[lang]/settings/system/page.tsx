@@ -1,51 +1,51 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
+import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 
 // UI Components
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { Input } from "@/contexts/shared/presentation/components/ui/input";
-import { Label } from "@/contexts/shared/presentation/components/ui/label";
-import { Switch } from "@/contexts/shared/presentation/components/ui/switch";
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
+import { Input } from '@/contexts/shared/presentation/components/ui/input';
+import { Label } from '@/contexts/shared/presentation/components/ui/label';
+import { Switch } from '@/contexts/shared/presentation/components/ui/switch';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/contexts/shared/presentation/components/ui/select";
+} from '@/contexts/shared/presentation/components/ui/select';
 
 // Reusable components
-import { SettingRow } from "@/contexts/shared/presentation/components/atoms";
-import { SettingsSection } from "@/contexts/shared/presentation/components/molecules";
+import { SettingRow } from '@/contexts/shared/presentation/components/atoms';
+import { SettingsSection } from '@/contexts/shared/presentation/components/molecules';
 
 const SystemSettingsPage = () => {
   const t = useTranslations();
 
   // Location Settings State
   const [locationSettings, setLocationSettings] = useState({
-    country: "Spain",
-    city: "Madrid",
-    timezone: "Europe/Madrid",
-    latitude: "40.4168",
-    longitude: "-3.7038",
+    country: 'Spain',
+    city: 'Madrid',
+    timezone: 'Europe/Madrid',
+    latitude: '40.4168',
+    longitude: '-3.7038',
   });
 
   // Language & Region Settings State
   const [languageSettings, setLanguageSettings] = useState({
-    language: "es",
-    dateFormat: "DD/MM/YYYY",
-    timeFormat: "24h",
-    temperatureUnit: "celsius",
-    measurementUnit: "metric",
-    currency: "EUR",
+    language: 'es',
+    dateFormat: 'DD/MM/YYYY',
+    timeFormat: '24h',
+    temperatureUnit: 'celsius',
+    measurementUnit: 'metric',
+    currency: 'EUR',
   });
 
   // System Settings State
   const [systemSettings, setSystemSettings] = useState({
-    theme: "auto",
+    theme: 'auto',
     darkMode: false,
     compactMode: false,
     animations: true,
@@ -57,8 +57,8 @@ const SystemSettingsPage = () => {
   // Backup Settings State
   const [backupSettings, setBackupSettings] = useState({
     autoBackup: true,
-    backupFrequency: "weekly",
-    lastBackup: "2024-01-15",
+    backupFrequency: 'weekly',
+    lastBackup: '2024-01-15',
   });
 
   const [isDetectingLocation, setIsDetectingLocation] = useState(false);
@@ -71,10 +71,10 @@ const SystemSettingsPage = () => {
     setTimeout(() => {
       setLocationSettings((prev) => ({
         ...prev,
-        latitude: "40.4168",
-        longitude: "-3.7038",
-        city: "Madrid",
-        country: "Spain",
+        latitude: '40.4168',
+        longitude: '-3.7038',
+        city: 'Madrid',
+        country: 'Spain',
       }));
       setIsDetectingLocation(false);
     }, 2000);
@@ -87,21 +87,21 @@ const SystemSettingsPage = () => {
     setTimeout(() => {
       setIsSaving(false);
       // Show success message (in real app, use toast or similar)
-      alert(t("pages.settings.system.actions.saved"));
+      alert(t('pages.settings.system.actions.saved'));
     }, 1500);
   };
 
   return (
-    <PageTemplate pageTitle={t("pages.settings.system.title")}>
+    <PageTemplate pageTitle={t('pages.settings.system.title')}>
       <div className="space-y-6">
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-bold mb-2">
-              {t("pages.settings.system.title")}
+              {t('pages.settings.system.title')}
             </h1>
             <p className="text-muted-foreground">
-              {t("pages.settings.system.subtitle")}
+              {t('pages.settings.system.subtitle')}
             </p>
           </div>
           <div className="mt-4 md:mt-0 flex gap-2">
@@ -110,159 +110,32 @@ const SystemSettingsPage = () => {
               onClick={() => {
                 // Reset all settings to defaults
                 setLocationSettings({
-                  country: "",
-                  city: "",
-                  timezone: "",
-                  latitude: "",
-                  longitude: "",
+                  country: '',
+                  city: '',
+                  timezone: '',
+                  latitude: '',
+                  longitude: '',
                 });
               }}
             >
-              {t("pages.settings.system.actions.reset")}
+              {t('pages.settings.system.actions.reset')}
             </Button>
             <Button onClick={handleSaveSettings} disabled={isSaving}>
               {isSaving
-                ? t("pages.settings.system.actions.saving")
-                : t("pages.settings.system.actions.save")}
+                ? t('pages.settings.system.actions.saving')
+                : t('pages.settings.system.actions.save')}
             </Button>
           </div>
         </div>
 
-        {/* Location Settings */}
-        <SettingsSection
-          title={t("pages.settings.system.location.title")}
-          subtitle={t("pages.settings.system.location.subtitle")}
-        >
-          <div className="grid gap-4 md:grid-cols-2">
-            <SettingRow
-              title={t("pages.settings.system.location.country")}
-              orientation="vertical"
-            >
-              <Select
-                value={locationSettings.country}
-                onValueChange={(value) =>
-                  setLocationSettings((prev) => ({ ...prev, country: value }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select country" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Spain">🇪🇸 Spain</SelectItem>
-                  <SelectItem value="France">🇫🇷 France</SelectItem>
-                  <SelectItem value="Germany">🇩🇪 Germany</SelectItem>
-                  <SelectItem value="Italy">🇮🇹 Italy</SelectItem>
-                  <SelectItem value="Portugal">🇵🇹 Portugal</SelectItem>
-                </SelectContent>
-              </Select>
-            </SettingRow>
-
-            <SettingRow
-              title={t("pages.settings.system.location.city")}
-              orientation="vertical"
-            >
-              <Input
-                value={locationSettings.city}
-                onChange={(e) =>
-                  setLocationSettings((prev) => ({
-                    ...prev,
-                    city: e.target.value,
-                  }))
-                }
-                placeholder="Enter your city"
-              />
-            </SettingRow>
-
-            <SettingRow
-              title={t("pages.settings.system.location.timezone")}
-              orientation="vertical"
-            >
-              <Select
-                value={locationSettings.timezone}
-                onValueChange={(value) =>
-                  setLocationSettings((prev) => ({ ...prev, timezone: value }))
-                }
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select timezone" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Europe/Madrid">
-                    Europe/Madrid (GMT+1)
-                  </SelectItem>
-                  <SelectItem value="Europe/Paris">
-                    Europe/Paris (GMT+1)
-                  </SelectItem>
-                  <SelectItem value="Europe/London">
-                    Europe/London (GMT+0)
-                  </SelectItem>
-                  <SelectItem value="Europe/Berlin">
-                    Europe/Berlin (GMT+1)
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </SettingRow>
-
-            <SettingRow
-              title={t("pages.settings.system.location.autoDetect")}
-              orientation="vertical"
-            >
-              <Button
-                variant="outline"
-                onClick={handleDetectLocation}
-                disabled={isDetectingLocation}
-                className="w-full"
-              >
-                {isDetectingLocation
-                  ? t("pages.settings.system.location.detecting")
-                  : t("pages.settings.system.location.autoDetect")}
-              </Button>
-            </SettingRow>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <SettingRow
-              title={t("pages.settings.system.location.latitude")}
-              orientation="vertical"
-            >
-              <Input
-                value={locationSettings.latitude}
-                onChange={(e) =>
-                  setLocationSettings((prev) => ({
-                    ...prev,
-                    latitude: e.target.value,
-                  }))
-                }
-                placeholder="40.4168"
-              />
-            </SettingRow>
-
-            <SettingRow
-              title={t("pages.settings.system.location.longitude")}
-              orientation="vertical"
-            >
-              <Input
-                value={locationSettings.longitude}
-                onChange={(e) =>
-                  setLocationSettings((prev) => ({
-                    ...prev,
-                    longitude: e.target.value,
-                  }))
-                }
-                placeholder="-3.7038"
-              />
-            </SettingRow>
-          </div>
-        </SettingsSection>
-
         {/* Language & Region Settings */}
         <SettingsSection
-          title={t("pages.settings.system.language.title")}
-          subtitle={t("pages.settings.system.language.subtitle")}
+          title={t('pages.settings.system.language.title')}
+          subtitle={t('pages.settings.system.language.subtitle')}
         >
           <div className="grid gap-4 md:grid-cols-2">
             <SettingRow
-              title={t("pages.settings.system.language.language")}
+              title={t('pages.settings.system.language.language')}
               orientation="vertical"
             >
               <Select
@@ -282,7 +155,7 @@ const SystemSettingsPage = () => {
             </SettingRow>
 
             <SettingRow
-              title={t("pages.settings.system.language.temperatureUnit")}
+              title={t('pages.settings.system.language.temperatureUnit')}
               orientation="vertical"
             >
               <Select
@@ -305,7 +178,7 @@ const SystemSettingsPage = () => {
             </SettingRow>
 
             <SettingRow
-              title={t("pages.settings.system.language.dateFormat")}
+              title={t('pages.settings.system.language.dateFormat')}
               orientation="vertical"
             >
               <Select
@@ -329,7 +202,7 @@ const SystemSettingsPage = () => {
             </SettingRow>
 
             <SettingRow
-              title={t("pages.settings.system.language.timeFormat")}
+              title={t('pages.settings.system.language.timeFormat')}
               orientation="vertical"
             >
               <Select
@@ -355,11 +228,11 @@ const SystemSettingsPage = () => {
 
         {/* System Preferences */}
         <SettingsSection
-          title={t("pages.settings.system.system.title")}
-          subtitle={t("pages.settings.system.system.subtitle")}
+          title={t('pages.settings.system.system.title')}
+          subtitle={t('pages.settings.system.system.subtitle')}
         >
           <SettingRow
-            title={t("pages.settings.system.system.theme")}
+            title={t('pages.settings.system.system.theme')}
             description="Choose between light, dark, or system theme"
             orientation="vertical"
           >
@@ -381,7 +254,7 @@ const SystemSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title={t("pages.settings.system.system.compactMode")}
+            title={t('pages.settings.system.system.compactMode')}
             description="Use more compact spacing in the interface"
           >
             <Switch
@@ -393,7 +266,7 @@ const SystemSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title={t("pages.settings.system.system.animations")}
+            title={t('pages.settings.system.system.animations')}
             description="Enable smooth animations and transitions"
           >
             <Switch
@@ -405,7 +278,7 @@ const SystemSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title={t("pages.settings.system.system.analytics")}
+            title={t('pages.settings.system.system.analytics')}
             description="Help improve the app by sharing usage data"
           >
             <Switch
@@ -417,7 +290,7 @@ const SystemSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title={t("pages.settings.system.system.debugMode")}
+            title={t('pages.settings.system.system.debugMode')}
             description="Enable debug mode for troubleshooting"
           >
             <Switch
@@ -431,11 +304,11 @@ const SystemSettingsPage = () => {
 
         {/* Backup & Data */}
         <SettingsSection
-          title={t("pages.settings.system.backup.title")}
-          subtitle={t("pages.settings.system.backup.subtitle")}
+          title={t('pages.settings.system.backup.title')}
+          subtitle={t('pages.settings.system.backup.subtitle')}
         >
           <SettingRow
-            title={t("pages.settings.system.backup.autoBackup")}
+            title={t('pages.settings.system.backup.autoBackup')}
             description="Automatically backup your data"
           >
             <Switch
@@ -447,7 +320,7 @@ const SystemSettingsPage = () => {
           </SettingRow>
 
           <SettingRow
-            title={t("pages.settings.system.backup.backupFrequency")}
+            title={t('pages.settings.system.backup.backupFrequency')}
             description="How often to create backups"
             orientation="vertical"
           >
@@ -473,10 +346,10 @@ const SystemSettingsPage = () => {
 
           <div className="flex gap-2">
             <Button variant="outline" className="flex-1">
-              {t("pages.settings.system.backup.exportData")}
+              {t('pages.settings.system.backup.exportData')}
             </Button>
             <Button variant="outline" className="flex-1">
-              {t("pages.settings.system.backup.importData")}
+              {t('pages.settings.system.backup.importData')}
             </Button>
           </div>
         </SettingsSection>
