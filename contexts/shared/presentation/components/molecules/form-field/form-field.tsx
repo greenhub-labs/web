@@ -52,7 +52,7 @@ export const FormField: React.FC<FormFieldProps> = ({
               onChange(e.target.value)
             }
             rows={rows}
-            className={error ? 'border-destructive' : ''}
+            className={`text-sm${error ? ' border-destructive' : ''}`}
             disabled={disabled}
           />
         );
@@ -61,14 +61,18 @@ export const FormField: React.FC<FormFieldProps> = ({
         return (
           <Select value={value} onValueChange={onChange} disabled={disabled}>
             <SelectTrigger
-              className={error ? 'border-destructive' : ''}
+              className={`w-full text-sm${error ? ' border-destructive' : ''}`}
               disabled={disabled}
             >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
               {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem
+                  key={option.value}
+                  value={option.value}
+                  className="text-sm"
+                >
                   {option.label}
                 </SelectItem>
               ))}
@@ -87,7 +91,7 @@ export const FormField: React.FC<FormFieldProps> = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               onChange(e.target.value)
             }
-            className={error ? 'border-destructive' : ''}
+            className={`text-sm${error ? ' border-destructive' : ''}`}
             disabled={disabled}
           />
         );
@@ -96,14 +100,17 @@ export const FormField: React.FC<FormFieldProps> = ({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className="text-sm font-medium">
+      <label
+        htmlFor={name}
+        className="block mb-1 text-sm font-medium text-foreground"
+      >
         {label}
         {required && <span className="text-destructive ml-1">*</span>}
-      </Label>
+      </label>
       {renderInput()}
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && <div className="mt-1 text-sm text-destructive">{error}</div>}
       {!error && helperText && (
-        <p className="text-sm text-muted-foreground">{helperText}</p>
+        <div className="mt-1 text-xs text-muted-foreground">{helperText}</div>
       )}
     </div>
   );

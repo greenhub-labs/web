@@ -5,6 +5,8 @@ import { Separator } from '@/contexts/shared/presentation/components/ui/separato
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import LocationMap from '@/contexts/shared/presentation/components/molecules/location-map/location-map';
+import { SelectField } from '@/contexts/shared/presentation/components/atoms/select-field/select-field';
+import { useGeographicSelector } from '@/contexts/shared/presentation/hooks/use-geographic-selector';
 
 export interface FarmInfoSectionProps {
   formData: Farm | null;
@@ -20,6 +22,44 @@ const FarmInfoSection = ({
   isEditing,
 }: FarmInfoSectionProps) => {
   const t = useTranslations();
+  const {
+    countries,
+    states,
+    cities,
+    selectedCountry,
+    selectedState,
+    selectedCity,
+    setSelectedCountry,
+    setSelectedState,
+    setSelectedCity,
+    loadingCountries,
+    loadingStates,
+    loadingCities,
+  } = useGeographicSelector();
+
+  // Map formData values to selectedCountry/state/city
+  React.useEffect(() => {
+    if (formData?.country && !selectedCountry && countries.length > 0) {
+      const found = countries.find(
+        (c) => c.name.toLowerCase() === formData.country?.toLowerCase(),
+      );
+      if (found) setSelectedCountry(found);
+    }
+    if (formData?.state && !selectedState && states.length > 0) {
+      const found = states.find(
+        (s) => s.name.toLowerCase() === formData.state?.toLowerCase(),
+      );
+      if (found) setSelectedState(found);
+    }
+    if (formData?.city && !selectedCity && cities.length > 0) {
+      const found = cities.find(
+        (c) => c.name.toLowerCase() === formData.city?.toLowerCase(),
+      );
+      if (found) setSelectedCity(found);
+    }
+    // eslint-disable-next-line
+  }, [formData, countries, states, cities]);
+
   return (
     <SettingsSection
       title={t('pages.settings.farm.general', {
@@ -70,44 +110,66 @@ const FarmInfoSection = ({
         {t('pages.settings.farm.location', { default: 'Location' })}
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <FormField
+        <SelectField
           label={t('pages.settings.farm.country')}
-          name="country"
-          value={formData?.country || ''}
-          onChange={(v) => handleInputChange('country', v)}
+          value={selectedCountry?.id?.toString() || ''}
+          onChange={(id) => {
+            const country = countries.find((c) => c.id.toString() === id);
+            setSelectedCountry(country || null);
+            handleInputChange('country', country?.name || '');
+          }}
           error={errors.country}
-          disabled={!isEditing}
+          disabled={!isEditing || loadingCountries}
           placeholder={t('pages.settings.farm.countryPlaceholder', {
             default: 'e.g. Spain',
           })}
           helperText={t('pages.settings.farm.countryHelper', {
             default: 'Country where your farm is located.',
           })}
+          options={countries.map((c) => ({
+            value: c.id.toString(),
+            label: c.name,
+          }))}
         />
-        <FormField
+        <SelectField
           label={t('pages.settings.farm.state')}
-          name="state"
-          value={formData?.state || ''}
-          onChange={(v) => handleInputChange('state', v)}
+          value={selectedState?.id?.toString() || ''}
+          onChange={(id) => {
+            const state = states.find((s) => s.id.toString() === id);
+            setSelectedState(state || null);
+            handleInputChange('state', state?.name || '');
+          }}
           error={errors.state}
-          disabled={!isEditing}
+          disabled={!isEditing || !selectedCountry || loadingStates}
           placeholder={t('pages.settings.farm.statePlaceholder', {
             default: 'e.g. Andalusia',
           })}
           helperText={t('pages.settings.farm.stateHelper', {
             default: 'State, province or region.',
           })}
+          options={states.map((s) => ({
+            value: s.id.toString(),
+            label: s.name,
+          }))}
         />
-        <FormField
+        <SelectField
           label={t('pages.settings.farm.city')}
-          name="city"
-          value={formData?.city || ''}
-          onChange={(v) => handleInputChange('city', v)}
+          value={selectedCity?.id?.toString() || ''}
+          onChange={(id) => {
+            const city = cities.find((c) => c.id.toString() === id);
+            setSelectedCity(city || null);
+            handleInputChange('city', city?.name || '');
+          }}
           error={errors.city}
-          disabled={!isEditing}
+          disabled={!isEditing || !selectedState || loadingCities}
           placeholder={t('pages.settings.farm.cityPlaceholder', {
             default: 'City or town of your farm.',
           })}
+          options={cities.map((c) => ({
+            value: c.id.toString(),
+            label: c.name,
+          }))}
+          helperText={t('pages.settings.farm.cityHelper')}
         />
         <FormField
           label={t('pages.settings.farm.street')}
