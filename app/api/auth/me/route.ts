@@ -1,12 +1,11 @@
-import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import { ME_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
-import { meResponseSchema } from '@/contexts/auth/domain/validators/me-response.schema';
-import { NextRequest, NextResponse } from 'next/server';
+import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import {
   extractTokenFromCookie,
   rebuildCookieWithAccessToken,
   tryRefreshAccessToken,
 } from '@/contexts/shared/infrastructure/lib/cookie-auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
@@ -14,6 +13,9 @@ export async function GET(req: NextRequest) {
     let accessToken = extractTokenFromCookie(cookies, 'accessToken');
     const refreshToken = extractTokenFromCookie(cookies, 'refreshToken');
     let setCookieHeader: string | null = null;
+
+    console.log('accessToken', accessToken);
+    console.log('refreshToken', refreshToken);
 
     if (!accessToken && refreshToken) {
       const {

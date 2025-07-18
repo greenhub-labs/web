@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
+import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Dialog,
   DialogContent,
@@ -9,9 +9,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/contexts/shared/presentation/components/ui/dialog";
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { FormField } from "@/contexts/shared/presentation/components/molecules/FormField";
+} from '@/contexts/shared/presentation/components/ui/dialog';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
+import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 
 interface CreateCropDialogProps {
   open: boolean;
@@ -44,12 +44,12 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
   const t = useTranslations();
 
   const [formData, setFormData] = useState<CropFormData>({
-    name: "",
-    variety: "",
-    plotLocation: "",
-    plantingDate: "",
-    expectedHarvestDays: "",
-    notes: "",
+    name: '',
+    variety: '',
+    plotLocation: '',
+    plantingDate: '',
+    expectedHarvestDays: '',
+    notes: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -57,32 +57,32 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
 
   const cropTypeOptions = [
     {
-      value: "tomatoes",
-      label: t("pages.garden.crops.form.cropTypes.tomatoes"),
+      value: 'tomatoes',
+      label: t('pages.garden.crops.form.cropTypes.tomatoes'),
     },
-    { value: "lettuce", label: t("pages.garden.crops.form.cropTypes.lettuce") },
-    { value: "carrots", label: t("pages.garden.crops.form.cropTypes.carrots") },
-    { value: "peppers", label: t("pages.garden.crops.form.cropTypes.peppers") },
-    { value: "herbs", label: t("pages.garden.crops.form.cropTypes.herbs") },
-    { value: "beans", label: t("pages.garden.crops.form.cropTypes.beans") },
+    { value: 'lettuce', label: t('pages.garden.crops.form.cropTypes.lettuce') },
+    { value: 'carrots', label: t('pages.garden.crops.form.cropTypes.carrots') },
+    { value: 'peppers', label: t('pages.garden.crops.form.cropTypes.peppers') },
+    { value: 'herbs', label: t('pages.garden.crops.form.cropTypes.herbs') },
+    { value: 'beans', label: t('pages.garden.crops.form.cropTypes.beans') },
   ];
 
   const plotLocationOptions = [
     {
-      value: "plot-a",
-      label: t("pages.garden.crops.form.plotLocations.plotA"),
+      value: 'plot-a',
+      label: t('pages.garden.crops.form.plotLocations.plotA'),
     },
     {
-      value: "plot-b",
-      label: t("pages.garden.crops.form.plotLocations.plotB"),
+      value: 'plot-b',
+      label: t('pages.garden.crops.form.plotLocations.plotB'),
     },
     {
-      value: "plot-c",
-      label: t("pages.garden.crops.form.plotLocations.plotC"),
+      value: 'plot-c',
+      label: t('pages.garden.crops.form.plotLocations.plotC'),
     },
     {
-      value: "plot-d",
-      label: t("pages.garden.crops.form.plotLocations.plotD"),
+      value: 'plot-d',
+      label: t('pages.garden.crops.form.plotLocations.plotD'),
     },
   ];
 
@@ -90,31 +90,31 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = t("pages.garden.crops.form.errors.nameRequired");
+      newErrors.name = t('pages.garden.crops.form.errors.nameRequired');
     }
     if (!formData.variety.trim()) {
-      newErrors.variety = t("pages.garden.crops.form.errors.varietyRequired");
+      newErrors.variety = t('pages.garden.crops.form.errors.varietyRequired');
     }
     if (!formData.plotLocation) {
       newErrors.plotLocation = t(
-        "pages.garden.crops.form.errors.plotLocationRequired"
+        'pages.garden.crops.form.errors.plotLocationRequired',
       );
     }
     if (!formData.plantingDate) {
       newErrors.plantingDate = t(
-        "pages.garden.crops.form.errors.plantingDateRequired"
+        'pages.garden.crops.form.errors.plantingDateRequired',
       );
     }
     if (!formData.expectedHarvestDays.trim()) {
       newErrors.expectedHarvestDays = t(
-        "pages.garden.crops.form.errors.expectedHarvestDaysRequired"
+        'pages.garden.crops.form.errors.expectedHarvestDaysRequired',
       );
     } else if (
       isNaN(Number(formData.expectedHarvestDays)) ||
       Number(formData.expectedHarvestDays) <= 0
     ) {
       newErrors.expectedHarvestDays = t(
-        "pages.garden.crops.form.errors.expectedHarvestDaysInvalid"
+        'pages.garden.crops.form.errors.expectedHarvestDaysInvalid',
       );
     }
 
@@ -134,17 +134,17 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
 
       // Reset form
       setFormData({
-        name: "",
-        variety: "",
-        plotLocation: "",
-        plantingDate: "",
-        expectedHarvestDays: "",
-        notes: "",
+        name: '',
+        variety: '',
+        plotLocation: '',
+        plantingDate: '',
+        expectedHarvestDays: '',
+        notes: '',
       });
       setErrors({});
       onOpenChange(false);
     } catch (error) {
-      console.error("Error creating crop:", error);
+      console.error('Error creating crop:', error);
     } finally {
       setIsSubmitting(false);
     }
@@ -161,7 +161,7 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
   // Format today's date for the date input default
   const getTodayDate = () => {
     const today = new Date();
-    return today.toISOString().split("T")[0];
+    return today.toISOString().split('T')[0];
   };
 
   return (
@@ -169,80 +169,80 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
       <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            🌱 {t("pages.garden.crops.form.title")}
+            🌱 {t('pages.garden.crops.form.title')}
           </DialogTitle>
           <DialogDescription>
-            {t("pages.garden.crops.form.description")}
+            {t('pages.garden.crops.form.description')}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormField
-            label={t("pages.garden.crops.form.cropType")}
+            label={t('pages.garden.crops.form.cropType')}
             name="name"
             type="select"
-            placeholder={t("pages.garden.crops.form.cropTypePlaceholder")}
+            placeholder={t('pages.garden.crops.form.cropTypePlaceholder')}
             value={formData.name}
-            onChange={handleFieldChange("name")}
+            onChange={handleFieldChange('name')}
             options={cropTypeOptions}
             error={errors.name}
             required
           />
 
           <FormField
-            label={t("pages.garden.crops.form.variety")}
+            label={t('pages.garden.crops.form.variety')}
             name="variety"
             type="text"
-            placeholder={t("pages.garden.crops.form.varietyPlaceholder")}
+            placeholder={t('pages.garden.crops.form.varietyPlaceholder')}
             value={formData.variety}
-            onChange={handleFieldChange("variety")}
+            onChange={handleFieldChange('variety')}
             error={errors.variety}
             required
           />
 
           <FormField
-            label={t("pages.garden.crops.form.plotLocation")}
+            label={t('pages.garden.crops.form.plotLocation')}
             name="plotLocation"
             type="select"
-            placeholder={t("pages.garden.crops.form.plotLocationPlaceholder")}
+            placeholder={t('pages.garden.crops.form.plotLocationPlaceholder')}
             value={formData.plotLocation}
-            onChange={handleFieldChange("plotLocation")}
+            onChange={handleFieldChange('plotLocation')}
             options={plotLocationOptions}
             error={errors.plotLocation}
             required
           />
 
           <FormField
-            label={t("pages.garden.crops.form.plantingDate")}
+            label={t('pages.garden.crops.form.plantingDate')}
             name="plantingDate"
             type="text"
             placeholder={getTodayDate()}
             value={formData.plantingDate || getTodayDate()}
-            onChange={handleFieldChange("plantingDate")}
+            onChange={handleFieldChange('plantingDate')}
             error={errors.plantingDate}
             required
           />
 
           <FormField
-            label={t("pages.garden.crops.form.expectedHarvestDays")}
+            label={t('pages.garden.crops.form.expectedHarvestDays')}
             name="expectedHarvestDays"
             type="number"
             placeholder={t(
-              "pages.garden.crops.form.expectedHarvestDaysPlaceholder"
+              'pages.garden.crops.form.expectedHarvestDaysPlaceholder',
             )}
             value={formData.expectedHarvestDays}
-            onChange={handleFieldChange("expectedHarvestDays")}
+            onChange={handleFieldChange('expectedHarvestDays')}
             error={errors.expectedHarvestDays}
             required
           />
 
           <FormField
-            label={t("pages.garden.crops.form.notes")}
+            label={t('pages.garden.crops.form.notes')}
             name="notes"
             type="textarea"
-            placeholder={t("pages.garden.crops.form.notesPlaceholder")}
+            placeholder={t('pages.garden.crops.form.notesPlaceholder')}
             value={formData.notes}
-            onChange={handleFieldChange("notes")}
+            onChange={handleFieldChange('notes')}
             rows={3}
           />
 
@@ -253,13 +253,13 @@ export const CreateCropDialog: React.FC<CreateCropDialogProps> = ({
               onClick={() => onOpenChange(false)}
               disabled={isSubmitting}
             >
-              {t("common.cancel")}
+              {t('common.cancel')}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
-                <>🔄 {t("common.creating")}...</>
+                <>🔄 {t('common.creating')}...</>
               ) : (
-                <>🌱 {t("pages.garden.crops.form.plant")}</>
+                <>🌱 {t('pages.garden.crops.form.plant')}</>
               )}
             </Button>
           </DialogFooter>

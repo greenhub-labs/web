@@ -30,8 +30,8 @@ import {
   getActiveNavigationSection,
 } from '@/contexts/shared/domain/navigation/routes';
 import { useSidebarSearch } from '@/contexts/shared/presentation/hooks/use-sidebar-search';
-import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher/TeamSwitcherSection';
-import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
+import { TeamSwitcherSection } from '@/contexts/shared/presentation/components/organisms/team-switcher-section/team-switcher-section';
+import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
 
 /**
  * AppSidebar component using DDD navigation configuration
@@ -44,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navigationConfig = getNavigationConfig();
   const activeItemId = getActiveNavigationItem(pathname);
   const activeSectionId = getActiveNavigationSection(pathname);
-  const { user, isUserLoading } = useAuth();
+  const { currentUser } = useAuthStore();
   // Use the search hook for filtering navigation
   const {
     searchQuery,
@@ -56,16 +56,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     isSearching,
   } = useSidebarSearch(navigationConfig);
 
-  const userFarms = user?.farms?.map((farm) => ({
-    name: farm.farmName,
-    logo: '🌾',
-    role: farm.role,
-  }));
-
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <TeamSwitcherSection teams={userFarms || []} loading={isUserLoading} />
+        <TeamSwitcherSection farms={currentUser?.farms || []} loading={false} />
         <SearchForm
           value={searchQuery}
           onValueChange={setSearchQuery}

@@ -473,6 +473,53 @@
       }
     },
     "settings": {
+      "farm": {
+        "title": "Configuración de la Finca",
+        "general": "Información General",
+        "generalSubtitle": "Edita los detalles de tu finca",
+        "generalInfo": "Información General",
+        "location": "📍 Ubicación",
+        "coordinates": "🗺️ Coordenadas",
+        "name": "Nombre",
+        "description": "Descripción",
+        "namePlaceholder": "ej. Finca Los Olivos",
+        "nameHelper": "Introduce un nombre único para tu finca.",
+        "descriptionPlaceholder": "Describe tu finca, su ubicación o alguna característica especial.",
+        "descriptionHelper": "Opcional: Añade una descripción para identificar mejor tu finca.",
+        "locationMap": "Ubicación de la finca en el mapa",
+        "country": "País",
+        "state": "Provincia/Estado",
+        "city": "Ciudad",
+        "postalCode": "Código Postal",
+        "street": "Calle",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "countryPlaceholder": "ej. España",
+        "countryHelper": "País donde se encuentra la finca.",
+        "statePlaceholder": "ej. Andalucía",
+        "stateHelper": "Provincia, estado o región.",
+        "cityPlaceholder": "ej. Sevilla",
+        "cityHelper": "Ciudad o localidad de la finca.",
+        "streetPlaceholder": "ej. Calle Olivo 123",
+        "streetHelper": "Dirección o referencia local.",
+        "postalCodePlaceholder": "ej. 41001",
+        "postalCodeHelper": "Código postal.",
+        "latitudePlaceholder": "ej. 37.7749",
+        "latitudeHelper": "Latitud en grados decimales (ej. 37.7749).",
+        "longitudePlaceholder": "ej. -122.4194",
+        "longitudeHelper": "Longitud en grados decimales (ej. -122.4194).",
+        "create": {
+          "title": "Crear Finca",
+          "description": "Rellena los detalles para crear una nueva finca.",
+          "action": "Crear Finca"
+        },
+        "errors": {
+          "nameRequired": "El nombre de la finca es obligatorio",
+          "countryRequired": "El país es obligatorio",
+          "latitudeInvalid": "La latitud debe ser un número válido",
+          "longitudeInvalid": "La longitud debe ser un número válido"
+        }
+      },
       "system": {
         "title": "Configuración del Sistema",
         "subtitle": "Configura los ajustes y preferencias de tu sistema GreenHub",
@@ -1392,6 +1439,12 @@
           "Los paneles solares generan energía óptima"
         ]
       }
+    },
+    "teamSwitcher": {
+      "noFarms": "No se encontraron fincas",
+      "addFirstFarm": "Añade tu primera finca",
+      "addFarm": "Añadir finca",
+      "farms": "Fincas"
     }
   },
   "navigation": {
@@ -1451,11 +1504,30 @@
     },
     "settings": {
       "title": "⚙️ Configuración",
+      "farm": "🏠 Finca",
       "profile": "👤 Perfil",
       "users": "👥 Gestión de Usuarios",
       "notifications": "📢 Notificaciones",
       "integrations": "🔗 Integraciones",
       "system": "💻 Config. del Sistema"
     }
+  },
+  "farm": {
+    "name": "Nombre",
+    "description": "Descripción",
+    "country": "País",
+    "state": "Provincia/Estado",
+    "city": "Ciudad",
+    "postalCode": "Código Postal",
+    "street": "Calle",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "namePlaceholder": "ej. Finca Los Olivos",
+    "nameHelper": "Introduce un nombre único para tu finca.",
+    "descriptionPlaceholder": "Describe tu finca, su ubicación o alguna característica especial.",
+    "descriptionHelper": "Opcional: Añade una descripción para identificar mejor tu finca."
+  },
+  "validation": {
+    "required": "Este campo es obligatorio"
   }
 }

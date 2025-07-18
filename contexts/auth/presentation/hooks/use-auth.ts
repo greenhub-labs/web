@@ -2,6 +2,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { AuthApiRepository } from '@/contexts/auth/infrastructure/api/auth-api.repository';
 import type { Auth } from '@/contexts/auth/domain/entities/auth.entity';
+import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
+import { useEffect } from 'react';
 
 const authApi = new AuthApiRepository();
 
@@ -64,6 +66,12 @@ export function useAuth() {
     queryFn: () => authApi.me(),
     retry: false,
   });
+
+  useEffect(() => {
+    if (user) {
+      useAuthStore.setState({ currentUser: user });
+    }
+  }, [user]);
 
   return {
     user,

@@ -1,13 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
+import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 // UI Components
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { Input } from "@/contexts/shared/presentation/components/ui/input";
-import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/contexts/shared/presentation/components/ui/avatar';
+import { Badge } from '@/contexts/shared/presentation/components/ui/badge';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
+import {
+  Card,
+  CardContent,
+} from '@/contexts/shared/presentation/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -16,40 +24,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/contexts/shared/presentation/components/ui/dialog";
+} from '@/contexts/shared/presentation/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/contexts/shared/presentation/components/ui/dropdown-menu";
+} from '@/contexts/shared/presentation/components/ui/dropdown-menu';
+import { Input } from '@/contexts/shared/presentation/components/ui/input';
+import { Label } from '@/contexts/shared/presentation/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/contexts/shared/presentation/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/contexts/shared/presentation/components/ui/card";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/contexts/shared/presentation/components/ui/avatar";
-import { Textarea } from "@/contexts/shared/presentation/components/ui/textarea";
-import { Label } from "@/contexts/shared/presentation/components/ui/label";
-import { Separator } from "@/contexts/shared/presentation/components/ui/separator";
+} from '@/contexts/shared/presentation/components/ui/select';
+import { Separator } from '@/contexts/shared/presentation/components/ui/separator';
+import { Textarea } from '@/contexts/shared/presentation/components/ui/textarea';
 
 // Atomic components
 import {
-  StatCard,
   SearchInput,
-} from "@/contexts/shared/presentation/components/atoms";
+  StatCard,
+} from '@/contexts/shared/presentation/components/atoms';
 
 // Icons (emojis as fallback)
 const UserPlusIcon = () => <span>👤</span>;
@@ -63,8 +61,8 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
-  role: "owner" | "admin" | "manager" | "viewer" | "guest";
-  status: "active" | "pending" | "inactive" | "suspended";
+  role: 'owner' | 'admin' | 'manager' | 'viewer' | 'guest';
+  status: 'active' | 'pending' | 'inactive' | 'suspended';
   lastSeen: string;
   joinedOn: string;
   permissions: string[];
@@ -72,11 +70,11 @@ interface User {
 
 const UserManagementPage = () => {
   const t = useTranslations();
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filterBy, setFilterBy] = useState<
-    "all" | "active" | "pending" | "inactive"
-  >("all");
-  const [searchQuery, setSearchQuery] = useState("");
+    'all' | 'active' | 'pending' | 'inactive'
+  >('all');
+  const [searchQuery, setSearchQuery] = useState('');
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState(false);
   const [isRoleDialogOpen, setIsRoleDialogOpen] = useState(false);
   const [isRemoveDialogOpen, setIsRemoveDialogOpen] = useState(false);
@@ -84,71 +82,71 @@ const UserManagementPage = () => {
 
   // Invite form state
   const [inviteForm, setInviteForm] = useState({
-    email: "",
-    role: "",
-    personalMessage: "",
+    email: '',
+    role: '',
+    personalMessage: '',
   });
   const [isInviting, setIsInviting] = useState(false);
 
   // Role change state
-  const [newRole, setNewRole] = useState<string>("");
+  const [newRole, setNewRole] = useState<string>('');
   const [isChangingRole, setIsChangingRole] = useState(false);
 
   // Remove user state
-  const [removeConfirmText, setRemoveConfirmText] = useState("");
+  const [removeConfirmText, setRemoveConfirmText] = useState('');
   const [isRemoving, setIsRemoving] = useState(false);
 
   // Mock data
   const users: User[] = [
     {
-      id: "1",
-      name: "Ana García",
-      email: "ana@ejemplo.com",
-      role: "owner",
-      status: "active",
-      lastSeen: "2024-01-20T10:30:00Z",
-      joinedOn: "2023-08-15T09:00:00Z",
-      permissions: ["fullAccess"],
+      id: '1',
+      name: 'Ana García',
+      email: 'ana@ejemplo.com',
+      role: 'owner',
+      status: 'active',
+      lastSeen: '2024-01-20T10:30:00Z',
+      joinedOn: '2023-08-15T09:00:00Z',
+      permissions: ['fullAccess'],
     },
     {
-      id: "2",
-      name: "Carlos Ruiz",
-      email: "carlos@ejemplo.com",
-      role: "admin",
-      status: "active",
-      lastSeen: "2024-01-19T16:45:00Z",
-      joinedOn: "2023-09-10T11:20:00Z",
-      permissions: ["gardenManagement"],
+      id: '2',
+      name: 'Carlos Ruiz',
+      email: 'carlos@ejemplo.com',
+      role: 'admin',
+      status: 'active',
+      lastSeen: '2024-01-19T16:45:00Z',
+      joinedOn: '2023-09-10T11:20:00Z',
+      permissions: ['gardenManagement'],
     },
     {
-      id: "3",
-      name: "María López",
-      email: "maria@ejemplo.com",
-      role: "manager",
-      status: "active",
-      lastSeen: "2024-01-20T08:15:00Z",
-      joinedOn: "2023-10-05T14:30:00Z",
-      permissions: ["gardenManagement"],
+      id: '3',
+      name: 'María López',
+      email: 'maria@ejemplo.com',
+      role: 'manager',
+      status: 'active',
+      lastSeen: '2024-01-20T08:15:00Z',
+      joinedOn: '2023-10-05T14:30:00Z',
+      permissions: ['gardenManagement'],
     },
     {
-      id: "4",
-      name: "Juan Martín",
-      email: "juan@ejemplo.com",
-      role: "viewer",
-      status: "pending",
-      lastSeen: "never",
-      joinedOn: "2024-01-18T10:00:00Z",
-      permissions: ["monitoringOnly"],
+      id: '4',
+      name: 'Juan Martín',
+      email: 'juan@ejemplo.com',
+      role: 'viewer',
+      status: 'pending',
+      lastSeen: 'never',
+      joinedOn: '2024-01-18T10:00:00Z',
+      permissions: ['monitoringOnly'],
     },
     {
-      id: "5",
-      name: "Sofia Fernández",
-      email: "sofia@ejemplo.com",
-      role: "guest",
-      status: "inactive",
-      lastSeen: "2024-01-10T12:00:00Z",
-      joinedOn: "2023-12-01T16:45:00Z",
-      permissions: ["guestAccess"],
+      id: '5',
+      name: 'Sofia Fernández',
+      email: 'sofia@ejemplo.com',
+      role: 'guest',
+      status: 'inactive',
+      lastSeen: '2024-01-10T12:00:00Z',
+      joinedOn: '2023-12-01T16:45:00Z',
+      permissions: ['guestAccess'],
     },
   ];
 
@@ -157,62 +155,62 @@ const UserManagementPage = () => {
     const matchesSearch =
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = filterBy === "all" || user.status === filterBy;
+    const matchesFilter = filterBy === 'all' || user.status === filterBy;
     return matchesSearch && matchesFilter;
   });
 
   // Stats calculations
   const stats = {
     totalUsers: users.length,
-    activeUsers: users.filter((u) => u.status === "active").length,
-    adminUsers: users.filter((u) => u.role === "admin" || u.role === "owner")
+    activeUsers: users.filter((u) => u.status === 'active').length,
+    adminUsers: users.filter((u) => u.role === 'admin' || u.role === 'owner')
       .length,
-    pendingInvites: users.filter((u) => u.status === "pending").length,
+    pendingInvites: users.filter((u) => u.status === 'pending').length,
   };
 
   // Helper functions
-  const getRoleColor = (role: User["role"]): string => {
+  const getRoleColor = (role: User['role']): string => {
     const colors = {
-      owner: "bg-purple-100 text-purple-800",
-      admin: "bg-blue-100 text-blue-800",
-      manager: "bg-green-100 text-green-800",
-      viewer: "bg-yellow-100 text-yellow-800",
-      guest: "bg-gray-100 text-gray-800",
+      owner: 'bg-purple-100 text-purple-800',
+      admin: 'bg-blue-100 text-blue-800',
+      manager: 'bg-green-100 text-green-800',
+      viewer: 'bg-yellow-100 text-yellow-800',
+      guest: 'bg-gray-100 text-gray-800',
     };
     return colors[role] || colors.guest;
   };
 
-  const getStatusColor = (status: User["status"]): string => {
+  const getStatusColor = (status: User['status']): string => {
     const colors = {
-      active: "bg-green-100 text-green-800",
-      pending: "bg-yellow-100 text-yellow-800",
-      inactive: "bg-gray-100 text-gray-800",
-      suspended: "bg-red-100 text-red-800",
+      active: 'bg-green-100 text-green-800',
+      pending: 'bg-yellow-100 text-yellow-800',
+      inactive: 'bg-gray-100 text-gray-800',
+      suspended: 'bg-red-100 text-red-800',
     };
     return colors[status] || colors.inactive;
   };
 
   const formatLastSeen = (lastSeen: string): string => {
-    if (lastSeen === "never") {
-      return t("pages.settings.users.userCard.neverLoggedIn");
+    if (lastSeen === 'never') {
+      return t('pages.settings.users.userCard.neverLoggedIn');
     }
 
     const now = new Date();
     const lastSeenDate = new Date(lastSeen);
     const diffInDays = Math.floor(
-      (now.getTime() - lastSeenDate.getTime()) / (1000 * 60 * 60 * 24)
+      (now.getTime() - lastSeenDate.getTime()) / (1000 * 60 * 60 * 24),
     );
 
-    if (diffInDays === 0) return t("pages.settings.users.userCard.today");
-    if (diffInDays === 1) return t("pages.settings.users.userCard.yesterday");
-    return `${diffInDays} ${t("pages.settings.users.userCard.daysAgo")}`;
+    if (diffInDays === 0) return t('pages.settings.users.userCard.today');
+    if (diffInDays === 1) return t('pages.settings.users.userCard.yesterday');
+    return `${diffInDays} ${t('pages.settings.users.userCard.daysAgo')}`;
   };
 
   const getUserInitials = (name: string): string => {
     return name
-      .split(" ")
+      .split(' ')
       .map((n) => n[0])
-      .join("")
+      .join('')
       .toUpperCase();
   };
 
@@ -223,7 +221,7 @@ const UserManagementPage = () => {
     setTimeout(() => {
       setIsInviting(false);
       setIsInviteDialogOpen(false);
-      setInviteForm({ email: "", role: "", personalMessage: "" });
+      setInviteForm({ email: '', role: '', personalMessage: '' });
       // In real app, would show success toast
     }, 2000);
   };
@@ -236,20 +234,20 @@ const UserManagementPage = () => {
       setIsChangingRole(false);
       setIsRoleDialogOpen(false);
       setSelectedUser(null);
-      setNewRole("");
+      setNewRole('');
       // In real app, would update user data and show success toast
     }, 1500);
   };
 
   const handleRemoveUser = async () => {
-    if (!selectedUser || removeConfirmText !== "REMOVE") return;
+    if (!selectedUser || removeConfirmText !== 'REMOVE') return;
     setIsRemoving(true);
     // Simulate API call
     setTimeout(() => {
       setIsRemoving(false);
       setIsRemoveDialogOpen(false);
       setSelectedUser(null);
-      setRemoveConfirmText("");
+      setRemoveConfirmText('');
       // In real app, would remove user and show success toast
     }, 1500);
   };
@@ -267,37 +265,37 @@ const UserManagementPage = () => {
 
   // Breadcrumb items
   const breadcrumbItems = [
-    { label: t("navigation.settings.title"), href: "/settings" },
+    { label: t('navigation.settings.title'), href: '/settings' },
   ];
 
   return (
     <PageTemplate
-      pageTitle={t("navigation.settings.users")}
+      pageTitle={t('navigation.settings.users')}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <Dialog open={isInviteDialogOpen} onOpenChange={setIsInviteDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <UserPlusIcon />
-              {t("pages.settings.users.inviteUser")}
+              {t('pages.settings.users.inviteUser')}
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>
-                {t("pages.settings.users.inviteDialog.title")}
+                {t('pages.settings.users.inviteDialog.title')}
               </DialogTitle>
               <DialogDescription>
-                {t("pages.settings.users.inviteDialog.subtitle")}
+                {t('pages.settings.users.inviteDialog.subtitle')}
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label>{t("pages.settings.users.inviteDialog.email")}</Label>
+                <Label>{t('pages.settings.users.inviteDialog.email')}</Label>
                 <Input
                   type="email"
                   placeholder={t(
-                    "pages.settings.users.inviteDialog.emailPlaceholder"
+                    'pages.settings.users.inviteDialog.emailPlaceholder',
                   )}
                   value={inviteForm.email}
                   onChange={(e) =>
@@ -309,7 +307,7 @@ const UserManagementPage = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>{t("pages.settings.users.inviteDialog.role")}</Label>
+                <Label>{t('pages.settings.users.inviteDialog.role')}</Label>
                 <Select
                   value={inviteForm.role}
                   onValueChange={(value) =>
@@ -319,33 +317,33 @@ const UserManagementPage = () => {
                   <SelectTrigger>
                     <SelectValue
                       placeholder={t(
-                        "pages.settings.users.inviteDialog.rolePlaceholder"
+                        'pages.settings.users.inviteDialog.rolePlaceholder',
                       )}
                     />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="admin">
-                      {t("pages.settings.users.roles.admin")}
+                      {t('pages.settings.users.roles.admin')}
                     </SelectItem>
                     <SelectItem value="manager">
-                      {t("pages.settings.users.roles.manager")}
+                      {t('pages.settings.users.roles.manager')}
                     </SelectItem>
                     <SelectItem value="viewer">
-                      {t("pages.settings.users.roles.viewer")}
+                      {t('pages.settings.users.roles.viewer')}
                     </SelectItem>
                     <SelectItem value="guest">
-                      {t("pages.settings.users.roles.guest")}
+                      {t('pages.settings.users.roles.guest')}
                     </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label>
-                  {t("pages.settings.users.inviteDialog.personalMessage")}
+                  {t('pages.settings.users.inviteDialog.personalMessage')}
                 </Label>
                 <Textarea
                   placeholder={t(
-                    "pages.settings.users.inviteDialog.personalMessagePlaceholder"
+                    'pages.settings.users.inviteDialog.personalMessagePlaceholder',
                   )}
                   value={inviteForm.personalMessage}
                   onChange={(e) =>
@@ -363,12 +361,12 @@ const UserManagementPage = () => {
                 onClick={() => setIsInviteDialogOpen(false)}
                 disabled={isInviting}
               >
-                {t("common.cancel")}
+                {t('common.cancel')}
               </Button>
               <Button onClick={handleInviteUser} disabled={isInviting}>
                 {isInviting
-                  ? t("pages.settings.users.inviteDialog.sending")
-                  : t("pages.settings.users.inviteDialog.sendInvite")}
+                  ? t('pages.settings.users.inviteDialog.sending')
+                  : t('pages.settings.users.inviteDialog.sendInvite')}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -379,32 +377,32 @@ const UserManagementPage = () => {
         {/* Page Header */}
         <div>
           <h1 className="text-2xl font-bold mb-2">
-            {t("pages.settings.users.title")}
+            {t('pages.settings.users.title')}
           </h1>
           <p className="text-muted-foreground">
-            {t("pages.settings.users.subtitle")}
+            {t('pages.settings.users.subtitle')}
           </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <StatCard
-            title={t("pages.settings.users.stats.totalUsers")}
+            title={t('pages.settings.users.stats.totalUsers')}
             value={stats.totalUsers.toString()}
             icon="👥"
           />
           <StatCard
-            title={t("pages.settings.users.stats.activeUsers")}
+            title={t('pages.settings.users.stats.activeUsers')}
             value={stats.activeUsers.toString()}
             icon="✅"
           />
           <StatCard
-            title={t("pages.settings.users.stats.adminUsers")}
+            title={t('pages.settings.users.stats.adminUsers')}
             value={stats.adminUsers.toString()}
             icon="👑"
           />
           <StatCard
-            title={t("pages.settings.users.stats.pendingInvites")}
+            title={t('pages.settings.users.stats.pendingInvites')}
             value={stats.pendingInvites.toString()}
             icon="⏳"
           />
@@ -414,56 +412,56 @@ const UserManagementPage = () => {
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <div className="flex flex-col sm:flex-row gap-4 flex-1">
             <SearchInput
-              placeholder={t("pages.settings.users.searchPlaceholder")}
+              placeholder={t('pages.settings.users.searchPlaceholder')}
               value={searchQuery}
               onChange={setSearchQuery}
               className="sm:max-w-xs"
             />
             <div className="flex gap-2">
               <Button
-                variant={filterBy === "all" ? "default" : "outline"}
+                variant={filterBy === 'all' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setFilterBy("all")}
+                onClick={() => setFilterBy('all')}
               >
-                {t("pages.settings.users.filterAll")}
+                {t('pages.settings.users.filterAll')}
               </Button>
               <Button
-                variant={filterBy === "active" ? "default" : "outline"}
+                variant={filterBy === 'active' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setFilterBy("active")}
+                onClick={() => setFilterBy('active')}
               >
-                {t("pages.settings.users.filterActive")}
+                {t('pages.settings.users.filterActive')}
               </Button>
               <Button
-                variant={filterBy === "pending" ? "default" : "outline"}
+                variant={filterBy === 'pending' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setFilterBy("pending")}
+                onClick={() => setFilterBy('pending')}
               >
-                {t("pages.settings.users.filterPending")}
+                {t('pages.settings.users.filterPending')}
               </Button>
               <Button
-                variant={filterBy === "inactive" ? "default" : "outline"}
+                variant={filterBy === 'inactive' ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setFilterBy("inactive")}
+                onClick={() => setFilterBy('inactive')}
               >
-                {t("pages.settings.users.filterInactive")}
+                {t('pages.settings.users.filterInactive')}
               </Button>
             </div>
           </div>
           <div className="flex gap-2">
             <Button
-              variant={viewMode === "grid" ? "default" : "outline"}
+              variant={viewMode === 'grid' ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setViewMode("grid")}
+              onClick={() => setViewMode('grid')}
             >
-              {t("pages.settings.users.viewMode.grid")}
+              {t('pages.settings.users.viewMode.grid')}
             </Button>
             <Button
-              variant={viewMode === "list" ? "default" : "outline"}
+              variant={viewMode === 'list' ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setViewMode("list")}
+              onClick={() => setViewMode('list')}
             >
-              {t("pages.settings.users.viewMode.list")}
+              {t('pages.settings.users.viewMode.list')}
             </Button>
           </div>
         </div>
@@ -475,41 +473,41 @@ const UserManagementPage = () => {
               <div className="text-6xl mb-4">👥</div>
               <h3 className="text-lg font-semibold mb-2">
                 {searchQuery
-                  ? t("pages.settings.users.emptyStates.noSearchResults")
-                  : t("pages.settings.users.emptyStates.noUsers")}
+                  ? t('pages.settings.users.emptyStates.noSearchResults')
+                  : t('pages.settings.users.emptyStates.noUsers')}
               </h3>
               <p className="text-muted-foreground text-center">
                 {searchQuery
                   ? t(
-                      "pages.settings.users.emptyStates.noSearchResultsDescription"
+                      'pages.settings.users.emptyStates.noSearchResultsDescription',
                     )
-                  : t("pages.settings.users.emptyStates.noUsersDescription")}
+                  : t('pages.settings.users.emptyStates.noUsersDescription')}
               </p>
             </CardContent>
           </Card>
         ) : (
           <div
             className={
-              viewMode === "grid"
-                ? "grid gap-4 md:grid-cols-2 lg:grid-cols-3"
-                : "space-y-4"
+              viewMode === 'grid'
+                ? 'grid gap-4 md:grid-cols-2 lg:grid-cols-3'
+                : 'space-y-4'
             }
           >
             {filteredUsers.map((user) => (
-              <Card key={user.id} className={viewMode === "list" ? "p-0" : ""}>
-                <CardContent className={viewMode === "list" ? "p-4" : "p-6"}>
+              <Card key={user.id} className={viewMode === 'list' ? 'p-0' : ''}>
+                <CardContent className={viewMode === 'list' ? 'p-4' : 'p-6'}>
                   <div
                     className={
-                      viewMode === "list"
-                        ? "flex items-center justify-between"
-                        : "space-y-4"
+                      viewMode === 'list'
+                        ? 'flex items-center justify-between'
+                        : 'space-y-4'
                     }
                   >
                     <div
                       className={
-                        viewMode === "list"
-                          ? "flex items-center gap-4 flex-1"
-                          : "flex items-center gap-3"
+                        viewMode === 'list'
+                          ? 'flex items-center gap-4 flex-1'
+                          : 'flex items-center gap-3'
                       }
                     >
                       <Avatar>
@@ -523,7 +521,7 @@ const UserManagementPage = () => {
                         <p className="text-sm text-muted-foreground truncate">
                           {user.email}
                         </p>
-                        {viewMode === "grid" && (
+                        {viewMode === 'grid' && (
                           <div className="flex gap-2 mt-2">
                             <Badge
                               className={getRoleColor(user.role)}
@@ -542,7 +540,7 @@ const UserManagementPage = () => {
                       </div>
                     </div>
 
-                    {viewMode === "list" && (
+                    {viewMode === 'list' && (
                       <div className="flex items-center gap-4">
                         <div className="text-right hidden sm:block">
                           <Badge
@@ -562,7 +560,7 @@ const UserManagementPage = () => {
                         </div>
                         <div className="text-right hidden lg:block min-w-0">
                           <p className="text-sm font-medium">
-                            {t("pages.settings.users.userCard.lastSeen")}
+                            {t('pages.settings.users.userCard.lastSeen')}
                           </p>
                           <p className="text-sm text-muted-foreground">
                             {formatLastSeen(user.lastSeen)}
@@ -573,19 +571,19 @@ const UserManagementPage = () => {
 
                     <div
                       className={
-                        viewMode === "list"
-                          ? "ml-4"
-                          : "flex justify-between items-center"
+                        viewMode === 'list'
+                          ? 'ml-4'
+                          : 'flex justify-between items-center'
                       }
                     >
-                      {viewMode === "grid" && (
+                      {viewMode === 'grid' && (
                         <div className="text-sm text-muted-foreground">
                           <p>
-                            {t("pages.settings.users.userCard.lastSeen")}:{" "}
+                            {t('pages.settings.users.userCard.lastSeen')}:{' '}
                             {formatLastSeen(user.lastSeen)}
                           </p>
                           <p>
-                            {t("pages.settings.users.userCard.joinedOn")}:{" "}
+                            {t('pages.settings.users.userCard.joinedOn')}:{' '}
                             {new Date(user.joinedOn).toLocaleDateString()}
                           </p>
                         </div>
@@ -601,34 +599,34 @@ const UserManagementPage = () => {
                           <DropdownMenuItem
                             onClick={() => openRoleDialog(user)}
                           >
-                            {t("pages.settings.users.actions.changeRole")}
+                            {t('pages.settings.users.actions.changeRole')}
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            {t("pages.settings.users.actions.viewProfile")}
+                            {t('pages.settings.users.actions.viewProfile')}
                           </DropdownMenuItem>
-                          {user.status === "pending" && (
+                          {user.status === 'pending' && (
                             <DropdownMenuItem>
-                              {t("pages.settings.users.actions.resendInvite")}
+                              {t('pages.settings.users.actions.resendInvite')}
                             </DropdownMenuItem>
                           )}
-                          {user.status === "active" && (
+                          {user.status === 'active' && (
                             <DropdownMenuItem>
-                              {t("pages.settings.users.actions.suspendUser")}
+                              {t('pages.settings.users.actions.suspendUser')}
                             </DropdownMenuItem>
                           )}
-                          {user.status === "suspended" && (
+                          {user.status === 'suspended' && (
                             <DropdownMenuItem>
-                              {t("pages.settings.users.actions.activateUser")}
+                              {t('pages.settings.users.actions.activateUser')}
                             </DropdownMenuItem>
                           )}
-                          {user.role !== "owner" && (
+                          {user.role !== 'owner' && (
                             <>
                               <Separator />
                               <DropdownMenuItem
                                 onClick={() => openRemoveDialog(user)}
                                 className="text-red-600"
                               >
-                                {t("pages.settings.users.actions.removeUser")}
+                                {t('pages.settings.users.actions.removeUser')}
                               </DropdownMenuItem>
                             </>
                           )}
@@ -647,10 +645,10 @@ const UserManagementPage = () => {
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>
-                {t("pages.settings.users.roleDialog.title")}
+                {t('pages.settings.users.roleDialog.title')}
               </DialogTitle>
               <DialogDescription>
-                {t("pages.settings.users.roleDialog.subtitle")}
+                {t('pages.settings.users.roleDialog.subtitle')}
               </DialogDescription>
             </DialogHeader>
             {selectedUser && (
@@ -669,23 +667,23 @@ const UserManagementPage = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>{t("pages.settings.users.roleDialog.newRole")}</Label>
+                  <Label>{t('pages.settings.users.roleDialog.newRole')}</Label>
                   <Select value={newRole} onValueChange={setNewRole}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="admin">
-                        {t("pages.settings.users.roles.admin")}
+                        {t('pages.settings.users.roles.admin')}
                       </SelectItem>
                       <SelectItem value="manager">
-                        {t("pages.settings.users.roles.manager")}
+                        {t('pages.settings.users.roles.manager')}
                       </SelectItem>
                       <SelectItem value="viewer">
-                        {t("pages.settings.users.roles.viewer")}
+                        {t('pages.settings.users.roles.viewer')}
                       </SelectItem>
                       <SelectItem value="guest">
-                        {t("pages.settings.users.roles.guest")}
+                        {t('pages.settings.users.roles.guest')}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -693,7 +691,7 @@ const UserManagementPage = () => {
                 {newRole && (
                   <div className="p-3 bg-muted rounded-lg">
                     <p className="text-sm font-medium mb-1">
-                      {t("pages.settings.users.roleDialog.roleDescription")}
+                      {t('pages.settings.users.roleDialog.roleDescription')}
                     </p>
                     <p className="text-sm text-muted-foreground">
                       {t(`pages.settings.users.roleDescriptions.${newRole}`)}
@@ -708,7 +706,7 @@ const UserManagementPage = () => {
                 onClick={() => setIsRoleDialogOpen(false)}
                 disabled={isChangingRole}
               >
-                {t("common.cancel")}
+                {t('common.cancel')}
               </Button>
               <Button
                 onClick={handleChangeRole}
@@ -717,8 +715,8 @@ const UserManagementPage = () => {
                 }
               >
                 {isChangingRole
-                  ? t("pages.settings.users.roleDialog.changing")
-                  : t("pages.settings.users.roleDialog.confirmChange")}
+                  ? t('pages.settings.users.roleDialog.changing')
+                  : t('pages.settings.users.roleDialog.confirmChange')}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -730,10 +728,10 @@ const UserManagementPage = () => {
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <AlertTriangleIcon />
-                {t("pages.settings.users.removeDialog.title")}
+                {t('pages.settings.users.removeDialog.title')}
               </DialogTitle>
               <DialogDescription>
-                {t("pages.settings.users.removeDialog.subtitle")}
+                {t('pages.settings.users.removeDialog.subtitle')}
               </DialogDescription>
             </DialogHeader>
             {selectedUser && (
@@ -753,16 +751,16 @@ const UserManagementPage = () => {
                 </div>
                 <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-sm text-red-800">
-                    {t("pages.settings.users.removeDialog.description")}
+                    {t('pages.settings.users.removeDialog.description')}
                   </p>
                 </div>
                 <div className="space-y-2">
                   <Label>
-                    {t("pages.settings.users.removeDialog.confirmText")}
+                    {t('pages.settings.users.removeDialog.confirmText')}
                   </Label>
                   <Input
                     placeholder={t(
-                      "pages.settings.users.removeDialog.confirmPlaceholder"
+                      'pages.settings.users.removeDialog.confirmPlaceholder',
                     )}
                     value={removeConfirmText}
                     onChange={(e) => setRemoveConfirmText(e.target.value)}
@@ -776,16 +774,16 @@ const UserManagementPage = () => {
                 onClick={() => setIsRemoveDialogOpen(false)}
                 disabled={isRemoving}
               >
-                {t("common.cancel")}
+                {t('common.cancel')}
               </Button>
               <Button
                 variant="destructive"
                 onClick={handleRemoveUser}
-                disabled={isRemoving || removeConfirmText !== "REMOVE"}
+                disabled={isRemoving || removeConfirmText !== 'REMOVE'}
               >
                 {isRemoving
-                  ? t("pages.settings.users.removeDialog.removing")
-                  : t("pages.settings.users.removeDialog.removeUser")}
+                  ? t('pages.settings.users.removeDialog.removing')
+                  : t('pages.settings.users.removeDialog.removeUser')}
               </Button>
             </DialogFooter>
           </DialogContent>
