@@ -2,20 +2,13 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
-import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
-import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
-import { Button } from '@/contexts/shared/presentation/components/ui/button';
-import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
-import { farmSchema } from '@/contexts/farms/domain/validators/farm.schema';
 import { farmUpdateSchema } from '@/contexts/farms/domain/validators/farm-update.schema';
 import FarmPageComponent from '@/contexts/farms/presentation/components/pages/farm-page/farm-page';
 import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 
 const FarmSettingsPage: React.FC = () => {
   const t = useTranslations();
-  const { user } = useAuth();
   const { currentFarm } = useFarmStore();
   const { updateFarmMutation } = useFarm(currentFarm?.id || '');
   // Estado local para el formulario

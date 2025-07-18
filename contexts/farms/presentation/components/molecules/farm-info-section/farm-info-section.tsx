@@ -74,7 +74,7 @@ const FarmInfoSection = ({
         <FormField
           label={`${t('pages.settings.farm.name')}`}
           name="name"
-          value={formData?.name || ''}
+          value={formData?.name || undefined}
           onChange={(v) => handleInputChange('name', v)}
           error={errors.name}
           disabled={!isEditing}
@@ -90,7 +90,7 @@ const FarmInfoSection = ({
         <FormField
           label={`${t('pages.settings.farm.description')}`}
           name="description"
-          value={formData?.description || ''}
+          value={formData?.description || undefined}
           onChange={(v) => handleInputChange('description', v)}
           error={errors.description}
           type="textarea"
@@ -174,7 +174,7 @@ const FarmInfoSection = ({
         <FormField
           label={t('pages.settings.farm.street')}
           name="street"
-          value={formData?.street || ''}
+          value={formData?.street || undefined}
           onChange={(v) => handleInputChange('street', v)}
           error={errors.street}
           disabled={!isEditing}
@@ -188,7 +188,7 @@ const FarmInfoSection = ({
         <FormField
           label={t('pages.settings.farm.postalCode')}
           name="postalCode"
-          value={formData?.postalCode || ''}
+          value={formData?.postalCode || undefined}
           onChange={(v) => handleInputChange('postalCode', v)}
           error={errors.postalCode}
           disabled={!isEditing}
@@ -209,7 +209,7 @@ const FarmInfoSection = ({
         <FormField
           label={t('pages.settings.farm.latitude')}
           name="latitude"
-          value={formData?.latitude?.toString() || ''}
+          value={formData?.latitude?.toString() || undefined}
           onChange={(v) => handleInputChange('latitude', v)}
           error={errors.latitude}
           type="number"
@@ -224,7 +224,7 @@ const FarmInfoSection = ({
         <FormField
           label={t('pages.settings.farm.longitude')}
           name="longitude"
-          value={formData?.longitude?.toString() || ''}
+          value={formData?.longitude?.toString() || undefined}
           onChange={(v) => handleInputChange('longitude', v)}
           error={errors.longitude}
           type="number"

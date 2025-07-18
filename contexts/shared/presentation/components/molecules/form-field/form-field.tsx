@@ -15,7 +15,7 @@ interface FormFieldProps {
   name: string;
   type?: 'text' | 'email' | 'number' | 'textarea' | 'select';
   placeholder?: string;
-  value: string;
+  value: string | undefined;
   onChange: (value: string) => void;
   error?: string;
   required?: boolean;
