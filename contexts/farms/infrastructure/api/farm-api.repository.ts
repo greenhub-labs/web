@@ -1,8 +1,7 @@
-import { FarmsRepository } from '../../application/ports/farms.repository';
-import { Farm } from '../../domain/entities/farm.entity';
 import { fetchWithAutoRefresh } from '@/contexts/shared/infrastructure/lib/fetch-with-auto-refresh';
-import { useFarmStore } from '../../presentation/stores/farm-store';
+import { FarmsRepository } from '../../application/ports/farms.repository';
 import { CreateFarmDto } from '../../domain/dto/create-farm.dto';
+import { Farm } from '../../domain/entities/farm.entity';
 
 /**
  * Implementation of UsersRepository.
