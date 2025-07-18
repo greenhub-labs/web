@@ -36,7 +36,7 @@ export const Text: Story = {
   args: {
     label: 'Name',
     name: 'name',
-    value: '',
+    value: 'Example value',
     onChange: () => {},
     placeholder: 'Enter your name',
     helperText: 'This is your full name.',
@@ -54,7 +54,7 @@ export const Number: Story = {
   args: {
     label: 'Age',
     name: 'age',
-    value: '',
+    value: '25',
     onChange: () => {},
     type: 'number',
     placeholder: 'Enter your age',
@@ -73,7 +73,7 @@ export const Textarea: Story = {
   args: {
     label: 'Bio',
     name: 'bio',
-    value: '',
+    value: 'Example bio',
     onChange: () => {},
     type: 'textarea',
     placeholder: 'Tell us about yourself',
@@ -93,7 +93,7 @@ export const Select: Story = {
   args: {
     label: 'Country',
     name: 'country',
-    value: '',
+    value: 'Spain',
     onChange: () => {},
     type: 'select',
     options: [
@@ -117,7 +117,7 @@ export const WithError: Story = {
   args: {
     label: 'Email',
     name: 'email',
-    value: '',
+    value: 'example@example.com',
     onChange: () => {},
     type: 'email',
     error: 'Email is required',
@@ -136,7 +136,7 @@ export const Required: Story = {
   args: {
     label: 'Password',
     name: 'password',
-    value: '',
+    value: 'password123',
     onChange: () => {},
     type: 'text',
     required: true,
