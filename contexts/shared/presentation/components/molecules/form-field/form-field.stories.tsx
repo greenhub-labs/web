@@ -97,7 +97,7 @@ export const Select: Story = {
     onChange: () => {},
     type: 'select',
     options: [
-      { value: '', label: 'Select a country' },
+      { value: 'select', label: 'Select a country' },
       { value: 'es', label: 'Spain' },
       { value: 'fr', label: 'France' },
       { value: 'it', label: 'Italy' },
