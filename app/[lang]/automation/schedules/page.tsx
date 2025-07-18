@@ -1,19 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
+import { useTranslations } from 'next-intl';
+import React, { useState } from 'react';
 
 // UI Components
-import { Button } from '@/contexts/shared/presentation/components/ui/button';
-import { Input } from '@/contexts/shared/presentation/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/contexts/shared/presentation/components/ui/select';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,36 +15,32 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/contexts/shared/presentation/components/ui/alert-dialog';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/contexts/shared/presentation/components/ui/select';
 
 // Atomic Design Components
-import { StatCard } from '@/contexts/shared/presentation/components/atoms/StatCard';
-import { SearchInput } from '@/contexts/shared/presentation/components/atoms/SearchInput';
 import {
-  ScheduleStatus,
-  ScheduleType,
   Frequency,
   Priority,
+  ScheduleStatus,
+  ScheduleType,
 } from '@/contexts/shared/presentation/components/atoms';
+import { SearchInput } from '@/contexts/shared/presentation/components/atoms/SearchInput';
+import { StatCard } from '@/contexts/shared/presentation/components/atoms/StatCard';
 import {
-  ScheduleCard,
   Schedule,
+  ScheduleCard,
 } from '@/contexts/shared/presentation/components/molecules/ScheduleCard';
 import { CreateScheduleDialog } from '@/contexts/shared/presentation/components/organisms/CreateScheduleDialog';
 
 // Icons
-import {
-  Plus,
-  Search,
-  Filter,
-  Calendar,
-  Clock,
-  Play,
-  FileDown,
-  FileUp,
-  MoreVertical,
-  Grid3X3,
-  List,
-} from 'lucide-react';
+import { Calendar, Grid3X3, List, Plus } from 'lucide-react';
 
 const SchedulesPage: React.FC = () => {
   const t = useTranslations();

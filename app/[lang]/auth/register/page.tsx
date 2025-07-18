@@ -1,7 +1,5 @@
 'use client';
 import { AuthFormType } from '@/contexts/auth/domain/validators/auth-form.schema';
-import { AuthForm } from '@/contexts/auth/presentation/components/organisms/auth-form/auth-form';
-import AuthTemplate from '@/contexts/auth/presentation/components/templates/auth-template/auth-template';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';

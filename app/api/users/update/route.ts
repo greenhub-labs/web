@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { UPDATE_USER_MUTATION } from '@/contexts/users/infrastructure/graphql/mutations/users-mutations.graphql';
-import { userSchema } from '@/contexts/users/domain/validators/user.schema';
 import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import {
   extractTokenFromCookie,
   rebuildCookieWithAccessToken,
   tryRefreshAccessToken,
 } from '@/contexts/shared/infrastructure/lib/cookie-auth';
+import { userSchema } from '@/contexts/users/domain/validators/user.schema';
+import { UPDATE_USER_MUTATION } from '@/contexts/users/infrastructure/graphql/mutations/users-mutations.graphql';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { REFRESH_TOKEN_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {

@@ -1,126 +1,120 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { PageTemplate } from "@/contexts/shared/presentation/components/templates/page-template";
-import { useTranslations } from "next-intl";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/contexts/shared/presentation/components/ui/card";
-import { Button } from "@/contexts/shared/presentation/components/ui/button";
-import { Badge } from "@/contexts/shared/presentation/components/ui/badge";
+import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
+import { Badge } from '@/contexts/shared/presentation/components/ui/badge';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/contexts/shared/presentation/components/ui/dropdown-menu";
+} from '@/contexts/shared/presentation/components/ui/dropdown-menu';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 // Atomic components
-import { StatCard } from "@/contexts/shared/presentation/components/atoms";
+import { StatCard } from '@/contexts/shared/presentation/components/atoms';
 
 const MonitoringAlertsPage = () => {
   const t = useTranslations();
   const [filterBy, setFilterBy] = useState<
-    "all" | "active" | "resolved" | "critical"
-  >("all");
+    'all' | 'active' | 'resolved' | 'critical'
+  >('all');
 
   // Mock data for alerts
   const alerts = [
     {
-      id: "alert-1",
-      name: "Low Soil Moisture - Plot A",
+      id: 'alert-1',
+      name: 'Low Soil Moisture - Plot A',
       description:
-        "Triggers when the soil moisture goes to or below 30% for 1 consecutive minutes",
-      category: "irrigation",
-      priority: "high",
-      status: "active",
-      triggeredAt: "2024-01-15T14:30:00Z",
+        'Triggers when the soil moisture goes to or below 30% for 1 consecutive minutes',
+      category: 'irrigation',
+      priority: 'high',
+      status: 'active',
+      triggeredAt: '2024-01-15T14:30:00Z',
       resolvedAt: null,
-      nodeId: "node-a",
-      condition: "Soil moisture < 30%",
-      currentValue: "25%",
-      threshold: "30%",
-      location: "Garden Plot A",
-      sensor: "Moisture Sensor #1",
+      nodeId: 'node-a',
+      condition: 'Soil moisture < 30%',
+      currentValue: '25%',
+      threshold: '30%',
+      location: 'Garden Plot A',
+      sensor: 'Moisture Sensor #1',
       escalated: false,
       snoozedUntil: null,
     },
     {
-      id: "alert-2",
-      name: "Battery Level Critical - Node C",
+      id: 'alert-2',
+      name: 'Battery Level Critical - Node C',
       description:
-        "Triggers when the battery level of any node goes to or below 20% for 5 consecutive minutes",
-      category: "power",
-      priority: "critical",
-      status: "active",
-      triggeredAt: "2024-01-15T16:45:00Z",
+        'Triggers when the battery level of any node goes to or below 20% for 5 consecutive minutes',
+      category: 'power',
+      priority: 'critical',
+      status: 'active',
+      triggeredAt: '2024-01-15T16:45:00Z',
       resolvedAt: null,
-      nodeId: "node-c",
-      condition: "Battery level < 20%",
-      currentValue: "15%",
-      threshold: "20%",
-      location: "Garden Plot C",
-      sensor: "Power Management Unit",
+      nodeId: 'node-c',
+      condition: 'Battery level < 20%',
+      currentValue: '15%',
+      threshold: '20%',
+      location: 'Garden Plot C',
+      sensor: 'Power Management Unit',
       escalated: true,
       snoozedUntil: null,
     },
     {
-      id: "alert-3",
-      name: "High Temperature Warning",
+      id: 'alert-3',
+      name: 'High Temperature Warning',
       description:
-        "Triggers when the temperature goes to or above 35°C for 2 consecutive minutes",
-      category: "weather",
-      priority: "medium",
-      status: "resolved",
-      triggeredAt: "2024-01-14T13:20:00Z",
-      resolvedAt: "2024-01-14T18:00:00Z",
-      nodeId: "node-b",
-      condition: "Temperature > 35°C",
-      currentValue: "32°C",
-      threshold: "35°C",
-      location: "Garden Plot B",
-      sensor: "Temperature Sensor #2",
+        'Triggers when the temperature goes to or above 35°C for 2 consecutive minutes',
+      category: 'weather',
+      priority: 'medium',
+      status: 'resolved',
+      triggeredAt: '2024-01-14T13:20:00Z',
+      resolvedAt: '2024-01-14T18:00:00Z',
+      nodeId: 'node-b',
+      condition: 'Temperature > 35°C',
+      currentValue: '32°C',
+      threshold: '35°C',
+      location: 'Garden Plot B',
+      sensor: 'Temperature Sensor #2',
       escalated: false,
       snoozedUntil: null,
     },
     {
-      id: "alert-4",
-      name: "Connectivity Loss - Node D",
+      id: 'alert-4',
+      name: 'Connectivity Loss - Node D',
       description:
-        "Triggers when no data received from node for more than 30 consecutive minutes",
-      category: "connectivity",
-      priority: "medium",
-      status: "snoozed",
-      triggeredAt: "2024-01-15T10:15:00Z",
+        'Triggers when no data received from node for more than 30 consecutive minutes',
+      category: 'connectivity',
+      priority: 'medium',
+      status: 'snoozed',
+      triggeredAt: '2024-01-15T10:15:00Z',
       resolvedAt: null,
-      nodeId: "node-d",
-      condition: "No data received > 30 minutes",
-      currentValue: "45 minutes",
-      threshold: "30 minutes",
-      location: "Garden Plot D",
-      sensor: "Communication Module",
+      nodeId: 'node-d',
+      condition: 'No data received > 30 minutes',
+      currentValue: '45 minutes',
+      threshold: '30 minutes',
+      location: 'Garden Plot D',
+      sensor: 'Communication Module',
       escalated: false,
-      snoozedUntil: "2024-01-15T17:00:00Z",
+      snoozedUntil: '2024-01-15T17:00:00Z',
     },
     {
-      id: "alert-5",
-      name: "Pest Detection Alert",
+      id: 'alert-5',
+      name: 'Pest Detection Alert',
       description:
-        "Triggers when camera detects unusual movement patterns for 3 consecutive minutes",
-      category: "sensor",
-      priority: "low",
-      status: "active",
-      triggeredAt: "2024-01-15T08:30:00Z",
+        'Triggers when camera detects unusual movement patterns for 3 consecutive minutes',
+      category: 'sensor',
+      priority: 'low',
+      status: 'active',
+      triggeredAt: '2024-01-15T08:30:00Z',
       resolvedAt: null,
-      nodeId: "node-a",
-      condition: "Unusual movement detected",
-      currentValue: "Motion detected",
-      threshold: "No motion",
-      location: "Garden Plot A",
-      sensor: "Motion Camera #1",
+      nodeId: 'node-a',
+      condition: 'Unusual movement detected',
+      currentValue: 'Motion detected',
+      threshold: 'No motion',
+      location: 'Garden Plot A',
+      sensor: 'Motion Camera #1',
       escalated: false,
       snoozedUntil: null,
     },
@@ -129,77 +123,77 @@ const MonitoringAlertsPage = () => {
   // Breadcrumb configuration
   const breadcrumbItems = [
     {
-      label: t("navigation.monitoring.title"),
-      href: "/monitoring",
+      label: t('navigation.monitoring.title'),
+      href: '/monitoring',
     },
   ];
 
   // Filter alerts based on selected filter
   const filteredAlerts = alerts.filter((alert) => {
-    if (filterBy === "active") return alert.status === "active";
-    if (filterBy === "resolved") return alert.status === "resolved";
-    if (filterBy === "critical") return alert.priority === "critical";
+    if (filterBy === 'active') return alert.status === 'active';
+    if (filterBy === 'resolved') return alert.status === 'resolved';
+    if (filterBy === 'critical') return alert.priority === 'critical';
     return true;
   });
 
   // Helper functions
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "active":
-        return "🔴";
-      case "resolved":
-        return "✅";
-      case "snoozed":
-        return "⏸️";
+      case 'active':
+        return '🔴';
+      case 'resolved':
+        return '✅';
+      case 'snoozed':
+        return '⏸️';
       default:
-        return "⚠️";
+        return '⚠️';
     }
   };
 
   const getPriorityVariant = (priority: string) => {
     switch (priority) {
-      case "critical":
-        return "destructive";
-      case "high":
-        return "destructive";
-      case "medium":
-        return "secondary";
-      case "low":
-        return "outline";
+      case 'critical':
+        return 'destructive';
+      case 'high':
+        return 'destructive';
+      case 'medium':
+        return 'secondary';
+      case 'low':
+        return 'outline';
       default:
-        return "outline";
+        return 'outline';
     }
   };
 
   const getStatusVariant = (status: string) => {
     switch (status) {
-      case "active":
-        return "destructive";
-      case "resolved":
-        return "default";
-      case "snoozed":
-        return "secondary";
+      case 'active':
+        return 'destructive';
+      case 'resolved':
+        return 'default';
+      case 'snoozed':
+        return 'secondary';
       default:
-        return "outline";
+        return 'outline';
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "irrigation":
-        return "💧";
-      case "power":
-        return "🔋";
-      case "weather":
-        return "🌡️";
-      case "connectivity":
-        return "📶";
-      case "sensor":
-        return "📡";
-      case "hardware":
-        return "🔧";
+      case 'irrigation':
+        return '💧';
+      case 'power':
+        return '🔋';
+      case 'weather':
+        return '🌡️';
+      case 'connectivity':
+        return '📶';
+      case 'sensor':
+        return '📡';
+      case 'hardware':
+        return '🔧';
       default:
-        return "⚠️";
+        return '⚠️';
     }
   };
 
@@ -207,12 +201,12 @@ const MonitoringAlertsPage = () => {
     const date = new Date(timestamp);
     const now = new Date();
     const diffInHours = Math.floor(
-      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60),
     );
 
     if (diffInHours < 1) {
       const diffInMinutes = Math.floor(
-        (now.getTime() - date.getTime()) / (1000 * 60)
+        (now.getTime() - date.getTime()) / (1000 * 60),
       );
       return `${diffInMinutes} minutes ago`;
     } else if (diffInHours < 24) {
@@ -227,56 +221,56 @@ const MonitoringAlertsPage = () => {
     const date = new Date(timestamp);
     return (
       date.toLocaleDateString() +
-      ", " +
-      date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      ', ' +
+      date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     );
   };
 
   const handleResolveAlert = (alertId: string) => {
-    console.log("Resolving alert:", alertId);
+    console.log('Resolving alert:', alertId);
     // TODO: Implement alert resolution logic
   };
 
   const handleSnoozeAlert = (alertId: string) => {
-    console.log("Snoozing alert:", alertId);
+    console.log('Snoozing alert:', alertId);
     // TODO: Implement alert snooze logic
   };
 
   const handleEscalateAlert = (alertId: string) => {
-    console.log("Escalating alert:", alertId);
+    console.log('Escalating alert:', alertId);
     // TODO: Implement alert escalation logic
   };
 
   // Statistics calculations
   const stats = {
     total: alerts.length,
-    active: alerts.filter((a) => a.status === "active").length,
-    critical: alerts.filter((a) => a.priority === "critical").length,
+    active: alerts.filter((a) => a.status === 'active').length,
+    critical: alerts.filter((a) => a.priority === 'critical').length,
     resolvedToday: alerts.filter(
       (a) =>
-        a.status === "resolved" &&
+        a.status === 'resolved' &&
         a.resolvedAt &&
-        new Date(a.resolvedAt).toDateString() === new Date().toDateString()
+        new Date(a.resolvedAt).toDateString() === new Date().toDateString(),
     ).length,
   };
 
   return (
     <PageTemplate
-      pageTitle={t("navigation.monitoring.alerts")}
+      pageTitle={t('navigation.monitoring.alerts')}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex items-center gap-2">
           {/* Desktop: Filter controls */}
           <div className="hidden md:flex items-center gap-2">
             <span className="text-sm text-muted-foreground">
-              {t("pages.monitoring.alerts.filterBy")}:
+              {t('pages.monitoring.alerts.filterBy')}:
             </span>
             <div className="flex gap-0.5 bg-background border rounded-md p-1">
-              {(["all", "active", "resolved", "critical"] as const).map(
+              {(['all', 'active', 'resolved', 'critical'] as const).map(
                 (filter) => (
                   <Button
                     key={filter}
-                    variant={filterBy === filter ? "default" : "ghost"}
+                    variant={filterBy === filter ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setFilterBy(filter)}
                     className="px-2 py-1 text-xs"
@@ -284,16 +278,16 @@ const MonitoringAlertsPage = () => {
                     {t(
                       `pages.monitoring.alerts.filter${
                         filter.charAt(0).toUpperCase() + filter.slice(1)
-                      }`
+                      }`,
                     )}
                   </Button>
-                )
+                ),
               )}
             </div>
           </div>
 
           <Button className="bg-orange-600 hover:bg-orange-700 text-white">
-            {t("pages.monitoring.alerts.createAlert")}
+            {t('pages.monitoring.alerts.createAlert')}
           </Button>
         </div>
       }
@@ -301,22 +295,22 @@ const MonitoringAlertsPage = () => {
       {/* Statistics Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
         <StatCard
-          title={t("pages.monitoring.alerts.stats.totalAlerts")}
+          title={t('pages.monitoring.alerts.stats.totalAlerts')}
           value={stats.total}
           icon="🚨"
         />
         <StatCard
-          title={t("pages.monitoring.alerts.stats.activeAlerts")}
+          title={t('pages.monitoring.alerts.stats.activeAlerts')}
           value={stats.active}
           icon="🔴"
         />
         <StatCard
-          title={t("pages.monitoring.alerts.stats.criticalAlerts")}
+          title={t('pages.monitoring.alerts.stats.criticalAlerts')}
           value={stats.critical}
           icon="⚡"
         />
         <StatCard
-          title={t("pages.monitoring.alerts.stats.resolvedToday")}
+          title={t('pages.monitoring.alerts.stats.resolvedToday')}
           value={stats.resolvedToday}
           icon="✅"
         />
@@ -325,11 +319,11 @@ const MonitoringAlertsPage = () => {
       {/* Mobile Filter Controls */}
       <div className="md:hidden">
         <div className="flex gap-1 overflow-x-auto pb-2">
-          {(["all", "active", "resolved", "critical"] as const).map(
+          {(['all', 'active', 'resolved', 'critical'] as const).map(
             (filter) => (
               <Button
                 key={filter}
-                variant={filterBy === filter ? "default" : "ghost"}
+                variant={filterBy === filter ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setFilterBy(filter)}
                 className="px-3 py-1 text-xs whitespace-nowrap"
@@ -337,10 +331,10 @@ const MonitoringAlertsPage = () => {
                 {t(
                   `pages.monitoring.alerts.filter${
                     filter.charAt(0).toUpperCase() + filter.slice(1)
-                  }`
+                  }`,
                 )}
               </Button>
-            )
+            ),
           )}
         </div>
       </div>
@@ -437,27 +431,27 @@ const MonitoringAlertsPage = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem
-                        onClick={() => console.log("View details:", alert.id)}
+                        onClick={() => console.log('View details:', alert.id)}
                       >
-                        👁️ {t("pages.monitoring.alerts.actions.viewDetails")}
+                        👁️ {t('pages.monitoring.alerts.actions.viewDetails')}
                       </DropdownMenuItem>
-                      {alert.status === "active" && (
+                      {alert.status === 'active' && (
                         <>
                           <DropdownMenuItem
                             onClick={() => handleResolveAlert(alert.id)}
                           >
-                            ✅ {t("pages.monitoring.alerts.actions.resolve")}
+                            ✅ {t('pages.monitoring.alerts.actions.resolve')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => handleSnoozeAlert(alert.id)}
                           >
-                            ⏰ {t("pages.monitoring.alerts.actions.snooze")}
+                            ⏰ {t('pages.monitoring.alerts.actions.snooze')}
                           </DropdownMenuItem>
                           {!alert.escalated && (
                             <DropdownMenuItem
                               onClick={() => handleEscalateAlert(alert.id)}
                             >
-                              🚨 {t("pages.monitoring.alerts.actions.escalate")}
+                              🚨 {t('pages.monitoring.alerts.actions.escalate')}
                             </DropdownMenuItem>
                           )}
                         </>
@@ -489,27 +483,27 @@ const MonitoringAlertsPage = () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem
-                        onClick={() => console.log("View details:", alert.id)}
+                        onClick={() => console.log('View details:', alert.id)}
                       >
-                        👁️ {t("pages.monitoring.alerts.actions.viewDetails")}
+                        👁️ {t('pages.monitoring.alerts.actions.viewDetails')}
                       </DropdownMenuItem>
-                      {alert.status === "active" && (
+                      {alert.status === 'active' && (
                         <>
                           <DropdownMenuItem
                             onClick={() => handleResolveAlert(alert.id)}
                           >
-                            ✅ {t("pages.monitoring.alerts.actions.resolve")}
+                            ✅ {t('pages.monitoring.alerts.actions.resolve')}
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => handleSnoozeAlert(alert.id)}
                           >
-                            ⏰ {t("pages.monitoring.alerts.actions.snooze")}
+                            ⏰ {t('pages.monitoring.alerts.actions.snooze')}
                           </DropdownMenuItem>
                           {!alert.escalated && (
                             <DropdownMenuItem
                               onClick={() => handleEscalateAlert(alert.id)}
                             >
-                              🚨 {t("pages.monitoring.alerts.actions.escalate")}
+                              🚨 {t('pages.monitoring.alerts.actions.escalate')}
                             </DropdownMenuItem>
                           )}
                         </>
@@ -524,7 +518,7 @@ const MonitoringAlertsPage = () => {
                       <span>{getCategoryIcon(alert.category)}</span>
                       <span>
                         {t(
-                          `pages.monitoring.alerts.category.${alert.category}`
+                          `pages.monitoring.alerts.category.${alert.category}`,
                         )}
                       </span>
                     </div>
@@ -554,8 +548,8 @@ const MonitoringAlertsPage = () => {
           <div className="text-4xl mb-4">🎉</div>
           <h3 className="text-lg font-semibold mb-2">No alerts found</h3>
           <p className="text-muted-foreground">
-            {filterBy === "all"
-              ? "All systems are running smoothly!"
+            {filterBy === 'all'
+              ? 'All systems are running smoothly!'
               : `No ${filterBy} alerts at this time.`}
           </p>
         </div>

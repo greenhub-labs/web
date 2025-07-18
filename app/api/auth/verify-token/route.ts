@@ -1,14 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import {
-  ME_QUERY,
-  VERIFY_TOKEN_QUERY,
-} from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
+import { VERIFY_TOKEN_QUERY } from '@/contexts/auth/infrastructure/graphql/queries/auth-queries.graphql';
 import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
 import {
   extractTokenFromCookie,
   rebuildCookieWithAccessToken,
   tryRefreshAccessToken,
 } from '@/contexts/shared/infrastructure/lib/cookie-auth';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {

@@ -1,18 +1,14 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useTranslations } from 'next-intl';
-import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // UI Components
-import { Button } from '@/contexts/shared/presentation/components/ui/button';
 
 // Atomic Design Components
-import { SettingsSection } from '@/contexts/shared/presentation/components/molecules/SettingsSection';
 import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
-import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 import { userSchema } from '@/contexts/users/domain/validators/user.schema';
 import ProfilePageComponent from '@/contexts/users/presentation/components/pages/profile-page/profile-page';
+import { useUser } from '@/contexts/users/presentation/hooks/use-user';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();

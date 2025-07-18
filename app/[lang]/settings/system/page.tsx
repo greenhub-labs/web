@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 // UI Components
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { Input } from '@/contexts/shared/presentation/components/ui/input';
-import { Label } from '@/contexts/shared/presentation/components/ui/label';
-import { Switch } from '@/contexts/shared/presentation/components/ui/switch';
 import {
   Select,
   SelectContent,
@@ -16,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/contexts/shared/presentation/components/ui/select';
+import { Switch } from '@/contexts/shared/presentation/components/ui/switch';
 
 // Reusable components
 import { SettingRow } from '@/contexts/shared/presentation/components/atoms';
@@ -127,6 +126,133 @@ const SystemSettingsPage = () => {
             </Button>
           </div>
         </div>
+
+        {/* Location Settings */}
+        <SettingsSection
+          title={t('pages.settings.system.location.title')}
+          subtitle={t('pages.settings.system.location.subtitle')}
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            <SettingRow
+              title={t('pages.settings.system.location.country')}
+              orientation="vertical"
+            >
+              <Select
+                value={locationSettings.country}
+                onValueChange={(value) =>
+                  setLocationSettings((prev) => ({ ...prev, country: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select country" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Spain">🇪🇸 Spain</SelectItem>
+                  <SelectItem value="France">🇫🇷 France</SelectItem>
+                  <SelectItem value="Germany">🇩🇪 Germany</SelectItem>
+                  <SelectItem value="Italy">🇮🇹 Italy</SelectItem>
+                  <SelectItem value="Portugal">🇵🇹 Portugal</SelectItem>
+                </SelectContent>
+              </Select>
+            </SettingRow>
+
+            <SettingRow
+              title={t('pages.settings.system.location.city')}
+              orientation="vertical"
+            >
+              <Input
+                value={locationSettings.city}
+                onChange={(e) =>
+                  setLocationSettings((prev) => ({
+                    ...prev,
+                    city: e.target.value,
+                  }))
+                }
+                placeholder="Enter your city"
+              />
+            </SettingRow>
+
+            <SettingRow
+              title={t('pages.settings.system.location.timezone')}
+              orientation="vertical"
+            >
+              <Select
+                value={locationSettings.timezone}
+                onValueChange={(value) =>
+                  setLocationSettings((prev) => ({ ...prev, timezone: value }))
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timezone" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Europe/Madrid">
+                    Europe/Madrid (GMT+1)
+                  </SelectItem>
+                  <SelectItem value="Europe/Paris">
+                    Europe/Paris (GMT+1)
+                  </SelectItem>
+                  <SelectItem value="Europe/London">
+                    Europe/London (GMT+0)
+                  </SelectItem>
+                  <SelectItem value="Europe/Berlin">
+                    Europe/Berlin (GMT+1)
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </SettingRow>
+
+            <SettingRow
+              title={t('pages.settings.system.location.autoDetect')}
+              orientation="vertical"
+            >
+              <Button
+                variant="outline"
+                onClick={handleDetectLocation}
+                disabled={isDetectingLocation}
+                className="w-full"
+              >
+                {isDetectingLocation
+                  ? t('pages.settings.system.location.detecting')
+                  : t('pages.settings.system.location.autoDetect')}
+              </Button>
+            </SettingRow>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <SettingRow
+              title={t('pages.settings.system.location.latitude')}
+              orientation="vertical"
+            >
+              <Input
+                value={locationSettings.latitude}
+                onChange={(e) =>
+                  setLocationSettings((prev) => ({
+                    ...prev,
+                    latitude: e.target.value,
+                  }))
+                }
+                placeholder="40.4168"
+              />
+            </SettingRow>
+
+            <SettingRow
+              title={t('pages.settings.system.location.longitude')}
+              orientation="vertical"
+            >
+              <Input
+                value={locationSettings.longitude}
+                onChange={(e) =>
+                  setLocationSettings((prev) => ({
+                    ...prev,
+                    longitude: e.target.value,
+                  }))
+                }
+                placeholder="-3.7038"
+              />
+            </SettingRow>
+          </div>
+        </SettingsSection>
 
         {/* Language & Region Settings */}
         <SettingsSection
