@@ -1,7 +1,7 @@
+import { CreateFarmDto } from '@/contexts/farms/domain/dto/create-farm.dto';
+import { Farm } from '@/contexts/farms/domain/entities/farm.entity';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FarmsApiRepository } from '../../infrastructure/api/farm-api.repository';
-import { Farm } from '@/contexts/farms/domain/entities/farm.entity';
-import { CreateFarmDto } from '@/contexts/farms/domain/dto/create-farm.dto';
 
 const farmsApiRepository = new FarmsApiRepository();
 
@@ -25,8 +25,8 @@ export function useFarm(farmId?: string) {
   const createFarmMutation = useMutation({
     mutationFn: (farm: CreateFarmDto) => farmsApiRepository.createFarm(farm),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['farm', data.id] });
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.refetchQueries({ queryKey: ['farm', data.id] });
+      queryClient.refetchQueries({ queryKey: ['me'] });
       return data;
     },
   });
@@ -34,8 +34,8 @@ export function useFarm(farmId?: string) {
   const updateFarmMutation = useMutation({
     mutationFn: (farm: Farm) => farmsApiRepository.updateFarm(farm),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['farm', data.id] });
-      queryClient.invalidateQueries({ queryKey: ['me'] });
+      queryClient.refetchQueries({ queryKey: ['farm', data.id] });
+      queryClient.refetchQueries({ queryKey: ['me'] });
       return data;
     },
   });

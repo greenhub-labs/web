@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
+import LocationMap from '@/contexts/shared/presentation/components/molecules/location-map/location-map';
+import { SelectField } from '@/contexts/shared/presentation/components/molecules/select-field/select-field';
+import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,8 +10,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/contexts/shared/presentation/components/ui/dialog';
-import { Button } from '@/contexts/shared/presentation/components/ui/button';
-import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
+import { useSidebar } from '@/contexts/shared/presentation/components/ui/sidebar';
+import { useGeographicSelector } from '@/contexts/shared/presentation/hooks/use-geographic-selector';
+import { useTranslations } from 'next-intl';
+import React, { useState } from 'react';
 
 interface CreateFarmDialogProps {
   open: boolean;
@@ -39,6 +43,21 @@ export const CreateFarmDialog: React.FC<CreateFarmDialogProps> = ({
   onCreateFarm,
 }) => {
   const t = useTranslations();
+  const { setOpen } = useSidebar();
+  const {
+    countries,
+    states,
+    cities,
+    selectedCountry,
+    selectedState,
+    selectedCity,
+    setSelectedCountry,
+    setSelectedState,
+    setSelectedCity,
+    loadingCountries,
+    loadingStates,
+    loadingCities,
+  } = useGeographicSelector();
 
   const [formData, setFormData] = useState<FarmFormData>({
     name: '',
@@ -120,6 +139,9 @@ export const CreateFarmDialog: React.FC<CreateFarmDialogProps> = ({
             onChange={handleFieldChange('name')}
             error={errors.name}
             required
+            helperText={t('pages.settings.farm.nameHelper', {
+              default: 'Enter a unique name for your farm.',
+            })}
           />
           <FormField
             label={t('pages.settings.farm.description')}
@@ -131,85 +153,161 @@ export const CreateFarmDialog: React.FC<CreateFarmDialogProps> = ({
             value={formData.description}
             onChange={handleFieldChange('description')}
             error={errors.description}
-          />
-          <FormField
-            label={t('pages.settings.farm.country')}
-            name="country"
-            type="text"
-            placeholder={t('pages.settings.farm.countryPlaceholder', {
-              default: 'e.g. Spain',
+            helperText={t('pages.settings.farm.descriptionHelper', {
+              default:
+                'Optional: Add a description to help identify your farm.',
             })}
-            value={formData.country}
-            onChange={handleFieldChange('country')}
-            error={errors.country}
-            required
           />
-          <FormField
-            label={t('pages.settings.farm.state')}
-            name="state"
-            type="text"
-            placeholder={t('pages.settings.farm.statePlaceholder', {
-              default: 'e.g. Andalusia',
-            })}
-            value={formData.state}
-            onChange={handleFieldChange('state')}
-            error={errors.state}
-          />
-          <FormField
-            label={t('pages.settings.farm.city')}
-            name="city"
-            type="text"
-            placeholder={t('pages.settings.farm.cityPlaceholder', {
-              default: 'e.g. Seville',
-            })}
-            value={formData.city}
-            onChange={handleFieldChange('city')}
-            error={errors.city}
-          />
-          <FormField
-            label={t('pages.settings.farm.postalCode')}
-            name="postalCode"
-            type="text"
-            placeholder={t('pages.settings.farm.postalCodePlaceholder', {
-              default: 'e.g. 41001',
-            })}
-            value={formData.postalCode}
-            onChange={handleFieldChange('postalCode')}
-            error={errors.postalCode}
-          />
-          <FormField
-            label={t('pages.settings.farm.street')}
-            name="street"
-            type="text"
-            placeholder={t('pages.settings.farm.streetPlaceholder', {
-              default: 'e.g. 123 Olive Road',
-            })}
-            value={formData.street}
-            onChange={handleFieldChange('street')}
-            error={errors.street}
-          />
-          <FormField
-            label={t('pages.settings.farm.latitude')}
-            name="latitude"
-            type="number"
-            placeholder={t('pages.settings.farm.latitudePlaceholder', {
-              default: 'e.g. 37.7749',
-            })}
-            value={formData.latitude}
-            onChange={handleFieldChange('latitude')}
-            error={errors.latitude}
-          />
-          <FormField
-            label={t('pages.settings.farm.longitude')}
-            name="longitude"
-            type="number"
-            placeholder={t('pages.settings.farm.longitudePlaceholder', {
-              default: 'e.g. -122.4194',
-            })}
-            value={formData.longitude}
-            onChange={handleFieldChange('longitude')}
-            error={errors.longitude}
-          />
+
+          {/* Location Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">
+              {t('pages.settings.farm.location', { default: 'Location' })}
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SelectField
+                label={t('pages.settings.farm.country')}
+                value={selectedCountry?.id?.toString() || undefined}
+                onChange={(id) => {
+                  const country = countries.find((c) => c.id.toString() === id);
+                  setSelectedCountry(country || null);
+                  handleFieldChange('country')(country?.name || '');
+                }}
+                error={errors.country}
+                disabled={loadingCountries}
+                placeholder={t('pages.settings.farm.countryPlaceholder', {
+                  default: 'e.g. Spain',
+                })}
+                helperText={t('pages.settings.farm.countryHelper', {
+                  default: 'Country where your farm is located.',
+                })}
+                options={countries.map((c) => ({
+                  value: c.id.toString(),
+                  label: c.name,
+                }))}
+              />
+
+              <SelectField
+                label={t('pages.settings.farm.state')}
+                value={selectedState?.id?.toString() || undefined}
+                onChange={(id) => {
+                  const state = states.find((s) => s.id.toString() === id);
+                  setSelectedState(state || null);
+                  handleFieldChange('state')(state?.name || '');
+                }}
+                error={errors.state}
+                disabled={!selectedCountry || loadingStates}
+                placeholder={t('pages.settings.farm.statePlaceholder', {
+                  default: 'e.g. Andalusia',
+                })}
+                helperText={t('pages.settings.farm.stateHelper', {
+                  default: 'State, province or region.',
+                })}
+                options={states.map((s) => ({
+                  value: s.id.toString(),
+                  label: s.name,
+                }))}
+              />
+
+              <SelectField
+                label={t('pages.settings.farm.city')}
+                value={selectedCity?.id?.toString() || undefined}
+                onChange={(id) => {
+                  const city = cities.find((c) => c.id.toString() === id);
+                  setSelectedCity(city || null);
+                  handleFieldChange('city')(city?.name || '');
+                }}
+                error={errors.city}
+                disabled={!selectedState || loadingCities}
+                placeholder={t('pages.settings.farm.cityPlaceholder', {
+                  default: 'City or town of your farm.',
+                })}
+                options={cities.map((c) => ({
+                  value: c.id.toString(),
+                  label: c.name,
+                }))}
+                helperText={t('pages.settings.farm.cityHelper')}
+              />
+
+              <FormField
+                label={t('pages.settings.farm.street')}
+                name="street"
+                type="text"
+                placeholder={t('pages.settings.farm.streetPlaceholder', {
+                  default: 'e.g. 123 Olive Road',
+                })}
+                value={formData.street}
+                onChange={handleFieldChange('street')}
+                error={errors.street}
+                helperText={t('pages.settings.farm.streetHelper', {
+                  default: 'Street address or local description.',
+                })}
+              />
+
+              <FormField
+                label={t('pages.settings.farm.postalCode')}
+                name="postalCode"
+                type="text"
+                placeholder={t('pages.settings.farm.postalCodePlaceholder', {
+                  default: 'e.g. 41001',
+                })}
+                value={formData.postalCode}
+                onChange={handleFieldChange('postalCode')}
+                error={errors.postalCode}
+                helperText={t('pages.settings.farm.postalCodeHelper', {
+                  default: 'Postal or ZIP code.',
+                })}
+              />
+            </div>
+          </div>
+
+          {/* Coordinates Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">
+              {t('pages.settings.farm.coordinates', { default: 'Coordinates' })}
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                label={t('pages.settings.farm.latitude')}
+                name="latitude"
+                type="number"
+                placeholder={t('pages.settings.farm.latitudePlaceholder', {
+                  default: 'e.g. 37.7749',
+                })}
+                value={formData.latitude}
+                onChange={handleFieldChange('latitude')}
+                error={errors.latitude}
+                helperText={t('pages.settings.farm.latitudeHelper', {
+                  default: 'Latitude in decimal degrees (e.g. 37.7749).',
+                })}
+              />
+              <FormField
+                label={t('pages.settings.farm.longitude')}
+                name="longitude"
+                type="number"
+                placeholder={t('pages.settings.farm.longitudePlaceholder', {
+                  default: 'e.g. -122.4194',
+                })}
+                value={formData.longitude}
+                onChange={handleFieldChange('longitude')}
+                error={errors.longitude}
+                helperText={t('pages.settings.farm.longitudeHelper', {
+                  default: 'Longitude in decimal degrees (e.g. -122.4194).',
+                })}
+              />
+            </div>
+          </div>
+
+          {formData.latitude && formData.longitude && (
+            <LocationMap
+              lat={formData.latitude}
+              lng={formData.longitude}
+              className="my-4"
+              title={t('pages.settings.farm.locationMap')}
+            />
+          )}
           <DialogFooter>
             <Button
               type="button"

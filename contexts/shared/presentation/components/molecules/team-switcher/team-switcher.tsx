@@ -1,6 +1,11 @@
 'use client';
-import * as React from 'react';
-import { ChevronsUpDown, Plus } from 'lucide-react';
+import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
+import {
+  CreateFarmDialog,
+  FarmFormData,
+} from '@/contexts/farms/presentation/components/organisms/create-farm-dialog/create-farm-dialog';
+import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,17 +21,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/contexts/shared/presentation/components/ui/sidebar';
-import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { FarmMembership } from '@/contexts/users/domain/entities/user.entity';
-import { useFarm } from '@/contexts/farms/presentation/hooks/use-farm';
+import { ChevronsUpDown, Plus } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import {
-  CreateFarmDialog,
-  FarmFormData,
-} from '@/contexts/farms/presentation/components/organisms/create-farm-dialog/create-farm-dialog';
-import { useAuth } from '@/contexts/auth/presentation/hooks/use-auth';
-import { useAuthStore } from '@/contexts/auth/presentation/store/auth-store';
 import { useRouter } from 'next/navigation';
+import * as React from 'react';
 
 export interface TeamSwitcherProps {
   farms: FarmMembership[];
@@ -37,7 +36,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
 
   const { createFarmMutation } = useFarm();
   const { currentUser } = useAuthStore();
-
+  const { setOpen } = useSidebar();
   const router = useRouter();
 
   const { currentFarm, setCurrentFarm } = useFarmStore();
@@ -62,7 +61,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
     });
     setCurrentFarm(response);
     setIsCreateFarmOpen(false);
-
+    setOpen(false);
     // Redirect to the new farm settings page
     router.push('/settings/farm');
   };
