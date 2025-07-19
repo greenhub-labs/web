@@ -4,6 +4,7 @@ import { CreatePlotDialog } from '@/contexts/shared/presentation/components/orga
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface PlotsPageComponentProps {
@@ -13,7 +14,7 @@ interface PlotsPageComponentProps {
 
 const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
   const t = useTranslations();
-
+  const router = useRouter();
   const tNavigation = useTranslations('navigation');
 
   const breadcrumbItems = [
@@ -24,7 +25,7 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const handleViewDetails = (plotId: string) => {
-    console.log('View details for', plotId);
+    router.push(`/garden/plots/${plotId}`);
   };
 
   const handleDelete = (plotId: string) => {

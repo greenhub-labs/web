@@ -144,10 +144,12 @@
         "nodeId": "Node ID",
         "size": "Size",
         "status": {
+          "title": "Status",
           "active": "Active",
           "inactive": "Inactive",
           "preparing": "Preparing",
-          "resting": "Resting"
+          "resting": "Resting",
+          "helper": "Select the current status of your plot to track its condition and management needs."
         },
         "planted": "Planted",
         "harvest": "Harvest",
@@ -161,13 +163,16 @@
           "description": "Add a new plot to organize your garden cultivation.",
           "name": "Plot Name",
           "namePlaceholder": "e.g., Vegetable Garden A",
+          "nameHelper": "Enter a descriptive name for your plot to help identify it easily.",
           "location": "Location",
           "locationPlaceholder": "e.g., North Side, Greenhouse 1",
           "size": "Plot Size",
           "sizePlaceholder": "e.g., 10x5 meters, 50 sq ft",
           "soilType": "Soil Type",
           "soilTypePlaceholder": "Select soil type",
+          "soilTypeHelper": "Choose the soil type that best describes your plot's soil composition.",
           "descriptionPlaceholder": "Additional notes about this plot...",
+          "descriptionHelper": "Add any relevant information about your plot, such as special conditions, history, or specific requirements.",
           "create": "Create Plot",
           "soilTypes": {
             "clay": "Clay Soil",
@@ -181,6 +186,44 @@
             "sizeRequired": "Plot size is required",
             "soilTypeRequired": "Please select a soil type"
           }
+        },
+        "detail": {
+          "title": "Plot Details",
+          "generalInfo": "📋 General Information",
+          "generalInfoDescription": "Basic plot information including name, description, soil type, and status",
+          "dimensions": "📏 Dimensions",
+          "dimensionsHelper": "Configure the physical dimensions of your plot",
+          "unitMeasurement": "Unit of Measurement",
+          "unitMeasurementHelper": "Select the unit of measurement for your plot dimensions",
+          "systemInfo": "System Information",
+          "width": "Width",
+          "widthHelper": "Enter the width of your plot in the specified unit of measurement.",
+          "length": "Length",
+          "lengthHelper": "Enter the length of your plot in the specified unit of measurement.",
+          "height": "Height",
+          "heightHelper": "Enter the height or depth of your plot (usually for raised beds or containers).",
+          "area": "Area",
+          "areaHelper": "Automatically calculated area of your plot based on width and length.",
+          "perimeter": "Perimeter",
+          "perimeterHelper": "Automatically calculated perimeter of your plot for fencing or border planning.",
+          "volume": "Volume",
+          "volumeHelper": "Automatically calculated volume of your plot for soil or growing medium calculations.",
+          "soilPh": "Soil pH",
+          "soilPhHelper": "Soil pH level (0-14 scale)",
+          "units": {
+            "metric": "Metric (m, cm)",
+            "imperial": "Imperial (ft, in)",
+            "meters": "Meters (m)",
+            "centimeters": "Centimeters (cm)",
+            "feet": "Feet (ft)",
+            "inches": "Inches (in)"
+          },
+          "plotId": "Plot ID",
+          "farmId": "Farm ID",
+          "createdAt": "Created At",
+          "updatedAt": "Updated At",
+          "notFound": "Plot Not Found",
+          "notFoundMessage": "The plot you're looking for doesn't exist or has been removed."
         }
       },
       "crops": {

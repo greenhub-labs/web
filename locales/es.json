@@ -144,10 +144,12 @@
         "nodeId": "ID del Nodo",
         "size": "Tamaño",
         "status": {
+          "title": "Estado",
           "active": "Activo",
           "inactive": "Inactivo",
           "preparing": "Preparando",
-          "resting": "Descansando"
+          "resting": "Descansando",
+          "helper": "Selecciona el estado actual de tu parcela para hacer seguimiento de su condición y necesidades de gestión."
         },
         "planted": "Plantado",
         "harvest": "Cosecha",
@@ -161,13 +163,16 @@
           "description": "Añade una nueva parcela para organizar tu cultivo.",
           "name": "Nombre de la Parcela",
           "namePlaceholder": "ej., Huerto de Verduras A",
+          "nameHelper": "Introduce un nombre descriptivo para tu parcela que ayude a identificarla fácilmente.",
           "location": "Ubicación",
           "locationPlaceholder": "ej., Lado Norte, Invernadero 1",
           "size": "Tamaño de Parcela",
           "sizePlaceholder": "ej., 10x5 metros, 50 m²",
           "soilType": "Tipo de Suelo",
           "soilTypePlaceholder": "Selecciona tipo de suelo",
+          "soilTypeHelper": "Elige el tipo de suelo que mejor describa la composición del suelo de tu parcela.",
           "descriptionPlaceholder": "Notas adicionales sobre esta parcela...",
+          "descriptionHelper": "Añade cualquier información relevante sobre tu parcela, como condiciones especiales, historial o requisitos específicos.",
           "create": "Crear Parcela",
           "soilTypes": {
             "clay": "Suelo Arcilloso",
@@ -181,6 +186,44 @@
             "sizeRequired": "El tamaño de la parcela es obligatorio",
             "soilTypeRequired": "Por favor selecciona un tipo de suelo"
           }
+        },
+        "detail": {
+          "title": "Detalles del Bancal",
+          "generalInfo": "📋 Información General",
+          "generalInfoDescription": "Información básica del bancal incluyendo nombre, descripción, tipo de suelo y estado",
+          "dimensions": "📏 Dimensiones",
+          "dimensionsHelper": "Configura las dimensiones físicas de tu bancal",
+          "unitMeasurement": "Unidad de Medida",
+          "unitMeasurementHelper": "Selecciona la unidad de medida para las dimensiones de tu bancal",
+          "systemInfo": "Información del Sistema",
+          "width": "Ancho",
+          "widthHelper": "Introduce el ancho de tu bancal en la unidad de medida especificada.",
+          "length": "Largo",
+          "lengthHelper": "Introduce el largo de tu bancal en la unidad de medida especificada.",
+          "height": "Altura",
+          "heightHelper": "Introduce la altura o profundidad de tu bancal (normalmente para camas elevadas o contenedores).",
+          "area": "Área",
+          "areaHelper": "Área calculada automáticamente de tu bancal basada en ancho y largo.",
+          "perimeter": "Perímetro",
+          "perimeterHelper": "Perímetro calculado automáticamente de tu bancal para planificación de cercas o bordes.",
+          "volume": "Volumen",
+          "volumeHelper": "Volumen calculado automáticamente de tu bancal para cálculos de suelo o medio de cultivo.",
+          "soilPh": "pH del Suelo",
+          "soilPhHelper": "Nivel de pH del suelo (escala 0-14)",
+          "units": {
+            "metric": "Métrico (m, cm)",
+            "imperial": "Imperial (ft, in)",
+            "meters": "Metros (m)",
+            "centimeters": "Centímetros (cm)",
+            "feet": "Pies (ft)",
+            "inches": "Pulgadas (in)"
+          },
+          "plotId": "ID del Bancal",
+          "farmId": "ID de la Granja",
+          "createdAt": "Creado el",
+          "updatedAt": "Actualizado el",
+          "notFound": "Bancal No Encontrado",
+          "notFoundMessage": "El bancal que buscas no existe o ha sido eliminado."
         }
       },
       "crops": {
