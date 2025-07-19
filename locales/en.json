@@ -144,9 +144,10 @@
         "nodeId": "Node ID",
         "size": "Size",
         "status": {
-          "optimal": "Optimal",
-          "warning": "Warning",
-          "available": "Available"
+          "active": "Active",
+          "inactive": "Inactive",
+          "preparing": "Preparing",
+          "resting": "Resting"
         },
         "planted": "Planted",
         "harvest": "Harvest",
