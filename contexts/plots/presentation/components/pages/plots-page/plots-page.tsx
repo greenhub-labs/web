@@ -1,7 +1,5 @@
-import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
 import { PlotCard } from '@/contexts/plots/presentation/components/molecules/plot-card/plot-card';
-import { usePlotsByFarm } from '@/contexts/plots/presentation/hooks/use-plots-by-farm';
 import { CreatePlotDialog } from '@/contexts/shared/presentation/components/organisms/CreatePlotDialog';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
@@ -15,9 +13,6 @@ interface PlotsPageComponentProps {
 
 const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
   const t = useTranslations();
-
-  const { currentFarm } = useFarmStore();
-  const { getPlotsByFarmIdQuery } = usePlotsByFarm(currentFarm?.id || '');
 
   const tNavigation = useTranslations('navigation');
 
@@ -38,30 +33,12 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
 
   return (
     <PageTemplate
-      pageTitle={t('pages.garden.plots.title')}
+      pageTitle={tNavigation('garden.plots')}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex items-center gap-2">
           {/* Desktop: Todos los controles */}
           <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-0.5 bg-background border rounded-md p-1">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="px-3 py-2 text-sm"
-              >
-                🔲 {t('pages.garden.plots.gridView')}
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="px-3 py-2 text-sm"
-              >
-                📋 {t('pages.garden.plots.listView')}
-              </Button>
-            </div>
             <Button
               className="px-3 py-2 text-sm"
               onClick={() => setIsCreateDialogOpen(true)}
@@ -72,24 +49,6 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
 
           {/* Mobile: Solo View Toggle + Add */}
           <div className="md:hidden flex items-center gap-2">
-            <div className="flex items-center gap-0.5 bg-background border rounded-md p-0.5">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="h-8 w-8 p-0"
-              >
-                🔲
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="h-8 w-8 p-0"
-              >
-                📋
-              </Button>
-            </div>
             <Button
               className="h-8 w-8 p-0"
               onClick={() => setIsCreateDialogOpen(true)}
