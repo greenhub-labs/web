@@ -1,4 +1,4 @@
-export interface FarmResponseDto {
+export interface PlotResponseDto {
   id: string;
   name: string;
   description: string;

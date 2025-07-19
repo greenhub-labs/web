@@ -1,5 +1,7 @@
 import { Farm } from '@/contexts/farms/domain/entities/farm.entity';
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
+import { usePlotsByFarm } from '@/contexts/plots/presentation/hooks/use-plots-by-farm';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useTranslations } from 'next-intl';
@@ -28,6 +30,12 @@ const PlotsPageComponent = ({
   errors,
 }: PlotsPageComponentProps) => {
   const t = useTranslations();
+
+  const { currentFarm } = useFarmStore();
+  const { getPlotsByFarmIdQuery } = usePlotsByFarm(currentFarm?.id || '');
+
+  console.log('getPlotsByFarmIdQuery', getPlotsByFarmIdQuery.data);
+
   const tNavigation = useTranslations('navigation');
 
   const breadcrumbItems = [

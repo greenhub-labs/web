@@ -25,3 +25,30 @@ export const GET_PLOT_BY_ID_QUERY = gql`
     }
   }
 `;
+
+export const GET_PLOTS_BY_FARM_ID_QUERY = gql`
+  query GetPlotsByFarmId($input: GetPlotsByFarmIdRequestDto!) {
+    getPlotsByFarmId(input: $input) {
+      id
+      name
+      description
+      status
+      soilType
+      soilPh
+      farmId
+      createdAt
+      updatedAt
+      deletedAt
+      dimensions {
+        width
+        length
+        height
+        area
+        perimeter
+        volume
+        unitMeasurement
+        unitMeasurementCategory
+      }
+    }
+  }
+`;

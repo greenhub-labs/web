@@ -12,6 +12,8 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 // New reusable components
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
+import { usePlotsByFarm } from '@/contexts/plots/presentation/hooks/use-plots-by-farm';
 import { StatCard } from '@/contexts/shared/presentation/components/atoms';
 import {
   EntityCardActions,
@@ -21,6 +23,10 @@ import {
 
 const PlotsPage = () => {
   const t = useTranslations();
+
+  const { currentFarm } = useFarmStore();
+  const { getPlotsByFarmIdQuery } = usePlotsByFarm(currentFarm?.id || '');
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
