@@ -10,10 +10,14 @@ import {
 import { Separator } from '@/contexts/shared/presentation/components/ui/separator';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { ActiveCropsSection } from '../active-crops-section/active-crops-section';
+import {
+  ActiveCropsSection,
+  Crop,
+} from '../active-crops-section/active-crops-section';
 
 export interface PlotCardProps {
   plot: Plot;
+  crops?: Crop[];
   onViewDetails: (plotId: string) => void;
   onDelete: (plotId: string) => void;
   className?: string;
@@ -21,6 +25,7 @@ export interface PlotCardProps {
 
 export const PlotCard: React.FC<PlotCardProps> = ({
   plot,
+  crops = [],
   onViewDetails,
   onDelete,
   className,
@@ -62,7 +67,7 @@ export const PlotCard: React.FC<PlotCardProps> = ({
 
         {/* Active Crops Section */}
         <Separator />
-        <ActiveCropsSection crops={[]} />
+        <ActiveCropsSection crops={crops} />
 
         {/* Actions */}
         <div className="flex gap-1 pt-2">

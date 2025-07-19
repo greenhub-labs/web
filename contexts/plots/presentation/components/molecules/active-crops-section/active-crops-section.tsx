@@ -26,9 +26,9 @@ export const ActiveCropsSection: React.FC<ActiveCropsSectionProps> = ({
         🌾 {t('pages.garden.plots.activeCrops')} ({crops.length})
       </p>
       <div className="h-28 sm:h-32 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-        <div className="space-y-1.5 sm:space-y-2 pr-2">
-          {crops.length > 0 ? (
-            crops.map((crop, index) => (
+        {crops.length > 0 ? (
+          <div className="space-y-1.5 sm:space-y-2 pr-2">
+            {crops.map((crop, index) => (
               <div
                 key={crop.id}
                 className="p-1.5 sm:p-2 bg-accent/30 rounded-lg"
@@ -54,18 +54,18 @@ export const ActiveCropsSection: React.FC<ActiveCropsSectionProps> = ({
                   </div>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className="h-full flex items-center justify-center text-muted-foreground">
-              <div className="text-center">
-                <span className="text-xl sm:text-2xl mb-2 block">🌱</span>
-                <p className="text-xs sm:text-sm">
-                  {t('pages.garden.plots.noCrops')}
-                </p>
-              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="h-full flex items-center justify-center">
+            <div className="text-center text-muted-foreground">
+              <span className="text-xl sm:text-2xl mb-2 block">🌱</span>
+              <p className="text-xs sm:text-sm">
+                {t('pages.garden.plots.noCrops')}
+              </p>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
