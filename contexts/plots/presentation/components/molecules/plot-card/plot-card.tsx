@@ -37,14 +37,14 @@ export const PlotCard: React.FC<PlotCardProps> = ({
     >
       {/* Header */}
       <PlotCardHeader
-        name={plot.name}
-        description={plot.description}
-        status={plot.status}
+        name={plot?.name || ''}
+        description={plot?.description || ''}
+        status={plot?.status || ''}
       />
 
       <CardContent className="space-y-3 sm:space-y-4">
         {/* Size */}
-        <PlotSizeIndicator dimensions={plot.dimensions} />
+        <PlotSizeIndicator dimensions={plot?.dimensions} />
 
         {/* Active Crops Section */}
         <Separator />
@@ -52,8 +52,8 @@ export const PlotCard: React.FC<PlotCardProps> = ({
 
         {/* Actions */}
         <PlotCardActions
-          plotId={plot.id}
-          plotName={plot.name}
+          plotId={plot?.id || ''}
+          plotName={plot?.name || ''}
           onViewDetails={onViewDetails}
           onDelete={onDelete}
         />

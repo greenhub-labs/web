@@ -129,7 +129,7 @@ const PlotDetailPageComponent = ({
   return (
     <>
       <PageTemplate
-        pageTitle={plot.name}
+        pageTitle={plot?.name || ''}
         breadcrumbItems={breadcrumbItems}
         headerActions={
           <div className="flex items-center gap-2">
@@ -201,7 +201,7 @@ const PlotDetailPageComponent = ({
         description={t(
           'pages.garden.plots.detail.deleteConfirmation.description',
           {
-            plotName: plot.name,
+            plotName: plot?.name || '',
           },
         )}
         isLoading={isDeleting}

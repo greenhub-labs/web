@@ -154,7 +154,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
 
   // Get current user's role safely
   const currentUserRole =
-    currentFarm.members?.find((member) => member.id === currentUser?.id)
+    currentFarm?.members?.find((member) => member.id === currentUser?.id)
       ?.role || '';
 
   return (
@@ -172,7 +172,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">
-                    {currentFarm.name}
+                    {currentFarm?.name || ''}
                   </span>
                   <span className="truncate text-xs">{currentUserRole}</span>
                 </div>
