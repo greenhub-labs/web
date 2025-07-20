@@ -57,4 +57,13 @@ export class PlotsApiRepository implements PlotsRepository {
     const data: Plot = await response.json();
     return data;
   }
+
+  async deletePlot(plotId: string): Promise<void> {
+    const url = `/api/plots/delete-plot`;
+    const response = await fetchWithAutoRefresh(url, {
+      method: 'POST',
+      body: JSON.stringify({ id: plotId }),
+    });
+    return response.json();
+  }
 }

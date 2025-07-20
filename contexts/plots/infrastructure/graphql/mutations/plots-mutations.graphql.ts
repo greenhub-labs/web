@@ -52,3 +52,9 @@ export const UPDATE_PLOT_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_PLOT_MUTATION = gql`
+  mutation DeletePlot($input: DeletePlotRequestDto!) {
+    deletePlot(input: $input)
+  }
+`;

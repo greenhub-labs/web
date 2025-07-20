@@ -1,5 +1,4 @@
 import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
-import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
 import { PlotCard } from '@/contexts/plots/presentation/components/molecules/plot-card/plot-card';
 import { CreatePlotDialog } from '@/contexts/plots/presentation/components/organisms/create-plot-dialog/create-plot-dialog';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
@@ -7,21 +6,17 @@ import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { usePlot } from '../../../hooks/use-plot';
+import { usePlotsByFarm } from '../../../hooks/use-plots-by-farm';
+import { PlotsPageSkeleton } from './plots-page-skeleton';
 
-interface PlotsPageComponentProps {
-  plots: Plot[];
-  isLoading: boolean;
-}
-
-const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
+const PlotsPageComponent = () => {
   const t = useTranslations();
   const router = useRouter();
   const tNavigation = useTranslations('navigation');
 
   const { currentFarm } = useFarmStore();
-
-  const { createPlotMutation } = usePlot();
+  const { getPlotsByFarmIdQuery, createPlotMutation, deletePlotMutation } =
+    usePlotsByFarm(currentFarm?.id);
 
   const breadcrumbItems = [
     { label: tNavigation('garden.title'), href: '/garden' },
@@ -29,17 +24,21 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
 
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
+  // Show skeleton if no current farm is selected or if loading
+  if (!currentFarm || getPlotsByFarmIdQuery.isLoading) {
+    return <PlotsPageSkeleton />;
+  }
+
   const handleViewDetails = (plotId: string) => {
     router.push(`/garden/plots/${plotId}`);
   };
 
   const handleDelete = (plotId: string) => {
-    console.log('Delete plot', plotId);
+    deletePlotMutation.mutate(plotId);
   };
 
   const handleCreatePlot = async (plotData: any) => {
     try {
-      console.log('Creating plot:', plotData);
       createPlotMutation.mutate(plotData);
     } catch (error) {
       console.error('Error creating plot:', error);
@@ -79,7 +78,7 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
         <div
           className={`grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3`}
         >
-          {plots.map((plot) => (
+          {getPlotsByFarmIdQuery.data?.map((plot) => (
             <PlotCard
               key={plot.id}
               plot={plot}
