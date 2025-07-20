@@ -48,7 +48,7 @@ export const PlotCard: React.FC<PlotCardProps> = ({
 
         {/* Active Crops Section */}
         <Separator />
-        <ActiveCropsSection crops={crops} />
+        <ActiveCropsSection crops={crops || []} />
 
         {/* Actions */}
         <PlotCardActions
