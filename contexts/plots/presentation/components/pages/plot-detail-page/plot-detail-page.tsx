@@ -24,6 +24,7 @@ interface PlotDetailPageComponentProps {
   onEdit: () => void;
   onSave: () => void;
   onCancel: () => void;
+  onDelete: () => void;
   onInputChange: (field: string, value: string) => void;
 }
 
@@ -82,6 +83,7 @@ const PlotDetailPageComponent = ({
   onEdit,
   onSave,
   onCancel,
+  onDelete,
   onInputChange,
 }: PlotDetailPageComponentProps) => {
   const t = useTranslations();
@@ -131,9 +133,18 @@ const PlotDetailPageComponent = ({
               </Button>
             </>
           ) : (
-            <Button onClick={onEdit} className="px-3 py-2 text-sm">
-              {t('common.edit')}
-            </Button>
+            <>
+              <Button onClick={onEdit} className="px-3 py-2 text-sm">
+                {t('common.edit')}
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={onDelete}
+                className="px-3 py-2 text-sm"
+              >
+                {t('common.delete')}
+              </Button>
+            </>
           )}
         </div>
       }

@@ -1,8 +1,11 @@
 'use client';
 
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
 import PlotDetailPageComponent from '@/contexts/plots/presentation/components/pages/plot-detail-page/plot-detail-page';
 import { usePlot } from '@/contexts/plots/presentation/hooks/use-plot';
+import { usePlotsByFarm } from '@/contexts/plots/presentation/hooks/use-plots-by-farm';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 interface PlotDetailPageProps {
@@ -12,9 +15,10 @@ interface PlotDetailPageProps {
 }
 
 const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
-  const { id } = params;
-  const { getPlotByIdQuery, updatePlotMutation } = usePlot(id);
-
+  const router = useRouter();
+  const { currentFarm } = useFarmStore();
+  const { getPlotByIdQuery, updatePlotMutation } = usePlot(params.id);
+  const { deletePlotMutation } = usePlotsByFarm(currentFarm?.id);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -25,7 +29,7 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
     width: '',
     length: '',
     height: '',
-    unitMeasurement: 'm',
+    unitMeasurement: '',
   });
 
   // Sync formData with plot data when plot changes
@@ -83,6 +87,16 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
     }
   };
 
+  const handleDelete = () => {
+    if (getPlotByIdQuery.data) {
+      deletePlotMutation.mutate(getPlotByIdQuery.data.id, {
+        onSuccess: () => {
+          router.push('/garden/plots');
+        },
+      });
+    }
+  };
+
   const handleCancel = () => {
     if (getPlotByIdQuery.data) {
       const plot = getPlotByIdQuery.data;
@@ -110,6 +124,7 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
       onEdit={handleEdit}
       onSave={handleSave}
       onCancel={handleCancel}
+      onDelete={handleDelete}
       onInputChange={handleInputChange}
     />
   );
