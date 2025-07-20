@@ -35,6 +35,48 @@ export function rebuildCookieWithAccessToken(
 }
 
 /**
+ * Gets the access token cookie configuration
+ * @returns Cookie configuration object for access tokens
+ */
+export function getAccessTokenCookieConfig() {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    path: '/',
+    maxAge: parseInt(process.env.ACCESS_TOKEN_COOKIE_MAX_AGE || '3600'),
+  };
+}
+
+/**
+ * Gets the refresh token cookie configuration
+ * @returns Cookie configuration object for refresh tokens
+ */
+export function getRefreshTokenCookieConfig() {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    path: '/',
+    maxAge: parseInt(process.env.REFRESH_TOKEN_COOKIE_MAX_AGE || '604800'), // 7 days default
+  };
+}
+
+/**
+ * Gets the cookie configuration for clearing cookies (logout)
+ * @returns Cookie configuration object for clearing cookies
+ */
+export function getClearCookieConfig() {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    path: '/',
+    maxAge: 0,
+  };
+}
+
+/**
  * Tries to refresh the accessToken using the refreshToken cookie.
  * @param cookies The original cookie string (from headers)
  * @param baseUrl The base URL for the API (e.g., process.env.NEXT_PUBLIC_BASE_URL)
