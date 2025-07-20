@@ -5,7 +5,7 @@ import { PageTemplate } from '@/contexts/shared/presentation/components/template
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { Skeleton } from '@/contexts/shared/presentation/components/ui/skeleton';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface PlotDetailPageComponentProps {
   plot: Plot | null;
@@ -78,6 +78,23 @@ const PlotDetailPageComponent = ({
     height: plot?.dimensions?.height?.toString() || '',
     unitMeasurement: plot?.dimensions?.unitMeasurement || 'm',
   });
+
+  // Sync formData with plot data when plot changes
+  useEffect(() => {
+    if (plot) {
+      setFormData({
+        name: plot.name || '',
+        description: plot.description || '',
+        soilType: plot.soilType || '',
+        soilPh: plot.soilPh?.toString() || '',
+        status: plot.status || '',
+        width: plot.dimensions?.width?.toString() || '',
+        length: plot.dimensions?.length?.toString() || '',
+        height: plot.dimensions?.height?.toString() || '',
+        unitMeasurement: plot.dimensions?.unitMeasurement || 'm',
+      });
+    }
+  }, [plot]);
 
   const breadcrumbItems = [
     { label: tNavigation('garden.title'), href: '/garden' },

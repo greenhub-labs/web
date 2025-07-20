@@ -1,4 +1,5 @@
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
+import { usePlotOptions } from '@/contexts/plots/presentation/hooks/use-plot-options';
 import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 import { SelectField } from '@/contexts/shared/presentation/components/molecules/select-field/select-field';
 import {
@@ -29,13 +30,7 @@ export const PlotDimensionsSection: React.FC<PlotDimensionsSectionProps> = ({
   onInputChange,
 }) => {
   const t = useTranslations();
-
-  const unitOptions = [
-    { value: 'm', label: t('pages.garden.plots.detail.units.meters') },
-    { value: 'cm', label: t('pages.garden.plots.detail.units.centimeters') },
-    { value: 'ft', label: t('pages.garden.plots.detail.units.feet') },
-    { value: 'in', label: t('pages.garden.plots.detail.units.inches') },
-  ];
+  const { unitMeasurementOptions } = usePlotOptions();
 
   return (
     <Card>
@@ -83,7 +78,7 @@ export const PlotDimensionsSection: React.FC<PlotDimensionsSectionProps> = ({
 
           <SelectField
             label={t('pages.garden.plots.detail.unitMeasurement')}
-            options={unitOptions}
+            options={unitMeasurementOptions}
             value={formData.unitMeasurement || plot.dimensions.unitMeasurement}
             onChange={(value) => onInputChange('unitMeasurement', value)}
             disabled={!isEditing}
