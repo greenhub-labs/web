@@ -5,11 +5,26 @@ import { PageTemplate } from '@/contexts/shared/presentation/components/template
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { Skeleton } from '@/contexts/shared/presentation/components/ui/skeleton';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
 interface PlotDetailPageComponentProps {
   plot: Plot | null;
   isLoading: boolean;
+  isEditing: boolean;
+  formData: {
+    name: string;
+    description: string;
+    soilType: string;
+    soilPh: string;
+    status: string;
+    width: string;
+    length: string;
+    height: string;
+    unitMeasurement: string;
+  };
+  onEdit: () => void;
+  onSave: () => void;
+  onCancel: () => void;
+  onInputChange: (field: string, value: string) => void;
 }
 
 const PlotDetailLoading = () => {
@@ -62,72 +77,20 @@ const PlotDetailLoading = () => {
 const PlotDetailPageComponent = ({
   plot,
   isLoading,
+  isEditing,
+  formData,
+  onEdit,
+  onSave,
+  onCancel,
+  onInputChange,
 }: PlotDetailPageComponentProps) => {
   const t = useTranslations();
   const tNavigation = useTranslations('navigation');
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    name: plot?.name || '',
-    description: plot?.description || '',
-    soilType: plot?.soilType || '',
-    soilPh: plot?.soilPh?.toString() || '',
-    status: plot?.status || '',
-    width: plot?.dimensions?.width?.toString() || '',
-    length: plot?.dimensions?.length?.toString() || '',
-    height: plot?.dimensions?.height?.toString() || '',
-    unitMeasurement: plot?.dimensions?.unitMeasurement || 'm',
-  });
-
-  // Sync formData with plot data when plot changes
-  useEffect(() => {
-    if (plot) {
-      setFormData({
-        name: plot.name || '',
-        description: plot.description || '',
-        soilType: plot.soilType || '',
-        soilPh: plot.soilPh?.toString() || '',
-        status: plot.status || '',
-        width: plot.dimensions?.width?.toString() || '',
-        length: plot.dimensions?.length?.toString() || '',
-        height: plot.dimensions?.height?.toString() || '',
-        unitMeasurement: plot.dimensions?.unitMeasurement || 'm',
-      });
-    }
-  }, [plot]);
 
   const breadcrumbItems = [
     { label: tNavigation('garden.title'), href: '/garden' },
     { label: tNavigation('garden.plots'), href: '/garden/plots' },
   ];
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    // TODO: Implementar lógica de guardado
-    console.log('Saving plot data:', formData);
-    setIsEditing(false);
-  };
-
-  const handleCancel = () => {
-    setFormData({
-      name: plot?.name || '',
-      description: plot?.description || '',
-      soilType: plot?.soilType || '',
-      soilPh: plot?.soilPh?.toString() || '',
-      status: plot?.status || '',
-      width: plot?.dimensions?.width?.toString() || '',
-      length: plot?.dimensions?.length?.toString() || '',
-      height: plot?.dimensions?.height?.toString() || '',
-      unitMeasurement: plot?.dimensions?.unitMeasurement || 'm',
-    });
-    setIsEditing(false);
-  };
 
   if (isLoading) {
     return <PlotDetailLoading />;
@@ -158,20 +121,17 @@ const PlotDetailPageComponent = ({
             <>
               <Button
                 variant="outline"
-                onClick={handleCancel}
+                onClick={onCancel}
                 className="px-3 py-2 text-sm"
               >
                 {t('common.cancel')}
               </Button>
-              <Button onClick={handleSave} className="px-3 py-2 text-sm">
+              <Button onClick={onSave} className="px-3 py-2 text-sm">
                 {t('common.save')}
               </Button>
             </>
           ) : (
-            <Button
-              onClick={() => setIsEditing(true)}
-              className="px-3 py-2 text-sm"
-            >
+            <Button onClick={onEdit} className="px-3 py-2 text-sm">
               {t('common.edit')}
             </Button>
           )}
@@ -190,7 +150,7 @@ const PlotDetailPageComponent = ({
             status: formData.status,
           }}
           isEditing={isEditing}
-          onInputChange={handleInputChange}
+          onInputChange={onInputChange}
         />
 
         {/* Dimensiones */}
@@ -203,7 +163,7 @@ const PlotDetailPageComponent = ({
             unitMeasurement: formData.unitMeasurement,
           }}
           isEditing={isEditing}
-          onInputChange={handleInputChange}
+          onInputChange={onInputChange}
         />
       </div>
     </PageTemplate>
