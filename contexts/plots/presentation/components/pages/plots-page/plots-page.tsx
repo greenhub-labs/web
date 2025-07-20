@@ -5,7 +5,6 @@ import { CreatePlotDialog } from '@/contexts/plots/presentation/components/organ
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { PlotsPageSkeleton } from './plots-page-skeleton';
 
 interface PlotsPageComponentProps {
@@ -75,14 +74,12 @@ const PlotsPageComponent = ({
           className={`grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3`}
         >
           {plots?.map((plot) => (
-            <Link href={`/garden/plots/${plot.id}`} key={plot.id}>
-              <PlotCard
-                key={plot.id}
-                plot={plot}
-                onViewDetails={onViewDetails}
-                onDelete={onDelete}
-              />
-            </Link>
+            <PlotCard
+              key={plot.id}
+              plot={plot}
+              onViewDetails={onViewDetails}
+              onDelete={onDelete}
+            />
           ))}
         </div>
       </div>

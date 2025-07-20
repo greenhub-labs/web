@@ -2,11 +2,10 @@ import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
 import { PlotCardActions } from '@/contexts/plots/presentation/components/atoms/plot-card-actions/plot-card-actions';
 import { PlotCardHeader } from '@/contexts/plots/presentation/components/atoms/plot-card-header/plot-card-header';
 import { PlotSizeIndicator } from '@/contexts/plots/presentation/components/atoms/plot-size-indicator/plot-size-indicator';
-import {
-  Card,
-  CardContent,
-} from '@/contexts/shared/presentation/components/ui/card';
+import { ClickableCard } from '@/contexts/shared/presentation/components/molecules/clickable-card/clickable-card';
+import { CardContent } from '@/contexts/shared/presentation/components/ui/card';
 import { Separator } from '@/contexts/shared/presentation/components/ui/separator';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 import {
   ActiveCropsSection,
@@ -28,8 +27,14 @@ export const PlotCard: React.FC<PlotCardProps> = ({
   onDelete,
   className,
 }) => {
+  const t = useTranslations();
+
   return (
-    <Card className={`hover:shadow-md transition-shadow ${className}`}>
+    <ClickableCard
+      href={`/garden/plots/${plot.id}`}
+      className={className}
+      srText={t('pages.garden.plots.viewDetails')}
+    >
       {/* Header */}
       <PlotCardHeader
         name={plot.name}
@@ -48,11 +53,12 @@ export const PlotCard: React.FC<PlotCardProps> = ({
         {/* Actions */}
         <PlotCardActions
           plotId={plot.id}
+          plotName={plot.name}
           onViewDetails={onViewDetails}
           onDelete={onDelete}
         />
       </CardContent>
-    </Card>
+    </ClickableCard>
   );
 };
 

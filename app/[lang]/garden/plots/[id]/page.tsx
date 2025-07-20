@@ -20,6 +20,7 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
   const { getPlotByIdQuery, updatePlotMutation } = usePlot(params.id);
   const { deletePlotMutation } = usePlotsByFarm(currentFarm?.id);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -89,9 +90,13 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
 
   const handleDelete = () => {
     if (getPlotByIdQuery.data) {
+      setIsDeleting(true);
       deletePlotMutation.mutate(getPlotByIdQuery.data.id, {
         onSuccess: () => {
           router.push('/garden/plots');
+        },
+        onSettled: () => {
+          setIsDeleting(false);
         },
       });
     }
@@ -120,6 +125,7 @@ const PlotDetailPage = ({ params }: PlotDetailPageProps) => {
       plot={getPlotByIdQuery.data || null}
       isLoading={getPlotByIdQuery.isLoading}
       isEditing={isEditing}
+      isDeleting={isDeleting}
       formData={formData}
       onEdit={handleEdit}
       onSave={handleSave}

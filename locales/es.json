@@ -6,6 +6,7 @@
     "add": "Añadir",
     "edit": "Editar",
     "delete": "Eliminar",
+    "deleting": "Eliminando...",
     "save": "Guardar",
     "cancel": "Cancelar",
     "create": "Crear",
@@ -13,7 +14,7 @@
     "update": "Actualizar",
     "search": "Buscar",
     "clear": "Limpiar",
-    "noResults": "Sin resultados para",
+    "noResults": "No hay resultados para",
     "close": "Cerrar",
     "back": "Atrás",
     "home": "Inicio",
@@ -21,7 +22,12 @@
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
-    "info": "Información"
+    "info": "Información",
+    "plot": "Parcela",
+    "deleteConfirmation": {
+      "title": "Confirmar Eliminación",
+      "description": "¿Estás seguro de que quieres eliminar este elemento? Esta acción no se puede deshacer."
+    }
   },
   "pages": {
     "auth": {
@@ -158,6 +164,10 @@
         "viewDetails": "Ver Detalles",
         "activeCrops": "Cultivos Activos",
         "noCrops": "Sin cultivos plantados",
+        "deleteConfirmation": {
+          "title": "Eliminar Parcela",
+          "description": "¿Estás seguro de que quieres eliminar la parcela \"{plotName}\"? Esta acción no se puede deshacer y eliminará todos los datos asociados."
+        },
         "form": {
           "title": "Crear Nueva Parcela",
           "description": "Añade una nueva parcela para organizar tu cultivo.",
@@ -257,7 +267,11 @@
           "createdAt": "Creado el",
           "updatedAt": "Actualizado el",
           "notFound": "Bancal No Encontrado",
-          "notFoundMessage": "El bancal que buscas no existe o ha sido eliminado."
+          "notFoundMessage": "El bancal que buscas no existe o ha sido eliminado.",
+          "deleteConfirmation": {
+            "title": "Eliminar Parcela",
+            "description": "¿Estás seguro de que quieres eliminar la parcela \"{plotName}\"? Esta acción no se puede deshacer y eliminará todos los datos asociados."
+          }
         }
       },
       "crops": {
