@@ -1,5 +1,5 @@
-import { PlotStatus } from '@/contexts/plots/domain/constants/plot-status.constants';
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
+import { usePlotOptions } from '@/contexts/plots/presentation/hooks/use-plot-options';
 import { FormField } from '@/contexts/shared/presentation/components/molecules/form-field/form-field';
 import { SelectField } from '@/contexts/shared/presentation/components/molecules/select-field/select-field';
 import {
@@ -31,29 +31,7 @@ export const PlotGeneralInfoSection: React.FC<PlotGeneralInfoSectionProps> = ({
   onInputChange,
 }) => {
   const t = useTranslations();
-
-  const soilTypeOptions = [
-    { value: 'clay', label: t('pages.garden.plots.form.soilTypes.clay') },
-    { value: 'sandy', label: t('pages.garden.plots.form.soilTypes.sandy') },
-    { value: 'loamy', label: t('pages.garden.plots.form.soilTypes.loamy') },
-    { value: 'rocky', label: t('pages.garden.plots.form.soilTypes.rocky') },
-  ];
-
-  const statusOptions = [
-    { value: PlotStatus.ACTIVE, label: t('pages.garden.plots.status.active') },
-    {
-      value: PlotStatus.INACTIVE,
-      label: t('pages.garden.plots.status.inactive'),
-    },
-    {
-      value: PlotStatus.PREPARING,
-      label: t('pages.garden.plots.status.preparing'),
-    },
-    {
-      value: PlotStatus.RESTING,
-      label: t('pages.garden.plots.status.resting'),
-    },
-  ];
+  const { soilTypeOptions, statusOptions } = usePlotOptions();
 
   return (
     <Card>

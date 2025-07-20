@@ -25,8 +25,8 @@ export function usePlot(plotId?: string) {
   const createPlotMutation = useMutation({
     mutationFn: (plot: CreatePlotDto) => plotsApiRepository.createPlot(plot),
     onSuccess: (data) => {
-      queryClient.refetchQueries({ queryKey: ['plot', data.id] });
-      queryClient.refetchQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: ['plots'] });
+      queryClient.invalidateQueries({ queryKey: ['me'] });
       return data;
     },
   });
@@ -34,8 +34,8 @@ export function usePlot(plotId?: string) {
   const updatePlotMutation = useMutation({
     mutationFn: (plot: Plot) => plotsApiRepository.updatePlot(plot),
     onSuccess: (data) => {
-      queryClient.refetchQueries({ queryKey: ['plot', data.id] });
-      queryClient.refetchQueries({ queryKey: ['me'] });
+      queryClient.invalidateQueries({ queryKey: ['plots'] });
+      queryClient.invalidateQueries({ queryKey: ['me'] });
       return data;
     },
   });

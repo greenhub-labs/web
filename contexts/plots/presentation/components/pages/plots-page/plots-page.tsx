@@ -1,11 +1,13 @@
+import { useFarmStore } from '@/contexts/farms/presentation/stores/farm-store';
 import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
 import { PlotCard } from '@/contexts/plots/presentation/components/molecules/plot-card/plot-card';
-import { CreatePlotDialog } from '@/contexts/shared/presentation/components/organisms/CreatePlotDialog';
+import { CreatePlotDialog } from '@/contexts/plots/presentation/components/organisms/create-plot-dialog/create-plot-dialog';
 import { PageTemplate } from '@/contexts/shared/presentation/components/templates/page-template';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { usePlot } from '../../../hooks/use-plot';
 
 interface PlotsPageComponentProps {
   plots: Plot[];
@@ -17,11 +19,14 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
   const router = useRouter();
   const tNavigation = useTranslations('navigation');
 
+  const { currentFarm } = useFarmStore();
+
+  const { createPlotMutation } = usePlot();
+
   const breadcrumbItems = [
     { label: tNavigation('garden.title'), href: '/garden' },
   ];
 
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   const handleViewDetails = (plotId: string) => {
@@ -30,6 +35,15 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
 
   const handleDelete = (plotId: string) => {
     console.log('Delete plot', plotId);
+  };
+
+  const handleCreatePlot = async (plotData: any) => {
+    try {
+      console.log('Creating plot:', plotData);
+      createPlotMutation.mutate(plotData);
+    } catch (error) {
+      console.error('Error creating plot:', error);
+    }
   };
 
   return (
@@ -80,7 +94,8 @@ const PlotsPageComponent = ({ plots, isLoading }: PlotsPageComponentProps) => {
       <CreatePlotDialog
         open={isCreateDialogOpen}
         onOpenChange={setIsCreateDialogOpen}
-        onCreatePlot={() => {}}
+        onCreatePlot={handleCreatePlot}
+        farmId={currentFarm?.id || ''}
       />
     </PageTemplate>
   );
