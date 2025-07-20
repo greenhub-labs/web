@@ -129,9 +129,33 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
     );
   }
 
+  // Show loading state while currentFarm is being loaded
   if (!currentFarm) {
-    return null;
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            size="lg"
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          >
+            <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+              <span className="text-2xl">🌾</span>
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight">
+              <span className="truncate font-medium">Loading...</span>
+              <span className="truncate text-xs">Please wait</span>
+            </div>
+            <ChevronsUpDown className="ml-auto" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    );
   }
+
+  // Get current user's role safely
+  const currentUserRole =
+    currentFarm.members?.find((member) => member.id === currentUser?.id)
+      ?.role || '';
 
   return (
     <>
@@ -150,13 +174,7 @@ export function TeamSwitcher({ farms }: TeamSwitcherProps) {
                   <span className="truncate font-medium">
                     {currentFarm.name}
                   </span>
-                  <span className="truncate text-xs">
-                    {
-                      currentFarm.members.find(
-                        (member) => member.id === currentUser?.id,
-                      )?.role
-                    }
-                  </span>
+                  <span className="truncate text-xs">{currentUserRole}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
