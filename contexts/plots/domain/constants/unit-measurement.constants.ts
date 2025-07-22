@@ -1,0 +1,13 @@
+export enum UNIT_MEASUREMENT {
+  // Metric units
+  METERS = 'METERS',
+  CENTIMETERS = 'CENTIMETERS',
+  KILOMETERS = 'KILOMETERS',
+  MILLIMETERS = 'MILLIMETERS',
+
+  // Imperial units
+  FEET = 'FEET',
+  INCHES = 'INCHES',
+  YARDS = 'YARDS',
+  MILES = 'MILES',
+}

@@ -1,3 +1,5 @@
+import { Plot } from '@/contexts/plots/domain/entities/plot.entity';
+
 /**
  * FarmEntity
  * Entity representation of the Farm entity for domain logic
@@ -20,6 +22,7 @@ export type Farm = {
   updatedAt: string | null | undefined;
   deletedAt: string | null | undefined;
   members: FarmMember[];
+  plots: Plot[];
 };
 
 export type FarmMember = {

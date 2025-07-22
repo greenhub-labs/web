@@ -1,5 +1,9 @@
 import { LOGIN_EMAIL_MUTATION } from '@/contexts/auth/infrastructure/graphql/mutations/auth-mutations.graphql';
 import { createApolloClient } from '@/contexts/shared/infrastructure/graphql/apollo-client';
+import {
+  getAccessTokenCookieConfig,
+  getRefreshTokenCookieConfig,
+} from '@/contexts/shared/infrastructure/lib/cookie-auth';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -13,14 +17,21 @@ export async function POST(req: NextRequest) {
     });
     const login = response.data.login;
     const res = NextResponse.json({ login }, { status: 200 });
-    res.headers.append(
-      'Set-Cookie',
-      `accessToken=${login.accessToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.ACCESS_TOKEN_COOKIE_MAX_AGE}`,
+
+    // Set access token cookie using reusable configuration
+    res.cookies.set(
+      'accessToken',
+      login.accessToken,
+      getAccessTokenCookieConfig(),
     );
-    res.headers.append(
-      'Set-Cookie',
-      `refreshToken=${login.refreshToken}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=${process.env.REFRESH_TOKEN_COOKIE_MAX_AGE};`,
+
+    // Set refresh token cookie using reusable configuration
+    res.cookies.set(
+      'refreshToken',
+      login.refreshToken,
+      getRefreshTokenCookieConfig(),
     );
+
     return res;
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
