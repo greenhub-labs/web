@@ -45,10 +45,35 @@ const mockPlot = {
   },
 };
 
+const defaultFormData = {
+  name: 'Vegetable Garden A',
+  description:
+    'A productive vegetable garden with mixed crops including tomatoes, lettuce, and herbs. Located in the north section of the farm.',
+  soilType: 'loamy',
+  soilPh: '6.8',
+  status: 'active',
+  width: '10',
+  length: '5',
+  height: '0.3',
+  unitMeasurement: 'm',
+};
+
+const defaultHandlers = {
+  onEdit: () => {},
+  onSave: () => {},
+  onCancel: () => {},
+  onDelete: () => {},
+  onInputChange: () => {},
+};
+
 export const Default: Story = {
   args: {
     plot: mockPlot,
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: defaultFormData,
+    ...defaultHandlers,
   },
 };
 
@@ -56,6 +81,10 @@ export const Loading: Story = {
   args: {
     plot: null,
     isLoading: true,
+    isEditing: false,
+    isDeleting: false,
+    formData: defaultFormData,
+    ...defaultHandlers,
   },
 };
 
@@ -63,6 +92,10 @@ export const NotFound: Story = {
   args: {
     plot: null,
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: defaultFormData,
+    ...defaultHandlers,
   },
 };
 
@@ -85,6 +118,18 @@ export const LargePlot: Story = {
       },
     },
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: {
+      ...defaultFormData,
+      name: 'Large Commercial Plot',
+      description:
+        'A large commercial plot used for extensive crop production. Features advanced irrigation systems and monitoring equipment.',
+      width: '50',
+      length: '30',
+      height: '0.5',
+    },
+    ...defaultHandlers,
   },
 };
 
@@ -107,6 +152,18 @@ export const SmallPlot: Story = {
       },
     },
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: {
+      ...defaultFormData,
+      name: 'Herb Garden',
+      description:
+        'A small herb garden with aromatic plants. Perfect for culinary herbs and medicinal plants.',
+      width: '2',
+      length: '3',
+      height: '0.2',
+    },
+    ...defaultHandlers,
   },
 };
 
@@ -120,6 +177,16 @@ export const InactivePlot: Story = {
         'This plot is currently resting between growing seasons to restore soil nutrients.',
     },
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: {
+      ...defaultFormData,
+      name: 'Resting Plot',
+      description:
+        'This plot is currently resting between growing seasons to restore soil nutrients.',
+      status: 'resting',
+    },
+    ...defaultHandlers,
   },
 };
 
@@ -132,5 +199,36 @@ export const PreparingPlot: Story = {
       description: 'A new plot being prepared for the upcoming growing season.',
     },
     isLoading: false,
+    isEditing: false,
+    isDeleting: false,
+    formData: {
+      ...defaultFormData,
+      name: 'New Plot',
+      description: 'A new plot being prepared for the upcoming growing season.',
+      status: 'preparing',
+    },
+    ...defaultHandlers,
+  },
+};
+
+export const Editing: Story = {
+  args: {
+    plot: mockPlot,
+    isLoading: false,
+    isEditing: true,
+    isDeleting: false,
+    formData: defaultFormData,
+    ...defaultHandlers,
+  },
+};
+
+export const Deleting: Story = {
+  args: {
+    plot: mockPlot,
+    isLoading: false,
+    isEditing: false,
+    isDeleting: true,
+    formData: defaultFormData,
+    ...defaultHandlers,
   },
 };

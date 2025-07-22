@@ -32,6 +32,11 @@ export const PlotDimensionsSection: React.FC<PlotDimensionsSectionProps> = ({
   const t = useTranslations();
   const { unitMeasurementOptions } = usePlotOptions();
 
+  // Safe access to plot dimensions
+  const dimensions = plot?.dimensions;
+  const unitMeasurement =
+    formData.unitMeasurement || dimensions?.unitMeasurement || 'm';
+
   return (
     <Card>
       <CardHeader>
@@ -79,7 +84,7 @@ export const PlotDimensionsSection: React.FC<PlotDimensionsSectionProps> = ({
           <SelectField
             label={t('pages.garden.plots.detail.unitMeasurement')}
             options={unitMeasurementOptions}
-            value={formData.unitMeasurement || plot.dimensions.unitMeasurement}
+            value={unitMeasurement}
             onChange={(value) => onInputChange('unitMeasurement', value)}
             disabled={!isEditing}
             helperText={t('pages.garden.plots.detail.unitMeasurementHelper')}
@@ -94,32 +99,31 @@ export const PlotDimensionsSection: React.FC<PlotDimensionsSectionProps> = ({
               {t('pages.garden.plots.detail.area')}:
             </span>
             <span className="ml-2">
-              {plot.dimensions.area}{' '}
-              {formData.unitMeasurement || plot.dimensions.unitMeasurement}²
+              {dimensions?.area || 0} {unitMeasurement}²
             </span>
             <div className="text-xs text-muted-foreground mt-1">
               {t('pages.garden.plots.detail.areaHelper')}
             </div>
           </div>
+
           <div>
             <span className="font-medium text-muted-foreground">
               {t('pages.garden.plots.detail.perimeter')}:
             </span>
             <span className="ml-2">
-              {plot.dimensions.perimeter}{' '}
-              {formData.unitMeasurement || plot.dimensions.unitMeasurement}
+              {dimensions?.perimeter || 0} {unitMeasurement}
             </span>
             <div className="text-xs text-muted-foreground mt-1">
               {t('pages.garden.plots.detail.perimeterHelper')}
             </div>
           </div>
+
           <div>
             <span className="font-medium text-muted-foreground">
               {t('pages.garden.plots.detail.volume')}:
             </span>
             <span className="ml-2">
-              {plot.dimensions.volume}{' '}
-              {formData.unitMeasurement || plot.dimensions.unitMeasurement}³
+              {dimensions?.volume || 0} {unitMeasurement}³
             </span>
             <div className="text-xs text-muted-foreground mt-1">
               {t('pages.garden.plots.detail.volumeHelper')}
