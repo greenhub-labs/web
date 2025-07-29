@@ -6,18 +6,13 @@ import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from '@/contexts/shared/presentation/components/ui/card';
 import { Separator } from '@/contexts/shared/presentation/components/ui/separator';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 // New reusable components
-import {
-  ProgressBar,
-  StatCard,
-} from '@/contexts/shared/presentation/components/atoms';
+import { ProgressBar } from '@/contexts/shared/presentation/components/atoms';
 import {
   AlertsSection,
   EntityCardActions,
@@ -27,7 +22,6 @@ import {
 
 const CropsPage = () => {
   const t = useTranslations();
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [filterBy, setFilterBy] = useState<'all' | 'active' | 'ready'>('all');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
@@ -205,42 +199,14 @@ const CropsPage = () => {
     }
   };
 
-  // Calculate stats
-  const readyCrops = crops.filter((crop) => crop.status === 'ready').length;
-  const totalYield = crops.reduce(
-    (sum, crop) => sum + parseFloat(crop.currentYield.replace('kg', '')),
-    0,
-  );
-  const avgHealth = Math.round(
-    crops.reduce((sum, crop) => sum + crop.healthScore, 0) / crops.length,
-  );
-
   return (
     <PageTemplate
-      pageTitle={t('pages.garden.crops.title')}
+      pageTitle={t('navigation.garden.crops')}
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex items-center gap-2">
           {/* Desktop: All controls */}
           <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-0.5 bg-background border rounded-md p-1">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="px-3 py-2 text-sm"
-              >
-                🔲 {t('pages.garden.crops.gridView')}
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="px-3 py-2 text-sm"
-              >
-                📋 {t('pages.garden.crops.listView')}
-              </Button>
-            </div>
             <div className="flex items-center gap-0.5 bg-background border rounded-md p-1">
               <Button
                 variant={filterBy === 'all' ? 'default' : 'ghost'}
@@ -275,26 +241,8 @@ const CropsPage = () => {
             </Button>
           </div>
 
-          {/* Mobile: Solo View Toggle + Add */}
+          {/* Mobile: View Toggle + Add */}
           <div className="md:hidden flex items-center gap-2">
-            <div className="flex items-center gap-0.5 bg-background border rounded-md p-0.5">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="h-8 w-8 p-0"
-              >
-                🔲
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="h-8 w-8 p-0"
-              >
-                📋
-              </Button>
-            </div>
             <Button
               className="h-8 w-8 p-0"
               onClick={() => setIsCreateDialogOpen(true)}
@@ -345,41 +293,8 @@ const CropsPage = () => {
           </Card>
         </div>
 
-        {/* Summary Stats */}
-        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
-          <StatCard
-            title={t('pages.garden.crops.stats.totalCrops')}
-            value={crops.length}
-            icon="🌾"
-          />
-
-          <StatCard
-            title={t('pages.garden.crops.stats.readyToHarvest')}
-            value={readyCrops}
-            icon="✅"
-          />
-
-          <StatCard
-            title={t('pages.garden.crops.stats.totalYield')}
-            value={`${totalYield.toFixed(1)}kg`}
-            icon="⚖️"
-          />
-
-          <StatCard
-            title={t('pages.garden.crops.stats.avgHealth')}
-            value={`${avgHealth}%`}
-            icon="❤️"
-          />
-        </div>
-
         {/* Crops Grid/List */}
-        <div
-          className={
-            viewMode === 'grid'
-              ? 'grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'
-              : 'space-y-4'
-          }
-        >
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           {filteredCrops.map((crop) => {
             const cropActions: CardAction[] = [
               {
@@ -508,46 +423,6 @@ const CropsPage = () => {
             );
           })}
         </div>
-
-        {/* AI Recommendations */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              🤖 {t('pages.garden.crops.aiRecommendations.title')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="grid gap-3 md:grid-cols-2">
-              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                <div className="flex items-start gap-2">
-                  <span className="text-green-600 mt-0.5">✅</span>
-                  <div>
-                    <p className="font-medium text-green-800 text-sm">
-                      {t('pages.garden.crops.aiRecommendations.harvest')}
-                    </p>
-                    <p className="text-green-700 text-xs">
-                      {t('pages.garden.crops.aiRecommendations.harvestDesc')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-start gap-2">
-                  <span className="text-blue-600 mt-0.5">💧</span>
-                  <div>
-                    <p className="font-medium text-blue-800 text-sm">
-                      {t('pages.garden.crops.aiRecommendations.irrigation')}
-                    </p>
-                    <p className="text-blue-700 text-xs">
-                      {t('pages.garden.crops.aiRecommendations.irrigationDesc')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Create Crop Dialog */}
