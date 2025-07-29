@@ -13,13 +13,13 @@ import {
 import { useTranslations } from 'next-intl';
 import React, { useState } from 'react';
 
-interface CreateCropDialogProps {
+export interface CreateCropDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onCreateCrop: (cropData: CropFormData) => void;
 }
 
-interface CropFormData {
+export interface CropFormData {
   name: string;
   variety: string;
   plotLocation: string;
