@@ -221,7 +221,7 @@ const CropsPage = () => {
       breadcrumbItems={breadcrumbItems}
       headerActions={
         <div className="flex items-center gap-2">
-          {/* Desktop: Todos los controles */}
+          {/* Desktop: All controls */}
           <div className="hidden md:flex items-center gap-3">
             <div className="flex items-center gap-0.5 bg-background border rounded-md p-1">
               <Button
