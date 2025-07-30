@@ -7,14 +7,18 @@ import { useState } from 'react';
 import { CreateCropDialog } from '../../organisms/create-crop-dialog/create-crop-dialog';
 
 // New reusable components
-import type { Crop } from '../../molecules/crop-card/crop-card';
+import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
 import {
   CropFilterGroup,
   type CropFilterType,
 } from '../../molecules/crop-filter-group/crop-filter-group';
 import { CropList } from '../../organisms/crop-list/crop-list';
 
-export const CropsPageComponent = () => {
+interface CropsPageComponentProps {
+  crops: Crop[] | undefined;
+}
+
+export const CropsPageComponent = ({ crops }: CropsPageComponentProps) => {
   const t = useTranslations();
   const [filterBy, setFilterBy] = useState<CropFilterType>('all');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
@@ -24,115 +28,6 @@ export const CropsPageComponent = () => {
     console.log('Creating crop:', cropData);
     // Here you would typically call an API to create the crop
   };
-
-  // Mock data for crops
-  const crops: Crop[] = [
-    {
-      id: 'crop-1',
-      name: 'Tomates Cherry',
-      variety: 'Sweet 100',
-      icon: '🍅',
-      plotId: 'plot-a',
-      plotName: 'Bancal A',
-      plantedDate: '2024-01-15',
-      harvestDate: '2024-04-15',
-      status: 'flowering',
-      growth: 75,
-      expectedYield: '2.5kg',
-      currentYield: '0.8kg',
-      daysToHarvest: 12,
-      healthScore: 92,
-      irrigationNeeds: 'medium',
-      pests: [],
-      diseases: [],
-      temperature: 24,
-      humidity: 68,
-    },
-    {
-      id: 'crop-2',
-      name: 'Albahaca',
-      variety: 'Genovese',
-      icon: '🌿',
-      plotId: 'plot-a',
-      plotName: 'Bancal A',
-      plantedDate: '2024-01-20',
-      harvestDate: '2024-03-30',
-      status: 'ready',
-      growth: 100,
-      expectedYield: '0.8kg',
-      currentYield: '0.8kg',
-      daysToHarvest: 0,
-      healthScore: 88,
-      irrigationNeeds: 'low',
-      pests: [],
-      diseases: [],
-      temperature: 22,
-      humidity: 65,
-    },
-    {
-      id: 'crop-3',
-      name: 'Lechugas',
-      variety: 'Batavia',
-      icon: '🥬',
-      plotId: 'plot-b',
-      plotName: 'Bancal B',
-      plantedDate: '2024-02-01',
-      harvestDate: '2024-04-01',
-      status: 'growing',
-      growth: 60,
-      expectedYield: '1.2kg',
-      currentYield: '0.3kg',
-      daysToHarvest: 25,
-      healthScore: 85,
-      irrigationNeeds: 'high',
-      pests: ['aphids'],
-      diseases: [],
-      temperature: 18,
-      humidity: 72,
-    },
-    {
-      id: 'crop-4',
-      name: 'Zanahorias',
-      variety: 'Nantes',
-      icon: '🥕',
-      plotId: 'plot-c',
-      plotName: 'Bancal C',
-      plantedDate: '2024-01-10',
-      harvestDate: '2024-05-10',
-      status: 'growing',
-      growth: 45,
-      expectedYield: '3.0kg',
-      currentYield: '0kg',
-      daysToHarvest: 45,
-      healthScore: 90,
-      irrigationNeeds: 'medium',
-      pests: [],
-      diseases: [],
-      temperature: 20,
-      humidity: 70,
-    },
-    {
-      id: 'crop-5',
-      name: 'Espinacas',
-      variety: 'Baby Leaf',
-      icon: '🥬',
-      plotId: 'plot-b',
-      plotName: 'Bancal B',
-      plantedDate: '2024-02-15',
-      harvestDate: '2024-04-15',
-      status: 'seedling',
-      growth: 25,
-      expectedYield: '1.5kg',
-      currentYield: '0kg',
-      daysToHarvest: 35,
-      healthScore: 95,
-      irrigationNeeds: 'medium',
-      pests: [],
-      diseases: [],
-      temperature: 16,
-      humidity: 68,
-    },
-  ];
 
   // Breadcrumb configuration
   const breadcrumbItems = [
@@ -183,7 +78,7 @@ export const CropsPageComponent = () => {
       }
     >
       <CropList
-        crops={crops}
+        crops={crops || []}
         activeFilter={filterBy}
         onFilterChange={setFilterBy}
         onCreateCrop={() => setIsCreateDialogOpen(true)}

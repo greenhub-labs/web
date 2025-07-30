@@ -44,7 +44,6 @@ export const GET_CROPS_BY_FARM_ID_QUERY = gql`
   query GetCropsByFarmId($input: GetCropsByFarmIdRequestDto!) {
     getCropsByFarmId(input: $input) {
       id
-      farmId
       plotId
       varietyId
       plantingDate
@@ -57,6 +56,30 @@ export const GET_CROPS_BY_FARM_ID_QUERY = gql`
       createdAt
       updatedAt
       deletedAt
+      cropVariety {
+        id
+        name
+        scientificName
+        type
+        description
+        averageYield
+        daysToMaturity
+        plantingDepth
+        spacingBetween
+        waterRequirements
+        sunRequirements
+        minIdealTemperature
+        maxIdealTemperature
+        minIdealPh
+        maxIdealPh
+        compatibleWith
+        incompatibleWith
+        plantingSeasons
+        harvestSeasons
+        createdAt
+        updatedAt
+        deletedAt
+      }
     }
   }
 `;

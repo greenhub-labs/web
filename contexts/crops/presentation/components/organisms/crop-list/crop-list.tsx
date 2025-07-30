@@ -1,3 +1,4 @@
+import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   Card,
@@ -5,7 +6,7 @@ import {
 } from '@/contexts/shared/presentation/components/ui/card';
 import { cn } from '@/contexts/shared/presentation/lib/utils';
 import { useTranslations } from 'next-intl';
-import { CropCard, type Crop } from '../../molecules/crop-card/crop-card';
+import { CropCard } from '../../molecules/crop-card/crop-card';
 import {
   CropFilterGroup,
   type CropFilterType,
@@ -34,8 +35,8 @@ export const CropList: React.FC<CropListProps> = ({
 
   // Filter crops based on selected filter
   const filteredCrops = crops.filter((crop) => {
-    if (activeFilter === 'active') return crop.status !== 'ready';
-    if (activeFilter === 'ready') return crop.status === 'ready';
+    if (activeFilter === 'active') return crop.status !== 'FINISHED';
+    if (activeFilter === 'ready') return crop.status === 'HARVESTING';
     return true;
   });
 

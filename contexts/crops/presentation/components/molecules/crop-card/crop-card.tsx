@@ -1,3 +1,4 @@
+import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
 import { ProgressBar } from '@/contexts/shared/presentation/components/atoms';
 import {
   AlertsSection,
@@ -16,28 +17,6 @@ import { CropEnvironmentalData } from '../../atoms/crop-environmental-data/crop-
 import { CropHarvestStatus } from '../../atoms/crop-harvest-status/crop-harvest-status';
 import { CropYieldHealthSection } from '../../atoms/crop-yield-health-section/crop-yield-health-section';
 
-export interface Crop {
-  id: string;
-  name: string;
-  variety: string;
-  icon: string;
-  plotId: string;
-  plotName: string;
-  plantedDate: string;
-  harvestDate: string;
-  status: 'ready' | 'flowering' | 'growing' | 'seedling';
-  growth: number;
-  expectedYield: string;
-  currentYield: string;
-  daysToHarvest: number;
-  healthScore: number;
-  irrigationNeeds: 'high' | 'medium' | 'low';
-  pests: string[];
-  diseases: string[];
-  temperature: number;
-  humidity: number;
-}
-
 export interface CropCardProps {
   crop: Crop;
   actions: CardAction[];
@@ -51,43 +30,83 @@ export const CropCard: React.FC<CropCardProps> = ({
 }) => {
   const t = useTranslations();
 
-  const alerts = [
-    ...(crop.pests.length > 0
-      ? [
-          {
-            type: 'warning' as const,
-            icon: '🐛',
-            message: t('pages.garden.crops.pestsDetected'),
-          },
-        ]
-      : []),
-    ...(crop.diseases.length > 0
-      ? [
-          {
-            type: 'error' as const,
-            icon: '🦠',
-            message: t('pages.garden.crops.diseasesDetected'),
-          },
-        ]
-      : []),
-  ];
+  // Calculate days to harvest based on expected harvest date
+  const calculateDaysToHarvest = (): number => {
+    const expectedDate = new Date(crop.expectedHarvest);
+    const today = new Date();
+    const diffTime = expectedDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.max(0, diffDays);
+  };
+
+  // Calculate growth percentage based on planting date and expected harvest
+  const calculateGrowthPercentage = (): number => {
+    const plantingDate = new Date(crop.plantingDate);
+    const expectedDate = new Date(crop.expectedHarvest);
+    const today = new Date();
+
+    const totalDays =
+      (expectedDate.getTime() - plantingDate.getTime()) / (1000 * 60 * 60 * 24);
+    const elapsedDays =
+      (today.getTime() - plantingDate.getTime()) / (1000 * 60 * 60 * 24);
+
+    const percentage = Math.min(
+      100,
+      Math.max(0, (elapsedDays / totalDays) * 100),
+    );
+    return Math.round(percentage);
+  };
+
+  // Get crop icon based on variety
+  const getCropIcon = (): string => {
+    const variety = crop.varietyId.toLowerCase();
+    if (variety.includes('tomato')) return '🍅';
+    if (variety.includes('lettuce')) return '🥬';
+    if (variety.includes('carrot')) return '🥕';
+    if (variety.includes('pepper')) return '🌶️';
+    if (variety.includes('herb')) return '🌿';
+    if (variety.includes('bean')) return '🫘';
+    return '🌱';
+  };
+
+  // Calculate health score based on status and dates
+  const calculateHealthScore = (): number => {
+    const daysToHarvest = calculateDaysToHarvest();
+    const growthPercentage = calculateGrowthPercentage();
+
+    // Base health on growth progress and time remaining
+    let health = 85; // Base health
+
+    if (growthPercentage > 80) health += 10;
+    if (daysToHarvest < 7) health += 5;
+    if (crop.status === 'GROWING') health += 5;
+
+    return Math.min(100, Math.max(0, health));
+  };
+
+  const daysToHarvest = calculateDaysToHarvest();
+  const growthPercentage = calculateGrowthPercentage();
+  const healthScore = calculateHealthScore();
+  const cropIcon = getCropIcon();
 
   return (
     <Card className={cn('hover:shadow-md transition-shadow', className)}>
       <EntityCardHeader
-        icon={crop.icon}
-        title={crop.name}
-        subtitle={`${crop.variety} • ${crop.plotName}`}
+        icon={cropIcon}
+        title={crop.varietyId}
+        subtitle={`${crop.varietyId} • Plot ${crop.plotId}`}
         status={crop.status}
         statusType="crop"
-        statusLabel={t(`pages.garden.crops.status.${crop.status}`)}
+        statusLabel={t(
+          `pages.garden.crops.status.${crop.status.toLowerCase()}`,
+        )}
       />
 
       <CardContent className="space-y-3 sm:space-y-4">
         {/* Growth Progress */}
         <ProgressBar
           label={t('pages.garden.crops.growth')}
-          value={crop.growth}
+          value={growthPercentage}
           maxValue={100}
           unit="%"
         />
@@ -95,25 +114,25 @@ export const CropCard: React.FC<CropCardProps> = ({
         {/* Yield & Health */}
         <Separator />
         <CropYieldHealthSection
-          currentYield={crop.currentYield}
-          expectedYield={crop.expectedYield}
-          healthScore={crop.healthScore}
+          currentYield={`${crop.actualHarvest || 0}kg`}
+          expectedYield={`${crop.quantity}kg`}
+          healthScore={healthScore}
         />
 
         {/* Harvest Status */}
-        <CropHarvestStatus daysToHarvest={crop.daysToHarvest} />
+        <CropHarvestStatus daysToHarvest={daysToHarvest} />
 
         {/* Environmental Data */}
         <Separator />
         <CropEnvironmentalData
-          temperature={crop.temperature}
-          humidity={crop.humidity}
-          irrigationNeeds={crop.irrigationNeeds}
+          temperature={24} // TODO: Get from sensors
+          humidity={68} // TODO: Get from sensors
+          irrigationNeeds="medium" // TODO: Calculate based on crop needs
         />
 
         {/* Alerts */}
         <Separator />
-        <AlertsSection alerts={alerts} />
+        <AlertsSection alerts={[]} />
 
         {/* Actions */}
         <EntityCardActions actions={actions} />
