@@ -300,10 +300,13 @@
           "low": "Low"
         },
         "status": {
-          "ready": "Ready",
-          "flowering": "Flowering",
+          "planned": "Planned",
+          "planted": "Planted",
           "growing": "Growing",
-          "seedling": "Seedling"
+          "flowering": "Flowering",
+          "fruiting": "Fruiting",
+          "harvesting": "Harvesting",
+          "finished": "Finished"
         },
         "pestsDetected": "Pests detected",
         "diseasesDetected": "Diseases detected",

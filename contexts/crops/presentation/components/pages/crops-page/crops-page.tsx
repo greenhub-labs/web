@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { CreateCropDialog } from '../../organisms/create-crop-dialog/create-crop-dialog';
 
 // New reusable components
-import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
+import { CropResponseDto } from '@/contexts/crops/infrastructure/graphql/responses/crop.response.dto';
 import {
   CropFilterGroup,
   type CropFilterType,
@@ -15,7 +15,7 @@ import {
 import { CropList } from '../../organisms/crop-list/crop-list';
 
 interface CropsPageComponentProps {
-  crops: Crop[] | undefined;
+  crops: CropResponseDto[] | undefined;
 }
 
 export const CropsPageComponent = ({ crops }: CropsPageComponentProps) => {

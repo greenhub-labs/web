@@ -1,4 +1,4 @@
-import { CropResponseDto } from '@/contexts/crops/infrastructure/graphql/responses/crop.response.dto';
+import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
 import { Button } from '@/contexts/shared/presentation/components/ui/button';
 import {
   Card,
@@ -13,7 +13,7 @@ import {
 } from '../../molecules/crop-filter-group/crop-filter-group';
 
 export interface CropListProps {
-  crops: CropResponseDto[];
+  crops: Crop[];
   activeFilter: CropFilterType;
   onFilterChange: (filter: CropFilterType) => void;
   onCreateCrop: () => void;

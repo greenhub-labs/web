@@ -300,10 +300,13 @@
           "low": "Bajo"
         },
         "status": {
-          "ready": "Listo",
-          "flowering": "Floreciendo",
+          "planned": "Planificado",
+          "planted": "Plantado",
           "growing": "Creciendo",
-          "seedling": "Plántula"
+          "flowering": "Floreciendo",
+          "fruiting": "Fructificando",
+          "harvesting": "Cosechando",
+          "finished": "Finalizado"
         },
         "pestsDetected": "Plagas detectadas",
         "diseasesDetected": "Enfermedades detectadas",

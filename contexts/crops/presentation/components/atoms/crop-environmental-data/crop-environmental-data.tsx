@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 export interface CropEnvironmentalDataProps {
   temperature: number;
   humidity: number;
-  irrigationNeeds: 'high' | 'medium' | 'low';
+  irrigationNeeds: string;
   className?: string;
 }
 

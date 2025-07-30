@@ -1,4 +1,4 @@
-import { Crop } from '@/contexts/crops/domain/entities/crop.entity';
+import { CropResponseDto } from '@/contexts/crops/infrastructure/graphql/responses/crop.response.dto';
 import { ProgressBar } from '@/contexts/shared/presentation/components/atoms';
 import {
   AlertsSection,
@@ -18,7 +18,7 @@ import { CropHarvestStatus } from '../../atoms/crop-harvest-status/crop-harvest-
 import { CropYieldHealthSection } from '../../atoms/crop-yield-health-section/crop-yield-health-section';
 
 export interface CropCardProps {
-  crop: Crop;
+  crop: CropResponseDto;
   actions: CardAction[];
   className?: string;
 }
@@ -93,8 +93,8 @@ export const CropCard: React.FC<CropCardProps> = ({
     <Card className={cn('hover:shadow-md transition-shadow', className)}>
       <EntityCardHeader
         icon={cropIcon}
-        title={crop.varietyId}
-        subtitle={`${crop.varietyId} • Plot ${crop.plotId}`}
+        title={crop.cropVariety.name}
+        subtitle={crop.cropVariety.scientificName}
         status={crop.status}
         statusType="crop"
         statusLabel={t(
@@ -127,7 +127,7 @@ export const CropCard: React.FC<CropCardProps> = ({
         <CropEnvironmentalData
           temperature={24} // TODO: Get from sensors
           humidity={68} // TODO: Get from sensors
-          irrigationNeeds="medium" // TODO: Calculate based on crop needs
+          irrigationNeeds={crop.cropVariety.waterRequirements} // TODO: Calculate based on crop needs
         />
 
         {/* Alerts */}

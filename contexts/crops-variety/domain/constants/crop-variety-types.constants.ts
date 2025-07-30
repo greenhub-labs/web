@@ -1,0 +1,9 @@
+export enum CROP_VARIETY_TYPE {
+  VEGETABLE = 'VEGETABLE',
+  FRUIT = 'FRUIT',
+  HERB = 'HERB',
+  GRAIN = 'GRAIN',
+  LEGUME = 'LEGUME',
+  ROOT = 'ROOT',
+  FLOWER = 'FLOWER',
+}

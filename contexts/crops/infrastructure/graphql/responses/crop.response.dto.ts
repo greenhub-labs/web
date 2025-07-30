@@ -1,3 +1,5 @@
+import { CropVarietyResponseDto } from '@/contexts/crops-variety/infrastructure/graphql/responses/crop-variety.response.dto';
+
 export interface CropResponseDto {
   id: string;
   plotId: string;
@@ -12,4 +14,5 @@ export interface CropResponseDto {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  cropVariety: CropVarietyResponseDto;
 }
