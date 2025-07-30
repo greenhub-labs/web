@@ -42,7 +42,9 @@ export const CropEnvironmentalData: React.FC<CropEnvironmentalDataProps> = ({
       <div className="flex items-center gap-1">
         <span>💦</span>
         <span className={getIrrigationColor(irrigationNeeds)}>
-          {t(`pages.garden.crops.irrigation.${irrigationNeeds}`)}
+          {t(
+            `pages.garden.crops.waterRequirements.${irrigationNeeds?.toLowerCase()}`,
+          )}
         </span>
       </div>
     </div>

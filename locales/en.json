@@ -299,6 +299,16 @@
           "medium": "Medium",
           "low": "Low"
         },
+        "waterRequirements": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "sunRequirements": {
+          "full": "Full Sun",
+          "partial": "Partial Sun",
+          "shade": "Shade"
+        },
         "status": {
           "planned": "Planned",
           "planted": "Planted",
